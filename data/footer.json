@@ -3,11 +3,23 @@
   "ctaLine2": "build",
   "ctaLine3Pre": "something",
   "ctaLine3Em": "unreal.",
-  "email": "hello@kristiancimo.com",
+  "email": "kristiancimo@gmail.com",
   "social": [
-    { "label": "Instagram", "url": "https://instagram.com/" },
-    { "label": "Behance", "url": "https://behance.net/" },
-    { "label": "Vimeo", "url": "https://vimeo.com/" },
-    { "label": "LinkedIn", "url": "https://linkedin.com/" }
+    {
+      "label": "Instagram",
+      "url": "https://www.instagram.com/kris.cimo/"
+    },
+    {
+      "label": "Behance - NOT YET",
+      "url": "https://behance.net/"
+    },
+    {
+      "label": "Vimeo- NOT YET",
+      "url": "https://vimeo.com/"
+    },
+    {
+      "label": "LinkedIn - NOT YET",
+      "url": "https://linkedin.com/"
+    }
   ]
 }

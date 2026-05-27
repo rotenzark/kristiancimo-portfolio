@@ -6,21 +6,34 @@
       "title": "Hawkers × Gasly",
       "year": "2026",
       "category": "Eyewear / F1",
-      "image": "https://picsum.photos/seed/gasly/1400/900",
+      "image": "/media/FIRST_FRAME_HORIZONTAL_4_09.png",
+      "coverVideo": "",
       "featured": true,
       "tagLabel": "Featured",
+      "subtitle": "Speed of light and the silence after the corner. Rebuilding Silverstone, frame by frame.",
       "client": "Hawkers Co.",
       "talent": "Pierre Gasly",
-      "role": "VFX · CGI · Direction",
-      "software": "Houdini · C4D · Nuke",
+      "role": "VFX · CGI · COMPOSITING",
+      "software": "Blender · After Effects",
       "format": "Campaign · Social",
-      "subtitle": "Speed of light and the silence after the corner. Rebuilding Silverstone, frame by frame.",
-      "description": "A campaign film built around the speed of light and the silence after the corner. We rebuilt Silverstone in CGI, replaced the surrounding environment frame-by-frame, and matched optical aberrations of Hawkers' new lens line — so the product became the lens you see the world through.\n\nThe process required a custom Houdini setup to handle the chromatic aberration of each lens model, layered on top of plate footage shot on RED Komodo.",
+      "description": "A campaign film built around the speed of light and the silence after the corner. I rebuilt Dubai's Palm  in CGI, extending the surrounding environment and creating a transition from the view of Gasly to the top view of Dubai.",
       "gallery": [
-        { "src": "https://picsum.photos/seed/gasly-1/1600/900", "alt": "Wide shot" },
-        { "src": "https://picsum.photos/seed/gasly-2/900/1200", "alt": "Lens detail" },
-        { "src": "https://picsum.photos/seed/gasly-3/900/1200", "alt": "Color study" },
-        { "src": "https://picsum.photos/seed/gasly-4/1600/900", "alt": "Final composite" }
+        {
+          "src": "/media/LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).png",
+          "alt": "Horizontal shot"
+        },
+        {
+          "src": "/media/LAST_FRAME_VERTICAL_COLOR_hf_20260305_102526_ce7c5e41-9bf6-444d-bc28-6a74f300f4d5 (0-00-00-00).png",
+          "alt": "Vertical shot"
+        },
+        {
+          "src": "https://picsum.photos/seed/gasly-3/900/1200",
+          "alt": "Color study"
+        },
+        {
+          "src": "https://picsum.photos/seed/gasly-4/1600/900",
+          "alt": "Final composite"
+        }
       ],
       "videoUrl": "",
       "videoCaption": "",
@@ -49,13 +62,34 @@
         }
       ],
       "credits": [
-        { "role": "Direction & VFX", "name": "Kristian Cimò" },
-        { "role": "Agency", "name": "—" },
-        { "role": "DOP", "name": "—" },
-        { "role": "3D / Lookdev", "name": "Studio KC" },
-        { "role": "Compositing", "name": "Studio KC" },
-        { "role": "Color", "name": "—" },
-        { "role": "Sound", "name": "—" }
+        {
+          "role": "Direction & VFX",
+          "name": "Kristian Cimò"
+        },
+        {
+          "role": "Agency",
+          "name": "—"
+        },
+        {
+          "role": "DOP",
+          "name": "—"
+        },
+        {
+          "role": "3D / Lookdev",
+          "name": "Studio KC"
+        },
+        {
+          "role": "Compositing",
+          "name": "Studio KC"
+        },
+        {
+          "role": "Color",
+          "name": "—"
+        },
+        {
+          "role": "Sound",
+          "name": "—"
+        }
       ],
       "showNextProject": true
     },
@@ -66,17 +100,27 @@
       "year": "2026",
       "category": "Installation",
       "image": "https://picsum.photos/seed/adidasmuseum/900/1200",
+      "coverVideo": "",
+      "tagLabel": "",
+      "subtitle": "",
       "client": "Adidas",
       "role": "CGI · Installation Design",
       "software": "C4D · Octane · TouchDesigner",
       "format": "Installation · Brand",
       "description": "A room-scale installation celebrating Adidas' archive. Eight decades of footwear, suspended in CGI light.",
       "gallery": [
-        { "src": "https://picsum.photos/seed/adidas-1/1600/900" },
-        { "src": "https://picsum.photos/seed/adidas-2/900/1200" }
+        {
+          "src": "https://picsum.photos/seed/adidas-1/1600/900"
+        },
+        {
+          "src": "https://picsum.photos/seed/adidas-2/900/1200"
+        }
       ],
       "credits": [
-        { "role": "Direction & CGI", "name": "Kristian Cimò" }
+        {
+          "role": "Direction & CGI",
+          "name": "Kristian Cimò"
+        }
       ]
     },
     {

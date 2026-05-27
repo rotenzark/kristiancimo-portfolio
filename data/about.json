@@ -1,12 +1,25 @@
 {
   "heading": "The eye behind the render.",
   "paragraphs": [
-    { "text": "I'm Kristian — a VFX & CGI artist based in Italy, building visuals for global brands and athletes. From product CGI for F1 helmets to room-scale installations and AI-driven television sequences." },
-    { "text": "My work sits at the seam where photography ends and computation begins — and lately, where computation starts to dream on its own." }
+    {
+      "text": "I'm Kristian — a VFX & CGI artist based in Italy, building visuals for global brands and athletes. From product CGI for F1 helmets to room-scale installations and AI-driven spot sequences."
+    },
+    {
+      "text": "My work sits at the seam where photography ends and computation begins — and lately, where computation starts to dream on its own."
+    }
   ],
   "stats": [
-    { "value": "08+", "label": "Years in CGI" },
-    { "value": "40+", "label": "Global Campaigns" },
-    { "value": "3", "label": "Continents · 1 Pipeline" }
+    {
+      "value": "04+",
+      "label": "Years in CGI"
+    },
+    {
+      "value": "10+",
+      "label": "Global Campaigns"
+    },
+    {
+      "value": "3",
+      "label": "Continents · 1 Pipeline"
+    }
   ]
 }

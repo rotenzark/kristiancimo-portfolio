@@ -3,22 +3,21 @@ backend:
   repo: rotenzark/kristiancimo-portfolio
   branch: main
 
-# media uploads go to /media folder in the repo
 media_folder: "media"
 public_folder: "/media"
 
-# preview link in admin
 site_url: https://kristiancimo.it
 display_url: https://kristiancimo.it
 
-# CMS UI
 locale: en
 
 collections:
-  # ─────────── SITE SETTINGS ───────────
+  # ═══════════════════════════════════════════════════
+  # SITE-WIDE SETTINGS
+  # ═══════════════════════════════════════════════════
   - name: "settings"
     label: "Site Settings"
-    description: "Hero text, status, location, and other top-level site copy."
+    description: "Hero, About, Footer, Clients — everything shown on the homepage outside of the Work grid."
     files:
       - name: "site"
         label: "Hero / Header"
@@ -31,46 +30,6 @@ collections:
           - { label: "Hero Subtitle (italic)", name: "subtitle", widget: "string", hint: "Italic phrase shown next to your name" }
           - { label: "Location (bottom-left of hero)", name: "location", widget: "string" }
           - { label: "Status (top-right of nav)", name: "status", widget: "string", hint: "e.g. Available 2026" }
-
-      - name: "case_study"
-        label: "Featured Case Study"
-        file: "data/case-study.json"
-        format: "json"
-        fields:
-          - { label: "Title — Line 1", name: "title", widget: "string", hint: "e.g. Hawkers" }
-          - { label: "Title — Line 2", name: "titleSecond", widget: "string", hint: "e.g. Gasly (shown after '×')" }
-          - { label: "Client", name: "client", widget: "string" }
-          - { label: "Talent", name: "talent", widget: "string" }
-          - { label: "Year", name: "year", widget: "string" }
-          - { label: "Role", name: "role", widget: "string" }
-          - { label: "Software", name: "software", widget: "string" }
-          - { label: "Format", name: "format", widget: "string" }
-          - { label: "Description", name: "description", widget: "text" }
-          - { label: "Image — Before (Raw Plate)", name: "imageBefore", widget: "image" }
-          - { label: "Image — After (Final CGI)", name: "imageAfter", widget: "image" }
-          - label: "Credits"
-            name: "credits"
-            widget: "list"
-            summary: "{{role}} — {{name}}"
-            fields:
-              - { label: "Role", name: "role", widget: "string" }
-              - { label: "Name", name: "name", widget: "string" }
-
-      - name: "backstage"
-        label: "Backstage / Process Videos"
-        file: "data/backstage.json"
-        format: "json"
-        fields:
-          - { label: "Intro Text", name: "intro", widget: "text", hint: "Italic intro shown above the video grid" }
-          - label: "Videos"
-            name: "videos"
-            widget: "list"
-            summary: "{{title}} — {{duration}}"
-            fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Duration", name: "duration", widget: "string", hint: "e.g. 04:12" }
-              - { label: "Thumbnail", name: "thumbnail", widget: "image" }
-              - { label: "Video URL", name: "videoUrl", widget: "string", hint: "Vimeo or YouTube link" }
 
       - name: "about"
         label: "About Section"
@@ -97,17 +56,17 @@ collections:
         file: "data/footer.json"
         format: "json"
         fields:
-          - { label: "CTA — Line 1", name: "ctaLine1", widget: "string", hint: "e.g. Let's" }
-          - { label: "CTA — Line 2", name: "ctaLine2", widget: "string", hint: "e.g. build" }
-          - { label: "CTA — Line 3 (start)", name: "ctaLine3Pre", widget: "string", hint: "e.g. something" }
-          - { label: "CTA — Line 3 (italic word)", name: "ctaLine3Em", widget: "string", hint: "e.g. unreal." }
+          - { label: "CTA — Line 1", name: "ctaLine1", widget: "string" }
+          - { label: "CTA — Line 2", name: "ctaLine2", widget: "string" }
+          - { label: "CTA — Line 3 (start)", name: "ctaLine3Pre", widget: "string" }
+          - { label: "CTA — Line 3 (italic word)", name: "ctaLine3Em", widget: "string" }
           - { label: "Contact Email", name: "email", widget: "string" }
           - label: "Social Links"
             name: "social"
             widget: "list"
             summary: "{{label}}"
             fields:
-              - { label: "Label", name: "label", widget: "string", hint: "e.g. Instagram" }
+              - { label: "Label", name: "label", widget: "string" }
               - { label: "URL", name: "url", widget: "string" }
 
       - name: "clients"
@@ -122,10 +81,12 @@ collections:
             fields:
               - { label: "Client Name", name: "name", widget: "string" }
 
-  # ─────────── PROJECTS ───────────
+  # ═══════════════════════════════════════════════════
+  # PROJECTS — each project has its own dedicated page
+  # ═══════════════════════════════════════════════════
   - name: "projects"
     label: "Projects"
-    description: "All projects shown in the Selected Work grid. Use 'Display Order' to control sorting (lower = first)."
+    description: "Each project appears in the Work grid AND has its own dedicated page (project.html?id=...). Fill in only the sections you need — empty sections are hidden automatically."
     files:
       - name: "all_projects"
         label: "Projects List"
@@ -137,11 +98,88 @@ collections:
             widget: "list"
             summary: "{{order}}. {{title}} ({{year}})"
             fields:
-              - { label: "Display Order", name: "order", widget: "number", value_type: "int", hint: "Lower number = appears first. The grid pattern repeats every 8 projects." }
+
+              # ───── BASICS (shown in homepage grid) ─────
+              - { label: "Display Order", name: "order", widget: "number", value_type: "int", hint: "Lower number = appears first in the work grid." }
+              - { label: "Slug (URL identifier)", name: "slug", widget: "string", required: false, hint: "Used in the URL: project.html?id=YOUR-SLUG. Use only lowercase letters, numbers, and hyphens. If empty, will be generated from the title." }
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Year", name: "year", widget: "string" }
               - { label: "Category", name: "category", widget: "string", hint: "e.g. Eyewear / F1, Sport / Brand" }
-              - { label: "Cover Image", name: "image", widget: "image" }
-              - { label: "Link (optional)", name: "link", widget: "string", default: "#", required: false, hint: "Leave # if no detail page yet. Use #case to link to the featured case study." }
-              - { label: "Featured", name: "featured", widget: "boolean", default: false, hint: "If true, shows a small tag in the top-left of the card." }
+              - { label: "Cover Image (grid + project page hero)", name: "image", widget: "image" }
+              - { label: "Cover Video (optional, overrides cover image on project page)", name: "coverVideo", widget: "string", required: false, hint: "Vimeo, YouTube or direct video URL. Used as the big hero of the project page. If empty, the cover image is used." }
+              - { label: "Featured", name: "featured", widget: "boolean", default: false, hint: "If true, shows a small tag in the top-left of the card on the homepage." }
               - { label: "Tag Label", name: "tagLabel", widget: "string", required: false, default: "Featured", hint: "Text shown in the featured tag." }
+
+              # ───── PROJECT PAGE METADATA ─────
+              - { label: "Subtitle (italic, under project title)", name: "subtitle", widget: "text", required: false, hint: "Short evocative phrase that opens the project page." }
+              - { label: "Client", name: "client", widget: "string", required: false }
+              - { label: "Talent", name: "talent", widget: "string", required: false }
+              - { label: "Role", name: "role", widget: "string", required: false, hint: "e.g. VFX · CGI · Direction" }
+              - { label: "Software", name: "software", widget: "string", required: false, hint: "e.g. Houdini · C4D · Nuke" }
+              - { label: "Format", name: "format", widget: "string", required: false, hint: "e.g. Campaign · Social" }
+
+              # ───── CASE STUDY TEXT ─────
+              - { label: "Description / Case Study Text", name: "description", widget: "text", required: false, hint: "Long-form description. Separate paragraphs with a blank line." }
+
+              # ───── GALLERY ─────
+              - label: "Gallery (images)"
+                name: "gallery"
+                widget: "list"
+                required: false
+                summary: "{{alt}}"
+                fields:
+                  - { label: "Image", name: "src", widget: "image" }
+                  - { label: "Alt text (optional)", name: "alt", widget: "string", required: false }
+
+              # ───── VIDEO EMBED ─────
+              - { label: "Video URL (Vimeo or YouTube)", name: "videoUrl", widget: "string", required: false, hint: "Paste the full URL — Vimeo and YouTube are auto-detected." }
+              - { label: "Video Caption", name: "videoCaption", widget: "string", required: false }
+
+              # ───── BEFORE / AFTER IMAGE SLIDER ─────
+              - label: "Before / After (image slider)"
+                name: "beforeAfter"
+                widget: "object"
+                required: false
+                collapsed: true
+                fields:
+                  - { label: "Image — Before (raw plate)", name: "imageBefore", widget: "image", required: false }
+                  - { label: "Image — After (final CGI)", name: "imageAfter", widget: "image", required: false }
+                  - { label: "Label — Before", name: "labelBefore", widget: "string", required: false, default: "Raw Plate" }
+                  - { label: "Label — After", name: "labelAfter", widget: "string", required: false, default: "Final CGI" }
+
+              # ───── VIDEO BEFORE / AFTER SLIDER ─────
+              - label: "Video Breakdown (before/after VIDEO slider)"
+                name: "videoBeforeAfter"
+                widget: "object"
+                required: false
+                collapsed: true
+                hint: "Two synced videos with a draggable handle. Upload .mp4 files (keep them short, <30s, optimized for web). Both videos play in sync."
+                fields:
+                  - { label: "Video — Before (raw plate)", name: "videoBefore", widget: "file", required: false, hint: "Upload an MP4 file." }
+                  - { label: "Video — After (final CGI)", name: "videoAfter", widget: "file", required: false, hint: "Upload an MP4 file." }
+                  - { label: "Label — Before", name: "labelBefore", widget: "string", required: false, default: "Raw Plate" }
+                  - { label: "Label — After", name: "labelAfter", widget: "string", required: false, default: "Final CGI" }
+
+              # ───── STORYTELLING (image + text blocks) ─────
+              - label: "Storytelling Blocks (image + text)"
+                name: "storytelling"
+                widget: "list"
+                required: false
+                summary: "{{heading}}"
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", required: false, hint: "e.g. 01 — Plate cleanup" }
+                  - { label: "Text", name: "text", widget: "text", required: false }
+                  - { label: "Image", name: "image", widget: "image" }
+
+              # ───── CREDITS ─────
+              - label: "Credits"
+                name: "credits"
+                widget: "list"
+                required: false
+                summary: "{{role}} — {{name}}"
+                fields:
+                  - { label: "Role", name: "role", widget: "string" }
+                  - { label: "Name", name: "name", widget: "string" }
+
+              # ───── NEXT PROJECT TOGGLE ─────
+              - { label: "Show 'Next Project' at the bottom of this page", name: "showNextProject", widget: "boolean", default: true, required: false }

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project — Kristian Cimò</title>
+<meta name="description" content="Project case study by Kristian Cimò.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="cursor" id="cursor"></div>
+
+<div class="loader" id="loader">
+  <div style="text-align:center;">
+    <div class="loader-name"><span>Kristian Cimò</span></div>
+    <div class="loader-bar"></div>
+  </div>
+</div>
+
+<nav>
+  <a href="index.html" class="logo">KC<span>.</span></a>
+  <div class="nav-links">
+    <a href="index.html#work" class="interactive">Work</a>
+    <a href="index.html#about" class="interactive">About</a>
+    <a href="index.html#contact" class="interactive">Contact</a>
+  </div>
+  <div class="nav-status">
+    <span class="dot"></span>
+    <span data-bind="status">Available 2026</span>
+  </div>
+</nav>
+
+<a href="index.html#work" class="back-link interactive">Back to Work</a>
+
+<!-- main project content gets rendered here -->
+<main id="project-root"></main>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="section-head reveal" style="margin: 0 0 60px;">
+    <span><span class="num">∞</span> &nbsp;/&nbsp; Contact</span>
+    <span>Let's talk</span>
+  </div>
+  <h2 class="contact-cta reveal" id="contact-cta"></h2>
+  <div class="footer-grid" id="footer-grid"></div>
+  <div class="footer-base">
+    <span>© 2026 Kristian Cimò · All rights reserved</span>
+    <span>Designed & built in Italia · 🍝</span>
+  </div>
+</footer>
+
+<script type="module">
+  /* ─── helpers ─── */
+  function escapeHtml(s) {
+    if (s == null) return '';
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function slug(s) {
+    return String(s || '').toLowerCase()
+      .normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
+  }
+  function bind(key, value) {
+    if (value == null) return;
+    document.querySelectorAll(`[data-bind="${key}"]`).forEach(el => el.textContent = value);
+  }
+  function getParam(name) {
+    return new URL(window.location.href).searchParams.get(name);
+  }
+  // detect Vimeo / YouTube URL → return embed URL or null if not recognized
+  function videoEmbed(url) {
+    if (!url) return null;
+    const v = url.match(/(?:vimeo\.com\/)(\d+)/);
+    if (v) return `https://player.vimeo.com/video/${v[1]}?title=0&byline=0&portrait=0`;
+    const y = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([\w-]+)/);
+    if (y) return `https://www.youtube.com/embed/${y[1]}?rel=0`;
+    return null;
+  }
+
+  function hideLoader() {
+    setTimeout(() => document.getElementById('loader').classList.add('gone'), 1200);
+  }
+
+  /* ─── cursor ─── */
+  const cursor = document.getElementById('cursor');
+  let cx = 0, cy = 0, tx = 0, ty = 0;
+  window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+  function cursorLoop() {
+    cx += (tx - cx) * 0.2;
+    cy += (ty - cy) * 0.2;
+    cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+    requestAnimationFrame(cursorLoop);
+  }
+  cursorLoop();
+  function bindCursor() {
+    document.querySelectorAll('.interactive, a, button').forEach(el => {
+      if (el.dataset.cursorBound) return;
+      el.dataset.cursorBound = '1';
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+  }
+  bindCursor();
+
+  function setupReveals() {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+  }
+
+  /* ─── image before/after slider setup ─── */
+  function setupBA(container) {
+    const clip = container.querySelector('.ba-clip');
+    const handle = container.querySelector('.ba-handle');
+    let dragging = false;
+    function setBA(pct) {
+      pct = Math.max(0, Math.min(100, pct));
+      clip.style.width = pct + '%';
+      handle.style.left = pct + '%';
+    }
+    function move(e) {
+      if (!dragging) return;
+      const rect = container.getBoundingClientRect();
+      const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+      setBA((x / rect.width) * 100);
+    }
+    container.addEventListener('mousedown', e => { dragging = true; move(e); });
+    container.addEventListener('touchstart', e => { dragging = true; move(e); }, { passive: true });
+    window.addEventListener('mousemove', move);
+    window.addEventListener('touchmove', move, { passive: true });
+    window.addEventListener('mouseup', () => dragging = false);
+    window.addEventListener('touchend', () => dragging = false);
+    container.addEventListener('click', e => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      setBA((x / rect.width) * 100);
+    });
+    setBA(50);
+  }
+
+  /* ─── video before/after slider setup ─── */
+  function setupVBA(container) {
+    const wrap = container.querySelector('.vba-after-wrap');
+    const handle = container.querySelector('.vba-handle');
+    const videoBefore = container.querySelector('.vba-before-wrap video');
+    const videoAfter = container.querySelector('.vba-after-wrap video');
+    const playBtn = container.querySelector('.vba-playbtn');
+    let dragging = false;
+    function setVBA(pct) {
+      pct = Math.max(0, Math.min(100, pct));
+      wrap.style.width = pct + '%';
+      handle.style.left = pct + '%';
+    }
+    function move(e) {
+      if (!dragging) return;
+      const rect = container.getBoundingClientRect();
+      const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+      setVBA((x / rect.width) * 100);
+    }
+    container.addEventListener('mousedown', e => {
+      // don't initiate drag from the play button
+      if (e.target.closest('.vba-playbtn')) return;
+      dragging = true;
+      move(e);
+    });
+    container.addEventListener('touchstart', e => {
+      if (e.target.closest('.vba-playbtn')) return;
+      dragging = true;
+      move(e);
+    }, { passive: true });
+    window.addEventListener('mousemove', move);
+    window.addEventListener('touchmove', move, { passive: true });
+    window.addEventListener('mouseup', () => dragging = false);
+    window.addEventListener('touchend', () => dragging = false);
+
+    let playing = false;
+    function syncPlay() {
+      if (playing) {
+        videoBefore.play();
+        videoAfter.play();
+        playBtn.textContent = '❚❚ Pause';
+      } else {
+        videoBefore.pause();
+        videoAfter.pause();
+        playBtn.textContent = '▶ Play';
+      }
+    }
+    playBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playing = !playing;
+      // sync time before playing
+      videoAfter.currentTime = videoBefore.currentTime;
+      syncPlay();
+    });
+    // keep videos in sync (re-sync every couple seconds in case of drift)
+    setInterval(() => {
+      if (playing && Math.abs(videoAfter.currentTime - videoBefore.currentTime) > 0.15) {
+        videoAfter.currentTime = videoBefore.currentTime;
+      }
+    }, 2000);
+    setVBA(50);
+  }
+
+  /* ─── render the project page ─── */
+  async function renderProject() {
+    const id = getParam('id');
+    if (!id) {
+      window.location.href = 'index.html';
+      return;
+    }
+    let projects, footer, site;
+    try {
+      [projects, footer, site] = await Promise.all([
+        fetch('data/projects.json').then(r => r.json()),
+        fetch('data/footer.json').then(r => r.json()),
+        fetch('data/site.json').then(r => r.json())
+      ]);
+    } catch (err) {
+      document.getElementById('project-root').innerHTML = `
+        <section style="padding:200px 32px;text-align:center;">
+          <h1 style="font-family:'Anton',sans-serif;font-size:64px;">Error loading project</h1>
+          <p style="margin-top:24px;color:var(--muted);">${escapeHtml(String(err))}</p>
+          <p style="margin-top:24px;"><a href="index.html" class="interactive" style="border-bottom:1px solid;">← Back to home</a></p>
+        </section>`;
+      hideLoader();
+      return;
+    }
+
+    bind('status', site.status);
+
+    const all = (projects.items || []).slice().sort((a,b) => (a.order||999) - (b.order||999));
+    const idx = all.findIndex(p => (p.slug || slug(p.title)) === id);
+    if (idx === -1) {
+      document.getElementById('project-root').innerHTML = `
+        <section style="padding:200px 32px;text-align:center;">
+          <h1 style="font-family:'Anton',sans-serif;font-size:80px;">404</h1>
+          <p style="margin-top:24px;color:var(--muted);">Project "${escapeHtml(id)}" not found</p>
+          <p style="margin-top:24px;"><a href="index.html" class="interactive" style="border-bottom:1px solid;">← Back to home</a></p>
+        </section>`;
+      hideLoader();
+      return;
+    }
+
+    const p = all[idx];
+    const next = all[(idx + 1) % all.length];
+
+    // update page title
+    document.title = `${p.title} — Kristian Cimò`;
+
+    // build sections in the order they appear in p.sections (if present),
+    // otherwise fall back to a default order
+    const root = document.getElementById('project-root');
+    let html = '';
+
+    /* ─── HERO ─── */
+    const infoRows = [];
+    if (p.client) infoRows.push(['Client', p.client]);
+    if (p.talent) infoRows.push(['Talent', p.talent]);
+    if (p.year) infoRows.push(['Year', p.year]);
+    if (p.role) infoRows.push(['Role', p.role]);
+    if (p.software) infoRows.push(['Software', p.software]);
+    if (p.format) infoRows.push(['Format', p.format]);
+    if (p.category) infoRows.push(['Category', p.category]);
+
+    html += `
+      <section class="project-hero reveal">
+        <div class="project-hero-meta">
+          <span>${escapeHtml(p.client || '—')}</span>
+          <span class="sep">·</span>
+          <span>${escapeHtml(p.year || '—')}</span>
+          <span class="sep">·</span>
+          <span>${escapeHtml(p.category || '—')}</span>
+        </div>
+        <h1 class="project-hero-title">${escapeHtml(p.title)}</h1>
+        ${p.subtitle ? `<p class="project-hero-subtitle">${escapeHtml(p.subtitle)}</p>` : ''}
+        ${infoRows.length ? `
+          <div class="project-info-grid">
+            ${infoRows.map(([k, v]) => `
+              <div class="row"><span>${escapeHtml(k)}</span><span>${escapeHtml(v)}</span></div>
+            `).join('')}
+          </div>` : ''}
+      </section>
+    `;
+
+    /* ─── COVER (image or video) ─── */
+    if (p.coverVideo) {
+      const embed = videoEmbed(p.coverVideo);
+      if (embed) {
+        html += `<section class="project-cover"><iframe src="${escapeHtml(embed)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></section>`;
+      } else {
+        html += `<section class="project-cover"><video src="${escapeHtml(p.coverVideo)}" autoplay muted loop playsinline></video></section>`;
+      }
+    } else if (p.image) {
+      html += `<section class="project-cover"><img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}"></section>`;
+    }
+
+    /* ─── SECTIONS ─── */
+    // sections can be provided as an ordered array in p.sections, OR we infer from individual fields
+    const sections = Array.isArray(p.sections) ? p.sections : [];
+
+    // if no explicit sections array, build a default order from individual fields
+    if (sections.length === 0) {
+      if (p.description) sections.push({ type: 'description', text: p.description });
+      if (Array.isArray(p.gallery) && p.gallery.length) sections.push({ type: 'gallery', images: p.gallery });
+      if (p.videoUrl) sections.push({ type: 'video', url: p.videoUrl, caption: p.videoCaption });
+      if (p.beforeAfter && (p.beforeAfter.imageBefore || p.beforeAfter.imageAfter)) {
+        sections.push({ type: 'beforeAfter', ...p.beforeAfter });
+      }
+      if (p.videoBeforeAfter && (p.videoBeforeAfter.videoBefore || p.videoBeforeAfter.videoAfter)) {
+        sections.push({ type: 'videoBeforeAfter', ...p.videoBeforeAfter });
+      }
+      if (Array.isArray(p.storytelling) && p.storytelling.length) {
+        sections.push({ type: 'storytelling', items: p.storytelling });
+      }
+      if (Array.isArray(p.credits) && p.credits.length) sections.push({ type: 'credits', items: p.credits });
+    }
+
+    let sectionNum = 1;
+    function head(title) {
+      const n = String(sectionNum++).padStart(2, '0');
+      return `
+        <div class="p-section-head">
+          <span><span class="num">${n}</span> &nbsp;/&nbsp; ${escapeHtml(title)}</span>
+          <span>${escapeHtml(p.title)}</span>
+        </div>
+      `;
+    }
+
+    sections.forEach(s => {
+      if (s.type === 'description' && s.text) {
+        const paragraphs = s.text.split(/\n\n+/).filter(Boolean);
+        html += `<section class="p-section reveal">
+          ${head('Case Study')}
+          <div class="p-description">
+            ${paragraphs.map(t => `<p>${escapeHtml(t)}</p>`).join('')}
+          </div>
+        </section>`;
+      }
+      else if (s.type === 'gallery' && Array.isArray(s.images) && s.images.length) {
+        html += `<section class="p-section reveal-stagger">
+          ${head('Gallery')}
+          <div class="p-gallery">
+            ${s.images.map(img => {
+              const src = typeof img === 'string' ? img : img.src;
+              const alt = typeof img === 'string' ? '' : (img.alt || '');
+              return `<div class="item"><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}"></div>`;
+            }).join('')}
+          </div>
+        </section>`;
+      }
+      else if (s.type === 'video' && s.url) {
+        const embed = videoEmbed(s.url);
+        html += `<section class="p-section reveal">
+          ${head('Video')}
+          <div class="p-video">
+            ${embed
+              ? `<iframe src="${escapeHtml(embed)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
+              : `<video src="${escapeHtml(s.url)}" controls playsinline></video>`}
+          </div>
+          ${s.caption ? `<p class="p-video-caption">${escapeHtml(s.caption)}</p>` : ''}
+        </section>`;
+      }
+      else if (s.type === 'beforeAfter' && (s.imageBefore || s.imageAfter)) {
+        const baId = 'ba-' + Math.random().toString(36).slice(2, 8);
+        html += `<section class="p-section reveal">
+          ${head('Before / After')}
+          <div class="p-ba interactive" id="${baId}">
+            <img class="ba-img before" src="${escapeHtml(s.imageBefore || s.imageAfter)}" alt="Raw plate">
+            <div class="ba-clip">
+              <img class="ba-img after" src="${escapeHtml(s.imageAfter || s.imageBefore)}" alt="Final composite">
+            </div>
+            <div class="ba-labels">
+              <span class="before">${escapeHtml(s.labelBefore || 'Raw Plate')}</span>
+              <span class="after">${escapeHtml(s.labelAfter || 'Final CGI')}</span>
+            </div>
+            <div class="ba-handle"><div class="ba-knob">⇄</div></div>
+          </div>
+        </section>`;
+      }
+      else if (s.type === 'videoBeforeAfter' && (s.videoBefore || s.videoAfter)) {
+        const vbaId = 'vba-' + Math.random().toString(36).slice(2, 8);
+        html += `<section class="p-section reveal">
+          ${head('Video Breakdown')}
+          <div class="p-vba interactive" id="${vbaId}">
+            <div class="vba-before-wrap">
+              <video src="${escapeHtml(s.videoBefore || s.videoAfter)}" muted loop playsinline preload="metadata"></video>
+            </div>
+            <div class="vba-after-wrap">
+              <video src="${escapeHtml(s.videoAfter || s.videoBefore)}" muted loop playsinline preload="metadata"></video>
+            </div>
+            <div class="vba-labels">
+              <span class="before">${escapeHtml(s.labelBefore || 'Raw Plate')}</span>
+              <span class="after">${escapeHtml(s.labelAfter || 'Final CGI')}</span>
+            </div>
+            <div class="vba-handle"><div class="vba-knob">⇄</div></div>
+            <button class="vba-playbtn">▶ Play</button>
+          </div>
+        </section>`;
+      }
+      else if (s.type === 'storytelling' && Array.isArray(s.items) && s.items.length) {
+        html += `<section class="p-section">
+          ${head('Process')}
+          ${s.items.map((item, i) => `
+            <div class="p-story reveal ${i % 2 ? 'reverse' : ''}">
+              <div class="img"><img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.heading || '')}"></div>
+              <div class="text">
+                ${item.heading ? `<h3>${escapeHtml(item.heading)}</h3>` : ''}
+                ${item.text ? `<p>${escapeHtml(item.text)}</p>` : ''}
+              </div>
+            </div>
+          `).join('')}
+        </section>`;
+      }
+      else if (s.type === 'credits' && Array.isArray(s.items) && s.items.length) {
+        html += `<section class="p-section reveal">
+          ${head('Credits')}
+          <div class="p-credits">
+            ${s.items.map(c => `<div class="credit-row"><span>${escapeHtml(c.role)}</span><span>${escapeHtml(c.name)}</span></div>`).join('')}
+          </div>
+        </section>`;
+      }
+    });
+
+    /* ─── NEXT PROJECT ─── */
+    if (p.showNextProject !== false && next && next !== p) {
+      const nextId = next.slug || slug(next.title);
+      html += `
+        <a href="project.html?id=${encodeURIComponent(nextId)}" class="next-project interactive">
+          <div class="label">Next Project — ${escapeHtml(next.year || '')}</div>
+          <h2>${escapeHtml(next.title)}</h2>
+          <div class="arrow">→ View</div>
+        </a>
+      `;
+    }
+
+    root.innerHTML = html;
+
+    /* attach sliders after DOM is in place */
+    document.querySelectorAll('.p-ba').forEach(el => setupBA(el));
+    document.querySelectorAll('.p-vba').forEach(el => setupVBA(el));
+
+    /* footer */
+    document.getElementById('contact-cta').innerHTML = `
+      ${escapeHtml(footer.ctaLine1)}<br>${escapeHtml(footer.ctaLine2)}<br>${escapeHtml(footer.ctaLine3Pre)} <span class="em">${escapeHtml(footer.ctaLine3Em)}</span><br>
+      <a href="mailto:${escapeHtml(footer.email)}" class="interactive">${escapeHtml(footer.email)} →</a>
+    `;
+    document.getElementById('footer-grid').innerHTML = `
+      <div class="col">
+        <h4>Contact</h4>
+        <a href="mailto:${escapeHtml(footer.email)}" class="interactive">${escapeHtml(footer.email)}</a>
+      </div>
+      <div class="col">
+        <h4>Social</h4>
+        ${(footer.social || []).map(s =>
+          `<a href="${escapeHtml(s.url)}" target="_blank" rel="noopener" class="interactive">${escapeHtml(s.label)}</a>`
+        ).join('')}
+      </div>
+      <div class="col">
+        <h4>Index</h4>
+        <a href="index.html#work" class="interactive">Work</a>
+        <a href="index.html#about" class="interactive">About</a>
+        <a href="index.html#contact" class="interactive">Contact</a>
+      </div>
+      <div class="col">
+        <h4>Studio</h4>
+        <span>Brescia · Italia</span>
+        <span>Remote Worldwide</span>
+        <span>EU · GMT+1</span>
+      </div>
+    `;
+
+    bindCursor();
+    setupReveals();
+    hideLoader();
+  }
+
+  renderProject();
+</script>
+
+</body>
+</html>

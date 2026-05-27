@@ -2,93 +2,152 @@
   "items": [
     {
       "order": 1,
+      "slug": "hawkers-gasly",
       "title": "Hawkers × Gasly",
       "year": "2026",
       "category": "Eyewear / F1",
       "image": "https://picsum.photos/seed/gasly/1400/900",
-      "link": "#case",
       "featured": true,
-      "tagLabel": "Featured"
+      "tagLabel": "Featured",
+      "client": "Hawkers Co.",
+      "talent": "Pierre Gasly",
+      "role": "VFX · CGI · Direction",
+      "software": "Houdini · C4D · Nuke",
+      "format": "Campaign · Social",
+      "subtitle": "Speed of light and the silence after the corner. Rebuilding Silverstone, frame by frame.",
+      "description": "A campaign film built around the speed of light and the silence after the corner. We rebuilt Silverstone in CGI, replaced the surrounding environment frame-by-frame, and matched optical aberrations of Hawkers' new lens line — so the product became the lens you see the world through.\n\nThe process required a custom Houdini setup to handle the chromatic aberration of each lens model, layered on top of plate footage shot on RED Komodo.",
+      "gallery": [
+        { "src": "https://picsum.photos/seed/gasly-1/1600/900", "alt": "Wide shot" },
+        { "src": "https://picsum.photos/seed/gasly-2/900/1200", "alt": "Lens detail" },
+        { "src": "https://picsum.photos/seed/gasly-3/900/1200", "alt": "Color study" },
+        { "src": "https://picsum.photos/seed/gasly-4/1600/900", "alt": "Final composite" }
+      ],
+      "videoUrl": "",
+      "videoCaption": "",
+      "beforeAfter": {
+        "imageBefore": "https://picsum.photos/seed/gasly-raw/1600/900",
+        "imageAfter": "https://picsum.photos/seed/gasly-final/1600/900",
+        "labelBefore": "Raw Plate",
+        "labelAfter": "Final CGI"
+      },
+      "videoBeforeAfter": {
+        "videoBefore": "",
+        "videoAfter": "",
+        "labelBefore": "Raw Plate",
+        "labelAfter": "Final CGI"
+      },
+      "storytelling": [
+        {
+          "heading": "01 — Plate cleanup",
+          "text": "Every frame from the original plate had to be rotoscoped and stabilized. We removed crew, safety rigs, and ad boards to start from a clean canvas.",
+          "image": "https://picsum.photos/seed/gasly-story1/800/1000"
+        },
+        {
+          "heading": "02 — Environment build",
+          "text": "Silverstone was rebuilt in CGI using a combination of photogrammetry passes and reference footage from the 2024 GP weekend.",
+          "image": "https://picsum.photos/seed/gasly-story2/800/1000"
+        }
+      ],
+      "credits": [
+        { "role": "Direction & VFX", "name": "Kristian Cimò" },
+        { "role": "Agency", "name": "—" },
+        { "role": "DOP", "name": "—" },
+        { "role": "3D / Lookdev", "name": "Studio KC" },
+        { "role": "Compositing", "name": "Studio KC" },
+        { "role": "Color", "name": "—" },
+        { "role": "Sound", "name": "—" }
+      ],
+      "showNextProject": true
     },
     {
       "order": 2,
+      "slug": "adidas-legacy",
       "title": "Adidas Legacy",
       "year": "2026",
       "category": "Installation",
       "image": "https://picsum.photos/seed/adidasmuseum/900/1200",
-      "link": "#",
-      "featured": false,
-      "tagLabel": ""
+      "client": "Adidas",
+      "role": "CGI · Installation Design",
+      "software": "C4D · Octane · TouchDesigner",
+      "format": "Installation · Brand",
+      "description": "A room-scale installation celebrating Adidas' archive. Eight decades of footwear, suspended in CGI light.",
+      "gallery": [
+        { "src": "https://picsum.photos/seed/adidas-1/1600/900" },
+        { "src": "https://picsum.photos/seed/adidas-2/900/1200" }
+      ],
+      "credits": [
+        { "role": "Direction & CGI", "name": "Kristian Cimò" }
+      ]
     },
     {
       "order": 3,
+      "slug": "zidane-map",
       "title": "Zidane Map",
       "year": "2026",
       "category": "Cartography / CGI",
       "image": "https://picsum.photos/seed/zidane/900/1200",
-      "link": "#",
-      "featured": false,
-      "tagLabel": ""
+      "client": "—",
+      "talent": "Zinédine Zidane",
+      "role": "CGI · Editorial",
+      "software": "Houdini · Redshift",
+      "format": "Editorial",
+      "description": "A topographic portrait of Zidane's career, rendered as 3D cartography. Every peak is a final, every valley a club he never returned to."
     },
     {
       "order": 4,
+      "slug": "barcelona-world-cup",
       "title": "Barcelona × World Cup",
       "year": "2025",
       "category": "Sport / Identity",
       "image": "https://picsum.photos/seed/barcelona/1400/800",
-      "link": "#",
-      "featured": false,
-      "tagLabel": ""
+      "client": "FC Barcelona",
+      "role": "VFX · CGI",
+      "software": "C4D · Nuke",
+      "format": "Identity"
     },
     {
       "order": 5,
+      "slug": "sainz-silverstone",
       "title": "Sainz · Silverstone",
       "year": "2026",
       "category": "F1 / Product CGI",
       "image": "https://picsum.photos/seed/sainz/1200/900",
-      "link": "#",
-      "featured": false,
-      "tagLabel": ""
+      "talent": "Carlos Sainz",
+      "role": "CGI · Product Design",
+      "software": "C4D · Octane"
     },
     {
       "order": 6,
+      "slug": "generali-hexagon-cup",
       "title": "Generali · Hexagon Cup",
       "year": "2026",
       "category": "Sport / Brand",
       "image": "https://picsum.photos/seed/generali/1200/900",
-      "link": "#",
-      "featured": false,
-      "tagLabel": ""
+      "client": "Generali",
+      "role": "VFX · CGI · Direction",
+      "software": "Houdini · Nuke",
+      "format": "Campaign"
     },
     {
       "order": 7,
+      "slug": "hakimi-ballon-dor",
       "title": "Hakimi · Ballon d'Or",
       "year": "2025",
       "category": "Editorial / CGI",
       "image": "https://picsum.photos/seed/hakimi/900/1200",
-      "link": "#",
-      "featured": false,
-      "tagLabel": ""
+      "talent": "Achraf Hakimi",
+      "role": "CGI · Editorial"
     },
     {
       "order": 8,
+      "slug": "sergio-ramos-room",
       "title": "Sergio Ramos · Room",
       "year": "2023",
       "category": "Interior CGI",
       "image": "https://picsum.photos/seed/ramos/1400/800",
-      "link": "#",
-      "featured": false,
-      "tagLabel": ""
-    },
-    {
-      "order": 9,
-      "title": "Prova Giorgio Ajello Nig",
-      "year": "2069",
-      "category": "A caso",
-      "image": "/media/hf_20260521_095746_4d8c449e-0e70-469e-8a8a-d2d6c740e4cb.png",
-      "link": "www.google.it",
-      "featured": false,
-      "tagLabel": "Featured"
+      "talent": "Sergio Ramos",
+      "role": "Interior CGI · Lookdev",
+      "software": "C4D · Octane"
     }
   ]
 }

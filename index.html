@@ -12,690 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-
-<style>
-  :root {
-    --bg: #0a0a0a;
-    --bg-2: #111111;
-    --fg: #f5f3ef;
-    --muted: #707070;
-    --line: rgba(255, 255, 255, 0.08);
-    --accent: #ff2d2d;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--fg);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    line-height: 1.5;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-  @media (min-width: 900px) {
-    body { cursor: none; }
-    a, button, .interactive { cursor: none; }
-  }
-  ::selection { background: var(--accent); color: var(--bg); }
-  a { color: inherit; text-decoration: none; }
-
-  /* grain overlay */
-  .grain {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 200;
-    opacity: 0.08;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    background-size: 200px;
-    animation: grainShift 0.4s steps(4) infinite;
-  }
-  @keyframes grainShift {
-    0% { transform: translate(0, 0); }
-    25% { transform: translate(-3%, 1%); }
-    50% { transform: translate(2%, -2%); }
-    75% { transform: translate(-1%, 2%); }
-    100% { transform: translate(0, 0); }
-  }
-
-  /* custom cursor */
-  .cursor {
-    position: fixed;
-    top: 0; left: 0;
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    border: 1px solid var(--fg);
-    pointer-events: none;
-    z-index: 1000;
-    mix-blend-mode: difference;
-    transform: translate(-50%, -50%);
-    transition: width 0.25s cubic-bezier(.2,.8,.2,1), height 0.25s cubic-bezier(.2,.8,.2,1), background 0.25s;
-  }
-  .cursor.hover { width: 56px; height: 56px; background: var(--fg); }
-  @media (max-width: 899px) { .cursor { display: none; } }
-
-  /* nav */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    padding: 22px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 50;
-    mix-blend-mode: difference;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-  .logo { font-family: 'Anton', sans-serif; font-size: 16px; letter-spacing: 0.04em; }
-  .logo span { color: var(--accent); }
-  .nav-links { display: flex; gap: 28px; }
-  .nav-links a { position: relative; padding: 4px 0; }
-  .nav-links a::after {
-    content: ''; position: absolute; left: 0; right: 0; bottom: 0;
-    height: 1px; background: currentColor;
-    transform: scaleX(0); transform-origin: right;
-    transition: transform 0.4s cubic-bezier(.7,0,.2,1);
-  }
-  .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
-  .nav-status { display: flex; align-items: center; gap: 8px; }
-  .nav-status .dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: #4ade80; box-shadow: 0 0 12px #4ade80;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-  @media (max-width: 768px) {
-    nav { padding: 16px 20px; }
-    .nav-links { display: none; }
-  }
-
-  /* hero */
-  .hero {
-    position: relative;
-    height: 100vh;
-    min-height: 700px;
-    overflow: hidden;
-  }
-  #hero-canvas { position: absolute; inset: 0; z-index: 1; }
-  .hero-content {
-    position: absolute; inset: 0; z-index: 2;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 0 32px 100px;
-    pointer-events: none;
-  }
-  .hero-tag {
-    font-size: 11px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 28px;
-    display: flex;
-    gap: 20px;
-    align-items: center;
-  }
-  .hero-tag::before { content: ''; width: 40px; height: 1px; background: var(--muted); }
-  .hero h1 {
-    font-family: 'Anton', sans-serif;
-    font-size: clamp(60px, 16vw, 240px);
-    line-height: 0.82;
-    letter-spacing: -0.015em;
-    text-transform: uppercase;
-    margin-bottom: 32px;
-  }
-  .hero h1 .italic {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-weight: 400;
-    text-transform: none;
-    letter-spacing: 0;
-    font-size: 0.6em;
-    color: var(--muted);
-    margin-left: 0.2em;
-  }
-  .hero-meta {
-    position: absolute;
-    bottom: 32px; left: 32px; right: 32px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .scroll-indicator { display: flex; align-items: center; gap: 12px; }
-  .scroll-indicator .line {
-    width: 32px; height: 1px;
-    background: var(--muted);
-    position: relative; overflow: hidden;
-  }
-  .scroll-indicator .line::after {
-    content: ''; position: absolute; inset: 0;
-    background: var(--fg);
-    transform: translateX(-100%);
-    animation: scrollLine 2.4s cubic-bezier(.7,0,.2,1) infinite;
-  }
-  @keyframes scrollLine {
-    0% { transform: translateX(-100%); }
-    50% { transform: translateX(0); }
-    100% { transform: translateX(100%); }
-  }
-  @media (max-width: 768px) {
-    .hero-content { padding: 0 20px 80px; }
-    .hero-meta { left: 20px; right: 20px; bottom: 20px; font-size: 9px; }
-    .hero-tag { font-size: 9px; gap: 12px; }
-    .hero-tag::before { width: 24px; }
-  }
-
-  /* section labels */
-  .section-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding-bottom: 24px;
-    margin-bottom: 48px;
-    border-bottom: 1px solid var(--line);
-    font-size: 11px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .section-head .num { color: var(--fg); }
-
-  /* work grid */
-  .work { padding: 160px 32px 120px; }
-  .work-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 24px;
-  }
-  .project {
-    position: relative;
-    overflow: hidden;
-    background: var(--bg-2);
-    aspect-ratio: 4 / 3;
-  }
-  /* asymmetric pattern repeating every 8 projects */
-  .project:nth-child(8n+1) { grid-column: 1 / 8; aspect-ratio: 16 / 9; }
-  .project:nth-child(8n+2) { grid-column: 8 / 13; aspect-ratio: 3 / 4; }
-  .project:nth-child(8n+3) { grid-column: 1 / 5; aspect-ratio: 3 / 4; }
-  .project:nth-child(8n+4) { grid-column: 5 / 13; aspect-ratio: 16 / 9; }
-  .project:nth-child(8n+5) { grid-column: 1 / 7; }
-  .project:nth-child(8n+6) { grid-column: 7 / 13; }
-  .project:nth-child(8n+7) { grid-column: 1 / 6; aspect-ratio: 3 / 4; }
-  .project:nth-child(8n) { grid-column: 6 / 13; aspect-ratio: 16 / 9; }
-
-  .project img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    filter: grayscale(100%) brightness(0.45) contrast(1.05);
-    transition: filter 0.8s cubic-bezier(.2,.8,.2,1), transform 1.2s cubic-bezier(.2,.8,.2,1);
-  }
-  .project:hover img {
-    filter: grayscale(0%) brightness(0.85) contrast(1);
-    transform: scale(1.04);
-  }
-  .project-meta {
-    position: absolute; inset: auto 0 0 0;
-    padding: 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 16px;
-    background: linear-gradient(to top, rgba(10,10,10,0.85), transparent 80%);
-  }
-  .project-title {
-    font-family: 'Anton', sans-serif;
-    font-size: clamp(20px, 2.4vw, 32px);
-    text-transform: uppercase;
-    letter-spacing: 0.01em;
-    line-height: 1;
-  }
-  .project-info {
-    text-align: right;
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .project-info .year { color: var(--fg); }
-  .project-tag {
-    position: absolute;
-    top: 16px; left: 16px;
-    font-size: 9px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--fg);
-    padding: 4px 10px;
-    border: 1px solid rgba(255,255,255,0.3);
-    backdrop-filter: blur(8px);
-    background: rgba(0,0,0,0.3);
-  }
-  @media (max-width: 900px) {
-    .work { padding: 80px 20px; }
-    .work-grid { gap: 12px; }
-    .project { grid-column: 1 / -1 !important; aspect-ratio: 4 / 3 !important; }
-  }
-
-  /* case study */
-  .case { padding: 120px 32px; border-top: 1px solid var(--line); }
-  .case-meta {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: end;
-    margin-bottom: 48px;
-  }
-  .case-title {
-    font-family: 'Anton', sans-serif;
-    font-size: clamp(48px, 9vw, 140px);
-    line-height: 0.88;
-    text-transform: uppercase;
-    letter-spacing: -0.015em;
-  }
-  .case-title .em {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-weight: 400;
-    text-transform: none;
-    letter-spacing: 0;
-  }
-  .case-info {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .case-info .row { display: flex; flex-direction: column; gap: 4px; }
-  .case-info .row span:last-child { color: var(--fg); }
-
-  .before-after {
-    position: relative;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    user-select: none;
-    margin-bottom: 48px;
-    background: #000;
-  }
-  .ba-img {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    pointer-events: none;
-  }
-  .ba-img.before {
-    filter: grayscale(85%) contrast(0.85) brightness(0.55) saturate(0.4);
-  }
-  .ba-clip {
-    position: absolute; inset: 0;
-    overflow: hidden;
-    width: 50%;
-  }
-  .ba-clip .ba-img { width: 100vw; max-width: none; }
-  .ba-handle {
-    position: absolute;
-    top: 0; bottom: 0;
-    width: 2px;
-    background: var(--fg);
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 5;
-    pointer-events: none;
-  }
-  .ba-handle-knob {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 56px; height: 56px;
-    border-radius: 50%;
-    background: var(--fg);
-    color: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
-  }
-  .ba-labels {
-    position: absolute;
-    top: 20px; left: 20px; right: 20px;
-    display: flex;
-    justify-content: space-between;
-    z-index: 4;
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    pointer-events: none;
-  }
-  .ba-labels span {
-    padding: 6px 12px;
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255,255,255,0.15);
-  }
-  .ba-labels .after { color: var(--accent); border-color: var(--accent); }
-
-  .case-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    margin-top: 48px;
-  }
-  .case-desc {
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(20px, 2.2vw, 28px);
-    line-height: 1.35;
-  }
-  .case-credits {
-    font-size: 11px;
-    line-height: 2;
-    letter-spacing: 0.05em;
-  }
-  .credit-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--line);
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    font-size: 10px;
-  }
-  .credit-row span:first-child { color: var(--muted); }
-  @media (max-width: 900px) {
-    .case { padding: 80px 20px; }
-    .case-meta, .case-body, .case-info { grid-template-columns: 1fr; gap: 24px; }
-    .ba-handle-knob { width: 44px; height: 44px; font-size: 12px; }
-    .ba-labels { font-size: 8px; }
-  }
-
-  /* backstage */
-  .backstage {
-    padding: 120px 32px;
-    background: var(--bg-2);
-    border-top: 1px solid var(--line);
-  }
-  .backstage-intro {
-    max-width: 720px;
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-size: clamp(28px, 4vw, 56px);
-    line-height: 1.15;
-    margin-bottom: 80px;
-  }
-  .backstage-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 24px;
-  }
-  .video-card {
-    position: relative;
-    overflow: hidden;
-    background: #000;
-    aspect-ratio: 16 / 9;
-  }
-  .video-card:nth-child(4n+1) { grid-column: span 3; aspect-ratio: 4 / 3; }
-  .video-card:nth-child(4n+2) { grid-column: span 3; }
-  .video-card:nth-child(4n+3) { grid-column: span 2; }
-  .video-card:nth-child(4n) { grid-column: span 4; aspect-ratio: 21 / 9; }
-
-  .video-card img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    filter: brightness(0.4) saturate(0.7);
-    transition: filter 0.6s, transform 1s;
-  }
-  .video-card:hover img {
-    filter: brightness(0.7) saturate(1);
-    transform: scale(1.04);
-  }
-  .video-card .play-btn {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 72px; height: 72px;
-    border: 1px solid var(--fg);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(8px);
-    background: rgba(0,0,0,0.3);
-    transition: background 0.3s, transform 0.4s;
-  }
-  .video-card .play-btn::after {
-    content: ''; width: 0; height: 0;
-    border-left: 12px solid var(--fg);
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    margin-left: 4px;
-  }
-  .video-card:hover .play-btn {
-    background: var(--accent);
-    border-color: var(--accent);
-    transform: translate(-50%, -50%) scale(1.1);
-  }
-  .video-card:hover .play-btn::after { border-left-color: var(--bg); }
-  .video-meta {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-  }
-  .video-meta .duration { color: var(--muted); }
-  @media (max-width: 900px) {
-    .backstage { padding: 80px 20px; }
-    .backstage-grid { grid-template-columns: 1fr; gap: 12px; }
-    .video-card { grid-column: 1 / -1 !important; aspect-ratio: 16 / 9 !important; }
-  }
-
-  /* clients */
-  .clients {
-    padding: 40px 0;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    overflow: hidden;
-    background: var(--bg);
-  }
-  .marquee {
-    display: flex;
-    gap: 80px;
-    animation: marquee 40s linear infinite;
-    white-space: nowrap;
-    width: max-content;
-  }
-  .marquee span {
-    font-family: 'Anton', sans-serif;
-    font-size: clamp(40px, 6vw, 80px);
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    color: var(--muted);
-    transition: color 0.3s;
-  }
-  .marquee span:hover { color: var(--fg); }
-  .marquee .dot {
-    width: 12px; height: 12px;
-    border-radius: 50%;
-    background: var(--accent);
-    align-self: center;
-    flex-shrink: 0;
-  }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  /* about */
-  .about {
-    padding: 160px 32px;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 80px;
-  }
-  .about h2 {
-    font-family: 'Anton', sans-serif;
-    font-size: clamp(40px, 5vw, 72px);
-    text-transform: uppercase;
-    line-height: 0.9;
-    letter-spacing: -0.01em;
-  }
-  .about-body p {
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(20px, 2.2vw, 28px);
-    line-height: 1.4;
-    margin-bottom: 24px;
-  }
-  .about-body p:last-of-type { color: var(--muted); }
-  .about-stats {
-    margin-top: 48px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-    padding-top: 32px;
-    border-top: 1px solid var(--line);
-  }
-  .stat .num {
-    font-family: 'Anton', sans-serif;
-    font-size: clamp(36px, 4vw, 56px);
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-  .stat .lbl {
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  @media (max-width: 900px) {
-    .about { padding: 80px 20px; grid-template-columns: 1fr; gap: 32px; }
-    .about-stats { grid-template-columns: 1fr; gap: 24px; }
-  }
-
-  /* footer */
-  footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
-  .contact-cta {
-    font-family: 'Anton', sans-serif;
-    font-size: clamp(64px, 13vw, 220px);
-    text-transform: uppercase;
-    line-height: 0.88;
-    letter-spacing: -0.02em;
-    margin-bottom: 80px;
-  }
-  .contact-cta a {
-    position: relative;
-    display: inline-block;
-    transition: color 0.4s;
-  }
-  .contact-cta a:hover { color: var(--accent); }
-  .contact-cta .em {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-weight: 400;
-    text-transform: none;
-    letter-spacing: 0;
-    color: var(--muted);
-  }
-  .footer-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 32px;
-    padding-top: 40px;
-    border-top: 1px solid var(--line);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-  .footer-grid .col h4 {
-    color: var(--muted);
-    font-weight: 400;
-    margin-bottom: 16px;
-    font-size: 10px;
-  }
-  .footer-grid .col a { display: block; padding: 4px 0; }
-  .footer-grid .col a:hover { color: var(--accent); }
-  .footer-base {
-    margin-top: 60px;
-    padding-top: 24px;
-    border-top: 1px solid var(--line);
-    display: flex;
-    justify-content: space-between;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  @media (max-width: 900px) {
-    footer { padding: 80px 20px 20px; }
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
-    .footer-base { flex-direction: column; gap: 8px; }
-  }
-
-  /* reveal */
-  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1.2s cubic-bezier(.2,.8,.2,1), transform 1.2s cubic-bezier(.2,.8,.2,1); }
-  .reveal.in { opacity: 1; transform: translateY(0); }
-  .reveal-stagger > * { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(.2,.8,.2,1), transform 1s cubic-bezier(.2,.8,.2,1); }
-  .reveal-stagger.in > * { opacity: 1; transform: translateY(0); }
-  .reveal-stagger.in > *:nth-child(1) { transition-delay: 0s; }
-  .reveal-stagger.in > *:nth-child(2) { transition-delay: 0.08s; }
-  .reveal-stagger.in > *:nth-child(3) { transition-delay: 0.16s; }
-  .reveal-stagger.in > *:nth-child(4) { transition-delay: 0.24s; }
-  .reveal-stagger.in > *:nth-child(5) { transition-delay: 0.32s; }
-  .reveal-stagger.in > *:nth-child(6) { transition-delay: 0.40s; }
-  .reveal-stagger.in > *:nth-child(7) { transition-delay: 0.48s; }
-  .reveal-stagger.in > *:nth-child(8) { transition-delay: 0.56s; }
-
-  /* loader */
-  .loader {
-    position: fixed;
-    inset: 0;
-    background: var(--bg);
-    z-index: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.8s, visibility 0.8s;
-  }
-  .loader.gone { opacity: 0; visibility: hidden; }
-  .loader-name {
-    font-family: 'Anton', sans-serif;
-    font-size: 48px;
-    text-transform: uppercase;
-    letter-spacing: -0.01em;
-    margin-bottom: 24px;
-    overflow: hidden;
-  }
-  .loader-name span {
-    display: inline-block;
-    animation: loaderUp 1s cubic-bezier(.7,0,.2,1) forwards;
-  }
-  @keyframes loaderUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-  .loader-bar {
-    width: 200px; height: 1px;
-    background: rgba(255,255,255,0.2);
-    margin: 0 auto;
-    overflow: hidden;
-  }
-  .loader-bar::after {
-    content: '';
-    display: block;
-    height: 100%;
-    background: var(--fg);
-    transform: translateX(-100%);
-    animation: loaderFill 1.6s cubic-bezier(.7,0,.2,1) forwards;
-  }
-  @keyframes loaderFill { to { transform: translateX(0); } }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -713,8 +30,6 @@
   <a href="#" class="logo">KC<span>.</span></a>
   <div class="nav-links">
     <a href="#work" class="interactive">Work</a>
-    <a href="#case" class="interactive">Case Study</a>
-    <a href="#backstage" class="interactive">Process</a>
     <a href="#about" class="interactive">About</a>
     <a href="#contact" class="interactive">Contact</a>
   </div>
@@ -749,215 +64,138 @@
     <span><span class="num">01</span> &nbsp;/&nbsp; Selected Work</span>
     <span>2023 — 2026</span>
   </div>
-  <div class="work-grid reveal-stagger" id="work-grid">
-    <!-- populated by JS from data/projects.json -->
-  </div>
-</section>
-
-<!-- CASE STUDY -->
-<section class="case" id="case">
-  <div class="section-head reveal">
-    <span><span class="num">02</span> &nbsp;/&nbsp; Case Study</span>
-    <span id="case-head-meta">Featured</span>
-  </div>
-
-  <div class="case-meta reveal">
-    <h2 class="case-title">
-      <span data-bind="case.title">Hawkers</span><br>
-      <span class="em">× </span><span data-bind="case.titleSecond">Gasly</span>
-    </h2>
-    <div class="case-info" id="case-info">
-      <!-- populated by JS -->
-    </div>
-  </div>
-
-  <div class="before-after interactive" id="beforeAfter">
-    <img class="ba-img before" id="ba-before" src="" alt="Raw plate">
-    <div class="ba-clip" id="baClip">
-      <img class="ba-img after" id="ba-after" src="" alt="Final composite">
-    </div>
-    <div class="ba-labels">
-      <span class="before">Raw Plate</span>
-      <span class="after">Final CGI</span>
-    </div>
-    <div class="ba-handle" id="baHandle">
-      <div class="ba-handle-knob">⇄</div>
-    </div>
-  </div>
-
-  <div class="case-body reveal">
-    <div class="case-desc" data-bind="case.description"></div>
-    <div class="case-credits" id="case-credits">
-      <!-- populated by JS -->
-    </div>
-  </div>
-</section>
-
-<!-- BACKSTAGE -->
-<section class="backstage" id="backstage">
-  <div class="section-head reveal">
-    <span><span class="num">03</span> &nbsp;/&nbsp; Process / Backstage</span>
-    <span>Making-of</span>
-  </div>
-  <p class="backstage-intro reveal" data-bind="backstage.intro"></p>
-  <div class="backstage-grid reveal-stagger" id="backstage-grid">
-    <!-- populated by JS -->
-  </div>
+  <div class="work-grid reveal-stagger" id="work-grid"></div>
 </section>
 
 <!-- CLIENTS -->
 <section class="clients">
-  <div class="marquee" id="marquee">
-    <!-- populated by JS -->
-  </div>
+  <div class="marquee" id="marquee"></div>
 </section>
 
 <!-- ABOUT -->
 <section class="about" id="about">
   <div class="reveal">
     <div class="section-head" style="margin-bottom: 32px;">
-      <span><span class="num">04</span> &nbsp;/&nbsp; About</span>
+      <span><span class="num">02</span> &nbsp;/&nbsp; About</span>
     </div>
     <h2 data-bind="about.heading">The eye behind the render.</h2>
   </div>
-  <div class="about-body reveal" id="about-body">
-    <!-- populated by JS -->
-  </div>
+  <div class="about-body reveal" id="about-body"></div>
 </section>
 
-<!-- FOOTER -->
+<!-- FOOTER / CONTACT -->
 <footer id="contact">
-  <h2 class="contact-cta reveal" id="contact-cta">
-    <!-- populated by JS -->
-  </h2>
-
-  <div class="footer-grid" id="footer-grid">
-    <!-- populated by JS -->
+  <div class="section-head reveal" style="margin: 0 0 60px;">
+    <span><span class="num">03</span> &nbsp;/&nbsp; Contact</span>
+    <span>Let's talk</span>
   </div>
-
+  <h2 class="contact-cta reveal" id="contact-cta"></h2>
+  <div class="footer-grid" id="footer-grid"></div>
   <div class="footer-base">
     <span>© 2026 Kristian Cimò · All rights reserved</span>
     <span>Designed & built in Italia · 🍝</span>
   </div>
 </footer>
 
-<!-- SCRIPTS -->
 <script type="module">
   import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
 
-  /* ───── LOADER ───── */
+  /* ─── helpers ─── */
+  function bind(key, value) {
+    if (value == null) return;
+    document.querySelectorAll(`[data-bind="${key}"]`).forEach(el => el.textContent = value);
+  }
+  function escapeHtml(s) {
+    if (s == null) return '';
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function slug(s) {
+    return String(s || '').toLowerCase()
+      .normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
+  }
+
+  /* ─── loader hide ─── */
   function hideLoader() {
     setTimeout(() => document.getElementById('loader').classList.add('gone'), 1600);
   }
 
-  /* ───── CONTENT LOADING ───── */
+  /* ─── content ─── */
   async function loadContent() {
     try {
-      const [site, projects, caseStudy, backstage, about, footer, clients] = await Promise.all([
+      const [site, projects, about, footer, clients] = await Promise.all([
         fetch('data/site.json').then(r => r.json()),
         fetch('data/projects.json').then(r => r.json()),
-        fetch('data/case-study.json').then(r => r.json()),
-        fetch('data/backstage.json').then(r => r.json()),
         fetch('data/about.json').then(r => r.json()),
         fetch('data/footer.json').then(r => r.json()),
         fetch('data/clients.json').then(r => r.json())
       ]);
 
-      // Simple bindings
       document.title = site.title || document.title;
       bind('tagline', site.tagline);
       bind('subtitle', site.subtitle);
       bind('location', site.location);
       bind('status', site.status);
 
-      // Projects grid
+      // PROJECTS GRID
       const projList = (projects.items || []).slice().sort((a,b) => (a.order||999) - (b.order||999));
       const grid = document.getElementById('work-grid');
-      grid.innerHTML = projList.map(p => `
-        <a href="${p.link || '#'}" class="project interactive">
-          ${p.featured ? `<span class="project-tag">${escape(p.tagLabel || 'Featured')}</span>` : ''}
-          <img src="${escape(p.image)}" alt="${escape(p.title)}">
-          <div class="project-meta">
-            <div class="project-title">${escape(p.title)}</div>
-            <div class="project-info"><div class="year">${escape(p.year)}</div><div>${escape(p.category)}</div></div>
-          </div>
-        </a>
-      `).join('');
+      grid.innerHTML = projList.map(p => {
+        const id = p.slug || slug(p.title);
+        const href = `project.html?id=${encodeURIComponent(id)}`;
+        return `
+          <a href="${href}" class="project interactive">
+            ${p.featured ? `<span class="project-tag">${escapeHtml(p.tagLabel || 'Featured')}</span>` : ''}
+            <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}">
+            <div class="project-meta">
+              <div class="project-title">${escapeHtml(p.title)}</div>
+              <div class="project-info"><div class="year">${escapeHtml(p.year)}</div><div>${escapeHtml(p.category)}</div></div>
+            </div>
+          </a>
+        `;
+      }).join('');
 
-      // Case study
-      bind('case.title', caseStudy.title);
-      bind('case.titleSecond', caseStudy.titleSecond);
-      bind('case.description', caseStudy.description);
-      document.getElementById('case-head-meta').textContent =
-        `${caseStudy.client || ''} — ${caseStudy.year || ''}`;
-      document.getElementById('ba-before').src = caseStudy.imageBefore || '';
-      document.getElementById('ba-after').src = caseStudy.imageAfter || '';
-      document.getElementById('case-info').innerHTML = `
-        <div class="row"><span>Client</span><span>${escape(caseStudy.client)}</span></div>
-        <div class="row"><span>Talent</span><span>${escape(caseStudy.talent)}</span></div>
-        <div class="row"><span>Year</span><span>${escape(caseStudy.year)}</span></div>
-        <div class="row"><span>Role</span><span>${escape(caseStudy.role)}</span></div>
-        <div class="row"><span>Software</span><span>${escape(caseStudy.software)}</span></div>
-        <div class="row"><span>Format</span><span>${escape(caseStudy.format)}</span></div>
-      `;
-      document.getElementById('case-credits').innerHTML = (caseStudy.credits || []).map(c =>
-        `<div class="credit-row"><span>${escape(c.role)}</span><span>${escape(c.name)}</span></div>`
-      ).join('');
-
-      // Backstage
-      bind('backstage.intro', backstage.intro);
-      document.getElementById('backstage-grid').innerHTML = (backstage.videos || []).map(v => `
-        <a href="${escape(v.videoUrl || '#')}" target="_blank" rel="noopener" class="video-card interactive">
-          <img src="${escape(v.thumbnail)}" alt="${escape(v.title)}">
-          <div class="play-btn"></div>
-          <div class="video-meta">
-            <span class="title">${escape(v.title)}</span>
-            <span class="duration">${escape(v.duration)}</span>
-          </div>
-        </a>
-      `).join('');
-
-      // Clients marquee (duplicated for seamless loop)
+      // CLIENTS MARQUEE
       const clientList = clients.items || [];
       const marqueeHTML = clientList.map(c =>
-        `<span>${escape(typeof c === 'string' ? c : c.name)}</span><span class="dot"></span>`
+        `<span>${escapeHtml(typeof c === 'string' ? c : c.name)}</span><span class="dot"></span>`
       ).join('');
       document.getElementById('marquee').innerHTML = marqueeHTML + marqueeHTML;
 
-      // About
+      // ABOUT
       bind('about.heading', about.heading);
       document.getElementById('about-body').innerHTML =
         (about.paragraphs || []).map(p =>
-          `<p>${escape(typeof p === 'string' ? p : p.text)}</p>`
+          `<p>${escapeHtml(typeof p === 'string' ? p : p.text)}</p>`
         ).join('') +
         `<div class="about-stats">` +
         (about.stats || []).map(s =>
-          `<div class="stat"><div class="num">${escape(s.value)}</div><div class="lbl">${escape(s.label)}</div></div>`
+          `<div class="stat"><div class="num">${escapeHtml(s.value)}</div><div class="lbl">${escapeHtml(s.label)}</div></div>`
         ).join('') +
         `</div>`;
 
-      // Footer
+      // FOOTER
       document.getElementById('contact-cta').innerHTML = `
-        ${escape(footer.ctaLine1)}<br>${escape(footer.ctaLine2)}<br>${escape(footer.ctaLine3Pre)} <span class="em">${escape(footer.ctaLine3Em)}</span><br>
-        <a href="mailto:${escape(footer.email)}" class="interactive">${escape(footer.email)} →</a>
+        ${escapeHtml(footer.ctaLine1)}<br>${escapeHtml(footer.ctaLine2)}<br>${escapeHtml(footer.ctaLine3Pre)} <span class="em">${escapeHtml(footer.ctaLine3Em)}</span><br>
+        <a href="mailto:${escapeHtml(footer.email)}" class="interactive">${escapeHtml(footer.email)} →</a>
       `;
       document.getElementById('footer-grid').innerHTML = `
         <div class="col">
           <h4>Contact</h4>
-          <a href="mailto:${escape(footer.email)}" class="interactive">${escape(footer.email)}</a>
+          <a href="mailto:${escapeHtml(footer.email)}" class="interactive">${escapeHtml(footer.email)}</a>
         </div>
         <div class="col">
           <h4>Social</h4>
           ${(footer.social || []).map(s =>
-            `<a href="${escape(s.url)}" target="_blank" rel="noopener" class="interactive">${escape(s.label)}</a>`
+            `<a href="${escapeHtml(s.url)}" target="_blank" rel="noopener" class="interactive">${escapeHtml(s.label)}</a>`
           ).join('')}
         </div>
         <div class="col">
           <h4>Index</h4>
           <a href="#work" class="interactive">Work</a>
-          <a href="#case" class="interactive">Case Study</a>
-          <a href="#backstage" class="interactive">Process</a>
           <a href="#about" class="interactive">About</a>
+          <a href="#contact" class="interactive">Contact</a>
         </div>
         <div class="col">
           <h4>Studio</h4>
@@ -966,22 +204,12 @@
           <span>EU · GMT+1</span>
         </div>
       `;
-
     } catch (err) {
-      console.warn('Content load failed, using fallback HTML:', err);
+      console.warn('Content load failed:', err);
     }
   }
 
-  function bind(key, value) {
-    if (value == null) return;
-    document.querySelectorAll(`[data-bind="${key}"]`).forEach(el => el.textContent = value);
-  }
-  function escape(s) {
-    if (s == null) return '';
-    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  }
-
-  /* ───── CUSTOM CURSOR ───── */
+  /* ─── cursor ─── */
   const cursor = document.getElementById('cursor');
   let cx = 0, cy = 0, tx = 0, ty = 0;
   window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
@@ -1002,57 +230,22 @@
   }
   bindCursor();
 
-  /* ───── REVEAL ───── */
+  /* ─── reveals ─── */
   function setupReveals() {
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('in');
-          io.unobserve(e.target);
-        }
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
     document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
   }
 
-  /* ───── BEFORE / AFTER ───── */
-  function setupBA() {
-    const ba = document.getElementById('beforeAfter');
-    const baClip = document.getElementById('baClip');
-    const baHandle = document.getElementById('baHandle');
-    let dragging = false;
-    function setBA(pct) {
-      pct = Math.max(0, Math.min(100, pct));
-      baClip.style.width = pct + '%';
-      baHandle.style.left = pct + '%';
-    }
-    function baMove(e) {
-      if (!dragging) return;
-      const rect = ba.getBoundingClientRect();
-      const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-      setBA((x / rect.width) * 100);
-    }
-    ba.addEventListener('mousedown', e => { dragging = true; baMove(e); });
-    ba.addEventListener('touchstart', e => { dragging = true; baMove(e); }, { passive: true });
-    window.addEventListener('mousemove', baMove);
-    window.addEventListener('touchmove', baMove, { passive: true });
-    window.addEventListener('mouseup', () => dragging = false);
-    window.addEventListener('touchend', () => dragging = false);
-    ba.addEventListener('click', e => {
-      const rect = ba.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      setBA((x / rect.width) * 100);
-    });
-    setBA(50);
-  }
-
-  /* ───── WEBGL HERO ───── */
+  /* ─── WebGL hero ─── */
   function setupHero() {
     const canvas = document.getElementById('hero-canvas');
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
     camera.position.set(0, 0, 4.5);
-
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -1061,7 +254,6 @@
     const original = geo.attributes.position.array.slice();
     const phases = new Float32Array(original.length / 3);
     for (let i = 0; i < phases.length; i++) phases[i] = Math.random() * Math.PI * 2;
-
     const wireMat = new THREE.MeshBasicMaterial({ color: 0xf5f3ef, wireframe: true, transparent: true, opacity: 0.35 });
     const mesh = new THREE.Mesh(geo, wireMat);
     scene.add(mesh);
@@ -1139,9 +331,8 @@
     });
   }
 
-  /* ───── BOOTSTRAP ───── */
+  /* bootstrap */
   setupHero();
-  setupBA();
   loadContent().then(() => {
     bindCursor();
     setupReveals();

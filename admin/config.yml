@@ -8,8 +8,8 @@ media_folder: "media"
 public_folder: "/media"
 
 # preview link in admin
-site_url: https://kristiancimo.netlify.app
-display_url: https://kristiancimo.netlify.app
+site_url: https://kristiancimo.it
+display_url: https://kristiancimo.it
 
 # CMS UI
 locale: en

@@ -1,0 +1,84 @@
+{
+  "items": [
+    {
+      "order": 1,
+      "title": "Hawkers × Gasly",
+      "year": "2026",
+      "category": "Eyewear / F1",
+      "image": "https://picsum.photos/seed/gasly/1400/900",
+      "link": "#case",
+      "featured": true,
+      "tagLabel": "Featured"
+    },
+    {
+      "order": 2,
+      "title": "Adidas Legacy",
+      "year": "2026",
+      "category": "Installation",
+      "image": "https://picsum.photos/seed/adidasmuseum/900/1200",
+      "link": "#",
+      "featured": false,
+      "tagLabel": ""
+    },
+    {
+      "order": 3,
+      "title": "Zidane Map",
+      "year": "2026",
+      "category": "Cartography / CGI",
+      "image": "https://picsum.photos/seed/zidane/900/1200",
+      "link": "#",
+      "featured": false,
+      "tagLabel": ""
+    },
+    {
+      "order": 4,
+      "title": "Barcelona × World Cup",
+      "year": "2025",
+      "category": "Sport / Identity",
+      "image": "https://picsum.photos/seed/barcelona/1400/800",
+      "link": "#",
+      "featured": false,
+      "tagLabel": ""
+    },
+    {
+      "order": 5,
+      "title": "Sainz · Silverstone",
+      "year": "2026",
+      "category": "F1 / Product CGI",
+      "image": "https://picsum.photos/seed/sainz/1200/900",
+      "link": "#",
+      "featured": false,
+      "tagLabel": ""
+    },
+    {
+      "order": 6,
+      "title": "Generali · Hexagon Cup",
+      "year": "2026",
+      "category": "Sport / Brand",
+      "image": "https://picsum.photos/seed/generali/1200/900",
+      "link": "#",
+      "featured": false,
+      "tagLabel": ""
+    },
+    {
+      "order": 7,
+      "title": "Hakimi · Ballon d'Or",
+      "year": "2025",
+      "category": "Editorial / CGI",
+      "image": "https://picsum.photos/seed/hakimi/900/1200",
+      "link": "#",
+      "featured": false,
+      "tagLabel": ""
+    },
+    {
+      "order": 8,
+      "title": "Sergio Ramos · Room",
+      "year": "2023",
+      "category": "Interior CGI",
+      "image": "https://picsum.photos/seed/ramos/1400/800",
+      "link": "#",
+      "featured": false,
+      "tagLabel": ""
+    }
+  ]
+}

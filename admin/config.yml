@@ -1,0 +1,147 @@
+backend:
+  name: github
+  repo: rotenzark/kristiancimo-portfolio
+  branch: main
+
+# media uploads go to /media folder in the repo
+media_folder: "media"
+public_folder: "/media"
+
+# preview link in admin
+site_url: https://kristiancimo.netlify.app
+display_url: https://kristiancimo.netlify.app
+
+# CMS UI
+locale: en
+
+collections:
+  # ─────────── SITE SETTINGS ───────────
+  - name: "settings"
+    label: "Site Settings"
+    description: "Hero text, status, location, and other top-level site copy."
+    files:
+      - name: "site"
+        label: "Hero / Header"
+        file: "data/site.json"
+        format: "json"
+        fields:
+          - { label: "Page Title (browser tab)", name: "title", widget: "string" }
+          - { label: "Meta Description (SEO)", name: "description", widget: "text" }
+          - { label: "Hero Tagline", name: "tagline", widget: "string", hint: "Small text above the big name. e.g. VFX · CGI · 3D · AI-Driven Visuals" }
+          - { label: "Hero Subtitle (italic)", name: "subtitle", widget: "string", hint: "Italic phrase shown next to your name" }
+          - { label: "Location (bottom-left of hero)", name: "location", widget: "string" }
+          - { label: "Status (top-right of nav)", name: "status", widget: "string", hint: "e.g. Available 2026" }
+
+      - name: "case_study"
+        label: "Featured Case Study"
+        file: "data/case-study.json"
+        format: "json"
+        fields:
+          - { label: "Title — Line 1", name: "title", widget: "string", hint: "e.g. Hawkers" }
+          - { label: "Title — Line 2", name: "titleSecond", widget: "string", hint: "e.g. Gasly (shown after '×')" }
+          - { label: "Client", name: "client", widget: "string" }
+          - { label: "Talent", name: "talent", widget: "string" }
+          - { label: "Year", name: "year", widget: "string" }
+          - { label: "Role", name: "role", widget: "string" }
+          - { label: "Software", name: "software", widget: "string" }
+          - { label: "Format", name: "format", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Image — Before (Raw Plate)", name: "imageBefore", widget: "image" }
+          - { label: "Image — After (Final CGI)", name: "imageAfter", widget: "image" }
+          - label: "Credits"
+            name: "credits"
+            widget: "list"
+            summary: "{{role}} — {{name}}"
+            fields:
+              - { label: "Role", name: "role", widget: "string" }
+              - { label: "Name", name: "name", widget: "string" }
+
+      - name: "backstage"
+        label: "Backstage / Process Videos"
+        file: "data/backstage.json"
+        format: "json"
+        fields:
+          - { label: "Intro Text", name: "intro", widget: "text", hint: "Italic intro shown above the video grid" }
+          - label: "Videos"
+            name: "videos"
+            widget: "list"
+            summary: "{{title}} — {{duration}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Duration", name: "duration", widget: "string", hint: "e.g. 04:12" }
+              - { label: "Thumbnail", name: "thumbnail", widget: "image" }
+              - { label: "Video URL", name: "videoUrl", widget: "string", hint: "Vimeo or YouTube link" }
+
+      - name: "about"
+        label: "About Section"
+        file: "data/about.json"
+        format: "json"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - label: "Paragraphs"
+            name: "paragraphs"
+            widget: "list"
+            summary: "{{text}}"
+            fields:
+              - { label: "Paragraph", name: "text", widget: "text" }
+          - label: "Stats"
+            name: "stats"
+            widget: "list"
+            summary: "{{value}} — {{label}}"
+            fields:
+              - { label: "Value", name: "value", widget: "string", hint: "e.g. 08+, 40+, 3" }
+              - { label: "Label", name: "label", widget: "string", hint: "e.g. Years in CGI" }
+
+      - name: "footer"
+        label: "Footer / Contact"
+        file: "data/footer.json"
+        format: "json"
+        fields:
+          - { label: "CTA — Line 1", name: "ctaLine1", widget: "string", hint: "e.g. Let's" }
+          - { label: "CTA — Line 2", name: "ctaLine2", widget: "string", hint: "e.g. build" }
+          - { label: "CTA — Line 3 (start)", name: "ctaLine3Pre", widget: "string", hint: "e.g. something" }
+          - { label: "CTA — Line 3 (italic word)", name: "ctaLine3Em", widget: "string", hint: "e.g. unreal." }
+          - { label: "Contact Email", name: "email", widget: "string" }
+          - label: "Social Links"
+            name: "social"
+            widget: "list"
+            summary: "{{label}}"
+            fields:
+              - { label: "Label", name: "label", widget: "string", hint: "e.g. Instagram" }
+              - { label: "URL", name: "url", widget: "string" }
+
+      - name: "clients"
+        label: "Clients (Marquee)"
+        file: "data/clients.json"
+        format: "json"
+        fields:
+          - label: "Clients"
+            name: "items"
+            widget: "list"
+            summary: "{{name}}"
+            fields:
+              - { label: "Client Name", name: "name", widget: "string" }
+
+  # ─────────── PROJECTS ───────────
+  - name: "projects"
+    label: "Projects"
+    description: "All projects shown in the Selected Work grid. Use 'Display Order' to control sorting (lower = first)."
+    files:
+      - name: "all_projects"
+        label: "Projects List"
+        file: "data/projects.json"
+        format: "json"
+        fields:
+          - label: "Projects"
+            name: "items"
+            widget: "list"
+            summary: "{{order}}. {{title}} ({{year}})"
+            fields:
+              - { label: "Display Order", name: "order", widget: "number", value_type: "int", hint: "Lower number = appears first. The grid pattern repeats every 8 projects." }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Year", name: "year", widget: "string" }
+              - { label: "Category", name: "category", widget: "string", hint: "e.g. Eyewear / F1, Sport / Brand" }
+              - { label: "Cover Image", name: "image", widget: "image" }
+              - { label: "Link (optional)", name: "link", widget: "string", default: "#", required: false, hint: "Leave # if no detail page yet. Use #case to link to the featured case study." }
+              - { label: "Featured", name: "featured", widget: "boolean", default: false, hint: "If true, shows a small tag in the top-left of the card." }
+              - { label: "Tag Label", name: "tagLabel", widget: "string", required: false, default: "Featured", hint: "Text shown in the featured tag." }

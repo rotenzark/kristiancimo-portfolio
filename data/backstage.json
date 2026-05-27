@@ -1,0 +1,29 @@
+{
+  "intro": "Every frame hides a thousand decisions. Here's where the magic gets stripped down to its pixels.",
+  "videos": [
+    {
+      "title": "Building Silverstone in CGI",
+      "duration": "04:12",
+      "thumbnail": "https://picsum.photos/seed/bts1/1200/900",
+      "videoUrl": "#"
+    },
+    {
+      "title": "Zidane Map · Breakdown",
+      "duration": "02:45",
+      "thumbnail": "https://picsum.photos/seed/bts2/1200/700",
+      "videoUrl": "#"
+    },
+    {
+      "title": "AI Pipelines · Test 04",
+      "duration": "06:08",
+      "thumbnail": "https://picsum.photos/seed/bts3/1200/700",
+      "videoUrl": "#"
+    },
+    {
+      "title": "Sergio Ramos Room · Lookdev",
+      "duration": "03:30",
+      "thumbnail": "https://picsum.photos/seed/bts4/1600/700",
+      "videoUrl": "#"
+    }
+  ]
+}

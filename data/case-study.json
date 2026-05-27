@@ -1,0 +1,22 @@
+{
+  "title": "Hawkers",
+  "titleSecond": "Gasly",
+  "client": "Hawkers Co.",
+  "talent": "Pierre Gasly",
+  "year": "2026",
+  "role": "VFX · CGI · Direction",
+  "software": "Houdini · C4D · Nuke",
+  "format": "Campaign · Social",
+  "description": "A campaign film built around the speed of light and the silence after the corner. We rebuilt Silverstone in CGI, replaced the surrounding environment frame-by-frame, and matched optical aberrations of Hawkers' new lens line — so the product became the lens you see the world through.",
+  "imageBefore": "https://picsum.photos/seed/gasly-shot/1600/900",
+  "imageAfter": "https://picsum.photos/seed/gasly-shot/1600/900",
+  "credits": [
+    { "role": "Direction & VFX", "name": "Kristian Cimò" },
+    { "role": "Agency", "name": "—" },
+    { "role": "DOP", "name": "—" },
+    { "role": "3D / Lookdev", "name": "Studio KC" },
+    { "role": "Compositing", "name": "Studio KC" },
+    { "role": "Color", "name": "—" },
+    { "role": "Sound", "name": "—" }
+  ]
+}

@@ -24,9 +24,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
-
   body {
     background: var(--bg);
     color: var(--fg);
@@ -36,17 +34,14 @@
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
-
   @media (min-width: 900px) {
     body { cursor: none; }
     a, button, .interactive { cursor: none; }
   }
-
   ::selection { background: var(--accent); color: var(--bg); }
-
   a { color: inherit; text-decoration: none; }
 
-  /* ─────────── grain + scanlines overlay ─────────── */
+  /* grain overlay */
   .grain {
     position: fixed;
     inset: 0;
@@ -59,14 +54,14 @@
     animation: grainShift 0.4s steps(4) infinite;
   }
   @keyframes grainShift {
-    0%   { transform: translate(0, 0); }
-    25%  { transform: translate(-3%, 1%); }
-    50%  { transform: translate(2%, -2%); }
-    75%  { transform: translate(-1%, 2%); }
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-3%, 1%); }
+    50% { transform: translate(2%, -2%); }
+    75% { transform: translate(-1%, 2%); }
     100% { transform: translate(0, 0); }
   }
 
-  /* ─────────── custom cursor ─────────── */
+  /* custom cursor */
   .cursor {
     position: fixed;
     top: 0; left: 0;
@@ -79,13 +74,10 @@
     transform: translate(-50%, -50%);
     transition: width 0.25s cubic-bezier(.2,.8,.2,1), height 0.25s cubic-bezier(.2,.8,.2,1), background 0.25s;
   }
-  .cursor.hover {
-    width: 56px; height: 56px;
-    background: var(--fg);
-  }
+  .cursor.hover { width: 56px; height: 56px; background: var(--fg); }
   @media (max-width: 899px) { .cursor { display: none; } }
 
-  /* ─────────── nav ─────────── */
+  /* nav */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -99,66 +91,40 @@
     letter-spacing: 0.18em;
     text-transform: uppercase;
   }
-  .logo {
-    font-family: 'Anton', sans-serif;
-    font-size: 16px;
-    letter-spacing: 0.04em;
-  }
+  .logo { font-family: 'Anton', sans-serif; font-size: 16px; letter-spacing: 0.04em; }
   .logo span { color: var(--accent); }
   .nav-links { display: flex; gap: 28px; }
   .nav-links a { position: relative; padding: 4px 0; }
   .nav-links a::after {
-    content: '';
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    height: 1px;
-    background: currentColor;
-    transform: scaleX(0);
-    transform-origin: right;
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0;
+    height: 1px; background: currentColor;
+    transform: scaleX(0); transform-origin: right;
     transition: transform 0.4s cubic-bezier(.7,0,.2,1);
   }
   .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
-  .nav-status {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .nav-status { display: flex; align-items: center; gap: 8px; }
   .nav-status .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #4ade80;
-    box-shadow: 0 0 12px #4ade80;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #4ade80; box-shadow: 0 0 12px #4ade80;
     animation: pulse 2s infinite;
   }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
   @media (max-width: 768px) {
     nav { padding: 16px 20px; }
     .nav-links { display: none; }
   }
 
-  /* ─────────── hero ─────────── */
+  /* hero */
   .hero {
     position: relative;
     height: 100vh;
     min-height: 700px;
     overflow: hidden;
   }
-  #hero-canvas {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-  }
+  #hero-canvas { position: absolute; inset: 0; z-index: 1; }
   .hero-content {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; justify-content: flex-end;
     padding: 0 32px 100px;
     pointer-events: none;
   }
@@ -172,11 +138,7 @@
     gap: 20px;
     align-items: center;
   }
-  .hero-tag::before {
-    content: '';
-    width: 40px; height: 1px;
-    background: var(--muted);
-  }
+  .hero-tag::before { content: ''; width: 40px; height: 1px; background: var(--muted); }
   .hero h1 {
     font-family: 'Anton', sans-serif;
     font-size: clamp(60px, 16vw, 240px);
@@ -197,8 +159,7 @@
   }
   .hero-meta {
     position: absolute;
-    bottom: 32px;
-    left: 32px; right: 32px;
+    bottom: 32px; left: 32px; right: 32px;
     display: flex;
     justify-content: space-between;
     font-size: 11px;
@@ -206,32 +167,23 @@
     text-transform: uppercase;
     color: var(--muted);
   }
-  .scroll-indicator {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  .scroll-indicator { display: flex; align-items: center; gap: 12px; }
   .scroll-indicator .line {
-    width: 32px;
-    height: 1px;
+    width: 32px; height: 1px;
     background: var(--muted);
-    position: relative;
-    overflow: hidden;
+    position: relative; overflow: hidden;
   }
   .scroll-indicator .line::after {
-    content: '';
-    position: absolute;
-    inset: 0;
+    content: ''; position: absolute; inset: 0;
     background: var(--fg);
     transform: translateX(-100%);
     animation: scrollLine 2.4s cubic-bezier(.7,0,.2,1) infinite;
   }
   @keyframes scrollLine {
-    0%   { transform: translateX(-100%); }
-    50%  { transform: translateX(0); }
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(0); }
     100% { transform: translateX(100%); }
   }
-
   @media (max-width: 768px) {
     .hero-content { padding: 0 20px 80px; }
     .hero-meta { left: 20px; right: 20px; bottom: 20px; font-size: 9px; }
@@ -239,7 +191,7 @@
     .hero-tag::before { width: 24px; }
   }
 
-  /* ─────────── section labels ─────────── */
+  /* section labels */
   .section-head {
     display: flex;
     justify-content: space-between;
@@ -254,10 +206,8 @@
   }
   .section-head .num { color: var(--fg); }
 
-  /* ─────────── work grid ─────────── */
-  .work {
-    padding: 160px 32px 120px;
-  }
+  /* work grid */
+  .work { padding: 160px 32px 120px; }
   .work-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -269,14 +219,15 @@
     background: var(--bg-2);
     aspect-ratio: 4 / 3;
   }
-  .project:nth-child(1) { grid-column: 1 / 8;  aspect-ratio: 16 / 9; }
-  .project:nth-child(2) { grid-column: 8 / 13; aspect-ratio: 3 / 4; }
-  .project:nth-child(3) { grid-column: 1 / 5;  aspect-ratio: 3 / 4; }
-  .project:nth-child(4) { grid-column: 5 / 13; aspect-ratio: 16 / 9; }
-  .project:nth-child(5) { grid-column: 1 / 7; }
-  .project:nth-child(6) { grid-column: 7 / 13; }
-  .project:nth-child(7) { grid-column: 1 / 6;  aspect-ratio: 3 / 4; }
-  .project:nth-child(8) { grid-column: 6 / 13; aspect-ratio: 16 / 9; }
+  /* asymmetric pattern repeating every 8 projects */
+  .project:nth-child(8n+1) { grid-column: 1 / 8; aspect-ratio: 16 / 9; }
+  .project:nth-child(8n+2) { grid-column: 8 / 13; aspect-ratio: 3 / 4; }
+  .project:nth-child(8n+3) { grid-column: 1 / 5; aspect-ratio: 3 / 4; }
+  .project:nth-child(8n+4) { grid-column: 5 / 13; aspect-ratio: 16 / 9; }
+  .project:nth-child(8n+5) { grid-column: 1 / 7; }
+  .project:nth-child(8n+6) { grid-column: 7 / 13; }
+  .project:nth-child(8n+7) { grid-column: 1 / 6; aspect-ratio: 3 / 4; }
+  .project:nth-child(8n) { grid-column: 6 / 13; aspect-ratio: 16 / 9; }
 
   .project img {
     width: 100%; height: 100%;
@@ -289,8 +240,7 @@
     transform: scale(1.04);
   }
   .project-meta {
-    position: absolute;
-    inset: auto 0 0 0;
+    position: absolute; inset: auto 0 0 0;
     padding: 24px;
     display: flex;
     justify-content: space-between;
@@ -325,18 +275,14 @@
     backdrop-filter: blur(8px);
     background: rgba(0,0,0,0.3);
   }
-
   @media (max-width: 900px) {
     .work { padding: 80px 20px; }
     .work-grid { gap: 12px; }
     .project { grid-column: 1 / -1 !important; aspect-ratio: 4 / 3 !important; }
   }
 
-  /* ─────────── case study (featured) ─────────── */
-  .case {
-    padding: 120px 32px;
-    border-top: 1px solid var(--line);
-  }
+  /* case study */
+  .case { padding: 120px 32px; border-top: 1px solid var(--line); }
   .case-meta {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -370,7 +316,6 @@
   .case-info .row { display: flex; flex-direction: column; gap: 4px; }
   .case-info .row span:last-child { color: var(--fg); }
 
-  /* before/after slider */
   .before-after {
     position: relative;
     aspect-ratio: 16 / 9;
@@ -380,8 +325,7 @@
     background: #000;
   }
   .ba-img {
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0;
     width: 100%; height: 100%;
     object-fit: cover;
     pointer-events: none;
@@ -390,15 +334,11 @@
     filter: grayscale(85%) contrast(0.85) brightness(0.55) saturate(0.4);
   }
   .ba-clip {
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0;
     overflow: hidden;
     width: 50%;
   }
-  .ba-clip .ba-img {
-    width: 100vw;
-    max-width: none;
-  }
+  .ba-clip .ba-img { width: 100vw; max-width: none; }
   .ba-handle {
     position: absolute;
     top: 0; bottom: 0;
@@ -411,8 +351,7 @@
   }
   .ba-handle-knob {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     width: 56px; height: 56px;
     border-radius: 50%;
@@ -423,14 +362,10 @@
     justify-content: center;
     font-family: 'JetBrains Mono', monospace;
     font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0;
   }
   .ba-labels {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    right: 20px;
+    top: 20px; left: 20px; right: 20px;
     display: flex;
     justify-content: space-between;
     z-index: 4;
@@ -457,14 +392,13 @@
     font-family: 'Instrument Serif', serif;
     font-size: clamp(20px, 2.2vw, 28px);
     line-height: 1.35;
-    color: var(--fg);
   }
   .case-credits {
     font-size: 11px;
     line-height: 2;
     letter-spacing: 0.05em;
   }
-  .case-credits .credit-row {
+  .credit-row {
     display: flex;
     justify-content: space-between;
     padding: 12px 0;
@@ -473,8 +407,7 @@
     letter-spacing: 0.18em;
     font-size: 10px;
   }
-  .case-credits .credit-row span:first-child { color: var(--muted); }
-
+  .credit-row span:first-child { color: var(--muted); }
   @media (max-width: 900px) {
     .case { padding: 80px 20px; }
     .case-meta, .case-body, .case-info { grid-template-columns: 1fr; gap: 24px; }
@@ -482,7 +415,7 @@
     .ba-labels { font-size: 8px; }
   }
 
-  /* ─────────── backstage videos ─────────── */
+  /* backstage */
   .backstage {
     padding: 120px 32px;
     background: var(--bg-2);
@@ -507,10 +440,10 @@
     background: #000;
     aspect-ratio: 16 / 9;
   }
-  .video-card:nth-child(1) { grid-column: 1 / 4; aspect-ratio: 4 / 3; }
-  .video-card:nth-child(2) { grid-column: 4 / 7; }
-  .video-card:nth-child(3) { grid-column: 1 / 3; }
-  .video-card:nth-child(4) { grid-column: 3 / 7; aspect-ratio: 21 / 9; }
+  .video-card:nth-child(4n+1) { grid-column: span 3; aspect-ratio: 4 / 3; }
+  .video-card:nth-child(4n+2) { grid-column: span 3; }
+  .video-card:nth-child(4n+3) { grid-column: span 2; }
+  .video-card:nth-child(4n) { grid-column: span 4; aspect-ratio: 21 / 9; }
 
   .video-card img {
     width: 100%; height: 100%;
@@ -537,8 +470,7 @@
     transition: background 0.3s, transform 0.4s;
   }
   .video-card .play-btn::after {
-    content: '';
-    width: 0; height: 0;
+    content: ''; width: 0; height: 0;
     border-left: 12px solid var(--fg);
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
@@ -549,9 +481,7 @@
     border-color: var(--accent);
     transform: translate(-50%, -50%) scale(1.1);
   }
-  .video-card:hover .play-btn::after {
-    border-left-color: var(--bg);
-  }
+  .video-card:hover .play-btn::after { border-left-color: var(--bg); }
   .video-meta {
     position: absolute;
     bottom: 0; left: 0; right: 0;
@@ -563,16 +493,14 @@
     text-transform: uppercase;
     background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
   }
-  .video-meta .title { color: var(--fg); }
   .video-meta .duration { color: var(--muted); }
-
   @media (max-width: 900px) {
     .backstage { padding: 80px 20px; }
     .backstage-grid { grid-template-columns: 1fr; gap: 12px; }
     .video-card { grid-column: 1 / -1 !important; aspect-ratio: 16 / 9 !important; }
   }
 
-  /* ─────────── clients marquee ─────────── */
+  /* clients */
   .clients {
     padding: 40px 0;
     border-top: 1px solid var(--line);
@@ -605,10 +533,10 @@
   }
   @keyframes marquee {
     from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
+    to { transform: translateX(-50%); }
   }
 
-  /* ─────────── about ─────────── */
+  /* about */
   .about {
     padding: 160px 32px;
     display: grid;
@@ -628,7 +556,7 @@
     line-height: 1.4;
     margin-bottom: 24px;
   }
-  .about-body p:last-child { color: var(--muted); }
+  .about-body p:last-of-type { color: var(--muted); }
   .about-stats {
     margin-top: 48px;
     display: grid;
@@ -649,18 +577,13 @@
     text-transform: uppercase;
     color: var(--muted);
   }
-
   @media (max-width: 900px) {
     .about { padding: 80px 20px; grid-template-columns: 1fr; gap: 32px; }
     .about-stats { grid-template-columns: 1fr; gap: 24px; }
   }
 
-  /* ─────────── footer / contact ─────────── */
-  footer {
-    padding: 120px 32px 32px;
-    border-top: 1px solid var(--line);
-    position: relative;
-  }
+  /* footer */
+  footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   .contact-cta {
     font-family: 'Anton', sans-serif;
     font-size: clamp(64px, 13vw, 220px);
@@ -712,32 +635,17 @@
     text-transform: uppercase;
     color: var(--muted);
   }
-
   @media (max-width: 900px) {
     footer { padding: 80px 20px 20px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
     .footer-base { flex-direction: column; gap: 8px; }
   }
 
-  /* ─────────── reveal animation ─────────── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 1.2s cubic-bezier(.2,.8,.2,1), transform 1.2s cubic-bezier(.2,.8,.2,1);
-  }
-  .reveal.in {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .reveal-stagger > * {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1s cubic-bezier(.2,.8,.2,1), transform 1s cubic-bezier(.2,.8,.2,1);
-  }
-  .reveal-stagger.in > * {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1.2s cubic-bezier(.2,.8,.2,1), transform 1.2s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal-stagger > * { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(.2,.8,.2,1), transform 1s cubic-bezier(.2,.8,.2,1); }
+  .reveal-stagger.in > * { opacity: 1; transform: translateY(0); }
   .reveal-stagger.in > *:nth-child(1) { transition-delay: 0s; }
   .reveal-stagger.in > *:nth-child(2) { transition-delay: 0.08s; }
   .reveal-stagger.in > *:nth-child(3) { transition-delay: 0.16s; }
@@ -747,7 +655,7 @@
   .reveal-stagger.in > *:nth-child(7) { transition-delay: 0.48s; }
   .reveal-stagger.in > *:nth-child(8) { transition-delay: 0.56s; }
 
-  /* ─────────── intro loader ─────────── */
+  /* loader */
   .loader {
     position: fixed;
     inset: 0;
@@ -758,13 +666,7 @@
     justify-content: center;
     transition: opacity 0.8s, visibility 0.8s;
   }
-  .loader.gone {
-    opacity: 0;
-    visibility: hidden;
-  }
-  .loader-content {
-    text-align: center;
-  }
+  .loader.gone { opacity: 0; visibility: hidden; }
   .loader-name {
     font-family: 'Anton', sans-serif;
     font-size: 48px;
@@ -777,10 +679,7 @@
     display: inline-block;
     animation: loaderUp 1s cubic-bezier(.7,0,.2,1) forwards;
   }
-  @keyframes loaderUp {
-    from { transform: translateY(100%); }
-    to   { transform: translateY(0); }
-  }
+  @keyframes loaderUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
   .loader-bar {
     width: 200px; height: 1px;
     background: rgba(255,255,255,0.2);
@@ -795,28 +694,21 @@
     transform: translateX(-100%);
     animation: loaderFill 1.6s cubic-bezier(.7,0,.2,1) forwards;
   }
-  @keyframes loaderFill {
-    to { transform: translateX(0); }
-  }
+  @keyframes loaderFill { to { transform: translateX(0); } }
 </style>
 </head>
 <body>
 
-<!-- grain overlay (CRT/film feel) -->
 <div class="grain"></div>
-
-<!-- custom cursor -->
 <div class="cursor" id="cursor"></div>
 
-<!-- intro loader -->
 <div class="loader" id="loader">
-  <div class="loader-content">
+  <div style="text-align:center;">
     <div class="loader-name"><span>Kristian Cimò</span></div>
     <div class="loader-bar"></div>
   </div>
 </div>
 
-<!-- nav -->
 <nav>
   <a href="#" class="logo">KC<span>.</span></a>
   <div class="nav-links">
@@ -828,22 +720,22 @@
   </div>
   <div class="nav-status">
     <span class="dot"></span>
-    <span>Available 2026</span>
+    <span data-bind="status">Available 2026</span>
   </div>
 </nav>
 
-<!-- ─────────── HERO ─────────── -->
+<!-- HERO -->
 <section class="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-content">
-    <div class="hero-tag">VFX · CGI · 3D · AI-Driven Visuals</div>
+    <div class="hero-tag" data-bind="tagline">VFX · CGI · 3D · AI-Driven Visuals</div>
     <h1>
       Kristian<br>
-      Cimò<span class="italic">— shaping the unseen</span>
+      Cimò<span class="italic" data-bind="subtitle">— shaping the unseen</span>
     </h1>
   </div>
   <div class="hero-meta">
-    <div>BRESCIA · IT — REMOTE WORLDWIDE</div>
+    <div data-bind="location">BRESCIA · IT — REMOTE WORLDWIDE</div>
     <div class="scroll-indicator">
       <span>Scroll</span>
       <span class="line"></span>
@@ -851,106 +743,38 @@
   </div>
 </section>
 
-<!-- ─────────── WORK ─────────── -->
+<!-- WORK -->
 <section class="work" id="work">
   <div class="section-head reveal">
     <span><span class="num">01</span> &nbsp;/&nbsp; Selected Work</span>
     <span>2023 — 2026</span>
   </div>
-  <div class="work-grid reveal-stagger">
-
-    <a href="#case" class="project interactive">
-      <span class="project-tag">Featured</span>
-      <img src="https://picsum.photos/seed/gasly/1400/900" alt="Hawkers x Pierre Gasly">
-      <div class="project-meta">
-        <div class="project-title">Hawkers × Gasly</div>
-        <div class="project-info"><div class="year">2026</div><div>Eyewear / F1</div></div>
-      </div>
-    </a>
-
-    <a href="#" class="project interactive">
-      <img src="https://picsum.photos/seed/adidasmuseum/900/1200" alt="Adidas Legacy Museum">
-      <div class="project-meta">
-        <div class="project-title">Adidas Legacy</div>
-        <div class="project-info"><div class="year">2026</div><div>Installation</div></div>
-      </div>
-    </a>
-
-    <a href="#" class="project interactive">
-      <img src="https://picsum.photos/seed/zidane/900/1200" alt="Zidane Map">
-      <div class="project-meta">
-        <div class="project-title">Zidane Map</div>
-        <div class="project-info"><div class="year">2026</div><div>Cartography / CGI</div></div>
-      </div>
-    </a>
-
-    <a href="#" class="project interactive">
-      <img src="https://picsum.photos/seed/barcelona/1400/800" alt="FC Barcelona — World Cup">
-      <div class="project-meta">
-        <div class="project-title">Barcelona × World Cup</div>
-        <div class="project-info"><div class="year">2025</div><div>Sport / Identity</div></div>
-      </div>
-    </a>
-
-    <a href="#" class="project interactive">
-      <img src="https://picsum.photos/seed/sainz/1200/900" alt="Carlos Sainz — Silverstone Helmet">
-      <div class="project-meta">
-        <div class="project-title">Sainz · Silverstone</div>
-        <div class="project-info"><div class="year">2026</div><div>F1 / Product CGI</div></div>
-      </div>
-    </a>
-
-    <a href="#" class="project interactive">
-      <img src="https://picsum.photos/seed/generali/1200/900" alt="Generali Hexagon Cup">
-      <div class="project-meta">
-        <div class="project-title">Generali · Hexagon Cup</div>
-        <div class="project-info"><div class="year">2026</div><div>Sport / Brand</div></div>
-      </div>
-    </a>
-
-    <a href="#" class="project interactive">
-      <img src="https://picsum.photos/seed/hakimi/900/1200" alt="Hakimi — Ballon d'Or">
-      <div class="project-meta">
-        <div class="project-title">Hakimi · Ballon d'Or</div>
-        <div class="project-info"><div class="year">2025</div><div>Editorial / CGI</div></div>
-      </div>
-    </a>
-
-    <a href="#" class="project interactive">
-      <img src="https://picsum.photos/seed/ramos/1400/800" alt="Sergio Ramos — Room">
-      <div class="project-meta">
-        <div class="project-title">Sergio Ramos · Room</div>
-        <div class="project-info"><div class="year">2023</div><div>Interior CGI</div></div>
-      </div>
-    </a>
-
+  <div class="work-grid reveal-stagger" id="work-grid">
+    <!-- populated by JS from data/projects.json -->
   </div>
 </section>
 
-<!-- ─────────── CASE STUDY ─────────── -->
+<!-- CASE STUDY -->
 <section class="case" id="case">
   <div class="section-head reveal">
     <span><span class="num">02</span> &nbsp;/&nbsp; Case Study</span>
-    <span>Hawkers × Pierre Gasly — 2026</span>
+    <span id="case-head-meta">Featured</span>
   </div>
 
   <div class="case-meta reveal">
-    <h2 class="case-title">Hawkers<br><span class="em">× </span>Gasly</h2>
-    <div class="case-info">
-      <div class="row"><span>Client</span><span>Hawkers Co.</span></div>
-      <div class="row"><span>Talent</span><span>Pierre Gasly</span></div>
-      <div class="row"><span>Year</span><span>2026</span></div>
-      <div class="row"><span>Role</span><span>VFX · CGI · Direction</span></div>
-      <div class="row"><span>Software</span><span>Houdini · C4D · Nuke</span></div>
-      <div class="row"><span>Format</span><span>Campaign · Social</span></div>
+    <h2 class="case-title">
+      <span data-bind="case.title">Hawkers</span><br>
+      <span class="em">× </span><span data-bind="case.titleSecond">Gasly</span>
+    </h2>
+    <div class="case-info" id="case-info">
+      <!-- populated by JS -->
     </div>
   </div>
 
-  <!-- before/after slider -->
   <div class="before-after interactive" id="beforeAfter">
-    <img class="ba-img before" src="https://picsum.photos/seed/gasly-shot/1600/900" alt="Raw plate">
+    <img class="ba-img before" id="ba-before" src="" alt="Raw plate">
     <div class="ba-clip" id="baClip">
-      <img class="ba-img after" src="https://picsum.photos/seed/gasly-shot/1600/900" alt="Final composite">
+      <img class="ba-img after" id="ba-after" src="" alt="Final composite">
     </div>
     <div class="ba-labels">
       <span class="before">Raw Plate</span>
@@ -962,152 +786,53 @@
   </div>
 
   <div class="case-body reveal">
-    <div class="case-desc">
-      A campaign film built around the speed of light and the silence after the corner. We rebuilt Silverstone in CGI, replaced the surrounding environment frame-by-frame, and matched optical aberrations of Hawkers' new lens line — so the product became the lens you see the world through.
-    </div>
-    <div class="case-credits">
-      <div class="credit-row"><span>Direction & VFX</span><span>Kristian Cimò</span></div>
-      <div class="credit-row"><span>Agency</span><span>—</span></div>
-      <div class="credit-row"><span>DOP</span><span>—</span></div>
-      <div class="credit-row"><span>3D / Lookdev</span><span>Studio KC</span></div>
-      <div class="credit-row"><span>Compositing</span><span>Studio KC</span></div>
-      <div class="credit-row"><span>Color</span><span>—</span></div>
-      <div class="credit-row"><span>Sound</span><span>—</span></div>
+    <div class="case-desc" data-bind="case.description"></div>
+    <div class="case-credits" id="case-credits">
+      <!-- populated by JS -->
     </div>
   </div>
 </section>
 
-<!-- ─────────── BACKSTAGE ─────────── -->
+<!-- BACKSTAGE -->
 <section class="backstage" id="backstage">
   <div class="section-head reveal">
     <span><span class="num">03</span> &nbsp;/&nbsp; Process / Backstage</span>
     <span>Making-of</span>
   </div>
-  <p class="backstage-intro reveal">
-    Every frame hides a thousand decisions. <br>Here's where the magic gets stripped down to its pixels.
-  </p>
-  <div class="backstage-grid reveal-stagger">
-
-    <div class="video-card interactive">
-      <img src="https://picsum.photos/seed/bts1/1200/900" alt="Backstage 1">
-      <div class="play-btn"></div>
-      <div class="video-meta">
-        <span class="title">Building Silverstone in CGI</span>
-        <span class="duration">04:12</span>
-      </div>
-    </div>
-
-    <div class="video-card interactive">
-      <img src="https://picsum.photos/seed/bts2/1200/700" alt="Backstage 2">
-      <div class="play-btn"></div>
-      <div class="video-meta">
-        <span class="title">Zidane Map · Breakdown</span>
-        <span class="duration">02:45</span>
-      </div>
-    </div>
-
-    <div class="video-card interactive">
-      <img src="https://picsum.photos/seed/bts3/1200/700" alt="Backstage 3">
-      <div class="play-btn"></div>
-      <div class="video-meta">
-        <span class="title">AI Pipelines · Test 04</span>
-        <span class="duration">06:08</span>
-      </div>
-    </div>
-
-    <div class="video-card interactive">
-      <img src="https://picsum.photos/seed/bts4/1600/700" alt="Backstage 4">
-      <div class="play-btn"></div>
-      <div class="video-meta">
-        <span class="title">Sergio Ramos Room · Lookdev</span>
-        <span class="duration">03:30</span>
-      </div>
-    </div>
-
+  <p class="backstage-intro reveal" data-bind="backstage.intro"></p>
+  <div class="backstage-grid reveal-stagger" id="backstage-grid">
+    <!-- populated by JS -->
   </div>
 </section>
 
-<!-- ─────────── CLIENTS MARQUEE ─────────── -->
+<!-- CLIENTS -->
 <section class="clients">
-  <div class="marquee">
-    <span>Adidas</span><span class="dot"></span>
-    <span>Hawkers</span><span class="dot"></span>
-    <span>FC Barcelona</span><span class="dot"></span>
-    <span>Generali</span><span class="dot"></span>
-    <span>Carlos Sainz</span><span class="dot"></span>
-    <span>Pierre Gasly</span><span class="dot"></span>
-    <span>Sergio Ramos</span><span class="dot"></span>
-    <span>Hakimi</span><span class="dot"></span>
-    <span>Zidane</span><span class="dot"></span>
-    <!-- duplicated for seamless loop -->
-    <span>Adidas</span><span class="dot"></span>
-    <span>Hawkers</span><span class="dot"></span>
-    <span>FC Barcelona</span><span class="dot"></span>
-    <span>Generali</span><span class="dot"></span>
-    <span>Carlos Sainz</span><span class="dot"></span>
-    <span>Pierre Gasly</span><span class="dot"></span>
-    <span>Sergio Ramos</span><span class="dot"></span>
-    <span>Hakimi</span><span class="dot"></span>
-    <span>Zidane</span><span class="dot"></span>
+  <div class="marquee" id="marquee">
+    <!-- populated by JS -->
   </div>
 </section>
 
-<!-- ─────────── ABOUT ─────────── -->
+<!-- ABOUT -->
 <section class="about" id="about">
   <div class="reveal">
     <div class="section-head" style="margin-bottom: 32px;">
       <span><span class="num">04</span> &nbsp;/&nbsp; About</span>
     </div>
-    <h2>The eye behind the render.</h2>
+    <h2 data-bind="about.heading">The eye behind the render.</h2>
   </div>
-  <div class="about-body reveal">
-    <p>
-      I'm Kristian — a VFX & CGI artist based in Italy, building visuals for global brands and athletes. From product CGI for F1 helmets to room-scale installations and AI-driven television sequences.
-    </p>
-    <p>
-      My work sits at the seam where photography ends and computation begins — and lately, where computation starts to dream on its own.
-    </p>
-    <div class="about-stats">
-      <div class="stat"><div class="num">08+</div><div class="lbl">Years in CGI</div></div>
-      <div class="stat"><div class="num">40+</div><div class="lbl">Global Campaigns</div></div>
-      <div class="stat"><div class="num">3</div><div class="lbl">Continents · 1 Pipeline</div></div>
-    </div>
+  <div class="about-body reveal" id="about-body">
+    <!-- populated by JS -->
   </div>
 </section>
 
-<!-- ─────────── FOOTER / CONTACT ─────────── -->
+<!-- FOOTER -->
 <footer id="contact">
-  <h2 class="contact-cta reveal">
-    Let's<br>build<br>something <span class="em">unreal.</span><br>
-    <a href="mailto:hello@kristiancimo.com" class="interactive">hello@kristiancimo.com →</a>
+  <h2 class="contact-cta reveal" id="contact-cta">
+    <!-- populated by JS -->
   </h2>
 
-  <div class="footer-grid">
-    <div class="col">
-      <h4>Contact</h4>
-      <a href="mailto:hello@kristiancimo.com" class="interactive">hello@kristiancimo.com</a>
-      <a href="#" class="interactive">Book a call</a>
-    </div>
-    <div class="col">
-      <h4>Social</h4>
-      <a href="#" class="interactive">Instagram</a>
-      <a href="#" class="interactive">Behance</a>
-      <a href="#" class="interactive">Vimeo</a>
-      <a href="#" class="interactive">LinkedIn</a>
-    </div>
-    <div class="col">
-      <h4>Index</h4>
-      <a href="#work" class="interactive">Work</a>
-      <a href="#case" class="interactive">Case Study</a>
-      <a href="#backstage" class="interactive">Process</a>
-      <a href="#about" class="interactive">About</a>
-    </div>
-    <div class="col">
-      <h4>Studio</h4>
-      <span>Brescia · Italia</span>
-      <span>Remote Worldwide</span>
-      <span>EU · GMT+1</span>
-    </div>
+  <div class="footer-grid" id="footer-grid">
+    <!-- populated by JS -->
   </div>
 
   <div class="footer-base">
@@ -1116,22 +841,150 @@
   </div>
 </footer>
 
-<!-- ─────────── SCRIPTS ─────────── -->
+<!-- SCRIPTS -->
 <script type="module">
   import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
 
-  /* ════════════ 1. LOADER ════════════ */
-  window.addEventListener('load', () => {
+  /* ───── LOADER ───── */
+  function hideLoader() {
     setTimeout(() => document.getElementById('loader').classList.add('gone'), 1600);
-  });
+  }
 
-  /* ════════════ 2. CUSTOM CURSOR ════════════ */
+  /* ───── CONTENT LOADING ───── */
+  async function loadContent() {
+    try {
+      const [site, projects, caseStudy, backstage, about, footer, clients] = await Promise.all([
+        fetch('data/site.json').then(r => r.json()),
+        fetch('data/projects.json').then(r => r.json()),
+        fetch('data/case-study.json').then(r => r.json()),
+        fetch('data/backstage.json').then(r => r.json()),
+        fetch('data/about.json').then(r => r.json()),
+        fetch('data/footer.json').then(r => r.json()),
+        fetch('data/clients.json').then(r => r.json())
+      ]);
+
+      // Simple bindings
+      document.title = site.title || document.title;
+      bind('tagline', site.tagline);
+      bind('subtitle', site.subtitle);
+      bind('location', site.location);
+      bind('status', site.status);
+
+      // Projects grid
+      const projList = (projects.items || []).slice().sort((a,b) => (a.order||999) - (b.order||999));
+      const grid = document.getElementById('work-grid');
+      grid.innerHTML = projList.map(p => `
+        <a href="${p.link || '#'}" class="project interactive">
+          ${p.featured ? `<span class="project-tag">${escape(p.tagLabel || 'Featured')}</span>` : ''}
+          <img src="${escape(p.image)}" alt="${escape(p.title)}">
+          <div class="project-meta">
+            <div class="project-title">${escape(p.title)}</div>
+            <div class="project-info"><div class="year">${escape(p.year)}</div><div>${escape(p.category)}</div></div>
+          </div>
+        </a>
+      `).join('');
+
+      // Case study
+      bind('case.title', caseStudy.title);
+      bind('case.titleSecond', caseStudy.titleSecond);
+      bind('case.description', caseStudy.description);
+      document.getElementById('case-head-meta').textContent =
+        `${caseStudy.client || ''} — ${caseStudy.year || ''}`;
+      document.getElementById('ba-before').src = caseStudy.imageBefore || '';
+      document.getElementById('ba-after').src = caseStudy.imageAfter || '';
+      document.getElementById('case-info').innerHTML = `
+        <div class="row"><span>Client</span><span>${escape(caseStudy.client)}</span></div>
+        <div class="row"><span>Talent</span><span>${escape(caseStudy.talent)}</span></div>
+        <div class="row"><span>Year</span><span>${escape(caseStudy.year)}</span></div>
+        <div class="row"><span>Role</span><span>${escape(caseStudy.role)}</span></div>
+        <div class="row"><span>Software</span><span>${escape(caseStudy.software)}</span></div>
+        <div class="row"><span>Format</span><span>${escape(caseStudy.format)}</span></div>
+      `;
+      document.getElementById('case-credits').innerHTML = (caseStudy.credits || []).map(c =>
+        `<div class="credit-row"><span>${escape(c.role)}</span><span>${escape(c.name)}</span></div>`
+      ).join('');
+
+      // Backstage
+      bind('backstage.intro', backstage.intro);
+      document.getElementById('backstage-grid').innerHTML = (backstage.videos || []).map(v => `
+        <a href="${escape(v.videoUrl || '#')}" target="_blank" rel="noopener" class="video-card interactive">
+          <img src="${escape(v.thumbnail)}" alt="${escape(v.title)}">
+          <div class="play-btn"></div>
+          <div class="video-meta">
+            <span class="title">${escape(v.title)}</span>
+            <span class="duration">${escape(v.duration)}</span>
+          </div>
+        </a>
+      `).join('');
+
+      // Clients marquee (duplicated for seamless loop)
+      const clientList = clients.items || [];
+      const marqueeHTML = clientList.map(c =>
+        `<span>${escape(typeof c === 'string' ? c : c.name)}</span><span class="dot"></span>`
+      ).join('');
+      document.getElementById('marquee').innerHTML = marqueeHTML + marqueeHTML;
+
+      // About
+      bind('about.heading', about.heading);
+      document.getElementById('about-body').innerHTML =
+        (about.paragraphs || []).map(p =>
+          `<p>${escape(typeof p === 'string' ? p : p.text)}</p>`
+        ).join('') +
+        `<div class="about-stats">` +
+        (about.stats || []).map(s =>
+          `<div class="stat"><div class="num">${escape(s.value)}</div><div class="lbl">${escape(s.label)}</div></div>`
+        ).join('') +
+        `</div>`;
+
+      // Footer
+      document.getElementById('contact-cta').innerHTML = `
+        ${escape(footer.ctaLine1)}<br>${escape(footer.ctaLine2)}<br>${escape(footer.ctaLine3Pre)} <span class="em">${escape(footer.ctaLine3Em)}</span><br>
+        <a href="mailto:${escape(footer.email)}" class="interactive">${escape(footer.email)} →</a>
+      `;
+      document.getElementById('footer-grid').innerHTML = `
+        <div class="col">
+          <h4>Contact</h4>
+          <a href="mailto:${escape(footer.email)}" class="interactive">${escape(footer.email)}</a>
+        </div>
+        <div class="col">
+          <h4>Social</h4>
+          ${(footer.social || []).map(s =>
+            `<a href="${escape(s.url)}" target="_blank" rel="noopener" class="interactive">${escape(s.label)}</a>`
+          ).join('')}
+        </div>
+        <div class="col">
+          <h4>Index</h4>
+          <a href="#work" class="interactive">Work</a>
+          <a href="#case" class="interactive">Case Study</a>
+          <a href="#backstage" class="interactive">Process</a>
+          <a href="#about" class="interactive">About</a>
+        </div>
+        <div class="col">
+          <h4>Studio</h4>
+          <span>Brescia · Italia</span>
+          <span>Remote Worldwide</span>
+          <span>EU · GMT+1</span>
+        </div>
+      `;
+
+    } catch (err) {
+      console.warn('Content load failed, using fallback HTML:', err);
+    }
+  }
+
+  function bind(key, value) {
+    if (value == null) return;
+    document.querySelectorAll(`[data-bind="${key}"]`).forEach(el => el.textContent = value);
+  }
+  function escape(s) {
+    if (s == null) return '';
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  /* ───── CUSTOM CURSOR ───── */
   const cursor = document.getElementById('cursor');
   let cx = 0, cy = 0, tx = 0, ty = 0;
-  window.addEventListener('mousemove', e => {
-    tx = e.clientX;
-    ty = e.clientY;
-  });
+  window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
   function cursorLoop() {
     cx += (tx - cx) * 0.2;
     cy += (ty - cy) * 0.2;
@@ -1139,196 +992,163 @@
     requestAnimationFrame(cursorLoop);
   }
   cursorLoop();
-  document.querySelectorAll('.interactive, a, button').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-  });
-
-  /* ════════════ 3. REVEAL ON SCROLL ════════════ */
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      }
+  function bindCursor() {
+    document.querySelectorAll('.interactive, a, button').forEach(el => {
+      if (el.dataset.cursorBound) return;
+      el.dataset.cursorBound = '1';
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
-  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
-
-  /* ════════════ 4. BEFORE / AFTER SLIDER ════════════ */
-  const ba = document.getElementById('beforeAfter');
-  const baClip = document.getElementById('baClip');
-  const baHandle = document.getElementById('baHandle');
-  let dragging = false;
-
-  function setBA(pct) {
-    pct = Math.max(0, Math.min(100, pct));
-    baClip.style.width = pct + '%';
-    baHandle.style.left = pct + '%';
   }
-  function baMove(e) {
-    if (!dragging) return;
-    const rect = ba.getBoundingClientRect();
-    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-    setBA((x / rect.width) * 100);
+  bindCursor();
+
+  /* ───── REVEAL ───── */
+  function setupReveals() {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
   }
-  ba.addEventListener('mousedown', e => { dragging = true; baMove(e); });
-  ba.addEventListener('touchstart', e => { dragging = true; baMove(e); }, { passive: true });
-  window.addEventListener('mousemove', baMove);
-  window.addEventListener('touchmove', baMove, { passive: true });
-  window.addEventListener('mouseup', () => dragging = false);
-  window.addEventListener('touchend', () => dragging = false);
-  // also click-to-set
-  ba.addEventListener('click', e => {
-    const rect = ba.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    setBA((x / rect.width) * 100);
-  });
-  setBA(50);
 
-  /* ════════════ 5. HERO — WEBGL ════════════ */
-  const canvas = document.getElementById('hero-canvas');
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-  camera.position.set(0, 0, 4.5);
-
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-  // morphing icosahedron (wireframe)
-  const geo = new THREE.IcosahedronGeometry(1.3, 5);
-  const original = geo.attributes.position.array.slice();
-  const phases = new Float32Array(original.length / 3);
-  for (let i = 0; i < phases.length; i++) phases[i] = Math.random() * Math.PI * 2;
-
-  const wireMat = new THREE.MeshBasicMaterial({
-    color: 0xf5f3ef,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.35
-  });
-  const mesh = new THREE.Mesh(geo, wireMat);
-  scene.add(mesh);
-
-  // solid inner shell (creates depth, occludes back of wireframe)
-  const innerGeo = new THREE.IcosahedronGeometry(1.27, 5);
-  const innerOriginal = innerGeo.attributes.position.array.slice();
-  const innerMat = new THREE.MeshBasicMaterial({
-    color: 0x0a0a0a,
-    transparent: true,
-    opacity: 0.92
-  });
-  const innerMesh = new THREE.Mesh(innerGeo, innerMat);
-  scene.add(innerMesh);
-
-  // outer subtle red glow shell (atmospheric)
-  const glowGeo = new THREE.IcosahedronGeometry(1.5, 3);
-  const glowMat = new THREE.MeshBasicMaterial({
-    color: 0xff2d2d,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.05
-  });
-  const glowMesh = new THREE.Mesh(glowGeo, glowMat);
-  scene.add(glowMesh);
-
-  // particle field
-  const pCount = 600;
-  const pGeo = new THREE.BufferGeometry();
-  const pPos = new Float32Array(pCount * 3);
-  for (let i = 0; i < pCount; i++) {
-    const r = 3 + Math.random() * 7;
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.acos(2 * Math.random() - 1);
-    pPos[i*3]   = r * Math.sin(phi) * Math.cos(theta);
-    pPos[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
-    pPos[i*3+2] = r * Math.cos(phi);
-  }
-  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-  const pMat = new THREE.PointsMaterial({
-    color: 0xf5f3ef,
-    size: 0.014,
-    transparent: true,
-    opacity: 0.55
-  });
-  const points = new THREE.Points(pGeo, pMat);
-  scene.add(points);
-
-  // mouse
-  let mx = 0, my = 0, tmx = 0, tmy = 0;
-  window.addEventListener('mousemove', e => {
-    tmx = (e.clientX / window.innerWidth) * 2 - 1;
-    tmy = -(e.clientY / window.innerHeight) * 2 + 1;
-  });
-
-  // animate
-  let t = 0;
-  function tick() {
-    t += 0.006;
-
-    const arr = geo.attributes.position.array;
-    const inArr = innerGeo.attributes.position.array;
-    for (let i = 0; i < arr.length; i += 3) {
-      const ph = phases[i / 3];
-      const f = 1
-        + Math.sin(t * 1.4 + ph * 2.7) * 0.07
-        + Math.sin(t * 0.6 + ph * 1.3) * 0.04
-        + Math.cos(t * 2.1 + ph * 0.9) * 0.025;
-      arr[i]   = original[i]   * f;
-      arr[i+1] = original[i+1] * f;
-      arr[i+2] = original[i+2] * f;
-      inArr[i]   = innerOriginal[i]   * f * 0.985;
-      inArr[i+1] = innerOriginal[i+1] * f * 0.985;
-      inArr[i+2] = innerOriginal[i+2] * f * 0.985;
+  /* ───── BEFORE / AFTER ───── */
+  function setupBA() {
+    const ba = document.getElementById('beforeAfter');
+    const baClip = document.getElementById('baClip');
+    const baHandle = document.getElementById('baHandle');
+    let dragging = false;
+    function setBA(pct) {
+      pct = Math.max(0, Math.min(100, pct));
+      baClip.style.width = pct + '%';
+      baHandle.style.left = pct + '%';
     }
-    geo.attributes.position.needsUpdate = true;
-    innerGeo.attributes.position.needsUpdate = true;
-
-    mesh.rotation.y += 0.0018;
-    mesh.rotation.x += 0.0008;
-    innerMesh.rotation.y = mesh.rotation.y;
-    innerMesh.rotation.x = mesh.rotation.x;
-    glowMesh.rotation.y -= 0.0012;
-    glowMesh.rotation.z += 0.0006;
-
-    // smooth camera parallax
-    mx += (tmx - mx) * 0.04;
-    my += (tmy - my) * 0.04;
-    camera.position.x = mx * 0.6;
-    camera.position.y = my * 0.4;
-    camera.lookAt(0, 0, 0);
-
-    points.rotation.y += 0.0004;
-
-    renderer.render(scene, camera);
-    requestAnimationFrame(tick);
+    function baMove(e) {
+      if (!dragging) return;
+      const rect = ba.getBoundingClientRect();
+      const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+      setBA((x / rect.width) * 100);
+    }
+    ba.addEventListener('mousedown', e => { dragging = true; baMove(e); });
+    ba.addEventListener('touchstart', e => { dragging = true; baMove(e); }, { passive: true });
+    window.addEventListener('mousemove', baMove);
+    window.addEventListener('touchmove', baMove, { passive: true });
+    window.addEventListener('mouseup', () => dragging = false);
+    window.addEventListener('touchend', () => dragging = false);
+    ba.addEventListener('click', e => {
+      const rect = ba.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      setBA((x / rect.width) * 100);
+    });
+    setBA(50);
   }
-  tick();
 
-  // resize
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
+  /* ───── WEBGL HERO ───── */
+  function setupHero() {
+    const canvas = document.getElementById('hero-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 0, 4.5);
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-  });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-  /* ════════════ 6. EASTER EGG — Konami code ════════════ */
-  // hidden bonus: type "vfx" anywhere to flip the wireframe color to red
-  let buffer = '';
-  window.addEventListener('keydown', e => {
-    buffer = (buffer + e.key.toLowerCase()).slice(-3);
-    if (buffer === 'vfx') {
-      wireMat.color.set(0xff2d2d);
-      wireMat.opacity = 0.6;
-      document.documentElement.style.setProperty('--accent', '#4ade80');
-      console.log('%c☠ VFX MODE ENGAGED', 'color:#ff2d2d;font-size:24px;font-family:monospace;');
+    const geo = new THREE.IcosahedronGeometry(1.3, 5);
+    const original = geo.attributes.position.array.slice();
+    const phases = new Float32Array(original.length / 3);
+    for (let i = 0; i < phases.length; i++) phases[i] = Math.random() * Math.PI * 2;
+
+    const wireMat = new THREE.MeshBasicMaterial({ color: 0xf5f3ef, wireframe: true, transparent: true, opacity: 0.35 });
+    const mesh = new THREE.Mesh(geo, wireMat);
+    scene.add(mesh);
+
+    const innerGeo = new THREE.IcosahedronGeometry(1.27, 5);
+    const innerOriginal = innerGeo.attributes.position.array.slice();
+    const innerMat = new THREE.MeshBasicMaterial({ color: 0x0a0a0a, transparent: true, opacity: 0.92 });
+    const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+    scene.add(innerMesh);
+
+    const glowGeo = new THREE.IcosahedronGeometry(1.5, 3);
+    const glowMat = new THREE.MeshBasicMaterial({ color: 0xff2d2d, wireframe: true, transparent: true, opacity: 0.05 });
+    const glowMesh = new THREE.Mesh(glowGeo, glowMat);
+    scene.add(glowMesh);
+
+    const pCount = 600;
+    const pGeo = new THREE.BufferGeometry();
+    const pPos = new Float32Array(pCount * 3);
+    for (let i = 0; i < pCount; i++) {
+      const r = 3 + Math.random() * 7;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      pPos[i*3] = r * Math.sin(phi) * Math.cos(theta);
+      pPos[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+      pPos[i*3+2] = r * Math.cos(phi);
     }
+    pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+    const pMat = new THREE.PointsMaterial({ color: 0xf5f3ef, size: 0.014, transparent: true, opacity: 0.55 });
+    const points = new THREE.Points(pGeo, pMat);
+    scene.add(points);
+
+    let mx = 0, my = 0, tmx = 0, tmy = 0;
+    window.addEventListener('mousemove', e => {
+      tmx = (e.clientX / window.innerWidth) * 2 - 1;
+      tmy = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    let t = 0;
+    function tick() {
+      t += 0.006;
+      const arr = geo.attributes.position.array;
+      const inArr = innerGeo.attributes.position.array;
+      for (let i = 0; i < arr.length; i += 3) {
+        const ph = phases[i / 3];
+        const f = 1 + Math.sin(t * 1.4 + ph * 2.7) * 0.07 + Math.sin(t * 0.6 + ph * 1.3) * 0.04 + Math.cos(t * 2.1 + ph * 0.9) * 0.025;
+        arr[i] = original[i] * f;
+        arr[i+1] = original[i+1] * f;
+        arr[i+2] = original[i+2] * f;
+        inArr[i] = innerOriginal[i] * f * 0.985;
+        inArr[i+1] = innerOriginal[i+1] * f * 0.985;
+        inArr[i+2] = innerOriginal[i+2] * f * 0.985;
+      }
+      geo.attributes.position.needsUpdate = true;
+      innerGeo.attributes.position.needsUpdate = true;
+      mesh.rotation.y += 0.0018;
+      mesh.rotation.x += 0.0008;
+      innerMesh.rotation.y = mesh.rotation.y;
+      innerMesh.rotation.x = mesh.rotation.x;
+      glowMesh.rotation.y -= 0.0012;
+      glowMesh.rotation.z += 0.0006;
+      mx += (tmx - mx) * 0.04;
+      my += (tmy - my) * 0.04;
+      camera.position.x = mx * 0.6;
+      camera.position.y = my * 0.4;
+      camera.lookAt(0, 0, 0);
+      points.rotation.y += 0.0004;
+      renderer.render(scene, camera);
+      requestAnimationFrame(tick);
+    }
+    tick();
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  }
+
+  /* ───── BOOTSTRAP ───── */
+  setupHero();
+  setupBA();
+  loadContent().then(() => {
+    bindCursor();
+    setupReveals();
+    hideLoader();
   });
 
-  // friendly console signature
   console.log('%cKristian Cimò — VFX / CGI / 3D / AI', 'font-family:monospace;font-size:14px;color:#f5f3ef;background:#0a0a0a;padding:8px 12px;');
-  console.log('%cCurious? type "vfx" anywhere on this page.', 'font-family:monospace;font-size:11px;color:#707070;');
 </script>
 
 </body>

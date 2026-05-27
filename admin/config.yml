@@ -141,9 +141,18 @@ collections:
                       - { label: "Image", name: "src", widget: "image" }
                       - { label: "Alt text (optional)", name: "alt", widget: "string", required: false }
 
-              # ───── SINGLE VIDEO EMBED ─────
-              - { label: "Video URL (Vimeo or YouTube, optional)", name: "videoUrl", widget: "string", required: false }
-              - { label: "Video Caption", name: "videoCaption", widget: "string", required: false }
+              # ───── VIDEO BLOCKS (v3.1 — multi-block with title + caption) ─────
+              - label: "Video Blocks"
+                name: "videoBlocks"
+                widget: "list"
+                required: false
+                summary: "{{heading}}"
+                hint: "Add as many video blocks as you want. Each has an optional title/caption and a video URL (Vimeo or YouTube)."
+                fields:
+                  - { label: "Tag (small uppercase label, optional)", name: "tag", widget: "string", required: false, hint: "e.g. FINAL EDIT, DIRECTOR'S CUT, BTS" }
+                  - { label: "Heading (optional)", name: "heading", widget: "string", required: false }
+                  - { label: "Caption / Description (optional)", name: "caption", widget: "text", required: false }
+                  - { label: "Video URL (Vimeo or YouTube)", name: "url", widget: "string", hint: "Paste the full Vimeo or YouTube URL." }
 
               # ───── IMAGE BEFORE/AFTER — MULTIPLE (v3) ─────
               - label: "Image Before / After Slides"

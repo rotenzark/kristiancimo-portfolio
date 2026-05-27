@@ -566,41 +566,42 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   margin-bottom: 12px;
 }
 
-/* gallery grid */
+/* ════════ GALLERY — respects each image's native aspect ratio ════════ */
+/* Smart 12-column grid: portraits take 4-6 cols, landscapes take 6-12, squares take 6.
+   Image's actual aspect ratio is preserved (no cropping) via JS-injected styles. */
 .p-gallery {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 16px;
+  grid-auto-flow: row dense; /* fills gaps intelligently */
 }
 .p-gallery .item {
   overflow: hidden;
   background: var(--bg-2);
+  position: relative;
 }
 .p-gallery .item img {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: auto;          /* respect natural ratio */
+  display: block;
   object-fit: cover;
   transition: transform 1.2s cubic-bezier(.2,.8,.2,1);
 }
-.p-gallery .item:hover img { transform: scale(1.04); }
-/* asymmetric pattern repeats every 6 */
-.p-gallery .item:nth-child(6n+1) { grid-column: span 8; aspect-ratio: 16 / 9; }
-.p-gallery .item:nth-child(6n+2) { grid-column: span 4; aspect-ratio: 3 / 4; }
-.p-gallery .item:nth-child(6n+3) { grid-column: span 4; aspect-ratio: 3 / 4; }
-.p-gallery .item:nth-child(6n+4) { grid-column: span 8; aspect-ratio: 16 / 9; }
-.p-gallery .item:nth-child(6n+5) { grid-column: span 6; aspect-ratio: 4 / 3; }
-.p-gallery .item:nth-child(6n) { grid-column: span 6; aspect-ratio: 4 / 3; }
+.p-gallery .item:hover img { transform: scale(1.03); }
 
-/* layout variants for gallery blocks based on image count */
-.p-gallery.count-1 .item:nth-child(1) { grid-column: span 12; aspect-ratio: 21 / 9; }
-.p-gallery.count-2 .item { grid-column: span 6; aspect-ratio: 4 / 5; }
-.p-gallery.count-3 .item { grid-column: span 4; aspect-ratio: 3 / 4; }
-.p-gallery.count-4 .item:nth-child(1) { grid-column: span 6; aspect-ratio: 4 / 3; }
-.p-gallery.count-4 .item:nth-child(2) { grid-column: span 6; aspect-ratio: 4 / 3; }
-.p-gallery.count-4 .item:nth-child(3) { grid-column: span 6; aspect-ratio: 4 / 3; }
-.p-gallery.count-4 .item:nth-child(4) { grid-column: span 6; aspect-ratio: 4 / 3; }
+/* default column spans by orientation — JS adds data-orient attribute */
+.p-gallery .item[data-orient="portrait"]   { grid-column: span 4; }
+.p-gallery .item[data-orient="square"]     { grid-column: span 6; }
+.p-gallery .item[data-orient="landscape"]  { grid-column: span 7; }
+.p-gallery .item[data-orient="wide"]       { grid-column: span 12; }  /* very wide panoramas */
+
+/* if only 1 image in the block, give it the full width */
+.p-gallery.count-1 .item { grid-column: span 12 !important; }
+/* if 2 images, side-by-side at 6 each (regardless of orientation) */
+.p-gallery.count-2 .item { grid-column: span 6 !important; }
 
 @media (max-width: 900px) {
-  .p-gallery .item { grid-column: 1 / -1 !important; aspect-ratio: 4 / 3 !important; }
+  .p-gallery .item { grid-column: 1 / -1 !important; }
   .gallery-block { margin-bottom: 60px; }
 }
 
@@ -622,6 +623,40 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   font-size: 11px; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--muted);
 }
+
+/* ════════ VIDEO BLOCKS (v3.1 — multiple video blocks with title + caption) ════════ */
+.video-block { margin-bottom: 80px; }
+.video-block:last-child { margin-bottom: 0; }
+.video-block-head {
+  max-width: 800px;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.video-block-head .tag {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.video-block-head h3 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(28px, 3vw, 44px);
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+.video-block-head p {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(16px, 1.6vw, 20px);
+  line-height: 1.5;
+  color: var(--muted);
+}
+@media (max-width: 900px) { .video-block { margin-bottom: 60px; } }
 
 /* ═══════════════════════════════════════════════════
    v3 — BEFORE / AFTER BLOCKS (image OR video)

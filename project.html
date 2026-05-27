@@ -219,7 +219,7 @@
       </div>
     ` : '';
     const count = images.length;
-    const countClass = count <= 4 ? `count-${count}` : '';
+    const countClass = count <= 2 ? `count-${count}` : '';
     return `
       <div class="gallery-block reveal">
         ${head}
@@ -227,8 +227,56 @@
           ${images.map(img => {
             const src = typeof img === 'string' ? img : img.src;
             const alt = typeof img === 'string' ? '' : (img.alt || '');
-            return `<div class="item"><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy"></div>`;
+            // orientation will be set by JS after image loads
+            return `<div class="item"><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" data-needs-orient="1"></div>`;
           }).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  /* detect each gallery image's orientation and set data-orient on its wrapper */
+  function detectOrientations() {
+    document.querySelectorAll('.p-gallery .item img[data-needs-orient]').forEach(img => {
+      const apply = () => {
+        const w = img.naturalWidth, h = img.naturalHeight;
+        if (!w || !h) return;
+        const ratio = w / h;
+        let orient = 'landscape';
+        if (ratio < 0.85) orient = 'portrait';
+        else if (ratio < 1.2) orient = 'square';
+        else if (ratio > 2.2) orient = 'wide';
+        else orient = 'landscape';
+        img.parentElement.setAttribute('data-orient', orient);
+        img.removeAttribute('data-needs-orient');
+      };
+      if (img.complete && img.naturalWidth) apply();
+      else img.addEventListener('load', apply, { once: true });
+    });
+  }
+
+  function renderVideoBlock(block, idx, total) {
+    if (!block) return '';
+    const url = block.url;
+    if (!url) return '';
+    const tag = block.tag ? `<span class="tag">${escapeHtml(block.tag)}</span>` : '';
+    const heading = block.heading ? `<h3>${escapeHtml(block.heading)}</h3>` : '';
+    const caption = block.caption ? `<p>${escapeHtml(block.caption)}</p>` : '';
+    const head = (tag || heading || caption) ? `
+      <div class="video-block-head">
+        ${tag}
+        ${heading}
+        ${caption}
+      </div>
+    ` : '';
+    const embed = videoEmbed(url);
+    return `
+      <div class="video-block reveal">
+        ${head}
+        <div class="p-video">
+          ${embed
+            ? `<iframe src="${escapeHtml(embed)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
+            : `<video src="${escapeHtml(url)}" controls playsinline></video>`}
         </div>
       </div>
     `;
@@ -301,6 +349,14 @@
       galleryBlocks = [{ images: p.gallery }];
     }
 
+    // VIDEOS: support both `videoBlocks` (v3.1, array) and `videoUrl` + `videoCaption` (v2/v3, single)
+    let videoBlocks = [];
+    if (Array.isArray(p.videoBlocks) && p.videoBlocks.length) {
+      videoBlocks = p.videoBlocks;
+    } else if (p.videoUrl) {
+      videoBlocks = [{ url: p.videoUrl, caption: p.videoCaption || '' }];
+    }
+
     // image before/after: support both `beforeAfter` (single, v2) and `beforeAfters` (array, v3)
     let imageBAs = [];
     if (Array.isArray(p.beforeAfters) && p.beforeAfters.length) {
@@ -317,7 +373,7 @@
       videoBAs = [p.videoBeforeAfter];
     }
 
-    return { ...p, _galleryBlocks: galleryBlocks, _imageBAs: imageBAs, _videoBAs: videoBAs };
+    return { ...p, _galleryBlocks: galleryBlocks, _videoBlocks: videoBlocks, _imageBAs: imageBAs, _videoBAs: videoBAs };
   }
 
   async function renderProject() {
@@ -436,17 +492,11 @@
       </section>`;
     }
 
-    /* SINGLE VIDEO EMBED */
-    if (p.videoUrl) {
-      const embed = videoEmbed(p.videoUrl);
-      html += `<section class="p-section reveal">
-        ${head('Video')}
-        <div class="p-video">
-          ${embed
-            ? `<iframe src="${escapeHtml(embed)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
-            : `<video src="${escapeHtml(p.videoUrl)}" controls playsinline></video>`}
-        </div>
-        ${p.videoCaption ? `<p class="p-video-caption">${escapeHtml(p.videoCaption)}</p>` : ''}
+    /* VIDEOS (multi-block) */
+    if (p._videoBlocks.length) {
+      html += `<section class="p-section">
+        ${head('Videos')}
+        ${p._videoBlocks.map((b, i) => renderVideoBlock(b, i, p._videoBlocks.length)).join('')}
       </section>`;
     }
 
@@ -508,6 +558,7 @@
 
     document.querySelectorAll('.p-ba').forEach(el => setupBA(el));
     document.querySelectorAll('.p-vba').forEach(el => setupVBA(el));
+    detectOrientations();
 
     /* footer */
     document.getElementById('contact-cta').innerHTML = `

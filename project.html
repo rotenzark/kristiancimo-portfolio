@@ -118,6 +118,27 @@
   function setupBA(container) {
     const clip = container.querySelector('.ba-clip');
     const handle = container.querySelector('.ba-handle');
+    const imgBefore = container.querySelector('.ba-img.before');
+
+    /* set container aspect ratio + container-width var, based on the natural image dimensions */
+    function syncDimensions() {
+      const w = imgBefore.naturalWidth, h = imgBefore.naturalHeight;
+      if (!w || !h) return;
+      const ratio = w / h;
+      container.style.aspectRatio = `${w} / ${h}`;
+      if (ratio < 0.85) container.setAttribute('data-orient', 'portrait');
+      else if (ratio < 1.2) container.setAttribute('data-orient', 'square');
+      else container.setAttribute('data-orient', 'landscape');
+      // keep the "after" image scaled to the container, not viewport
+      const updateContainerW = () => {
+        container.style.setProperty('--container-w', container.clientWidth + 'px');
+      };
+      updateContainerW();
+      window.addEventListener('resize', updateContainerW);
+    }
+    if (imgBefore.complete && imgBefore.naturalWidth) syncDimensions();
+    else imgBefore.addEventListener('load', syncDimensions, { once: true });
+
     let dragging = false;
     function setBA(pct) {
       pct = Math.max(0, Math.min(100, pct));
@@ -151,6 +172,25 @@
     const videoBefore = container.querySelector('.vba-before-wrap video');
     const videoAfter = container.querySelector('.vba-after-wrap video');
     const playBtn = container.querySelector('.vba-playbtn');
+
+    /* set container aspect ratio + container-width var from video metadata */
+    function syncDimensions() {
+      const w = videoBefore.videoWidth, h = videoBefore.videoHeight;
+      if (!w || !h) return;
+      const ratio = w / h;
+      container.style.aspectRatio = `${w} / ${h}`;
+      if (ratio < 0.85) container.setAttribute('data-orient', 'portrait');
+      else if (ratio < 1.2) container.setAttribute('data-orient', 'square');
+      else container.setAttribute('data-orient', 'landscape');
+      const updateContainerW = () => {
+        container.style.setProperty('--container-w', container.clientWidth + 'px');
+      };
+      updateContainerW();
+      window.addEventListener('resize', updateContainerW);
+    }
+    if (videoBefore.readyState >= 1 && videoBefore.videoWidth) syncDimensions();
+    else videoBefore.addEventListener('loadedmetadata', syncDimensions, { once: true });
+
     let dragging = false;
     function setVBA(pct) {
       pct = Math.max(0, Math.min(100, pct));

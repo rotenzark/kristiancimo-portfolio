@@ -682,10 +682,20 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
 /* image before/after */
 .p-ba {
   position: relative;
+  /* default 16/9, overridden by JS once image loads */
   aspect-ratio: 16 / 9;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
   overflow: hidden;
   user-select: none;
   background: #000;
+}
+.p-ba[data-orient="portrait"] {
+  max-width: min(560px, 60vh);
+}
+.p-ba[data-orient="square"] {
+  max-width: min(800px, 80vh);
 }
 .p-ba .ba-img {
   position: absolute; inset: 0;
@@ -701,7 +711,11 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   overflow: hidden;
   width: 50%;
 }
-.p-ba .ba-clip .ba-img { width: 100vw; max-width: none; }
+.p-ba .ba-clip .ba-img {
+  /* match the container, not viewport */
+  width: var(--container-w, 100%);
+  max-width: none;
+}
 .p-ba .ba-handle {
   position: absolute;
   top: 0; bottom: 0;
@@ -742,11 +756,22 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
 /* video before/after */
 .p-vba {
   position: relative;
+  /* default 16/9, overridden by JS once video metadata loads */
   aspect-ratio: 16 / 9;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
   overflow: hidden;
   user-select: none;
   background: #000;
   cursor: pointer;
+}
+/* portrait/square layouts: constrain width so vertical videos don't fill the whole row */
+.p-vba[data-orient="portrait"] {
+  max-width: min(560px, 60vh);
+}
+.p-vba[data-orient="square"] {
+  max-width: min(800px, 80vh);
 }
 .p-vba video {
   position: absolute; inset: 0;
@@ -764,7 +789,12 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   overflow: hidden;
   width: 50%;
 }
-.p-vba .vba-after-wrap video { width: 100vw; max-width: none; }
+.p-vba .vba-before-wrap video,
+.p-vba .vba-after-wrap video {
+  /* size relative to the slider container (set by JS via --container-w), not viewport */
+  width: var(--container-w, 100%);
+  max-width: none;
+}
 .p-vba .vba-handle {
   position: absolute;
   top: 0; bottom: 0;

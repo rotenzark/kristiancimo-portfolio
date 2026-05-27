@@ -26,10 +26,10 @@ collections:
         fields:
           - { label: "Page Title (browser tab)", name: "title", widget: "string" }
           - { label: "Meta Description (SEO)", name: "description", widget: "text" }
-          - { label: "Hero Tagline", name: "tagline", widget: "string", hint: "Small text above the big name. e.g. VFX · CGI · 3D · AI-Driven Visuals" }
-          - { label: "Hero Subtitle (italic)", name: "subtitle", widget: "string", hint: "Italic phrase shown next to your name" }
+          - { label: "Hero Tagline", name: "tagline", widget: "string" }
+          - { label: "Hero Subtitle (italic)", name: "subtitle", widget: "string" }
           - { label: "Location (bottom-left of hero)", name: "location", widget: "string" }
-          - { label: "Status (top-right of nav)", name: "status", widget: "string", hint: "e.g. Available 2026" }
+          - { label: "Status (top-right of nav)", name: "status", widget: "string" }
 
       - name: "about"
         label: "About Section"
@@ -48,8 +48,8 @@ collections:
             widget: "list"
             summary: "{{value}} — {{label}}"
             fields:
-              - { label: "Value", name: "value", widget: "string", hint: "e.g. 08+, 40+, 3" }
-              - { label: "Label", name: "label", widget: "string", hint: "e.g. Years in CGI" }
+              - { label: "Value", name: "value", widget: "string" }
+              - { label: "Label", name: "label", widget: "string" }
 
       - name: "footer"
         label: "Footer / Contact"
@@ -82,11 +82,11 @@ collections:
               - { label: "Client Name", name: "name", widget: "string" }
 
   # ═══════════════════════════════════════════════════
-  # PROJECTS — each project has its own dedicated page
+  # PROJECTS
   # ═══════════════════════════════════════════════════
   - name: "projects"
     label: "Projects"
-    description: "Each project appears in the Work grid AND has its own dedicated page (project.html?id=...). Fill in only the sections you need — empty sections are hidden automatically."
+    description: "Each project appears in the Work grid AND has its own dedicated page. Fill in only the sections you need."
     files:
       - name: "all_projects"
         label: "Projects List"
@@ -99,75 +99,88 @@ collections:
             summary: "{{order}}. {{title}} ({{year}})"
             fields:
 
-              # ───── BASICS (shown in homepage grid) ─────
+              # ───── BASICS ─────
               - { label: "Display Order", name: "order", widget: "number", value_type: "int", hint: "Lower number = appears first in the work grid." }
-              - { label: "Slug (URL identifier)", name: "slug", widget: "string", required: false, hint: "Used in the URL: project.html?id=YOUR-SLUG. Use only lowercase letters, numbers, and hyphens. If empty, will be generated from the title." }
+              - { label: "Slug (URL identifier)", name: "slug", widget: "string", required: false, hint: "Used in the URL: project.html?id=YOUR-SLUG. Lowercase + hyphens only. Leave empty to auto-generate." }
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Year", name: "year", widget: "string" }
-              - { label: "Category", name: "category", widget: "string", hint: "e.g. Eyewear / F1, Sport / Brand" }
+              - { label: "Category", name: "category", widget: "string" }
               - { label: "Cover Image (grid + project page hero)", name: "image", widget: "image" }
-              - { label: "Cover Video (optional, overrides cover image on project page)", name: "coverVideo", widget: "string", required: false, hint: "Vimeo, YouTube or direct video URL. Used as the big hero of the project page. If empty, the cover image is used." }
-              - { label: "Featured", name: "featured", widget: "boolean", default: false, hint: "If true, shows a small tag in the top-left of the card on the homepage." }
-              - { label: "Tag Label", name: "tagLabel", widget: "string", required: false, default: "Featured", hint: "Text shown in the featured tag." }
+              - { label: "Preview Video (HOVER on homepage)", name: "previewVideo", widget: "file", required: false, hint: "Short MP4 (5-15s) that plays when visitors HOVER the project card on the homepage. Keep small — ideally <5MB. Leave empty if you don't want a hover preview." }
+              - { label: "Cover Video (project page)", name: "coverVideo", widget: "string", required: false, hint: "Vimeo, YouTube or direct video URL — used as the big hero on the project page. If empty, the cover image is used." }
+              - { label: "Featured", name: "featured", widget: "boolean", default: false }
+              - { label: "Tag Label", name: "tagLabel", widget: "string", required: false, default: "Featured" }
 
               # ───── PROJECT PAGE METADATA ─────
-              - { label: "Subtitle (italic, under project title)", name: "subtitle", widget: "text", required: false, hint: "Short evocative phrase that opens the project page." }
+              - { label: "Subtitle (italic, under project title)", name: "subtitle", widget: "text", required: false }
               - { label: "Client", name: "client", widget: "string", required: false }
               - { label: "Talent", name: "talent", widget: "string", required: false }
-              - { label: "Role", name: "role", widget: "string", required: false, hint: "e.g. VFX · CGI · Direction" }
-              - { label: "Software", name: "software", widget: "string", required: false, hint: "e.g. Houdini · C4D · Nuke" }
-              - { label: "Format", name: "format", widget: "string", required: false, hint: "e.g. Campaign · Social" }
+              - { label: "Role", name: "role", widget: "string", required: false }
+              - { label: "Software", name: "software", widget: "string", required: false }
+              - { label: "Format", name: "format", widget: "string", required: false }
 
               # ───── CASE STUDY TEXT ─────
               - { label: "Description / Case Study Text", name: "description", widget: "text", required: false, hint: "Long-form description. Separate paragraphs with a blank line." }
 
-              # ───── GALLERY ─────
-              - label: "Gallery (images)"
-                name: "gallery"
+              # ───── GALLERY BLOCKS (v3 — multi-block with title + caption) ─────
+              - label: "Gallery Blocks"
+                name: "galleryBlocks"
                 widget: "list"
                 required: false
-                summary: "{{alt}}"
+                summary: "{{heading}} ({{images.length}} images)"
+                hint: "Add as many gallery blocks as you want. Each block can have an optional title, caption, and a set of images. Use for: client references, my proposals, final renders, mood boards, etc."
                 fields:
-                  - { label: "Image", name: "src", widget: "image" }
-                  - { label: "Alt text (optional)", name: "alt", widget: "string", required: false }
+                  - { label: "Tag (small uppercase label, optional)", name: "tag", widget: "string", required: false, hint: "e.g. CLIENT REFERENCES, MY PROPOSAL, FINAL RENDERS" }
+                  - { label: "Heading (optional)", name: "heading", widget: "string", required: false, hint: "Big title for this gallery block." }
+                  - { label: "Caption / Description (optional)", name: "caption", widget: "text", required: false, hint: "Short italic paragraph that introduces the images." }
+                  - label: "Images"
+                    name: "images"
+                    widget: "list"
+                    summary: "{{alt}}"
+                    fields:
+                      - { label: "Image", name: "src", widget: "image" }
+                      - { label: "Alt text (optional)", name: "alt", widget: "string", required: false }
 
-              # ───── VIDEO EMBED ─────
-              - { label: "Video URL (Vimeo or YouTube)", name: "videoUrl", widget: "string", required: false, hint: "Paste the full URL — Vimeo and YouTube are auto-detected." }
+              # ───── SINGLE VIDEO EMBED ─────
+              - { label: "Video URL (Vimeo or YouTube, optional)", name: "videoUrl", widget: "string", required: false }
               - { label: "Video Caption", name: "videoCaption", widget: "string", required: false }
 
-              # ───── BEFORE / AFTER IMAGE SLIDER ─────
-              - label: "Before / After (image slider)"
-                name: "beforeAfter"
-                widget: "object"
+              # ───── IMAGE BEFORE/AFTER — MULTIPLE (v3) ─────
+              - label: "Image Before / After Slides"
+                name: "beforeAfters"
+                widget: "list"
                 required: false
-                collapsed: true
+                summary: "{{title}}"
+                hint: "Add one or more image before/after sliders. Useful for showing multiple shots from the same project."
                 fields:
+                  - { label: "Title (e.g. Shot 01, Wide, Close-up)", name: "title", widget: "string", required: false }
                   - { label: "Image — Before (raw plate)", name: "imageBefore", widget: "image", required: false }
                   - { label: "Image — After (final CGI)", name: "imageAfter", widget: "image", required: false }
                   - { label: "Label — Before", name: "labelBefore", widget: "string", required: false, default: "Raw Plate" }
                   - { label: "Label — After", name: "labelAfter", widget: "string", required: false, default: "Final CGI" }
 
-              # ───── VIDEO BEFORE / AFTER SLIDER ─────
-              - label: "Video Breakdown (before/after VIDEO slider)"
-                name: "videoBeforeAfter"
-                widget: "object"
+              # ───── VIDEO BEFORE/AFTER — MULTIPLE (v3) ─────
+              - label: "Video Before / After Slides"
+                name: "videoBeforeAfters"
+                widget: "list"
                 required: false
-                collapsed: true
-                hint: "Two synced videos with a draggable handle. Upload .mp4 files (keep them short, <30s, optimized for web). Both videos play in sync."
+                summary: "{{title}}"
+                hint: "Add one or more synced video before/after sliders. Use short, optimized MP4 files (10-30s, <10MB)."
                 fields:
-                  - { label: "Video — Before (raw plate)", name: "videoBefore", widget: "file", required: false, hint: "Upload an MP4 file." }
-                  - { label: "Video — After (final CGI)", name: "videoAfter", widget: "file", required: false, hint: "Upload an MP4 file." }
+                  - { label: "Title (e.g. Shot 01, Crash scene)", name: "title", widget: "string", required: false }
+                  - { label: "Video — Before (raw plate)", name: "videoBefore", widget: "file", required: false }
+                  - { label: "Video — After (final CGI)", name: "videoAfter", widget: "file", required: false }
                   - { label: "Label — Before", name: "labelBefore", widget: "string", required: false, default: "Raw Plate" }
                   - { label: "Label — After", name: "labelAfter", widget: "string", required: false, default: "Final CGI" }
 
-              # ───── STORYTELLING (image + text blocks) ─────
+              # ───── STORYTELLING ─────
               - label: "Storytelling Blocks (image + text)"
                 name: "storytelling"
                 widget: "list"
                 required: false
                 summary: "{{heading}}"
                 fields:
-                  - { label: "Heading", name: "heading", widget: "string", required: false, hint: "e.g. 01 — Plate cleanup" }
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
                   - { label: "Text", name: "text", widget: "text", required: false }
                   - { label: "Image", name: "image", widget: "image" }
 
@@ -181,5 +194,5 @@ collections:
                   - { label: "Role", name: "role", widget: "string" }
                   - { label: "Name", name: "name", widget: "string" }
 
-              # ───── NEXT PROJECT TOGGLE ─────
+              # ───── NEXT PROJECT ─────
               - { label: "Show 'Next Project' at the bottom of this page", name: "showNextProject", widget: "boolean", default: true, required: false }

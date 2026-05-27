@@ -38,10 +38,8 @@
 
 <a href="index.html#work" class="back-link interactive">Back to Work</a>
 
-<!-- main project content gets rendered here -->
 <main id="project-root"></main>
 
-<!-- FOOTER -->
 <footer id="contact">
   <div class="section-head reveal" style="margin: 0 0 60px;">
     <span><span class="num">∞</span> &nbsp;/&nbsp; Contact</span>
@@ -56,7 +54,6 @@
 </footer>
 
 <script type="module">
-  /* ─── helpers ─── */
   function escapeHtml(s) {
     if (s == null) return '';
     return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -74,7 +71,6 @@
   function getParam(name) {
     return new URL(window.location.href).searchParams.get(name);
   }
-  // detect Vimeo / YouTube URL → return embed URL or null if not recognized
   function videoEmbed(url) {
     if (!url) return null;
     const v = url.match(/(?:vimeo\.com\/)(\d+)/);
@@ -88,7 +84,7 @@
     setTimeout(() => document.getElementById('loader').classList.add('gone'), 1200);
   }
 
-  /* ─── cursor ─── */
+  /* cursor */
   const cursor = document.getElementById('cursor');
   let cx = 0, cy = 0, tx = 0, ty = 0;
   window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
@@ -118,7 +114,7 @@
     document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
   }
 
-  /* ─── image before/after slider setup ─── */
+  /* IMAGE before/after slider */
   function setupBA(container) {
     const clip = container.querySelector('.ba-clip');
     const handle = container.querySelector('.ba-handle');
@@ -148,7 +144,7 @@
     setBA(50);
   }
 
-  /* ─── video before/after slider setup ─── */
+  /* VIDEO before/after slider */
   function setupVBA(container) {
     const wrap = container.querySelector('.vba-after-wrap');
     const handle = container.querySelector('.vba-handle');
@@ -168,15 +164,12 @@
       setVBA((x / rect.width) * 100);
     }
     container.addEventListener('mousedown', e => {
-      // don't initiate drag from the play button
       if (e.target.closest('.vba-playbtn')) return;
-      dragging = true;
-      move(e);
+      dragging = true; move(e);
     });
     container.addEventListener('touchstart', e => {
       if (e.target.closest('.vba-playbtn')) return;
-      dragging = true;
-      move(e);
+      dragging = true; move(e);
     }, { passive: true });
     window.addEventListener('mousemove', move);
     window.addEventListener('touchmove', move, { passive: true });
@@ -198,11 +191,9 @@
     playBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       playing = !playing;
-      // sync time before playing
       videoAfter.currentTime = videoBefore.currentTime;
       syncPlay();
     });
-    // keep videos in sync (re-sync every couple seconds in case of drift)
     setInterval(() => {
       if (playing && Math.abs(videoAfter.currentTime - videoBefore.currentTime) > 0.15) {
         videoAfter.currentTime = videoBefore.currentTime;
@@ -211,13 +202,128 @@
     setVBA(50);
   }
 
-  /* ─── render the project page ─── */
+  /* ─── HELPERS to render sub-blocks ─── */
+
+  function renderGalleryBlock(block, idx, total) {
+    if (!block) return '';
+    const images = (block.images || []).filter(Boolean);
+    if (!images.length) return '';
+    const tag = block.tag ? `<span class="tag">${escapeHtml(block.tag)}</span>` : '';
+    const heading = block.heading ? `<h3>${escapeHtml(block.heading)}</h3>` : '';
+    const caption = block.caption ? `<p>${escapeHtml(block.caption)}</p>` : '';
+    const head = (tag || heading || caption) ? `
+      <div class="gallery-block-head">
+        ${tag}
+        ${heading}
+        ${caption}
+      </div>
+    ` : '';
+    const count = images.length;
+    const countClass = count <= 4 ? `count-${count}` : '';
+    return `
+      <div class="gallery-block reveal">
+        ${head}
+        <div class="p-gallery ${countClass}">
+          ${images.map(img => {
+            const src = typeof img === 'string' ? img : img.src;
+            const alt = typeof img === 'string' ? '' : (img.alt || '');
+            return `<div class="item"><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy"></div>`;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderImageBA(block, idx, total) {
+    if (!block || (!block.imageBefore && !block.imageAfter)) return '';
+    const numLabel = total > 1 ? `<span class="num">${String(idx + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}</span>` : '';
+    const head = (block.title || total > 1) ? `
+      <div class="ba-block-head">
+        <span class="title">${escapeHtml(block.title || `Shot ${idx + 1}`)}</span>
+        ${numLabel}
+      </div>
+    ` : '';
+    return `
+      <div class="ba-block reveal">
+        ${head}
+        <div class="p-ba interactive">
+          <img class="ba-img before" src="${escapeHtml(block.imageBefore || block.imageAfter)}" alt="Raw plate" loading="lazy">
+          <div class="ba-clip">
+            <img class="ba-img after" src="${escapeHtml(block.imageAfter || block.imageBefore)}" alt="Final composite" loading="lazy">
+          </div>
+          <div class="ba-labels">
+            <span class="before">${escapeHtml(block.labelBefore || 'Raw Plate')}</span>
+            <span class="after">${escapeHtml(block.labelAfter || 'Final CGI')}</span>
+          </div>
+          <div class="ba-handle"><div class="ba-knob">⇄</div></div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderVideoBA(block, idx, total) {
+    if (!block || (!block.videoBefore && !block.videoAfter)) return '';
+    const numLabel = total > 1 ? `<span class="num">${String(idx + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}</span>` : '';
+    const head = (block.title || total > 1) ? `
+      <div class="ba-block-head">
+        <span class="title">${escapeHtml(block.title || `Shot ${idx + 1}`)}</span>
+        ${numLabel}
+      </div>
+    ` : '';
+    return `
+      <div class="ba-block reveal">
+        ${head}
+        <div class="p-vba interactive">
+          <div class="vba-before-wrap">
+            <video src="${escapeHtml(block.videoBefore || block.videoAfter)}" muted loop playsinline preload="metadata"></video>
+          </div>
+          <div class="vba-after-wrap">
+            <video src="${escapeHtml(block.videoAfter || block.videoBefore)}" muted loop playsinline preload="metadata"></video>
+          </div>
+          <div class="vba-labels">
+            <span class="before">${escapeHtml(block.labelBefore || 'Raw Plate')}</span>
+            <span class="after">${escapeHtml(block.labelAfter || 'Final CGI')}</span>
+          </div>
+          <div class="vba-handle"><div class="vba-knob">⇄</div></div>
+          <button class="vba-playbtn">▶ Play</button>
+        </div>
+      </div>
+    `;
+  }
+
+  /* ─── BACKWARD COMPAT: normalize old single fields → arrays ─── */
+  function normalizeProject(p) {
+    // gallery: if it's a flat array of images (v2), wrap it in a single block
+    let galleryBlocks = [];
+    if (Array.isArray(p.galleryBlocks) && p.galleryBlocks.length) {
+      galleryBlocks = p.galleryBlocks;
+    } else if (Array.isArray(p.gallery) && p.gallery.length) {
+      galleryBlocks = [{ images: p.gallery }];
+    }
+
+    // image before/after: support both `beforeAfter` (single, v2) and `beforeAfters` (array, v3)
+    let imageBAs = [];
+    if (Array.isArray(p.beforeAfters) && p.beforeAfters.length) {
+      imageBAs = p.beforeAfters;
+    } else if (p.beforeAfter && (p.beforeAfter.imageBefore || p.beforeAfter.imageAfter)) {
+      imageBAs = [p.beforeAfter];
+    }
+
+    // video before/after: support both `videoBeforeAfter` (single, v2) and `videoBeforeAfters` (array, v3)
+    let videoBAs = [];
+    if (Array.isArray(p.videoBeforeAfters) && p.videoBeforeAfters.length) {
+      videoBAs = p.videoBeforeAfters;
+    } else if (p.videoBeforeAfter && (p.videoBeforeAfter.videoBefore || p.videoBeforeAfter.videoAfter)) {
+      videoBAs = [p.videoBeforeAfter];
+    }
+
+    return { ...p, _galleryBlocks: galleryBlocks, _imageBAs: imageBAs, _videoBAs: videoBAs };
+  }
+
   async function renderProject() {
     const id = getParam('id');
-    if (!id) {
-      window.location.href = 'index.html';
-      return;
-    }
+    if (!id) { window.location.href = 'index.html'; return; }
+
     let projects, footer, site;
     try {
       [projects, footer, site] = await Promise.all([
@@ -251,18 +357,14 @@
       return;
     }
 
-    const p = all[idx];
+    const p = normalizeProject(all[idx]);
     const next = all[(idx + 1) % all.length];
 
-    // update page title
     document.title = `${p.title} — Kristian Cimò`;
-
-    // build sections in the order they appear in p.sections (if present),
-    // otherwise fall back to a default order
     const root = document.getElementById('project-root');
     let html = '';
 
-    /* ─── HERO ─── */
+    /* HERO */
     const infoRows = [];
     if (p.client) infoRows.push(['Client', p.client]);
     if (p.talent) infoRows.push(['Talent', p.talent]);
@@ -292,7 +394,7 @@
       </section>
     `;
 
-    /* ─── COVER (image or video) ─── */
+    /* COVER */
     if (p.coverVideo) {
       const embed = videoEmbed(p.coverVideo);
       if (embed) {
@@ -302,27 +404,6 @@
       }
     } else if (p.image) {
       html += `<section class="project-cover"><img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}"></section>`;
-    }
-
-    /* ─── SECTIONS ─── */
-    // sections can be provided as an ordered array in p.sections, OR we infer from individual fields
-    const sections = Array.isArray(p.sections) ? p.sections : [];
-
-    // if no explicit sections array, build a default order from individual fields
-    if (sections.length === 0) {
-      if (p.description) sections.push({ type: 'description', text: p.description });
-      if (Array.isArray(p.gallery) && p.gallery.length) sections.push({ type: 'gallery', images: p.gallery });
-      if (p.videoUrl) sections.push({ type: 'video', url: p.videoUrl, caption: p.videoCaption });
-      if (p.beforeAfter && (p.beforeAfter.imageBefore || p.beforeAfter.imageAfter)) {
-        sections.push({ type: 'beforeAfter', ...p.beforeAfter });
-      }
-      if (p.videoBeforeAfter && (p.videoBeforeAfter.videoBefore || p.videoBeforeAfter.videoAfter)) {
-        sections.push({ type: 'videoBeforeAfter', ...p.videoBeforeAfter });
-      }
-      if (Array.isArray(p.storytelling) && p.storytelling.length) {
-        sections.push({ type: 'storytelling', items: p.storytelling });
-      }
-      if (Array.isArray(p.credits) && p.credits.length) sections.push({ type: 'credits', items: p.credits });
     }
 
     let sectionNum = 1;
@@ -336,103 +417,83 @@
       `;
     }
 
-    sections.forEach(s => {
-      if (s.type === 'description' && s.text) {
-        const paragraphs = s.text.split(/\n\n+/).filter(Boolean);
-        html += `<section class="p-section reveal">
-          ${head('Case Study')}
-          <div class="p-description">
-            ${paragraphs.map(t => `<p>${escapeHtml(t)}</p>`).join('')}
-          </div>
-        </section>`;
-      }
-      else if (s.type === 'gallery' && Array.isArray(s.images) && s.images.length) {
-        html += `<section class="p-section reveal-stagger">
-          ${head('Gallery')}
-          <div class="p-gallery">
-            ${s.images.map(img => {
-              const src = typeof img === 'string' ? img : img.src;
-              const alt = typeof img === 'string' ? '' : (img.alt || '');
-              return `<div class="item"><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}"></div>`;
-            }).join('')}
-          </div>
-        </section>`;
-      }
-      else if (s.type === 'video' && s.url) {
-        const embed = videoEmbed(s.url);
-        html += `<section class="p-section reveal">
-          ${head('Video')}
-          <div class="p-video">
-            ${embed
-              ? `<iframe src="${escapeHtml(embed)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
-              : `<video src="${escapeHtml(s.url)}" controls playsinline></video>`}
-          </div>
-          ${s.caption ? `<p class="p-video-caption">${escapeHtml(s.caption)}</p>` : ''}
-        </section>`;
-      }
-      else if (s.type === 'beforeAfter' && (s.imageBefore || s.imageAfter)) {
-        const baId = 'ba-' + Math.random().toString(36).slice(2, 8);
-        html += `<section class="p-section reveal">
-          ${head('Before / After')}
-          <div class="p-ba interactive" id="${baId}">
-            <img class="ba-img before" src="${escapeHtml(s.imageBefore || s.imageAfter)}" alt="Raw plate">
-            <div class="ba-clip">
-              <img class="ba-img after" src="${escapeHtml(s.imageAfter || s.imageBefore)}" alt="Final composite">
-            </div>
-            <div class="ba-labels">
-              <span class="before">${escapeHtml(s.labelBefore || 'Raw Plate')}</span>
-              <span class="after">${escapeHtml(s.labelAfter || 'Final CGI')}</span>
-            </div>
-            <div class="ba-handle"><div class="ba-knob">⇄</div></div>
-          </div>
-        </section>`;
-      }
-      else if (s.type === 'videoBeforeAfter' && (s.videoBefore || s.videoAfter)) {
-        const vbaId = 'vba-' + Math.random().toString(36).slice(2, 8);
-        html += `<section class="p-section reveal">
-          ${head('Video Breakdown')}
-          <div class="p-vba interactive" id="${vbaId}">
-            <div class="vba-before-wrap">
-              <video src="${escapeHtml(s.videoBefore || s.videoAfter)}" muted loop playsinline preload="metadata"></video>
-            </div>
-            <div class="vba-after-wrap">
-              <video src="${escapeHtml(s.videoAfter || s.videoBefore)}" muted loop playsinline preload="metadata"></video>
-            </div>
-            <div class="vba-labels">
-              <span class="before">${escapeHtml(s.labelBefore || 'Raw Plate')}</span>
-              <span class="after">${escapeHtml(s.labelAfter || 'Final CGI')}</span>
-            </div>
-            <div class="vba-handle"><div class="vba-knob">⇄</div></div>
-            <button class="vba-playbtn">▶ Play</button>
-          </div>
-        </section>`;
-      }
-      else if (s.type === 'storytelling' && Array.isArray(s.items) && s.items.length) {
-        html += `<section class="p-section">
-          ${head('Process')}
-          ${s.items.map((item, i) => `
-            <div class="p-story reveal ${i % 2 ? 'reverse' : ''}">
-              <div class="img"><img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.heading || '')}"></div>
-              <div class="text">
-                ${item.heading ? `<h3>${escapeHtml(item.heading)}</h3>` : ''}
-                ${item.text ? `<p>${escapeHtml(item.text)}</p>` : ''}
-              </div>
-            </div>
-          `).join('')}
-        </section>`;
-      }
-      else if (s.type === 'credits' && Array.isArray(s.items) && s.items.length) {
-        html += `<section class="p-section reveal">
-          ${head('Credits')}
-          <div class="p-credits">
-            ${s.items.map(c => `<div class="credit-row"><span>${escapeHtml(c.role)}</span><span>${escapeHtml(c.name)}</span></div>`).join('')}
-          </div>
-        </section>`;
-      }
-    });
+    /* DESCRIPTION */
+    if (p.description) {
+      const paragraphs = p.description.split(/\n\n+/).filter(Boolean);
+      html += `<section class="p-section reveal">
+        ${head('Case Study')}
+        <div class="p-description">
+          ${paragraphs.map(t => `<p>${escapeHtml(t)}</p>`).join('')}
+        </div>
+      </section>`;
+    }
 
-    /* ─── NEXT PROJECT ─── */
-    if (p.showNextProject !== false && next && next !== p) {
+    /* GALLERY (multi-block) */
+    if (p._galleryBlocks.length) {
+      html += `<section class="p-section">
+        ${head('Gallery')}
+        ${p._galleryBlocks.map((b, i) => renderGalleryBlock(b, i, p._galleryBlocks.length)).join('')}
+      </section>`;
+    }
+
+    /* SINGLE VIDEO EMBED */
+    if (p.videoUrl) {
+      const embed = videoEmbed(p.videoUrl);
+      html += `<section class="p-section reveal">
+        ${head('Video')}
+        <div class="p-video">
+          ${embed
+            ? `<iframe src="${escapeHtml(embed)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
+            : `<video src="${escapeHtml(p.videoUrl)}" controls playsinline></video>`}
+        </div>
+        ${p.videoCaption ? `<p class="p-video-caption">${escapeHtml(p.videoCaption)}</p>` : ''}
+      </section>`;
+    }
+
+    /* IMAGE BEFORE/AFTER (multi) */
+    if (p._imageBAs.length) {
+      html += `<section class="p-section">
+        ${head('Before / After')}
+        ${p._imageBAs.map((b, i) => renderImageBA(b, i, p._imageBAs.length)).join('')}
+      </section>`;
+    }
+
+    /* VIDEO BEFORE/AFTER (multi) */
+    if (p._videoBAs.length) {
+      html += `<section class="p-section">
+        ${head('Video Breakdown')}
+        ${p._videoBAs.map((b, i) => renderVideoBA(b, i, p._videoBAs.length)).join('')}
+      </section>`;
+    }
+
+    /* STORYTELLING */
+    if (Array.isArray(p.storytelling) && p.storytelling.length) {
+      html += `<section class="p-section">
+        ${head('Process')}
+        ${p.storytelling.map((item, i) => `
+          <div class="p-story reveal ${i % 2 ? 'reverse' : ''}">
+            <div class="img"><img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.heading || '')}" loading="lazy"></div>
+            <div class="text">
+              ${item.heading ? `<h3>${escapeHtml(item.heading)}</h3>` : ''}
+              ${item.text ? `<p>${escapeHtml(item.text)}</p>` : ''}
+            </div>
+          </div>
+        `).join('')}
+      </section>`;
+    }
+
+    /* CREDITS */
+    if (Array.isArray(p.credits) && p.credits.length) {
+      html += `<section class="p-section reveal">
+        ${head('Credits')}
+        <div class="p-credits">
+          ${p.credits.map(c => `<div class="credit-row"><span>${escapeHtml(c.role)}</span><span>${escapeHtml(c.name)}</span></div>`).join('')}
+        </div>
+      </section>`;
+    }
+
+    /* NEXT PROJECT */
+    if (p.showNextProject !== false && next && next !== all[idx]) {
       const nextId = next.slug || slug(next.title);
       html += `
         <a href="project.html?id=${encodeURIComponent(nextId)}" class="next-project interactive">
@@ -445,7 +506,6 @@
 
     root.innerHTML = html;
 
-    /* attach sliders after DOM is in place */
     document.querySelectorAll('.p-ba').forEach(el => setupBA(el));
     document.querySelectorAll('.p-vba').forEach(el => setupVBA(el));
 

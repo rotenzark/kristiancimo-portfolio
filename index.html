@@ -39,7 +39,6 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-content">
@@ -58,7 +57,6 @@
   </div>
 </section>
 
-<!-- WORK -->
 <section class="work" id="work">
   <div class="section-head reveal">
     <span><span class="num">01</span> &nbsp;/&nbsp; Selected Work</span>
@@ -67,12 +65,10 @@
   <div class="work-grid reveal-stagger" id="work-grid"></div>
 </section>
 
-<!-- CLIENTS -->
 <section class="clients">
   <div class="marquee" id="marquee"></div>
 </section>
 
-<!-- ABOUT -->
 <section class="about" id="about">
   <div class="reveal">
     <div class="section-head" style="margin-bottom: 32px;">
@@ -83,7 +79,6 @@
   <div class="about-body reveal" id="about-body"></div>
 </section>
 
-<!-- FOOTER / CONTACT -->
 <footer id="contact">
   <div class="section-head reveal" style="margin: 0 0 60px;">
     <span><span class="num">03</span> &nbsp;/&nbsp; Contact</span>
@@ -100,7 +95,6 @@
 <script type="module">
   import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
 
-  /* ─── helpers ─── */
   function bind(key, value) {
     if (value == null) return;
     document.querySelectorAll(`[data-bind="${key}"]`).forEach(el => el.textContent = value);
@@ -115,13 +109,39 @@
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-|-$/g, '');
   }
+  function isMobile() {
+    return window.matchMedia('(max-width: 900px)').matches || window.matchMedia('(hover: none)').matches;
+  }
 
-  /* ─── loader hide ─── */
   function hideLoader() {
     setTimeout(() => document.getElementById('loader').classList.add('gone'), 1600);
   }
 
-  /* ─── content ─── */
+  /* ─── HOVER VIDEO MANAGEMENT ─── */
+  // we attach hover listeners after the grid is rendered.
+  // videos preload only on hover (to save bandwidth), then play on hover, pause on leave.
+  function setupHoverVideos() {
+    if (isMobile()) return; // skip hover behavior on touch devices
+    document.querySelectorAll('.project').forEach(project => {
+      const video = project.querySelector('.cover-video');
+      if (!video) return;
+      let preloaded = false;
+      project.addEventListener('mouseenter', () => {
+        if (!preloaded) {
+          // assign src now (delays bandwidth use until first hover)
+          const src = video.dataset.src;
+          if (src && !video.src) video.src = src;
+          preloaded = true;
+        }
+        video.play().catch(() => {/* autoplay blocked, ignore */});
+      });
+      project.addEventListener('mouseleave', () => {
+        video.pause();
+        video.currentTime = 0;
+      });
+    });
+  }
+
   async function loadContent() {
     try {
       const [site, projects, about, footer, clients] = await Promise.all([
@@ -138,16 +158,21 @@
       bind('location', site.location);
       bind('status', site.status);
 
-      // PROJECTS GRID
+      // PROJECTS GRID — colored covers + optional hover video
       const projList = (projects.items || []).slice().sort((a,b) => (a.order||999) - (b.order||999));
       const grid = document.getElementById('work-grid');
       grid.innerHTML = projList.map(p => {
         const id = p.slug || slug(p.title);
         const href = `project.html?id=${encodeURIComponent(id)}`;
+        const previewVideo = p.previewVideo || '';
+        const hasPreview = !!previewVideo;
         return `
-          <a href="${href}" class="project interactive">
+          <a href="${href}" class="project interactive${hasPreview ? '' : ' no-preview'}">
             ${p.featured ? `<span class="project-tag">${escapeHtml(p.tagLabel || 'Featured')}</span>` : ''}
-            <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}">
+            <img class="cover-img" src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" loading="lazy">
+            ${hasPreview ? `
+              <video class="cover-video" data-src="${escapeHtml(previewVideo)}" muted loop playsinline preload="none"></video>
+            ` : ''}
             <div class="project-meta">
               <div class="project-title">${escapeHtml(p.title)}</div>
               <div class="project-info"><div class="year">${escapeHtml(p.year)}</div><div>${escapeHtml(p.category)}</div></div>
@@ -156,7 +181,7 @@
         `;
       }).join('');
 
-      // CLIENTS MARQUEE
+      // CLIENTS
       const clientList = clients.items || [];
       const marqueeHTML = clientList.map(c =>
         `<span>${escapeHtml(typeof c === 'string' ? c : c.name)}</span><span class="dot"></span>`
@@ -209,7 +234,7 @@
     }
   }
 
-  /* ─── cursor ─── */
+  /* cursor */
   const cursor = document.getElementById('cursor');
   let cx = 0, cy = 0, tx = 0, ty = 0;
   window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
@@ -230,7 +255,6 @@
   }
   bindCursor();
 
-  /* ─── reveals ─── */
   function setupReveals() {
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => {
@@ -240,7 +264,6 @@
     document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
   }
 
-  /* ─── WebGL hero ─── */
   function setupHero() {
     const canvas = document.getElementById('hero-canvas');
     const scene = new THREE.Scene();
@@ -331,11 +354,11 @@
     });
   }
 
-  /* bootstrap */
   setupHero();
   loadContent().then(() => {
     bindCursor();
     setupReveals();
+    setupHoverVideos();
     hideLoader();
   });
 

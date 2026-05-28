@@ -173,6 +173,14 @@ nav {
   text-transform: uppercase; color: var(--muted);
   margin-bottom: 28px;
   display: flex; gap: 20px; align-items: center;
+  width: fit-content;            /* hover area matches the text */
+  pointer-events: auto;          /* re-enable mouse (hero-content has it off) */
+  transform-origin: left center; /* zoom grows from the left edge */
+  transition: transform 0.5s cubic-bezier(.2,.8,.2,1), color 0.5s ease;
+}
+.hero-tag:hover {
+  transform: scale(1.08);        /* gentle zoom */
+  color: var(--fg);              /* brightens slightly on hover */
 }
 .hero-tag::before { content: ''; width: 40px; height: 1px; background: var(--muted); }
 .hero h1 {

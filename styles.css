@@ -178,9 +178,13 @@ nav {
 .hero h1 {
   font-family: 'Anton', sans-serif;
   font-size: clamp(60px, 16vw, 240px);
-  line-height: 1.10; letter-spacing: -0.015em;
+  line-height: 0.82; letter-spacing: -0.015em;
   text-transform: uppercase; margin-bottom: 32px;
 }
+/* each name line is its own block: tight letters, but a small gap on
+   the second line gives the accent (Ò) room to breathe without touching the line above */
+.hero h1 .line { display: block; }
+.hero h1 .line + .line { margin-top: 0.16em; }
 .hero h1 .italic {
   font-family: 'Instrument Serif', serif;
   font-style: italic; font-weight: 400;

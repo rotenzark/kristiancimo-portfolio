@@ -113,54 +113,6 @@
     return window.matchMedia('(max-width: 900px)').matches || window.matchMedia('(hover: none)').matches;
   }
 
-  /* ─── TAGLINE MAGNIFY (Mac-dock style wave) ─── */
-  function setupTaglineMagnify() {
-    if (isMobile()) return; // pointer-based effect; skip on touch
-    const tag = document.querySelector('.hero-tag');
-    if (!tag) return;
-
-    // split the tagline text into per-character spans
-    const text = tag.textContent;
-    tag.textContent = '';
-    const letters = [];
-    for (const ch of text) {
-      const span = document.createElement('span');
-      span.className = 'tag-letter';
-      span.textContent = ch === ' ' ? '\u00A0' : ch; // keep spaces from collapsing
-      tag.appendChild(span);
-      letters.push(span);
-    }
-
-    const RADIUS = 70;      // px: how far the wave reaches around the cursor
-    const MAX_SCALE = 1.8;  // peak magnification of the letter under the cursor
-    let raf = null;
-    let mouseX = null;
-
-    function update() {
-      raf = null;
-      letters.forEach(span => {
-        const rect = span.getBoundingClientRect();
-        const center = rect.left + rect.width / 2;
-        const dist = Math.abs(mouseX - center);
-        let scale = 1;
-        if (dist < RADIUS) {
-          const t = 1 - dist / RADIUS;        // 0 at edge, 1 at cursor
-          scale = 1 + (MAX_SCALE - 1) * (t * t); // eased falloff
-        }
-        span.style.transform = `scale(${scale})`;
-        span.style.color = scale > 1.05 ? 'var(--fg)' : '';
-      });
-    }
-
-    tag.addEventListener('mousemove', e => {
-      mouseX = e.clientX;
-      if (!raf) raf = requestAnimationFrame(update);
-    });
-    tag.addEventListener('mouseleave', () => {
-      letters.forEach(span => { span.style.transform = 'scale(1)'; span.style.color = ''; });
-    });
-  }
-
   function hideLoader() {
     setTimeout(() => document.getElementById('loader').classList.add('gone'), 1600);
   }
@@ -409,7 +361,6 @@
     bindCursor();
     setupReveals();
     setupHoverVideos();
-    setupTaglineMagnify();
     hideLoader();
   });
 

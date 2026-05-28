@@ -173,19 +173,18 @@ nav {
   text-transform: uppercase; color: var(--muted);
   margin-bottom: 28px;
   display: inline-flex; gap: 20px; align-items: center;
-  width: fit-content;            /* hover area matches the text */
+  width: fit-content;
   position: relative; z-index: 3;
   pointer-events: auto;          /* re-enable mouse (hero-content has it off) */
-  transform-origin: left center; /* zoom grows from the left edge */
-  transition: transform 0.5s cubic-bezier(.2,.8,.2,1), color 0.5s ease;
+}
+/* each letter scales in place (Mac-dock wave), set by JS */
+.hero-tag .tag-letter {
+  display: inline-block;
+  transform-origin: center bottom;
+  transition: transform 0.18s cubic-bezier(.2,.8,.2,1), color 0.18s ease;
   will-change: transform;
 }
-.hero-tag:hover {
-  transform: scale(1.08);        /* gentle zoom */
-  color: var(--fg);              /* brightens slightly on hover */
-}
-.hero-tag::before { content: ''; width: 40px; height: 1px; background: var(--muted); transition: width 0.5s ease; }
-.hero-tag:hover::before { width: 64px; }
+.hero-tag::before { content: ''; width: 40px; height: 1px; background: var(--muted); flex-shrink: 0; }
 .hero h1 {
   font-family: 'Anton', sans-serif;
   font-size: clamp(60px, 16vw, 240px);

@@ -178,7 +178,7 @@ nav {
 .hero h1 {
   font-family: 'Anton', sans-serif;
   font-size: clamp(60px, 16vw, 240px);
-  line-height: 0.82; letter-spacing: -0.015em;
+  line-height: 0.9; letter-spacing: -0.015em;
   text-transform: uppercase; margin-bottom: 32px;
 }
 /* each name line is its own block: tight letters, but a small gap on

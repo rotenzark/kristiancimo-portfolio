@@ -183,7 +183,11 @@ nav {
 }
 /* each name line is its own block: tight letters, but a small gap on
    the second line gives the accent (Ò) room to breathe without touching the line above */
-.hero h1 .line { display: block; }
+.hero h1 .line {
+  display: block;
+  width: fit-content;        /* hover area matches the letters, not the full row */
+  pointer-events: auto;      /* re-enable mouse on the name (hero-content has it off) */
+}
 .hero h1 .line + .line { margin-top: 0.16em; }
 .hero h1 .italic {
   font-family: 'Instrument Serif', serif;

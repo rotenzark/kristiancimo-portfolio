@@ -169,7 +169,7 @@ nav {
   pointer-events: none;
 }
 .hero-tag {
-  font-size: 11px; letter-spacing: 0.25em;
+  font-size: 13px; letter-spacing: 0.25em;
   text-transform: uppercase; color: var(--muted);
   margin-bottom: 28px;
   display: flex; gap: 20px; align-items: center;
@@ -178,7 +178,7 @@ nav {
 .hero h1 {
   font-family: 'Anton', sans-serif;
   font-size: clamp(60px, 16vw, 240px);
-  line-height: 0.9; letter-spacing: -0.015em;
+  line-height: 0.82; letter-spacing: -0.015em;
   text-transform: uppercase; margin-bottom: 32px;
 }
 /* each name line is its own block: tight letters, but a small gap on

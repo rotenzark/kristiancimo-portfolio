@@ -12,7 +12,11 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+}
 body {
   background: var(--bg);
   color: var(--fg);
@@ -20,6 +24,9 @@ body {
   font-size: 13px;
   line-height: 1.5;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
   -webkit-font-smoothing: antialiased;
 }
 @media (min-width: 900px) {
@@ -295,7 +302,7 @@ nav {
 }
 @media (max-width: 900px) {
   .work { padding: 80px 20px; }
-  .work-grid { gap: 12px; }
+  .work-grid { grid-template-columns: 1fr; gap: 12px; }
   .project { grid-column: 1 / -1 !important; aspect-ratio: 4 / 3 !important; }
   /* on mobile, hover doesn't exist — hide preview video to save bandwidth */
   .project .cover-video { display: none; }
@@ -601,6 +608,7 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
 .p-gallery.count-2 .item { grid-column: span 6 !important; }
 
 @media (max-width: 900px) {
+  .p-gallery { grid-template-columns: 1fr; }
   .p-gallery .item { grid-column: 1 / -1 !important; }
   .gallery-block { margin-bottom: 60px; }
 }
@@ -940,3 +948,44 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   text-transform: uppercase;
 }
 @media (max-width: 768px) { .next-project { padding: 80px 20px; } }
+
+/* ═══════════════════════════════════════════════════
+   v3.3 — MOBILE HORIZONTAL-SCROLL FIX (safety net)
+   Prevents the "phantom" horizontal scroll / black band
+   on phones, without affecting the desktop layout.
+   ═══════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  html, body {
+    overflow-x: hidden;      /* broadest mobile compatibility */
+    max-width: 100%;
+    width: 100%;
+  }
+  /* nothing should be able to push wider than the screen */
+  nav, section, footer, main, .work, .about, .clients,
+  .project-hero, .project-cover, .p-section, .next-project {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+  /* grids must never force a wider track than the viewport */
+  .work-grid, .p-gallery, .project-info-grid, .footer-grid, .about-stats {
+    max-width: 100%;
+  }
+  /* the clients marquee is intentionally wider than the screen;
+     keep it clipped so its overflow never reaches the page */
+  .clients { max-width: 100%; overflow: hidden; }
+  /* before/after sliders never exceed the column on mobile */
+  .p-ba, .p-vba {
+    max-width: 100% !important;
+  }
+}
+
+/* v3.3 — guard against giant display text adding trailing inline space on mobile */
+@media (max-width: 900px) {
+  .hero h1, .contact-cta, .project-hero-title, .next-project h2 {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+  }
+  /* trailing letter-spacing can nudge width; trim it on the very large heads */
+  .hero h1 { letter-spacing: -0.02em; }
+}

@@ -178,7 +178,7 @@ nav {
 .hero h1 {
   font-family: 'Anton', sans-serif;
   font-size: clamp(60px, 16vw, 240px);
-  line-height: 1.02; letter-spacing: -0.015em;
+  line-height: 1.10; letter-spacing: -0.015em;
   text-transform: uppercase; margin-bottom: 32px;
 }
 .hero h1 .italic {

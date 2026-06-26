@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XFIELD · Crediti · Giorgio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#09090b; --panel:rgba(255,255,255,.025); --line:rgba(255,255,255,.08);
+    --line-soft:rgba(255,255,255,.05); --txt:#edeef2; --muted:#8b8b95; --faint:#5a5a63;
+    --k:#f2a13c; --g:#a78bfa; --danger:#ff6b6b; --radius:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--txt);font-family:'Manrope',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(55% 50% at 18% 0%, rgba(242,161,60,.10), transparent 70%),
+               radial-gradient(55% 50% at 82% 5%, rgba(167,139,250,.10), transparent 70%)}
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:26px 18px 60px}
+  header{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px}
+  .brand{display:flex;flex-direction:column;gap:2px}
+  .brand .mark{font-size:13px;letter-spacing:.42em;font-weight:700;color:var(--txt)}
+  .brand .sub{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+  .pool{flex:1;max-width:380px;text-align:right}
+  .pool .nums{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:7px}
+  .pool .nums b{color:var(--txt);font-weight:500}
+  .poolbar{height:4px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}
+  .poolbar > i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--k),var(--g));transition:width .5s cubic-bezier(.2,.7,.2,1)}
+  .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:start}
+  .panel{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px 20px;overflow:hidden;backdrop-filter:blur(8px)}
+  .panel::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(120% 80% at 50% -20%, var(--glow), transparent 60%);opacity:.5}
+  .panel.k{--glow:rgba(242,161,60,.13)}
+  .panel.g{--glow:rgba(167,139,250,.13)}
+  .panel.joint{--glow:transparent;border-color:rgba(255,255,255,.13)}
+  .panel.joint::before{opacity:1;background:
+    radial-gradient(120% 70% at 50% -15%, rgba(242,161,60,.12), transparent 55%),
+    radial-gradient(120% 70% at 50% 115%, rgba(167,139,250,.12), transparent 55%)}
+  .p-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .who{display:flex;align-items:center;gap:9px}
+  .dot{width:9px;height:9px;border-radius:99px;box-shadow:0 0 12px 0 currentColor}
+  .panel.k .dot,.panel.k .accent{color:var(--k)}
+  .panel.g .dot,.panel.g .accent{color:var(--g)}
+  .panel.joint .dot{background:linear-gradient(90deg,var(--k),var(--g));box-shadow:0 0 12px rgba(167,139,250,.5)}
+  .who .name{font-weight:700;font-size:15px;letter-spacing:.16em}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--faint);
+    border:1px solid var(--line);border-radius:99px;padding:3px 8px}
+  .big{font-family:'JetBrains Mono',monospace;font-weight:300;line-height:1;font-size:clamp(38px,7vw,54px);letter-spacing:-.02em}
+  .big.neg{color:var(--danger)}
+  .panel.joint .big{background:linear-gradient(90deg,var(--k),var(--g));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .of{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--faint);margin:6px 0 16px}
+  .bar{height:5px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden;margin-bottom:8px}
+  .bar > i{display:block;height:100%;border-radius:99px;transition:width .45s cubic-bezier(.2,.7,.2,1)}
+  .panel.k .bar > i{background:linear-gradient(90deg,#c9802a,var(--k))}
+  .panel.g .bar > i{background:linear-gradient(90deg,#7c5fd6,var(--g))}
+  .splitbar{display:flex;gap:2px}
+  .splitbar > i{transition:width .45s cubic-bezier(.2,.7,.2,1)}
+  .splitbar > i.sk{background:var(--k)}
+  .splitbar > i.sg{background:var(--g)}
+  .meta{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:18px}
+  .seg{display:flex;gap:6px;margin-bottom:10px}
+  .seg button{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:transparent;
+    border:1px solid var(--line);color:var(--muted);border-radius:11px;padding:9px 4px;font-family:inherit;
+    font-size:12px;font-weight:500;cursor:pointer;transition:.18s}
+  .seg button svg{width:14px;height:14px}
+  .seg button:hover{border-color:rgba(255,255,255,.2);color:var(--txt)}
+  .seg button.on{background:color-mix(in srgb, currentColor 14%, transparent);border-color:currentColor}
+  .panel.k .seg button.on{color:var(--k)}
+  .panel.g .seg button.on{color:var(--g)}
+  .panel.joint .seg button.on{color:#cdb6ff}
+  .row{display:flex;gap:8px;margin-bottom:9px}
+  .field{flex:1;display:flex;align-items:center;background:rgba(0,0,0,.25);border:1px solid var(--line);
+    border-radius:12px;padding:0 12px;transition:border-color .18s}
+  .field:focus-within{border-color:rgba(255,255,255,.28)}
+  .field input{background:transparent;border:0;outline:0;color:var(--txt);width:100%;
+    font-family:'JetBrains Mono',monospace;font-size:15px;padding:11px 0}
+  .field input::placeholder{color:var(--faint)}
+  .field.amount{max-width:120px}
+  .field .pre{font-family:'JetBrains Mono',monospace;color:var(--faint);font-size:14px;margin-right:4px}
+  .note-field input{font-family:'Manrope',sans-serif;font-size:13px}
+  .shares{display:flex;gap:8px;margin-bottom:9px}
+  .share{flex:1}
+  .share label{display:block;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:5px}
+  .share .field.amount{max-width:none}
+  .add{border:0;cursor:pointer;border-radius:12px;padding:0 16px;font-weight:700;font-size:13px;
+    letter-spacing:.04em;color:#0a0a0c;transition:.18s;white-space:nowrap}
+  .panel.k .add{background:var(--k)}
+  .panel.g .add{background:var(--g)}
+  .panel.joint .add{background:linear-gradient(90deg,var(--k),var(--g))}
+  .add:hover{filter:brightness(1.1)}
+  .add:active{transform:translateY(1px)}
+  .undo{background:none;border:0;color:var(--faint);font-family:inherit;font-size:11.5px;cursor:pointer;
+    padding:2px 0;display:inline-flex;align-items:center;gap:5px;transition:.16s}
+  .undo:hover{color:var(--danger)}
+  .undo[disabled]{opacity:.3;cursor:default}
+  .undo svg{width:12px;height:12px}
+  .list{margin-top:18px;border-top:1px solid var(--line-soft);padding-top:14px}
+  .list-h{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:9px}
+  .op{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line-soft)}
+  .op:last-child{border-bottom:0}
+  .op .ic{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;flex:none;background:rgba(255,255,255,.05);color:var(--muted)}
+  .op .ic svg{width:13px;height:13px}
+  .op .lbl{flex:1;min-width:0}
+  .op .lbl .t{font-size:13px;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .op .lbl .w{font-size:10.5px;color:var(--faint);font-family:'JetBrains Mono',monospace}
+  .op .amt{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--txt);font-weight:500}
+  .op.j .ic{color:#cdb6ff;background:rgba(167,139,250,.10)}
+  .empty{font-size:12.5px;color:var(--faint);padding:6px 0;font-style:italic}
+  .foot{display:flex;align-items:center;justify-content:space-between;margin-top:22px;gap:14px;flex-wrap:wrap}
+  .history-btn{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);
+    border-radius:14px;padding:13px 18px;color:var(--txt);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:.18s}
+  .history-btn:hover{border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.045)}
+  .history-btn svg{width:15px;height:15px;color:var(--muted)}
+  .history-btn .count{font-family:'JetBrains Mono',monospace;color:var(--faint);font-size:12px}
+  .sync{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--faint);font-family:'JetBrains Mono',monospace}
+  .sync .led{width:7px;height:7px;border-radius:99px;background:#3ddc84;box-shadow:0 0 8px #3ddc84;animation:pulse 2.4s infinite}
+  .sync .led.off{background:var(--danger);box-shadow:0 0 8px var(--danger);animation:none}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .overlay{position:fixed;inset:0;z-index:50;background:rgba(5,5,7,.72);backdrop-filter:blur(6px);
+    display:none;align-items:center;justify-content:center;padding:18px}
+  .overlay.show{display:flex}
+  .modal{background:#0e0e12;border:1px solid var(--line);border-radius:20px;width:100%;max-width:560px;
+    max-height:84vh;display:flex;flex-direction:column;overflow:hidden}
+  .modal-h{display:flex;align-items:center;justify-content:space-between;padding:20px 22px 16px;border-bottom:1px solid var(--line-soft)}
+  .modal-h h2{font-size:15px;letter-spacing:.14em;font-weight:700}
+  .modal-h .x{background:none;border:0;color:var(--muted);cursor:pointer;font-size:22px;line-height:1;padding:2px 6px}
+  .modal-h .x:hover{color:var(--txt)}
+  .modal-body{overflow-y:auto;padding:8px 22px 8px}
+  .hop{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--line-soft)}
+  .hop .ic{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;flex:none;background:rgba(255,255,255,.05);color:var(--muted)}
+  .hop .ic svg{width:14px;height:14px}
+  .hop .badge{font-size:9px;letter-spacing:.1em;font-weight:700;text-transform:uppercase;border-radius:99px;padding:3px 8px;flex:none}
+  .hop .badge.k{color:var(--k);background:rgba(242,161,60,.12)}
+  .hop .badge.g{color:var(--g);background:rgba(167,139,250,.12)}
+  .hop .badge.j{color:#cdb6ff;background:rgba(167,139,250,.12)}
+  .hop .info{flex:1;min-width:0}
+  .hop .info .t{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hop .info .d{font-size:10.5px;color:var(--faint);font-family:'JetBrains Mono',monospace}
+  .hop .amt{font-family:'JetBrains Mono',monospace;font-size:14px}
+  .hop .del{background:none;border:0;color:var(--faint);cursor:pointer;padding:4px;opacity:.6;transition:.16s}
+  .hop .del:hover{color:var(--danger);opacity:1}
+  .hop .del svg{width:14px;height:14px}
+  .modal-f{padding:14px 22px 18px;border-top:1px solid var(--line-soft);display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .reset{background:none;border:1px solid rgba(255,107,107,.3);color:var(--danger);border-radius:10px;padding:9px 14px;font-family:inherit;font-size:12px;cursor:pointer;transition:.16s}
+  .reset:hover{background:rgba(255,107,107,.1)}
+  .modal-f .tot{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted)}
+  .gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px}
+  .gate::before{content:"";position:absolute;inset:0;
+    background:radial-gradient(50% 50% at 50% 40%,rgba(242,161,60,.10),transparent 70%),
+              radial-gradient(50% 50% at 50% 60%,rgba(167,139,250,.09),transparent 70%)}
+  .gate-card{position:relative;text-align:center;max-width:320px;width:100%}
+  .gate-card .lock{font-size:11px;letter-spacing:.4em;color:var(--faint);margin-bottom:8px}
+  .gate-card h1{font-size:22px;letter-spacing:.3em;font-weight:800;margin-bottom:4px}
+  .gate-card p{font-size:12px;color:var(--muted);margin-bottom:24px}
+  .gate-card .gf{display:flex;background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:13px;overflow:hidden}
+  .gate-card .gf.err{animation:shake .4s;border-color:var(--danger)}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+  .gate-card input{flex:1;background:transparent;border:0;outline:0;color:var(--txt);padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:.1em}
+  .gate-card button{background:linear-gradient(90deg,var(--k),var(--g));border:0;color:#0a0a0c;padding:0 18px;font-weight:800;cursor:pointer;font-size:14px}
+  .gate-msg{font-size:11px;color:var(--faint);margin-top:14px;min-height:14px}
+  .app{display:none}
+  .app.show{display:block}
+  @media(max-width:760px){
+    .grid{grid-template-columns:1fr}
+    header{flex-direction:column;align-items:stretch}
+    .pool{max-width:none;text-align:left}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ GATE ============ -->
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <div class="lock">◆ ACCESSO RISERVATO ◆</div>
+    <h1>XFIELD</h1>
+    <p>Pool crediti · Kristian / Giorgio</p>
+    <div class="gf" id="gf">
+      <input id="pw" type="password" placeholder="password" autocomplete="off" autofocus>
+      <button id="pwBtn">Entra</button>
+    </div>
+    <div class="gate-msg" id="gateMsg"></div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div class="app" id="app">
+<div class="wrap">
+  <header>
+    <div class="brand"><div class="mark">XFIELD</div><div class="sub">Pool crediti · Giorgio</div></div>
+    <div class="pool">
+      <div class="nums">POOL <b id="poolUsed">0</b> / 9000 usati · <b id="poolLeft">9000</b> rimasti</div>
+      <div class="poolbar"><i id="poolBar" style="width:0%"></i></div>
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- KRISTIAN -->
+    <div class="panel k">
+      <div class="p-head"><div class="who"><span class="dot"></span><span class="name">KRISTIAN</span></div><span class="tag" id="tag-kristian">— / 4500</span></div>
+      <div class="big" id="big-kristian">4500</div>
+      <div class="of">crediti rimasti</div>
+      <div class="bar"><i id="bar-kristian" style="width:0%"></i></div>
+      <div class="meta"><span id="used-kristian">0 usati</span><span id="rem-kristian">4500 rimasti</span></div>
+      <div class="seg" id="seg-kristian"></div>
+      <div class="row">
+        <div class="field amount"><span class="pre">−</span><input id="amt-kristian" type="number" min="1" inputmode="numeric" placeholder="crediti"></div>
+        <div class="field note-field"><input id="note-kristian" type="text" placeholder="nota"></div>
+        <button class="add" id="add-kristian">Aggiungi</button>
+      </div>
+      <button class="undo" id="undo-kristian"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg> Annulla ultima</button>
+      <div class="list"><div class="list-h">Ultime operazioni</div><div id="list-kristian"></div></div>
+    </div>
+
+    <!-- INSIEME -->
+    <div class="panel joint">
+      <div class="p-head"><div class="who"><span class="dot"></span><span class="name">INSIEME</span></div><span class="tag" id="tag-joint">0 lavori</span></div>
+      <div class="big" id="big-joint">0</div>
+      <div class="of">crediti usati insieme</div>
+      <div class="bar splitbar"><i class="sk" id="bar-jk" style="width:50%"></i><i class="sg" id="bar-jg" style="width:50%"></i></div>
+      <div class="meta"><span id="jk-meta" class="accent" style="color:var(--k)">Kristian 0</span><span id="jg-meta" class="accent" style="color:var(--g)">Giorgio 0</span></div>
+      <div class="seg" id="seg-joint"></div>
+      <div class="row">
+        <div class="field"><span class="pre">Σ</span><input id="j-total" type="number" min="1" inputmode="numeric" placeholder="totale lavoro"></div>
+      </div>
+      <div class="shares">
+        <div class="share"><label>Kristian</label><div class="field amount"><span class="pre">−</span><input id="j-k" type="number" min="0" inputmode="numeric" placeholder="0"></div></div>
+        <div class="share"><label>Giorgio</label><div class="field amount"><span class="pre">−</span><input id="j-g" type="number" min="0" inputmode="numeric" placeholder="0"></div></div>
+      </div>
+      <div class="row">
+        <div class="field note-field"><input id="j-note" type="text" placeholder="nota (facoltativa)"></div>
+        <button class="add" id="add-joint">Aggiungi</button>
+      </div>
+      <button class="undo" id="undo-joint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg> Annulla ultimo</button>
+      <div class="list"><div class="list-h">Lavori insieme</div><div id="list-joint"></div></div>
+    </div>
+
+    <!-- GIORGIO -->
+    <div class="panel g">
+      <div class="p-head"><div class="who"><span class="dot"></span><span class="name">GIORGIO</span></div><span class="tag" id="tag-giorgio">— / 4500</span></div>
+      <div class="big" id="big-giorgio">4500</div>
+      <div class="of">crediti rimasti</div>
+      <div class="bar"><i id="bar-giorgio" style="width:0%"></i></div>
+      <div class="meta"><span id="used-giorgio">0 usati</span><span id="rem-giorgio">4500 rimasti</span></div>
+      <div class="seg" id="seg-giorgio"></div>
+      <div class="row">
+        <div class="field amount"><span class="pre">−</span><input id="amt-giorgio" type="number" min="1" inputmode="numeric" placeholder="crediti"></div>
+        <div class="field note-field"><input id="note-giorgio" type="text" placeholder="nota"></div>
+        <button class="add" id="add-giorgio">Aggiungi</button>
+      </div>
+      <button class="undo" id="undo-giorgio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg> Annulla ultima</button>
+      <div class="list"><div class="list-h">Ultime operazioni</div><div id="list-giorgio"></div></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <button class="history-btn" id="openHistory">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+      Cronologia completa <span class="count" id="histCount">(0)</span>
+    </button>
+    <div class="sync"><span class="led" id="led"></span><span id="syncTxt">connessione…</span></div>
+  </div>
+</div>
+</div>
+
+<!-- ============ HISTORY MODAL ============ -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-h"><h2>CRONOLOGIA</h2><button class="x" id="closeHistory">×</button></div>
+    <div class="modal-body" id="historyList"></div>
+    <div class="modal-f">
+      <button class="reset" id="resetAll">↺ Nuovo mese (azzera tutto)</button>
+      <span class="tot" id="histTot"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ======================================================================
+   CONFIG
+   ====================================================================== */
+const API  = "https://xfield-crediti.kristiancimo.workers.dev";  // il tuo Worker
+const POOL = 4500;
+
+const ICON = {
+  video:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg>',
+  foto:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="8.5" cy="10" r="1.6"/><path d="M4 18l5-5 4 3 3-2 4 4"/></svg>',
+  altro:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v18M3 12h18M6 6l12 12M18 6L6 18"/></svg>'
+};
+const LABEL = { video:"Video", foto:"Foto", altro:"Altro" };
+
+let ledger = { operations: [] };
+let lastSerialized = "";
+let authPass = "";
+const selectedType = { kristian:"video", giorgio:"video", joint:"video" };
+
+const uid = () => (crypto.randomUUID && crypto.randomUUID()) || String(Date.now()+Math.random());
+const r2  = n => Math.round(n*100)/100;
+
+/* ======================================================================
+   API
+   ====================================================================== */
+async function apiGet(pass){
+  const res = await fetch(API, { headers:{ "X-Pass": pass ?? authPass } });
+  if(res.status === 401) throw new Error("unauthorized");
+  if(!res.ok) throw new Error("net");
+  return res.json();
+}
+async function apiPost(cmd){
+  const res = await fetch(API, { method:"POST",
+    headers:{ "Content-Type":"application/json", "X-Pass": authPass },
+    body: JSON.stringify(cmd) });
+  if(!res.ok) throw new Error("net");
+  return res.json();
+}
+async function commit(cmd){
+  try{
+    const fresh = await apiPost(cmd);
+    ledger = fresh; lastSerialized = JSON.stringify(fresh); render();
+    setSync(true,"sincronizzato");
+  }catch(e){ setSync(false,"errore salvataggio"); }
+}
+
+/* ======================================================================
+   SEG (selettore tipo) — costruito via JS nei 3 pannelli
+   ====================================================================== */
+function buildSegs(){
+  ["kristian","giorgio","joint"].forEach(scope=>{
+    const seg=document.getElementById(`seg-${scope}`);
+    seg.innerHTML=["video","foto","altro"].map(t=>`<button data-scope="${scope}" data-type="${t}" class="${t==='video'?'on':''}">${ICON[t]}${LABEL[t]}</button>`).join("");
+    seg.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{
+      selectedType[scope]=b.dataset.type;
+      seg.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));
+    }));
+  });
+}
+
+/* ======================================================================
+   ACTIONS — personali
+   ====================================================================== */
+function addPersonal(userKey){
+  const amtEl=document.getElementById(`amt-${userKey}`);
+  const noteEl=document.getElementById(`note-${userKey}`);
+  const amount=parseFloat(amtEl.value);
+  if(!amount||amount<=0){ amtEl.focus(); flash(amtEl); return; }
+  const op={ id:uid(), user:userKey, amount:r2(amount), type:selectedType[userKey], note:(noteEl.value||"").trim(), ts:Date.now() };
+  amtEl.value=""; noteEl.value=""; amtEl.focus();
+  commit({ action:"add", op });
+}
+function undoPersonal(userKey){
+  const mine=ledger.operations.filter(o=>!o.joint && o.user===userKey).sort((a,b)=>b.ts-a.ts);
+  if(!mine.length) return;
+  commit({ action:"delete", id:mine[0].id });
+}
+
+/* ======================================================================
+   ACTIONS — insieme
+   ====================================================================== */
+function addJoint(){
+  const k=parseFloat(document.getElementById("j-k").value)||0;
+  const g=parseFloat(document.getElementById("j-g").value)||0;
+  if(k+g<=0){ flash(document.getElementById("j-total")); return; }
+  const op={ id:uid(), joint:true, k:r2(k), g:r2(g), type:selectedType.joint, note:(document.getElementById("j-note").value||"").trim(), ts:Date.now() };
+  document.getElementById("j-total").value=""; document.getElementById("j-k").value="";
+  document.getElementById("j-g").value=""; document.getElementById("j-note").value="";
+  document.getElementById("j-total").focus();
+  commit({ action:"add", op });
+}
+function undoJoint(){
+  const j=ledger.operations.filter(o=>o.joint).sort((a,b)=>b.ts-a.ts);
+  if(!j.length) return;
+  commit({ action:"delete", id:j[0].id });
+}
+function deleteOp(id){ commit({ action:"delete", id }); }
+function resetAll(){
+  if(confirm("Azzerare TUTTO (te, Giorgio e i lavori insieme) e ripartire da un nuovo mese?\nQuesto riguarda solo questa sezione (Giorgio), non Sasa. Irreversibile."))
+    commit({ action:"reset" });
+}
+function flash(el){ el.closest(".field").style.borderColor="var(--danger)"; setTimeout(()=>{ el.closest(".field").style.borderColor=""; },600); }
+
+/* ======================================================================
+   HELPERS render
+   ====================================================================== */
+function relTime(ts){
+  const s=(Date.now()-ts)/1000; if(s<60)return"ora";
+  const m=s/60; if(m<60)return Math.floor(m)+" min fa";
+  const h=m/60; if(h<24)return Math.floor(h)+" h fa";
+  const d=h/24; if(d<7)return Math.floor(d)+" g fa";
+  return new Date(ts).toLocaleDateString("it-IT",{day:"2-digit",month:"2-digit"});
+}
+function fullTime(ts){ return new Date(ts).toLocaleString("it-IT",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"}); }
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+// voci da mostrare nella lista di un utente: personali + quota dei lavori insieme
+function userEntries(userKey){
+  const personal=ledger.operations.filter(o=>!o.joint && o.user===userKey).map(o=>({ ts:o.ts, type:o.type, note:o.note, amt:o.amount, j:false }));
+  const joint=ledger.operations.filter(o=>o.joint).map(o=>({ ts:o.ts, type:o.type, note:o.note, amt:(userKey==='kristian'?o.k:o.g), j:true }));
+  return [...personal,...joint].filter(e=>e.amt>0).sort((a,b)=>b.ts-a.ts);
+}
+
+/* ======================================================================
+   RENDER
+   ====================================================================== */
+function render(){
+  const ops=ledger.operations;
+  let poolUsed=0;
+
+  ["kristian","giorgio"].forEach(uk=>{
+    const personalUsed=ops.filter(o=>!o.joint&&o.user===uk).reduce((s,o)=>s+o.amount,0);
+    const jointUsed=ops.filter(o=>o.joint).reduce((s,o)=>s+(uk==='kristian'?o.k:o.g),0);
+    const used=personalUsed+jointUsed; const rem=POOL-used; poolUsed+=used;
+    const pct=Math.max(0,Math.min(100,(used/POOL)*100));
+    const big=document.getElementById(`big-${uk}`); big.textContent=r2(rem); big.classList.toggle("neg",rem<0);
+    document.getElementById(`bar-${uk}`).style.width=pct+"%";
+    document.getElementById(`tag-${uk}`).textContent=`${r2(used)} / ${POOL}`;
+    document.getElementById(`used-${uk}`).textContent=`${r2(used)} usati`;
+    const remEl=document.getElementById(`rem-${uk}`); remEl.textContent=`${r2(rem)} rimasti`; remEl.style.color=rem<0?"var(--danger)":"";
+    document.getElementById(`undo-${uk}`).disabled=ops.filter(o=>!o.joint&&o.user===uk).length===0;
+
+    const entries=userEntries(uk);
+    const list=document.getElementById(`list-${uk}`);
+    list.innerHTML = !entries.length ? `<div class="empty">Nessuna operazione</div>`
+      : entries.slice(0,10).map(e=>`
+        <div class="op ${e.j?'j':''}">
+          <span class="ic">${ICON[e.type]||ICON.altro}</span>
+          <span class="lbl">
+            <span class="t">${e.note?escapeHtml(e.note):LABEL[e.type]||"Altro"}</span>
+            <span class="w">${e.j?"insieme · ":""}${LABEL[e.type]||"Altro"} · ${relTime(e.ts)}</span>
+          </span>
+          <span class="amt">−${e.amt}</span>
+        </div>`).join("");
+  });
+
+  // ----- pannello INSIEME -----
+  const jointOps=ops.filter(o=>o.joint).sort((a,b)=>b.ts-a.ts);
+  const jk=jointOps.reduce((s,o)=>s+o.k,0), jg=jointOps.reduce((s,o)=>s+o.g,0), jtot=jk+jg;
+  document.getElementById("big-joint").textContent=r2(jtot);
+  document.getElementById("tag-joint").textContent=`${jointOps.length} ${jointOps.length===1?'lavoro':'lavori'}`;
+  document.getElementById("jk-meta").textContent=`Kristian ${r2(jk)}`;
+  document.getElementById("jg-meta").textContent=`Giorgio ${r2(jg)}`;
+  const tot=jtot||1;
+  document.getElementById("bar-jk").style.width=(jk/tot*100)+"%";
+  document.getElementById("bar-jg").style.width=(jg/tot*100)+"%";
+  document.getElementById("undo-joint").disabled=jointOps.length===0;
+  const lj=document.getElementById("list-joint");
+  lj.innerHTML = !jointOps.length ? `<div class="empty">Ancora niente insieme</div>`
+    : jointOps.slice(0,10).map(o=>`
+      <div class="op j">
+        <span class="ic">${ICON[o.type]||ICON.altro}</span>
+        <span class="lbl">
+          <span class="t">${o.note?escapeHtml(o.note):LABEL[o.type]||"Altro"}</span>
+          <span class="w">K −${o.k} · G −${o.g} · ${relTime(o.ts)}</span>
+        </span>
+        <span class="amt">−${r2(o.k+o.g)}</span>
+      </div>`).join("");
+
+  // ----- pool header -----
+  const poolLeft=9000-poolUsed;
+  document.getElementById("poolUsed").textContent=r2(poolUsed);
+  const pl=document.getElementById("poolLeft"); pl.textContent=r2(poolLeft); pl.style.color=poolLeft<0?"var(--danger)":"";
+  document.getElementById("poolBar").style.width=Math.max(0,Math.min(100,(poolUsed/9000)*100))+"%";
+  document.getElementById("histCount").textContent=`(${ops.length})`;
+  if(document.getElementById("overlay").classList.contains("show")) renderHistory();
+}
+
+function renderHistory(){
+  const all=[...ledger.operations].sort((a,b)=>b.ts-a.ts);
+  const body=document.getElementById("historyList");
+  body.innerHTML = !all.length ? `<div class="empty" style="padding:24px 0">Ancora nessuna operazione registrata.</div>`
+    : all.map(o=>{
+      if(o.joint){
+        return `<div class="hop">
+          <span class="ic">${ICON[o.type]||ICON.altro}</span>
+          <span class="badge j">Insieme</span>
+          <span class="info"><span class="t">${o.note?escapeHtml(o.note):LABEL[o.type]||"Altro"}</span>
+          <span class="d">K −${o.k} · G −${o.g} · ${fullTime(o.ts)}</span></span>
+          <span class="amt">−${r2(o.k+o.g)}</span>
+          <button class="del" data-id="${o.id}" title="Elimina"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13"/></svg></button>
+        </div>`;
+      }
+      const cls=o.user==="kristian"?"k":"g";
+      const nm=o.user==="kristian"?"Kristian":"Giorgio";
+      return `<div class="hop">
+        <span class="ic">${ICON[o.type]||ICON.altro}</span>
+        <span class="badge ${cls}">${nm}</span>
+        <span class="info"><span class="t">${o.note?escapeHtml(o.note):LABEL[o.type]||"Altro"}</span>
+        <span class="d">${LABEL[o.type]||"Altro"} · ${fullTime(o.ts)}</span></span>
+        <span class="amt">−${o.amount}</span>
+        <button class="del" data-id="${o.id}" title="Elimina"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13"/></svg></button>
+      </div>`;
+    }).join("");
+  body.querySelectorAll(".del").forEach(b=>b.addEventListener("click",()=>deleteOp(b.dataset.id)));
+  const tot=all.reduce((s,o)=>s+(o.joint?(o.k+o.g):o.amount),0);
+  document.getElementById("histTot").textContent=`${all.length} voci · ${r2(tot)} crediti`;
+}
+
+/* ======================================================================
+   SYNC
+   ====================================================================== */
+function setSync(ok,txt){ document.getElementById("led").classList.toggle("off",!ok); document.getElementById("syncTxt").textContent=txt; }
+async function sync(){
+  try{
+    const data=await apiGet(); const s=JSON.stringify(data);
+    if(s!==lastSerialized){ ledger=data; lastSerialized=s; render(); }
+    setSync(true,"sincronizzato");
+  }catch(e){ setSync(false,"offline"); }
+}
+
+/* ======================================================================
+   LISTENERS
+   ====================================================================== */
+["kristian","giorgio"].forEach(uk=>{
+  document.getElementById(`add-${uk}`).addEventListener("click",()=>addPersonal(uk));
+  document.getElementById(`undo-${uk}`).addEventListener("click",()=>undoPersonal(uk));
+  ["amt","note"].forEach(p=>document.getElementById(`${p}-${uk}`).addEventListener("keydown",e=>{ if(e.key==="Enter") addPersonal(uk); }));
+});
+document.getElementById("add-joint").addEventListener("click",addJoint);
+document.getElementById("undo-joint").addEventListener("click",undoJoint);
+// auto-split 50/50 quando scrivi il totale; total live quando aggiusti le quote
+const jT=document.getElementById("j-total"), jK=document.getElementById("j-k"), jG=document.getElementById("j-g");
+jT.addEventListener("input",()=>{ const t=parseFloat(jT.value); if(t>0){ const g=Math.floor(t/2); jG.value=g; jK.value=t-g; } else { jK.value=""; jG.value=""; } });
+function syncTot(){ const k=parseFloat(jK.value)||0,g=parseFloat(jG.value)||0; jT.value=(k+g)||""; }
+jK.addEventListener("input",syncTot); jG.addEventListener("input",syncTot);
+[jK,jG,document.getElementById("j-note")].forEach(el=>el.addEventListener("keydown",e=>{ if(e.key==="Enter") addJoint(); }));
+
+document.getElementById("openHistory").addEventListener("click",()=>{document.getElementById("overlay").classList.add("show");renderHistory();});
+document.getElementById("closeHistory").addEventListener("click",()=>document.getElementById("overlay").classList.remove("show"));
+document.getElementById("overlay").addEventListener("click",e=>{if(e.target.id==="overlay")document.getElementById("overlay").classList.remove("show");});
+document.getElementById("resetAll").addEventListener("click",resetAll);
+
+/* ======================================================================
+   GATE
+   ====================================================================== */
+async function unlock(){
+  const pw=document.getElementById("pw"); const val=pw.value; if(!val) return;
+  const btn=document.getElementById("pwBtn"); const msg=document.getElementById("gateMsg");
+  btn.textContent="…"; msg.textContent="";
+  try{
+    const data=await apiGet(val);
+    authPass=val; ledger=data; lastSerialized=JSON.stringify(data);
+    document.getElementById("gate").style.display="none";
+    document.getElementById("app").classList.add("show");
+    start();
+  }catch(e){
+    if(e.message==="unauthorized"){
+      const gf=document.getElementById("gf"); gf.classList.add("err"); pw.value=""; pw.focus();
+      setTimeout(()=>gf.classList.remove("err"),450);
+    }else{
+      msg.textContent = API.startsWith("INCOLLA") ? "Manca l'URL del Worker (const API)" : "Server non raggiungibile";
+    }
+  }finally{ btn.textContent="Entra"; }
+}
+document.getElementById("pwBtn").addEventListener("click",unlock);
+document.getElementById("pw").addEventListener("keydown",e=>{ if(e.key==="Enter") unlock(); });
+
+let started=false;
+function start(){ if(started) return; started=true; buildSegs(); render(); setInterval(sync,5000); window.addEventListener("focus",sync); }
+</script>
+</body>
+</html>

@@ -9,86 +9,121 @@ public_folder: "/media"
 site_url: https://kristiancimo.it
 display_url: https://kristiancimo.it
 
+# Custom branding — replaces the default "Sveltia CMS" title in browser tab and header
+app_title: "Portfolio — Kristian Cimò"
+
 locale: en
 
 collections:
-  # ═══════════════════════════════════════════════════
-  # SITE-WIDE SETTINGS
-  # ═══════════════════════════════════════════════════
+
+  # ═══════════════════════════════════════════════════════════════════
+  # 🎬  SITE SETTINGS — everything on the homepage outside of Work grid
+  # ═══════════════════════════════════════════════════════════════════
   - name: "settings"
-    label: "Site Settings"
-    description: "Hero, About, Footer, Clients — everything shown on the homepage outside of the Work grid."
+    label: "🎬 Site Settings"
+    description: "Hero, About section, Footer & Clients — everything shown on the homepage outside of the Work grid."
     files:
+
+      # ─────────────────────────────────────────────
       - name: "site"
         label: "Hero / Header"
         file: "data/site.json"
         format: "json"
+        description: "Big name, tagline, italic subtitle, location, availability status. Everything at the top of the homepage."
         fields:
-          - { label: "Page Title (browser tab)", name: "title", widget: "string" }
-          - { label: "Meta Description (SEO)", name: "description", widget: "text" }
-          - { label: "Hero Tagline", name: "tagline", widget: "string" }
-          - { label: "Name — Line 1 (big)", name: "nameLine1", widget: "string", hint: "First line of your big name in the hero. e.g. Kristian" }
-          - { label: "Name — Line 2 (big)", name: "nameLine2", widget: "string", hint: "Second line of your big name in the hero. e.g. Cimò" }
-          - { label: "Hero Subtitle (italic)", name: "subtitle", widget: "string" }
-          - { label: "Location (bottom-left of hero)", name: "location", widget: "string" }
-          - { label: "Status (top-right of nav)", name: "status", widget: "string" }
+          - { label: "Page Title (browser tab)", name: "title", widget: "string",
+              hint: "Text shown in the browser tab and in Google search results." }
+          - { label: "Meta Description (SEO)", name: "description", widget: "text",
+              hint: "1-2 sentence summary shown by Google in search results and by WhatsApp/LinkedIn link previews. Not visible on the site itself." }
+          - { label: "Hero Tagline", name: "tagline", widget: "string",
+              hint: "Small uppercase text above your name. e.g. VFX · CGI · 3D · AI-Driven Visuals" }
+          - { label: "Name — Line 1 (big)", name: "nameLine1", widget: "string",
+              hint: "First line of your big name in the hero. e.g. Kristian" }
+          - { label: "Name — Line 2 (big)", name: "nameLine2", widget: "string",
+              hint: "Second line of your big name in the hero. e.g. Cimò" }
+          - { label: "Hero Subtitle (italic)", name: "subtitle", widget: "string",
+              hint: "Italic phrase next to your name. e.g. — shaping the unseen" }
+          - { label: "Location (bottom-left of hero)", name: "location", widget: "string",
+              hint: "Where you're based. e.g. MILANO · IT — REMOTE WORLDWIDE" }
+          - { label: "Status (top-right of nav)", name: "status", widget: "string",
+              hint: "Availability. e.g. Available 2026" }
 
+      # ─────────────────────────────────────────────
       - name: "about"
         label: "About Section"
         file: "data/about.json"
         format: "json"
+        description: "The 'About' block that appears mid-homepage. Heading, story paragraphs, and 3 stat counters."
         fields:
-          - { label: "Heading", name: "heading", widget: "string" }
-          - label: "Paragraphs"
+          - { label: "Heading", name: "heading", widget: "string",
+              hint: "Big display headline of the About section. e.g. The eye behind the render." }
+          - label: "Paragraphs (story)"
             name: "paragraphs"
             widget: "list"
-            summary: "{{text}}"
+            summary: "{{fields.text}}"
+            hint: "Each item = one paragraph of your bio, in order."
             fields:
               - { label: "Paragraph", name: "text", widget: "text" }
-          - label: "Stats"
+          - label: "Stats (3 counters)"
             name: "stats"
             widget: "list"
-            summary: "{{value}} — {{label}}"
+            summary: "{{fields.value}} — {{fields.label}}"
+            hint: "Three big numbers at the bottom of About. e.g. 12+ / Years experience"
             fields:
-              - { label: "Value", name: "value", widget: "string" }
-              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Value", name: "value", widget: "string",
+                  hint: "Big number/text. e.g. 12+" }
+              - { label: "Label", name: "label", widget: "string",
+                  hint: "Small caption. e.g. Years experience" }
 
+      # ─────────────────────────────────────────────
       - name: "footer"
         label: "Footer / Contact"
         file: "data/footer.json"
         format: "json"
+        description: "Contact block at the bottom of the homepage — big CTA text, email, and social links."
         fields:
-          - { label: "CTA — Line 1", name: "ctaLine1", widget: "string" }
-          - { label: "CTA — Line 2", name: "ctaLine2", widget: "string" }
-          - { label: "CTA — Line 3 (start)", name: "ctaLine3Pre", widget: "string" }
-          - { label: "CTA — Line 3 (italic word)", name: "ctaLine3Em", widget: "string" }
-          - { label: "Contact Email", name: "email", widget: "string" }
+          - { label: "CTA — Line 1", name: "ctaLine1", widget: "string",
+              hint: "First big line of the contact call. e.g. Let's build" }
+          - { label: "CTA — Line 2", name: "ctaLine2", widget: "string",
+              hint: "Second big line. e.g. something" }
+          - { label: "CTA — Line 3 (start)", name: "ctaLine3Pre", widget: "string",
+              hint: "Regular text before the italic word. e.g. beautifully" }
+          - { label: "CTA — Line 3 (italic word)", name: "ctaLine3Em", widget: "string",
+              hint: "Italic serif word at the end. e.g. together" }
+          - { label: "Contact Email", name: "email", widget: "string",
+              hint: "Your professional email. Appears as a clickable mailto link." }
           - label: "Social Links"
             name: "social"
             widget: "list"
-            summary: "{{label}}"
+            summary: "{{fields.label}}"
+            hint: "One entry per social profile. Shown in the footer grid."
             fields:
-              - { label: "Label", name: "label", widget: "string" }
-              - { label: "URL", name: "url", widget: "string" }
+              - { label: "Label", name: "label", widget: "string",
+                  hint: "Visible name. e.g. Instagram, Vimeo, LinkedIn" }
+              - { label: "URL", name: "url", widget: "string",
+                  hint: "Full URL starting with https://" }
 
+      # ─────────────────────────────────────────────
       - name: "clients"
         label: "Clients (Marquee)"
         file: "data/clients.json"
         format: "json"
+        description: "Client names that scroll horizontally between the Work grid and the About section."
         fields:
           - label: "Clients"
             name: "items"
             widget: "list"
-            summary: "{{name}}"
+            summary: "{{fields.name}}"
+            hint: "One entry per client brand or athlete you've worked with."
             fields:
               - { label: "Client Name", name: "name", widget: "string" }
 
-  # ═══════════════════════════════════════════════════
-  # PROJECTS
-  # ═══════════════════════════════════════════════════
+  # ═══════════════════════════════════════════════════════════════════
+  # 📁  PROJECTS — the case studies that appear in the Work grid
+  # ═══════════════════════════════════════════════════════════════════
   - name: "projects"
-    label: "Projects"
-    description: "Each project appears in the Work grid AND has its own dedicated page. Fill in only the sections you need."
+    label: "📁 Projects"
+    description: "Each project has its own case study page and appears in the homepage Work grid. Fields are grouped visually with dividers — fill only the sections you need, leave optional ones empty."
     files:
       - name: "all_projects"
         label: "Projects List"
@@ -98,103 +133,139 @@ collections:
           - label: "Projects"
             name: "items"
             widget: "list"
-            summary: "{{order}}. {{title}} ({{year}})"
+            summary: "{{fields.order}}. {{fields.title}} — {{fields.year}} · {{fields.client}}"
+            hint: "Each item = one project. Sort them with 'Display Order' inside each project."
             fields:
 
-              # ───── BASICS ─────
-              - { label: "Display Order", name: "order", widget: "number", value_type: "int", hint: "Lower number = appears first in the work grid." }
-              - { label: "Slug (URL identifier)", name: "slug", widget: "string", required: false, hint: "Used in the URL: project.html?id=YOUR-SLUG. Lowercase + hyphens only. Leave empty to auto-generate." }
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Year", name: "year", widget: "string" }
-              - { label: "Category", name: "category", widget: "string" }
-              - { label: "Cover Image (grid + project page hero)", name: "image", widget: "image" }
-              - { label: "Preview Video (HOVER on homepage)", name: "previewVideo", widget: "file", required: false, hint: "Short MP4 (5-15s) that plays when visitors HOVER the project card on the homepage. Keep small — ideally <5MB. Leave empty if you don't want a hover preview." }
-              - { label: "Cover Video (project page)", name: "coverVideo", widget: "string", required: false, hint: "Vimeo, YouTube or direct video URL — used as the big hero on the project page. If empty, the cover image is used." }
-              - { label: "Featured", name: "featured", widget: "boolean", default: false }
-              - { label: "Tag Label", name: "tagLabel", widget: "string", required: false, default: "Featured" }
+              # ═══ 📌 BASICS ═══════════════════════════════════════
+              - { label: "Display Order", name: "order", widget: "number", value_type: "int",
+                  hint: "Lower number = appears first in the Work grid. e.g. 1, 2, 3..." }
+              - { label: "Slug (URL identifier)", name: "slug", widget: "string", required: false,
+                  hint: "Used in the URL: project.html?id=YOUR-SLUG. Lowercase + hyphens only. Leave empty to auto-generate from title." }
+              - { label: "Title", name: "title", widget: "string",
+                  hint: "Project name. Big heading on the project page. e.g. Pedri × Adidas" }
+              - { label: "Year", name: "year", widget: "string",
+                  hint: "Year the project was made. e.g. 2026" }
+              - { label: "Category", name: "category", widget: "string",
+                  hint: "Short label. e.g. Football, Automotive, Fashion, Music Video" }
 
-              # ───── PROJECT PAGE METADATA ─────
-              - { label: "Subtitle (italic, under project title)", name: "subtitle", widget: "text", required: false }
-              - { label: "Client", name: "client", widget: "string", required: false }
-              - { label: "Talent", name: "talent", widget: "string", required: false }
-              - { label: "Role", name: "role", widget: "string", required: false }
-              - { label: "Software", name: "software", widget: "string", required: false }
-              - { label: "Format", name: "format", widget: "string", required: false }
+              # ═══ 🎥 COVER MEDIA ═══════════════════════════════════
+              - { label: "🎥 Cover Image", name: "image", widget: "image",
+                  hint: "COVER MEDIA — Main visual. Shown in the Work grid AND as the project page hero when no cover video is set. Recommended: 1920×1080 landscape, colorful." }
+              - { label: "🎥 Preview Video (HOVER on homepage)", name: "previewVideo", widget: "file", required: false,
+                  hint: "COVER MEDIA — Optional short MP4 (5-15s) that plays when a visitor HOVERS the project card. Keep <5MB. Leave empty for no hover preview." }
+              - { label: "🎥 Cover Video (project page hero)", name: "coverVideo", widget: "string", required: false,
+                  hint: "COVER MEDIA — Optional Vimeo, YouTube or direct video URL. Used as the big hero on the project page. If empty, the cover image is used instead." }
+              - { label: "🎥 Featured badge on card?", name: "featured", widget: "boolean", default: false,
+                  hint: "COVER MEDIA — If ON, a small badge appears on the project card in the grid." }
+              - { label: "🎥 Featured tag label", name: "tagLabel", widget: "string", required: false, default: "Featured",
+                  hint: "COVER MEDIA — Text shown on the badge when 'Featured' is ON. e.g. Featured, New, 2026" }
 
-              # ───── CASE STUDY TEXT ─────
-              - { label: "Description / Case Study Text", name: "description", widget: "text", required: false, hint: "Long-form description. Separate paragraphs with a blank line." }
+              # ═══ 📝 PROJECT INFO ══════════════════════════════════
+              - { label: "📝 Subtitle (italic, under project title)", name: "subtitle", widget: "text", required: false,
+                  hint: "PROJECT INFO — One-line poetic subtitle. Italic serif. e.g. Predator Control — taking control of the game." }
+              - { label: "📝 Client", name: "client", widget: "string", required: false,
+                  hint: "PROJECT INFO — e.g. Adidas, Hawkers, Generali" }
+              - { label: "📝 Talent", name: "talent", widget: "string", required: false,
+                  hint: "PROJECT INFO — e.g. Pedri, Carlos Sainz, Sergio Ramos" }
+              - { label: "📝 Role", name: "role", widget: "string", required: false,
+                  hint: "PROJECT INFO — Your role. e.g. AI VFX Artist, Compositor, CGI Director" }
+              - { label: "📝 Software", name: "software", widget: "string", required: false,
+                  hint: "PROJECT INFO — Tools used. e.g. Nano Banana Pro, Seedance, After Effects, Blender" }
+              - { label: "📝 Format", name: "format", widget: "string", required: false,
+                  hint: "PROJECT INFO — Deliverable format. e.g. 16:9 · 4K · 30s, 9:16 · Vertical, Print" }
+              - { label: "📝 Description / Case Study Text", name: "description", widget: "text", required: false,
+                  hint: "PROJECT INFO — Long-form story of the project. Separate paragraphs with a blank line." }
 
-              # ───── GALLERY BLOCKS (v3 — multi-block with title + caption) ─────
-              - label: "Gallery Blocks"
+              # ═══ 🖼 CONTENT BLOCKS ════════════════════════════════
+              - label: "🖼️ Gallery Blocks"
                 name: "galleryBlocks"
                 widget: "list"
                 required: false
-                summary: "{{heading}} ({{images.length}} images)"
-                hint: "Add as many gallery blocks as you want. Each block can have an optional title, caption, and a set of images. Use for: client references, my proposals, final renders, mood boards, etc."
+                summary: "{{fields.heading}} · {{fields.images.length}} images"
+                hint: "CONTENT BLOCKS — Each block is a titled group of images (e.g. 'Client References', 'My Proposals', 'Final Renders'). Add as many blocks as you want."
                 fields:
-                  - { label: "Tag (small uppercase label, optional)", name: "tag", widget: "string", required: false, hint: "e.g. CLIENT REFERENCES, MY PROPOSAL, FINAL RENDERS" }
-                  - { label: "Heading (optional)", name: "heading", widget: "string", required: false, hint: "Big title for this gallery block." }
-                  - { label: "Caption / Description (optional)", name: "caption", widget: "text", required: false, hint: "Short italic paragraph that introduces the images." }
+                  - { label: "Tag (small uppercase label)", name: "tag", widget: "string", required: false,
+                      hint: "Small red uppercase label above the block. e.g. CLIENT REFERENCES, MY PROPOSAL, FINAL RENDERS" }
+                  - { label: "Heading", name: "heading", widget: "string", required: false,
+                      hint: "Big display title for this gallery block." }
+                  - { label: "Caption / Description", name: "caption", widget: "text", required: false,
+                      hint: "Short italic paragraph that introduces the images below." }
                   - label: "Images"
                     name: "images"
                     widget: "list"
-                    summary: "{{alt}}"
+                    summary: "{{fields.alt}}"
+                    hint: "Images in this block. Native aspect ratios are preserved."
                     fields:
                       - { label: "Image", name: "src", widget: "image" }
-                      - { label: "Alt text (optional)", name: "alt", widget: "string", required: false }
+                      - { label: "Alt text (optional)", name: "alt", widget: "string", required: false,
+                          hint: "Short description for accessibility & SEO." }
 
-              # ───── SINGLE VIDEO EMBED ─────
-              - { label: "Video URL (Vimeo or YouTube, optional)", name: "videoUrl", widget: "string", required: false }
-              - { label: "Video Caption", name: "videoCaption", widget: "string", required: false }
+              - label: "🎬 Video Blocks"
+                name: "videoBlocks"
+                widget: "list"
+                required: false
+                summary: "{{fields.heading}}"
+                hint: "CONTENT BLOCKS — Each block = one embedded video (Vimeo or YouTube), with optional title & caption."
+                fields:
+                  - { label: "Tag", name: "tag", widget: "string", required: false,
+                      hint: "Small red uppercase label. e.g. FINAL EDIT, DIRECTOR'S CUT, BTS" }
+                  - { label: "Heading", name: "heading", widget: "string", required: false }
+                  - { label: "Caption / Description", name: "caption", widget: "text", required: false }
+                  - { label: "Video URL (Vimeo or YouTube)", name: "url", widget: "string",
+                      hint: "Paste the full Vimeo or YouTube URL." }
 
-              # ───── IMAGE BEFORE/AFTER — MULTIPLE (v3) ─────
-              - label: "Image Before / After Slides"
+              - label: "🔀 Before / After — Image Slides"
                 name: "beforeAfters"
                 widget: "list"
                 required: false
-                summary: "{{title}}"
-                hint: "Add one or more image before/after sliders. Useful for showing multiple shots from the same project."
+                summary: "{{fields.title}}"
+                hint: "CONTENT BLOCKS — Drag-to-compare sliders for still frames. Add one per shot you want to showcase."
                 fields:
-                  - { label: "Title (e.g. Shot 01, Wide, Close-up)", name: "title", widget: "string", required: false }
+                  - { label: "Title", name: "title", widget: "string", required: false,
+                      hint: "e.g. Shot 01, Wide, Close-up. Shown above the slider when there's more than one." }
                   - { label: "Image — Before (raw plate)", name: "imageBefore", widget: "image", required: false }
                   - { label: "Image — After (final CGI)", name: "imageAfter", widget: "image", required: false }
                   - { label: "Label — Before", name: "labelBefore", widget: "string", required: false, default: "Raw Plate" }
                   - { label: "Label — After", name: "labelAfter", widget: "string", required: false, default: "Final CGI" }
 
-              # ───── VIDEO BEFORE/AFTER — MULTIPLE (v3) ─────
-              - label: "Video Before / After Slides"
+              - label: "🎞️ Before / After — Video Slides"
                 name: "videoBeforeAfters"
                 widget: "list"
                 required: false
-                summary: "{{title}}"
-                hint: "Add one or more synced video before/after sliders. Use short, optimized MP4 files (10-30s, <10MB)."
+                summary: "{{fields.title}}"
+                hint: "CONTENT BLOCKS — Synced video before/after sliders. Use short MP4s (10-30s, <10MB)."
                 fields:
-                  - { label: "Title (e.g. Shot 01, Crash scene)", name: "title", widget: "string", required: false }
+                  - { label: "Title", name: "title", widget: "string", required: false,
+                      hint: "e.g. Shot 01, Crash scene. Shown above the slider when there's more than one." }
                   - { label: "Video — Before (raw plate)", name: "videoBefore", widget: "file", required: false }
                   - { label: "Video — After (final CGI)", name: "videoAfter", widget: "file", required: false }
                   - { label: "Label — Before", name: "labelBefore", widget: "string", required: false, default: "Raw Plate" }
                   - { label: "Label — After", name: "labelAfter", widget: "string", required: false, default: "Final CGI" }
 
-              # ───── STORYTELLING ─────
-              - label: "Storytelling Blocks (image + text)"
+              # ═══ 🎬 EXTRAS ════════════════════════════════════════
+              - label: "📖 Storytelling Blocks"
                 name: "storytelling"
                 widget: "list"
                 required: false
-                summary: "{{heading}}"
+                summary: "{{fields.heading}}"
+                hint: "EXTRAS — Alternating image + text blocks (BTS, process shots, moodboards). Blocks alternate left/right automatically."
                 fields:
                   - { label: "Heading", name: "heading", widget: "string", required: false }
                   - { label: "Text", name: "text", widget: "text", required: false }
                   - { label: "Image", name: "image", widget: "image" }
 
-              # ───── CREDITS ─────
-              - label: "Credits"
+              - label: "🏆 Credits"
                 name: "credits"
                 widget: "list"
                 required: false
-                summary: "{{role}} — {{name}}"
+                summary: "{{fields.role}} — {{fields.name}}"
+                hint: "EXTRAS — Team credits shown at the bottom of the project page. e.g. Director / Kristian Cimò"
                 fields:
-                  - { label: "Role", name: "role", widget: "string" }
-                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Role", name: "role", widget: "string",
+                      hint: "e.g. Director, VFX Supervisor, Producer" }
+                  - { label: "Name", name: "name", widget: "string",
+                      hint: "Person or studio name." }
 
-              # ───── NEXT PROJECT ─────
-              - { label: "Show 'Next Project' at the bottom of this page", name: "showNextProject", widget: "boolean", default: true, required: false }
+              - { label: "🎬 Show 'Next Project' link at the bottom?", name: "showNextProject", widget: "boolean", default: true, required: false,
+                  hint: "EXTRAS — If ON, a big 'Next Project' link appears at the end of the page, pointing to the next project by order." }

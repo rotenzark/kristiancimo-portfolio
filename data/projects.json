@@ -53,32 +53,20 @@
       ],
       "credits": [
         {
-          "role": "Direction & VFX",
-          "name": "Kristian Cimò"
+          "role": "Direction",
+          "name": "Javier Serra"
         },
         {
           "role": "Agency",
-          "name": "—"
+          "name": "TheCrown"
         },
         {
           "role": "DOP",
-          "name": "—"
+          "name": "Santi Moistero"
         },
         {
-          "role": "3D / Lookdev",
-          "name": "Studio KC"
-        },
-        {
-          "role": "Compositing",
-          "name": "Studio KC"
-        },
-        {
-          "role": "Color",
-          "name": "—"
-        },
-        {
-          "role": "Sound",
-          "name": "—"
+          "role": "VFX Artist",
+          "name": "Kristian Cimò"
         }
       ],
       "showNextProject": true,
@@ -137,6 +125,8 @@
       "software": "C4D · Octane · TouchDesigner",
       "format": "Installation · Brand",
       "description": "A room-scale installation celebrating Adidas' archive. Eight decades of footwear, suspended in CGI light.",
+      "videoUrl": "",
+      "videoCaption": "",
       "credits": [
         {
           "role": "Direction & CGI",

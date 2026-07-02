@@ -172,6 +172,39 @@
       "software": "Blender, After Effects, Houdini",
       "format": "Campaign · Social",
       "description": "Adidas - F50 vs Predator - Elevator.\nFrom set extention to removal, tracking, key, general compositing",
+      "galleryBlocks": [
+        {
+          "tag": "",
+          "heading": "",
+          "caption": "",
+          "images": [
+            {
+              "src": "/media/QUADRO_EDIT.png",
+              "alt": ""
+            },
+            {
+              "src": "/media/BACK_IMPACT_EDIT.png",
+              "alt": ""
+            },
+            {
+              "src": "/media/BASKET_EDIT.png",
+              "alt": ""
+            },
+            {
+              "src": "/media/LASERS_EDIT.png",
+              "alt": ""
+            },
+            {
+              "src": "/media/SCREEN_EDIT.png",
+              "alt": ""
+            },
+            {
+              "src": "/media/RAUL.png",
+              "alt": ""
+            }
+          ]
+        }
+      ],
       "credits": [
         {
           "role": "Direction & CGI",

@@ -259,7 +259,7 @@
       </div>
     ` : '';
     const count = images.length;
-    const countClass = count <= 2 ? `count-${count}` : '';
+    const countClass = count === 1 ? 'count-1' : '';
     return `
       <div class="gallery-block reveal">
         ${head}
@@ -275,24 +275,95 @@
     `;
   }
 
-  /* detect each gallery image's orientation and set data-orient on its wrapper */
+  /* Set each gallery item's flex-grow proportional to its aspect ratio so that
+     images on the same row end up sharing the same height (justified rows).
+     Runs once per image (on load) and re-runs on window resize. */
   function detectOrientations() {
-    document.querySelectorAll('.p-gallery .item img[data-needs-orient]').forEach(img => {
-      const apply = () => {
-        const w = img.naturalWidth, h = img.naturalHeight;
-        if (!w || !h) return;
-        const ratio = w / h;
-        let orient = 'landscape';
-        if (ratio < 0.85) orient = 'portrait';
-        else if (ratio < 1.2) orient = 'square';
-        else if (ratio > 2.2) orient = 'wide';
-        else orient = 'landscape';
-        img.parentElement.setAttribute('data-orient', orient);
-        img.removeAttribute('data-needs-orient');
-      };
-      if (img.complete && img.naturalWidth) apply();
-      else img.addEventListener('load', apply, { once: true });
+    document.querySelectorAll('.p-gallery').forEach(gallery => {
+      const items = Array.from(gallery.querySelectorAll('.item'));
+      if (!items.length) return;
+      // Skip single-image blocks — they already flow full-width natural
+      if (gallery.classList.contains('count-1')) return;
+
+      items.forEach(item => {
+        const img = item.querySelector('img');
+        if (!img) return;
+        const apply = () => {
+          const w = img.naturalWidth, h = img.naturalHeight;
+          if (!w || !h) return;
+          const ratio = w / h;
+          // orient tag (kept for backward compat and CSS hooks)
+          let orient = 'landscape';
+          if (ratio < 0.85) orient = 'portrait';
+          else if (ratio < 1.2) orient = 'square';
+          else if (ratio > 2.2) orient = 'wide';
+          item.setAttribute('data-orient', orient);
+          // Justified-rows sizing:
+          //   flex-grow proportional to aspect ratio → wider images take more width,
+          //   narrower ones take less, but everything on the row ends up the same height.
+          item.style.flexGrow = ratio.toFixed(3);
+          item.style.flexBasis = '0';
+          // Sensible min-width so a tall portrait doesn't collapse:
+          // proportional to aspect ratio (portrait ~140px, landscape ~260px)
+          const minW = Math.max(140, Math.round(ratio * 180));
+          item.style.minWidth = minW + 'px';
+          img.removeAttribute('data-needs-orient');
+        };
+        if (img.complete && img.naturalWidth) apply();
+        else img.addEventListener('load', apply, { once: true });
+      });
     });
+  }
+
+  /* ─── LIGHTBOX: click any gallery image to open it fullscreen ─── */
+  function setupLightbox() {
+    // Build lightbox once and reuse
+    let box = document.querySelector('.lightbox');
+    if (!box) {
+      box = document.createElement('div');
+      box.className = 'lightbox';
+      box.innerHTML = `
+        <button class="lightbox-close interactive" aria-label="Close">✕</button>
+        <img alt="">
+      `;
+      document.body.appendChild(box);
+    }
+    const boxImg = box.querySelector('img');
+    const closeBtn = box.querySelector('.lightbox-close');
+
+    function open(src, alt) {
+      boxImg.src = src;
+      boxImg.alt = alt || '';
+      box.classList.add('open');
+      document.body.style.overflow = 'hidden'; // lock scroll while open
+    }
+    function close() {
+      box.classList.remove('open');
+      document.body.style.overflow = '';
+      // clear src after fade to free memory
+      setTimeout(() => { if (!box.classList.contains('open')) boxImg.src = ''; }, 400);
+    }
+
+    // Click on gallery images opens the lightbox
+    document.querySelectorAll('.p-gallery .item').forEach(item => {
+      if (item.dataset.lightboxBound) return;
+      item.dataset.lightboxBound = '1';
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        if (img) open(img.src, img.alt);
+      });
+    });
+
+    // Close on background click, close button, or Escape key
+    box.addEventListener('click', e => {
+      if (e.target === box || e.target === closeBtn) close();
+    });
+    if (!box.dataset.keyBound) {
+      box.dataset.keyBound = '1';
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && box.classList.contains('open')) close();
+      });
+    }
   }
 
   function renderVideoBlock(block, idx, total) {
@@ -599,6 +670,7 @@
     document.querySelectorAll('.p-ba').forEach(el => setupBA(el));
     document.querySelectorAll('.p-vba').forEach(el => setupVBA(el));
     detectOrientations();
+    setupLightbox();
 
     /* footer */
     document.getElementById('contact-cta').innerHTML = `

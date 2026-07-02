@@ -592,44 +592,93 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   margin-bottom: 12px;
 }
 
-/* ════════ GALLERY — respects each image's native aspect ratio ════════ */
-/* Smart 12-column grid: portraits take 4-6 cols, landscapes take 6-12, squares take 6.
-   Image's actual aspect ratio is preserved (no cropping) via JS-injected styles. */
+/* ════════ GALLERY — justified rows (uniform row height, aspect-ratio widths) ════════
+   Each image keeps its natural aspect ratio. Images on the same row share the same
+   height, with widths proportional to their aspect ratios. Mixed orientations
+   (horizontal + vertical) automatically balance out to a common row height. */
 .p-gallery {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 16px;
-  grid-auto-flow: row dense; /* fills gaps intelligently */
 }
 .p-gallery .item {
   overflow: hidden;
   background: var(--bg-2);
   position: relative;
+  /* JS sets flex-grow proportional to aspect ratio; flex-basis is 0 so growth dominates.
+     Min-width keeps things sane while JS calculates; JS overrides these once sized. */
+  flex: 1 1 0;
+  min-width: 200px;
+  cursor: pointer;                          /* signal that images are clickable */
 }
 .p-gallery .item img {
   width: 100%;
-  height: auto;          /* respect natural ratio */
+  height: 100%;
   display: block;
   object-fit: cover;
   transition: transform 1.2s cubic-bezier(.2,.8,.2,1);
 }
 .p-gallery .item:hover img { transform: scale(1.03); }
 
-/* default column spans by orientation — JS adds data-orient attribute */
-.p-gallery .item[data-orient="portrait"]   { grid-column: span 4; }
-.p-gallery .item[data-orient="square"]     { grid-column: span 6; }
-.p-gallery .item[data-orient="landscape"]  { grid-column: span 7; }
-.p-gallery .item[data-orient="wide"]       { grid-column: span 12; }  /* very wide panoramas */
-
-/* if only 1 image in the block, give it the full width */
-.p-gallery.count-1 .item { grid-column: span 12 !important; }
-/* if 2 images, side-by-side at 6 each (regardless of orientation) */
-.p-gallery.count-2 .item { grid-column: span 6 !important; }
+/* single image gets the full width, natural ratio (no forced crop) */
+.p-gallery.count-1 { display: block; }
+.p-gallery.count-1 .item { flex: none; }
+.p-gallery.count-1 .item img { width: 100%; height: auto; }
 
 @media (max-width: 900px) {
-  .p-gallery { grid-template-columns: 1fr; }
-  .p-gallery .item { grid-column: 1 / -1 !important; }
+  .p-gallery { flex-direction: column; }
+  .p-gallery .item { min-width: 0; width: 100%; }
+  .p-gallery .item img { height: auto; }
   .gallery-block { margin-bottom: 60px; }
+}
+
+/* ════════ LIGHTBOX (fullscreen image viewer on click) ════════ */
+.lightbox {
+  position: fixed; inset: 0;
+  background: rgba(6, 6, 6, 0.96);
+  z-index: 300;
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+}
+.lightbox.open {
+  opacity: 1;
+  visibility: visible;
+}
+.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  cursor: default;
+  transform: scale(0.96);
+  transition: transform 0.35s cubic-bezier(.2,.8,.2,1);
+}
+.lightbox.open img { transform: scale(1); }
+.lightbox-close {
+  position: absolute;
+  top: 24px; right: 32px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.05);
+  color: var(--fg);
+  font-size: 22px; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.lightbox-close:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+@media (max-width: 768px) {
+  .lightbox { padding: 20px; }
+  .lightbox-close { top: 16px; right: 16px; width: 36px; height: 36px; font-size: 18px; }
 }
 
 /* video embed */

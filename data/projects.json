@@ -38,15 +38,7 @@
       "videoUrl": "",
       "videoCaption": "",
       "beforeAfters": [],
-      "videoBeforeAfters": [
-        {
-          "title": "",
-          "videoBefore": "/media/green_screen.mp4",
-          "videoAfter": "/media/final_shot.mp4",
-          "labelBefore": "Raw Plate",
-          "labelAfter": "Final CGI"
-        }
-      ],
+      "videoBeforeAfters": [],
       "storytelling": [
         {
           "heading": "01 — Plate cleanup",
@@ -90,44 +82,44 @@
         }
       ],
       "showNextProject": true,
-      "videoBeforeAfter": {
-        "labelAfter": "Final CGI",
-        "labelBefore": "Raw Plate",
-        "videoAfter": "",
-        "videoBefore": ""
-      },
-      "beforeAfter": {
-        "labelAfter": "Final CGI",
-        "labelBefore": "Raw Plate",
-        "imageAfter": "https://picsum.photos/seed/gasly-final/1600/900",
-        "imageBefore": "https://picsum.photos/seed/gasly-raw/1600/900"
-      },
-      "gallery": [
-        {
-          "alt": "Horizontal shot",
-          "src": "/media/LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).png"
-        },
-        {
-          "alt": "Vertical shot",
-          "src": "/media/LAST_FRAME_VERTICAL_COLOR_hf_20260305_102526_ce7c5e41-9bf6-444d-bc28-6a74f300f4d5 (0-00-00-00).png"
-        },
-        {
-          "alt": "Color study",
-          "src": "https://picsum.photos/seed/gasly-3/900/1200"
-        },
-        {
-          "alt": "Final composite",
-          "src": "https://picsum.photos/seed/gasly-4/1600/900"
-        }
-      ],
       "videoBlocks": [
         {
-          "url": "https://www.youtube.com/watch?v=gkVBxlH4owk",
-          "caption": "sono",
+          "tag": "cosa",
           "heading": "cazzo",
-          "tag": "cosa"
+          "caption": "sono",
+          "url": "https://www.youtube.com/watch?v=gkVBxlH4owk"
         }
-      ]
+      ],
+      "gallery": [
+        {
+          "src": "/media/LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).png",
+          "alt": "Horizontal shot"
+        },
+        {
+          "src": "/media/LAST_FRAME_VERTICAL_COLOR_hf_20260305_102526_ce7c5e41-9bf6-444d-bc28-6a74f300f4d5 (0-00-00-00).png",
+          "alt": "Vertical shot"
+        },
+        {
+          "src": "https://picsum.photos/seed/gasly-3/900/1200",
+          "alt": "Color study"
+        },
+        {
+          "src": "https://picsum.photos/seed/gasly-4/1600/900",
+          "alt": "Final composite"
+        }
+      ],
+      "beforeAfter": {
+        "imageBefore": "https://picsum.photos/seed/gasly-raw/1600/900",
+        "imageAfter": "https://picsum.photos/seed/gasly-final/1600/900",
+        "labelBefore": "Raw Plate",
+        "labelAfter": "Final CGI"
+      },
+      "videoBeforeAfter": {
+        "videoBefore": "",
+        "videoAfter": "",
+        "labelBefore": "Raw Plate",
+        "labelAfter": "Final CGI"
+      }
     },
     {
       "order": 2,

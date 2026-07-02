@@ -21,7 +21,7 @@
       "galleryBlocks": [
         {
           "tag": "",
-          "heading": "",
+          "heading": "Final renders",
           "caption": "",
           "images": [
             {
@@ -35,20 +35,34 @@
           ]
         }
       ],
-      "videoUrl": "",
-      "videoCaption": "",
-      "beforeAfters": [],
+      "videoBlocks": [],
+      "beforeAfters": [
+        {
+          "title": "",
+          "imageBefore": "/media/CLAY_2.png",
+          "imageAfter": "/media/SECOND_TO_CLAY.png",
+          "labelBefore": "Viewport",
+          "labelAfter": "Final Render"
+        },
+        {
+          "title": "",
+          "imageBefore": "/media/CLAY_3.png",
+          "imageAfter": "/media/THIRD_TO_CLAY.png",
+          "labelBefore": "Viewport",
+          "labelAfter": "Final render"
+        }
+      ],
       "videoBeforeAfters": [],
       "storytelling": [
         {
-          "heading": "01 — Plate cleanup",
-          "text": "Every frame from the original plate had to be rotoscoped and stabilized. We removed crew, safety rigs, and ad boards to start from a clean canvas.",
-          "image": "https://picsum.photos/seed/gasly-story1/800/1000"
+          "heading": "01 — 3D clay building",
+          "text": "Blender was used to create the base for the texture projection",
+          "image": "/media/FIRST_FRAME_VERTICAL_4_09_CLAY.png"
         },
         {
           "heading": "02 — Environment build",
-          "text": "Silverstone was rebuilt in CGI using a combination of photogrammetry passes and reference footage from the 2024 GP weekend.",
-          "image": "https://picsum.photos/seed/gasly-story2/800/1000"
+          "text": "3D creation of Dubai, using open source photogrammetry data.",
+          "image": "/media/CLAY_3.png"
         }
       ],
       "credits": [
@@ -70,44 +84,38 @@
         }
       ],
       "showNextProject": true,
-      "videoBlocks": [
-        {
-          "tag": "cosa",
-          "heading": "cazzo",
-          "caption": "sono",
-          "url": "https://www.youtube.com/watch?v=gkVBxlH4owk"
-        }
-      ],
+      "videoBeforeAfter": {
+        "labelAfter": "Final CGI",
+        "labelBefore": "Raw Plate",
+        "videoAfter": "",
+        "videoBefore": ""
+      },
+      "beforeAfter": {
+        "labelAfter": "Final CGI",
+        "labelBefore": "Raw Plate",
+        "imageAfter": "https://picsum.photos/seed/gasly-final/1600/900",
+        "imageBefore": "https://picsum.photos/seed/gasly-raw/1600/900"
+      },
       "gallery": [
         {
-          "src": "/media/LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).png",
-          "alt": "Horizontal shot"
+          "alt": "Horizontal shot",
+          "src": "/media/LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).png"
         },
         {
-          "src": "/media/LAST_FRAME_VERTICAL_COLOR_hf_20260305_102526_ce7c5e41-9bf6-444d-bc28-6a74f300f4d5 (0-00-00-00).png",
-          "alt": "Vertical shot"
+          "alt": "Vertical shot",
+          "src": "/media/LAST_FRAME_VERTICAL_COLOR_hf_20260305_102526_ce7c5e41-9bf6-444d-bc28-6a74f300f4d5 (0-00-00-00).png"
         },
         {
-          "src": "https://picsum.photos/seed/gasly-3/900/1200",
-          "alt": "Color study"
+          "alt": "Color study",
+          "src": "https://picsum.photos/seed/gasly-3/900/1200"
         },
         {
-          "src": "https://picsum.photos/seed/gasly-4/1600/900",
-          "alt": "Final composite"
+          "alt": "Final composite",
+          "src": "https://picsum.photos/seed/gasly-4/1600/900"
         }
       ],
-      "beforeAfter": {
-        "imageBefore": "https://picsum.photos/seed/gasly-raw/1600/900",
-        "imageAfter": "https://picsum.photos/seed/gasly-final/1600/900",
-        "labelBefore": "Raw Plate",
-        "labelAfter": "Final CGI"
-      },
-      "videoBeforeAfter": {
-        "videoBefore": "",
-        "videoAfter": "",
-        "labelBefore": "Raw Plate",
-        "labelAfter": "Final CGI"
-      }
+      "videoCaption": "",
+      "videoUrl": ""
     },
     {
       "order": 2,
@@ -125,8 +133,6 @@
       "software": "C4D · Octane · TouchDesigner",
       "format": "Installation · Brand",
       "description": "A room-scale installation celebrating Adidas' archive. Eight decades of footwear, suspended in CGI light.",
-      "videoUrl": "",
-      "videoCaption": "",
       "credits": [
         {
           "role": "Direction & CGI",
@@ -140,7 +146,9 @@
         {
           "src": "https://picsum.photos/seed/adidas-2/900/1200"
         }
-      ]
+      ],
+      "videoCaption": "",
+      "videoUrl": ""
     },
     {
       "order": 3,

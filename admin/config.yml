@@ -186,8 +186,8 @@ collections:
                 name: "galleryBlocks"
                 widget: "list"
                 required: false
-                summary: "{{fields.heading}} · {{fields.images.length}} images"
-                hint: "CONTENT BLOCKS — Each block is a titled group of images (e.g. 'Client References', 'My Proposals', 'Final Renders'). Add as many blocks as you want."
+                summary: "{{fields.heading}} · {{fields.images.length}} items"
+                hint: "CONTENT BLOCKS — Each block is a titled group of images or videos (e.g. 'Client References', 'My Proposals', 'Final Renders'). Add as many blocks as you want."
                 fields:
                   - { label: "Tag (small uppercase label)", name: "tag", widget: "string", required: false,
                       hint: "Small red uppercase label above the block. e.g. CLIENT REFERENCES, MY PROPOSAL, FINAL RENDERS" }
@@ -195,13 +195,14 @@ collections:
                       hint: "Big display title for this gallery block." }
                   - { label: "Caption / Description", name: "caption", widget: "text", required: false,
                       hint: "Short italic paragraph that introduces the images below." }
-                  - label: "Images"
+                  - label: "Images or Videos"
                     name: "images"
                     widget: "list"
                     summary: "{{fields.alt}}"
-                    hint: "Images in this block. Native aspect ratios are preserved."
+                    hint: "Images (JPG/PNG/WEBP) or videos (MP4/WEBM/MOV). Native aspect ratios are preserved. ⚠️ Keep videos small (<5MB, 1-5s) — GitHub API limits uploads to ~30MB."
                     fields:
-                      - { label: "Image", name: "src", widget: "image" }
+                      - { label: "Image or Video file", name: "src", widget: "file",
+                          hint: "Upload image or video. The site auto-detects the type by extension." }
                       - { label: "Alt text (optional)", name: "alt", widget: "string", required: false,
                           hint: "Short description for accessibility & SEO." }
 
@@ -210,14 +211,16 @@ collections:
                 widget: "list"
                 required: false
                 summary: "{{fields.heading}}"
-                hint: "CONTENT BLOCKS — Each block = one embedded video (Vimeo or YouTube), with optional title & caption."
+                hint: "CONTENT BLOCKS — Each block = one video with optional title & caption. Choose ONE of: upload a video file (MP4) OR paste a Vimeo/YouTube URL."
                 fields:
                   - { label: "Tag", name: "tag", widget: "string", required: false,
                       hint: "Small red uppercase label. e.g. FINAL EDIT, DIRECTOR'S CUT, BTS" }
                   - { label: "Heading", name: "heading", widget: "string", required: false }
                   - { label: "Caption / Description", name: "caption", widget: "text", required: false }
-                  - { label: "Video URL (Vimeo or YouTube)", name: "url", widget: "string",
-                      hint: "Paste the full Vimeo or YouTube URL." }
+                  - { label: "Video File (MP4 upload)", name: "file", widget: "file", required: false,
+                      hint: "Upload a video file directly. Takes priority over the URL below. ⚠️ Keep it small (<10MB) — GitHub API limits uploads to ~30MB." }
+                  - { label: "Video URL (Vimeo or YouTube)", name: "url", widget: "string", required: false,
+                      hint: "Paste the full Vimeo or YouTube URL. Used only if no file is uploaded above. Recommended for larger/longer videos." }
 
               - label: "🔀 Before / After — Image Slides"
                 name: "beforeAfters"

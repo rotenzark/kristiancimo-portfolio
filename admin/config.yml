@@ -150,12 +150,41 @@ collections:
                   hint: "Short label. e.g. Football, Automotive, Fashion, Music Video" }
 
               # ═══ 🎥 COVER MEDIA ═══════════════════════════════════
-              - { label: "🎥 Cover Image", name: "image", widget: "image",
-                  hint: "COVER MEDIA — Main visual. Shown in the Work grid AND as the project page hero when no cover video is set. Recommended: 1920×1080 landscape, colorful." }
-              - { label: "🎥 Preview Video (HOVER on homepage)", name: "previewVideo", widget: "file", required: false,
-                  hint: "COVER MEDIA — Optional short MP4 (5-15s) that plays when a visitor HOVERS the project card. Keep <5MB. Leave empty for no hover preview." }
-              - { label: "🎥 Cover Video (project page hero)", name: "coverVideo", widget: "string", required: false,
-                  hint: "COVER MEDIA — Optional Vimeo, YouTube or direct video URL. Used as the big hero on the project page. If empty, the cover image is used instead." }
+              # ═══ 🎥 COVER MEDIA ═══════════════════════════════════
+              # Each project can have THREE distinct covers:
+              # 1) Grid Cover (image)    → shown in the HOMEPAGE tile
+              # 2) Grid Preview Video    → plays on HOVER in the homepage tile
+              # 3) Inside Cover          → big hero shown INSIDE the project page
+              # ═════════════════════════════════════════════════════════
+
+              - { label: "🎥 Grid Cover — Image (homepage tile)", name: "image", widget: "image",
+                  hint: "COVER MEDIA — The image visible in the homepage Work grid. Upload it in the format matching your chosen 'Card Orientation' below (e.g. 9:16 vertical → upload a 9:16 image). Also used as the inside-page hero if no 'Inside Cover' below." }
+
+              - label: "🎥 Grid Card Orientation (homepage tile shape)"
+                name: "cardOrientation"
+                widget: "select"
+                required: false
+                default: ""
+                hint: "COVER MEDIA — Choose the shape of this project's tile in the homepage grid. Leave 'Auto (default)' to keep the classic asymmetric layout for this card. The Grid Cover image must be uploaded in the matching aspect ratio to avoid crop."
+                options:
+                  - { label: "Auto (default asymmetric layout)", value: "" }
+                  - { label: "16 : 9 — Wide landscape",           value: "16-9" }
+                  - { label: "4 : 3 — Landscape",                 value: "4-3" }
+                  - { label: "1 : 1 — Square",                    value: "1-1" }
+                  - { label: "4 : 5 — Portrait (Instagram)",     value: "4-5" }
+                  - { label: "3 : 4 — Portrait",                  value: "3-4" }
+                  - { label: "9 : 16 — Vertical (Reels/TikTok)", value: "9-16" }
+                  - { label: "21 : 9 — Ultra-wide (full row)",   value: "21-9" }
+
+              - { label: "🎥 Grid Preview Video (HOVER on homepage)", name: "previewVideo", widget: "file", required: false,
+                  hint: "COVER MEDIA — Optional short MP4 (5-15s) that plays when a visitor HOVERS the tile in the homepage. Upload it in the SAME aspect ratio as the Grid Cover above. Keep <5MB." }
+
+              - { label: "🎥 Inside Cover — Image (project page hero)", name: "insideCover", widget: "image", required: false,
+                  hint: "COVER MEDIA — Optional. Different image shown as the BIG HERO inside the project page (e.g. a horizontal 21:9 version while the homepage tile is vertical). If empty, the Grid Cover is used." }
+
+              - { label: "🎥 Inside Cover — Video URL (project page hero, wins over image)", name: "coverVideo", widget: "string", required: false,
+                  hint: "COVER MEDIA — Optional Vimeo/YouTube URL or direct video URL. If set, this video is used as the inside-page hero INSTEAD of the Inside Cover image." }
+
               - { label: "🎥 Featured badge on card?", name: "featured", widget: "boolean", default: false,
                   hint: "COVER MEDIA — If ON, a small badge appears on the project card in the grid." }
               - { label: "🎥 Featured tag label", name: "tagLabel", widget: "string", required: false, default: "Featured",
@@ -186,8 +215,8 @@ collections:
                 name: "galleryBlocks"
                 widget: "list"
                 required: false
-                summary: "{{fields.heading}} · {{fields.images.length}} items"
-                hint: "CONTENT BLOCKS — Each block is a titled group of images or videos (e.g. 'Client References', 'My Proposals', 'Final Renders'). Add as many blocks as you want."
+                summary: "{{fields.heading}} · {{fields.images.length}} images"
+                hint: "CONTENT BLOCKS — Each block is a titled group of images (e.g. 'Client References', 'My Proposals', 'Final Renders'). Add as many blocks as you want."
                 fields:
                   - { label: "Tag (small uppercase label)", name: "tag", widget: "string", required: false,
                       hint: "Small red uppercase label above the block. e.g. CLIENT REFERENCES, MY PROPOSAL, FINAL RENDERS" }
@@ -195,14 +224,13 @@ collections:
                       hint: "Big display title for this gallery block." }
                   - { label: "Caption / Description", name: "caption", widget: "text", required: false,
                       hint: "Short italic paragraph that introduces the images below." }
-                  - label: "Images or Videos"
+                  - label: "Images"
                     name: "images"
                     widget: "list"
                     summary: "{{fields.alt}}"
-                    hint: "Images (JPG/PNG/WEBP) or videos (MP4/WEBM/MOV). Native aspect ratios are preserved. ⚠️ Keep videos small (<5MB, 1-5s) — GitHub API limits uploads to ~30MB."
+                    hint: "Images in this block. Native aspect ratios are preserved."
                     fields:
-                      - { label: "Image or Video file", name: "src", widget: "file",
-                          hint: "Upload image or video. The site auto-detects the type by extension." }
+                      - { label: "Image", name: "src", widget: "image" }
                       - { label: "Alt text (optional)", name: "alt", widget: "string", required: false,
                           hint: "Short description for accessibility & SEO." }
 
@@ -211,16 +239,14 @@ collections:
                 widget: "list"
                 required: false
                 summary: "{{fields.heading}}"
-                hint: "CONTENT BLOCKS — Each block = one video with optional title & caption. Choose ONE of: upload a video file (MP4) OR paste a Vimeo/YouTube URL."
+                hint: "CONTENT BLOCKS — Each block = one embedded video (Vimeo or YouTube), with optional title & caption."
                 fields:
                   - { label: "Tag", name: "tag", widget: "string", required: false,
                       hint: "Small red uppercase label. e.g. FINAL EDIT, DIRECTOR'S CUT, BTS" }
                   - { label: "Heading", name: "heading", widget: "string", required: false }
                   - { label: "Caption / Description", name: "caption", widget: "text", required: false }
-                  - { label: "Video File (MP4 upload)", name: "file", widget: "file", required: false,
-                      hint: "Upload a video file directly. Takes priority over the URL below. ⚠️ Keep it small (<10MB) — GitHub API limits uploads to ~30MB." }
-                  - { label: "Video URL (Vimeo or YouTube)", name: "url", widget: "string", required: false,
-                      hint: "Paste the full Vimeo or YouTube URL. Used only if no file is uploaded above. Recommended for larger/longer videos." }
+                  - { label: "Video URL (Vimeo or YouTube)", name: "url", widget: "string",
+                      hint: "Paste the full Vimeo or YouTube URL." }
 
               - label: "🔀 Before / After — Image Slides"
                 name: "beforeAfters"

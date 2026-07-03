@@ -100,6 +100,11 @@
           "heading": "02 — Environment build",
           "text": "3D creation of Dubai inside, using open source photogrammetry data.",
           "image": "/media/CLAY_3.png"
+        },
+        {
+          "heading": "03 — Setting up the clouds and camera movement",
+          "text": "One of the first wip",
+          "image": "/media/WIP_BLENDER_2.png"
         }
       ],
       "credits": [

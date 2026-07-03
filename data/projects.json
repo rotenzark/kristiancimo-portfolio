@@ -385,6 +385,17 @@
             }
           ]
         }
+      ],
+      "storytelling": [
+        {
+          "heading": "01 - Environment Building",
+          "text": "Blender was used to create the room",
+          "image": "",
+          "images": [
+            "/media/Viewport_1.png",
+            "/media/Viewport_2.png"
+          ]
+        }
       ]
     },
     {

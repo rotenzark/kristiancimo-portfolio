@@ -237,9 +237,9 @@
       ],
       "videoBeforeAfters": [
         {
-          "title": "",
-          "videoBefore": "/media/QUADRO_RAW.mp4",
-          "videoAfter": "/media/QUADRO_EDIT.mp4",
+          "title": "Intro Museum - 3D pipe, set extension",
+          "videoBefore": "/media/INTRO_MUSEUM_RAW.mp4",
+          "videoAfter": "/media/INTRO_MUSEUM_EDIT.mp4",
           "labelBefore": "Raw Plate",
           "labelAfter": "Final CGI"
         },
@@ -251,6 +251,13 @@
           "labelAfter": "After"
         },
         {
+          "title": "Aitana - picure replacement",
+          "videoBefore": "/media/QUADRO_RAW.mp4",
+          "videoAfter": "/media/QUADRO_EDIT.mp4",
+          "labelBefore": "Raw Plate",
+          "labelAfter": "Final CGI"
+        },
+        {
           "title": "Control Basket - removal",
           "videoBefore": "/media/CONTROL_BASKET_RAW.mp4",
           "videoAfter": "/media/CONTROL_BASKET_EDIT.mp4",
@@ -258,14 +265,7 @@
           "labelAfter": "After"
         },
         {
-          "title": "",
-          "videoBefore": "/media/INTRO_MUSEUM_RAW.mp4",
-          "videoAfter": "/media/INTRO_MUSEUM_EDIT.mp4",
-          "labelBefore": "Raw Plate",
-          "labelAfter": "Final CGI"
-        },
-        {
-          "title": "",
+          "title": "Brahim - lasers compositing",
           "videoBefore": "/media/LASERS_RAW.mp4",
           "videoAfter": "/media/LASERS_EDIT.mp4",
           "labelBefore": "Raw Plate",

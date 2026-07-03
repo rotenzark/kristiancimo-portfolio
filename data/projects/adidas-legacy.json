@@ -1,0 +1,162 @@
+{
+  "draft": false,
+  "order": 2,
+  "slug": "adidas-legacy",
+  "title": "Adidas - Legacy Museum",
+  "year": "December 2025",
+  "category": "Football",
+  "image": "/media/projects/adidas-legacy/COPERTINA_VERTICALE.png",
+  "cardOrientation": "9-16",
+  "previewVideo": "/media/projects/adidas-legacy/QUADRO_EDIT_NOSTOP.mp4",
+  "gridCover169": "/media/projects/adidas-legacy/COPERTINA_ORIZZONTALE.png",
+  "coverVideo": "",
+  "featured": false,
+  "tagLabel": "",
+  "subtitle": "",
+  "client": "Adidas",
+  "talent": "Aitana, Brahim, Jude, Trent, Bellingham, Mastantuono, Raul",
+  "role": "VFX Supervision, 3D, Compositing",
+  "software": "Blender, After Effects, Houdini",
+  "format": "Campaign · Social",
+  "publicationUrl": "https://www.instagram.com/reel/DUnPqaPDSI3/?igsh=c3p0MWVnemx1bWtw",
+  "publicationLabel": "View on Instagram",
+  "description": "Adidas - F50 vs Predator - Elevator.\nFrom set extention to removal, tracking, key, general compositing",
+  "galleryBlocks": [
+    {
+      "tag": "",
+      "heading": "",
+      "caption": "",
+      "images": [
+        {
+          "src": "/media/projects/adidas-legacy/RAUL.png",
+          "alt": ""
+        },
+        {
+          "src": "/media/projects/adidas-legacy/BRAHIM.png",
+          "alt": ""
+        },
+        {
+          "src": "/media/projects/adidas-legacy/QUADRO_EDIT.png",
+          "alt": ""
+        },
+        {
+          "src": "/media/projects/adidas-legacy/BACK_IMPACT_EDIT.png",
+          "alt": ""
+        },
+        {
+          "src": "/media/projects/adidas-legacy/BASKET_EDIT.png",
+          "alt": ""
+        },
+        {
+          "src": "/media/projects/adidas-legacy/LASERS_EDIT.png",
+          "alt": ""
+        },
+        {
+          "src": "/media/projects/adidas-legacy/SCREEN_EDIT.png",
+          "alt": ""
+        },
+        {
+          "src": "/media/projects/adidas-legacy/TECA.png",
+          "alt": ""
+        }
+      ]
+    }
+  ],
+  "beforeAfters": [
+    {
+      "title": "Museum Hall - set extension",
+      "imageBefore": "/media/projects/adidas-legacy/CORRIDOR_2_FIRST_FRAME_RAW.png",
+      "imageAfter": "/media/projects/adidas-legacy/CORRIDOR_2_FIRST_FRAME_EDIT.png",
+      "labelBefore": "Before",
+      "labelAfter": "After"
+    },
+    {
+      "title": "Basket - clean ups",
+      "imageBefore": "/media/projects/adidas-legacy/BASKET_RAW.png",
+      "imageAfter": "/media/projects/adidas-legacy/BASKET_EDIT.png",
+      "labelBefore": "Before",
+      "labelAfter": "After"
+    },
+    {
+      "title": "Aitana - picture replacement",
+      "imageBefore": "/media/projects/adidas-legacy/QUADRO_RAW.png",
+      "imageAfter": "/media/projects/adidas-legacy/QUADRO_EDIT.png",
+      "labelBefore": "Before",
+      "labelAfter": "After"
+    },
+    {
+      "title": "Aitana & Brahim - set extension and removal",
+      "imageBefore": "/media/projects/adidas-legacy/BACK_IMPACT_RAW.png",
+      "imageAfter": "/media/projects/adidas-legacy/BACK_IMPACT_EDIT.png",
+      "labelBefore": "Before",
+      "labelAfter": "After"
+    }
+  ],
+  "videoBeforeAfters": [
+    {
+      "title": "Intro Museum - 3D pipe, set extension",
+      "videoBefore": "/media/projects/adidas-legacy/INTRO_MUSEUM_RAW.mp4",
+      "videoAfter": "/media/projects/adidas-legacy/INTRO_MUSEUM_EDITshort.mp4",
+      "labelBefore": "Before",
+      "labelAfter": "After"
+    },
+    {
+      "title": "Mastantuono - removal",
+      "videoBefore": "/media/projects/adidas-legacy/SCANNER_RAW.mp4",
+      "videoAfter": "/media/projects/adidas-legacy/SCANNER_EDIT.mp4",
+      "labelBefore": "Raw Plate",
+      "labelAfter": "Final CGI"
+    },
+    {
+      "title": "Control Basket - removal",
+      "videoBefore": "/media/projects/adidas-legacy/CONTROL_BASKET_RAW.mp4",
+      "videoAfter": "/media/projects/adidas-legacy/CONTROL_BASKET_EDIT.mp4",
+      "labelBefore": "Before",
+      "labelAfter": "After"
+    },
+    {
+      "title": "Screen replacement",
+      "videoBefore": "/media/projects/adidas-legacy/SCREEN_RAW.mp4",
+      "videoAfter": "/media/projects/adidas-legacy/SCREEN_EDIT.mp4",
+      "labelBefore": "Before",
+      "labelAfter": "After"
+    },
+    {
+      "title": "Aitana - picure replacement",
+      "videoBefore": "/media/projects/adidas-legacy/QUADRO_RAW.mp4",
+      "videoAfter": "/media/projects/adidas-legacy/QUADRO_EDIT.mp4",
+      "labelBefore": "Raw Plate",
+      "labelAfter": "Final CGI"
+    },
+    {
+      "title": "Brahim - lasers compositing",
+      "videoBefore": "/media/projects/adidas-legacy/LASERS_RAWshort.mp4",
+      "videoAfter": "/media/projects/adidas-legacy/LASERS_EDIT.mp4",
+      "labelBefore": "Before",
+      "labelAfter": "After"
+    },
+    {
+      "title": "Aitana and Brahim - set extension and roto",
+      "videoBefore": "/media/projects/adidas-legacy/IMPACT_RAW.mp4",
+      "videoAfter": "/media/projects/adidas-legacy/IMPACT_EDIT.mp4",
+      "labelBefore": "Before",
+      "labelAfter": "After"
+    }
+  ],
+  "credits": [
+    {
+      "role": "Direction & CGI",
+      "name": "Kristian Cimò"
+    }
+  ],
+  "videoUrl": "",
+  "videoCaption": "",
+  "gallery": [
+    {
+      "src": "https://picsum.photos/seed/adidas-1/1600/900"
+    },
+    {
+      "src": "https://picsum.photos/seed/adidas-2/900/1200"
+    }
+  ]
+}

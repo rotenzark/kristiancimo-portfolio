@@ -1,0 +1,101 @@
+{
+  "draft": false,
+  "order": 4,
+  "slug": "barcelona-world-cup",
+  "title": "Barcelona × World Cup",
+  "year": "November 2025",
+  "category": "Football",
+  "image": "/media/projects/barcelona-world-cup/hf_20260423_040228_8f9482dc-2ad3-4a87-94ba-9d1c28468205.png",
+  "cardOrientation": "9-16",
+  "previewVideo": "/media/projects/barcelona-world-cup/final_shot.mp4",
+  "gridCover169": "/media/projects/barcelona-world-cup/COPERTINA_ORIZZONTALE-1.png",
+  "insideCover": "/media/projects/barcelona-world-cup/COPERTINA_ORIZZONTALE-1.png",
+  "coverVideo": "",
+  "tagLabel": "",
+  "subtitle": "",
+  "client": "FC Barcelona",
+  "talent": "",
+  "role": "VFX · CGI",
+  "software": "Blender · Nuke",
+  "format": "Social",
+  "publicationUrl": "https://www.instagram.com/reel/DRO1Zt8DEBP/?igsh=ZTdsNWdzNXRvN2hv",
+  "publicationLabel": "View on Instagram",
+  "description": "",
+  "galleryBlocks": [
+    {
+      "tag": "",
+      "heading": "",
+      "caption": "",
+      "images": [
+        {
+          "src": "/media/projects/barcelona-world-cup/Frame_1-1.png",
+          "alt": ""
+        },
+        {
+          "src": "/media/projects/barcelona-world-cup/Frame_2-1.png",
+          "alt": ""
+        },
+        {
+          "src": "/media/projects/barcelona-world-cup/Frame_3-1.png",
+          "alt": ""
+        },
+        {
+          "src": "/media/projects/barcelona-world-cup/Frame_4-1.png",
+          "alt": ""
+        }
+      ]
+    },
+    {
+      "tag": "",
+      "heading": "References from client",
+      "caption": "",
+      "images": [
+        {
+          "src": "/media/projects/barcelona-world-cup/WhatsApp Image 2026-04-23 at 05.56.392.jpeg",
+          "alt": ""
+        },
+        {
+          "src": "/media/projects/barcelona-world-cup/WhatsApp Image 2026-04-23 at 05.56.393.jpeg",
+          "alt": ""
+        },
+        {
+          "src": "/media/projects/barcelona-world-cup/WhatsApp Image 2026-04-23 at 05.56.39.jpeg",
+          "alt": ""
+        },
+        {
+          "src": "/media/projects/barcelona-world-cup/WhatsApp Image 2026-04-23 at 05.56.391.jpeg",
+          "alt": ""
+        }
+      ]
+    }
+  ],
+  "beforeAfters": [
+    {
+      "title": "Shot",
+      "imageBefore": "/media/projects/barcelona-world-cup/hf_20260423_040358_14cabc71-6b16-4796-b2b4-5d436414a6f4.png",
+      "imageAfter": "/media/projects/barcelona-world-cup/hf_20260423_040228_8f9482dc-2ad3-4a87-94ba-9d1c28468205.png",
+      "labelBefore": "Viewport",
+      "labelAfter": "Render"
+    }
+  ],
+  "videoBeforeAfters": [
+    {
+      "title": "Raw vs Edit",
+      "videoBefore": "/media/projects/barcelona-world-cup/green_screen.mp4",
+      "videoAfter": "/media/projects/barcelona-world-cup/final_shot.mp4",
+      "labelBefore": "Raw Plate",
+      "labelAfter": "Final CGI"
+    }
+  ],
+  "storytelling": [
+    {
+      "heading": "Extra angles",
+      "text": "Some environment renders",
+      "image": "",
+      "images": [
+        "/media/projects/barcelona-world-cup/hf_20260423_040921_579e1f17-c0a8-49e1-8148-c0edd43ba96d.png",
+        "/media/projects/barcelona-world-cup/hf_20260423_040921_49827b09-83c0-43c9-9dc0-03a7b27f693c.png"
+      ]
+    }
+  ]
+}

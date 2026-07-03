@@ -3,6 +3,7 @@
 
 # Git internals — huge pack files, not needed at runtime
 .git/
+.github/
 .gitignore
 
 # Documentation & config not served to users

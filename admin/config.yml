@@ -121,198 +121,203 @@ collections:
   # ═══════════════════════════════════════════════════════════════════
   # 📁  PROJECTS — the case studies that appear in the Work grid
   # ═══════════════════════════════════════════════════════════════════
+
+  # ═══════════════════════════════════════════════════════════════════
+  # 📁  PROJECTS — one entry per project, each with its own media folder
+  # ═══════════════════════════════════════════════════════════════════
   - name: "projects"
     label: "📁 Projects"
-    description: "Each project has its own case study page and appears in the homepage Work grid. Fields are grouped visually with dividers — fill only the sections you need, leave optional ones empty."
-    files:
-      - name: "all_projects"
-        label: "Projects List"
-        file: "data/projects.json"
-        format: "json"
+    label_singular: "Project"
+    description: "Each project is a separate entry. Media you upload inside a project is automatically stored in its own folder: media/projects/<slug>/."
+    folder: "data/projects"
+    format: "json"
+    extension: "json"
+    create: true
+    delete: true
+    identifier_field: "title"
+    slug: "{{fields.slug}}"
+    summary: "{{fields.order}}. {{fields.title}} — {{fields.year}} · {{fields.client}}"
+    sortable_fields: ["order", "title", "year"]
+    media_folder: "/media/projects/{{fields.slug}}"
+    public_folder: "/media/projects/{{fields.slug}}"
+    fields:
+      - { label: "🚫 Draft (hide from website)", name: "draft", widget: "boolean", default: false, required: false,
+          hint: "If ON, this project is NOT shown on the website (homepage grid and sitemap). Turn OFF when the project is ready to publish." }
+      - { label: "Display Order", name: "order", widget: "number", value_type: "int",
+          hint: "Lower number = appears first in the Work grid. e.g. 1, 2, 3..." }
+      - { label: "Slug (URL identifier — REQUIRED)", name: "slug", widget: "string", required: true,
+          hint: "Used in the URL: project.html?id=YOUR-SLUG. Lowercase + hyphens only. Leave empty to auto-generate from title." }
+      - { label: "Title", name: "title", widget: "string",
+          hint: "Project name. Big heading on the project page. e.g. Pedri × Adidas" }
+      - { label: "Year", name: "year", widget: "string",
+          hint: "Year the project was made. e.g. 2026" }
+      - { label: "Category", name: "category", widget: "string",
+          hint: "Short label. e.g. Football, Automotive, Fashion, Music Video" }
+
+      # ═══ 🎥 COVER MEDIA ═══════════════════════════════════
+      # ═══ 🎥 COVER MEDIA ═══════════════════════════════════
+      # Each project can have THREE distinct covers:
+      # 1) Grid Cover (image)    → shown in the HOMEPAGE tile
+      # 2) Grid Preview Video    → plays on HOVER in the homepage tile
+      # 3) Inside Cover          → big hero shown INSIDE the project page
+      # ═════════════════════════════════════════════════════════
+
+      - { label: "🎥 Grid Cover — Image (homepage tile)", name: "image", widget: "image",
+          hint: "COVER MEDIA — The image visible in the homepage Work grid. Upload it in the format matching your chosen 'Card Orientation' below (e.g. 9:16 vertical → upload a 9:16 image). Also used as the inside-page hero if no 'Inside Cover' below." }
+
+      - label: "🎥 Grid Card Orientation (homepage tile shape)"
+        name: "cardOrientation"
+        widget: "select"
+        required: false
+        default: ""
+        hint: "COVER MEDIA — Choose the shape of this project's tile in the homepage grid. Leave 'Auto (default)' to keep the classic asymmetric layout for this card. The Grid Cover image must be uploaded in the matching aspect ratio to avoid crop."
+        options:
+          - { label: "Auto (default asymmetric layout)", value: "" }
+          - { label: "16 : 9 — Wide landscape",           value: "16-9" }
+          - { label: "4 : 3 — Landscape",                 value: "4-3" }
+          - { label: "1 : 1 — Square",                    value: "1-1" }
+          - { label: "4 : 5 — Portrait (Instagram)",     value: "4-5" }
+          - { label: "3 : 4 — Portrait",                  value: "3-4" }
+          - { label: "9 : 16 — Vertical (Reels/TikTok)", value: "9-16" }
+          - { label: "21 : 9 — Ultra-wide (full row)",   value: "21-9" }
+
+      - { label: "🎥 Grid Preview Video (HOVER on homepage)", name: "previewVideo", widget: "file", required: false,
+          hint: "COVER MEDIA — Optional short MP4 (5-15s) that plays when a visitor HOVERS the tile in the homepage. Upload it in the SAME aspect ratio as the Grid Cover above. Keep <5MB." }
+
+      - { label: "🎥 Grid Cover 16:9 (uniform layout only)", name: "gridCover169", widget: "image", required: false,
+          hint: "COVER MEDIA — Optional horizontal 16:9 version of the cover, used ONLY when a visitor switches the homepage layout to 'Uniform 16:9'. Recommended: 1920×1080 landscape. Leave empty to fall back to the main Grid Cover (which will be center-cropped)." }
+
+      - { label: "🎥 Inside Cover — Image (project page hero)", name: "insideCover", widget: "image", required: false,
+          hint: "COVER MEDIA — Optional. Different image shown as the BIG HERO inside the project page (e.g. a horizontal 21:9 cinematic version while the homepage tile is vertical). If empty, the Grid Cover is used." }
+
+      - { label: "🎥 Inside Cover — Video URL (project page hero, wins over image)", name: "coverVideo", widget: "string", required: false,
+          hint: "COVER MEDIA — Optional Vimeo/YouTube URL or direct video URL. If set, this video is used as the inside-page hero INSTEAD of the Inside Cover image." }
+
+      - { label: "🎥 Featured badge on card?", name: "featured", widget: "boolean", default: false,
+          hint: "COVER MEDIA — If ON, a small badge appears on the project card in the grid." }
+      - { label: "🎥 Featured tag label", name: "tagLabel", widget: "string", required: false, default: "Featured",
+          hint: "COVER MEDIA — Text shown on the badge when 'Featured' is ON. e.g. Featured, New, 2026" }
+
+      # ═══ 📝 PROJECT INFO ══════════════════════════════════
+      - { label: "📝 Subtitle (italic, under project title)", name: "subtitle", widget: "text", required: false,
+          hint: "PROJECT INFO — One-line poetic subtitle. Italic serif. e.g. Predator Control — taking control of the game." }
+      - { label: "📝 Client", name: "client", widget: "string", required: false,
+          hint: "PROJECT INFO — e.g. Adidas, Hawkers, Generali" }
+      - { label: "📝 Talent", name: "talent", widget: "string", required: false,
+          hint: "PROJECT INFO — e.g. Pedri, Carlos Sainz, Sergio Ramos" }
+      - { label: "📝 Role", name: "role", widget: "string", required: false,
+          hint: "PROJECT INFO — Your role. e.g. AI VFX Artist, Compositor, CGI Director" }
+      - { label: "📝 Software", name: "software", widget: "string", required: false,
+          hint: "PROJECT INFO — Tools used. e.g. Nano Banana Pro, Seedance, After Effects, Blender" }
+      - { label: "📝 Format", name: "format", widget: "string", required: false,
+          hint: "PROJECT INFO — Deliverable format. e.g. 16:9 · 4K · 30s, 9:16 · Vertical, Print" }
+      - { label: "🔗 Publication Link (URL)", name: "publicationUrl", widget: "string", required: false,
+          hint: "PROJECT INFO — Optional. Public link where this project lives (Instagram post, client's site, Vimeo, press feature...). Shows a button under the info block. Leave empty to hide the button." }
+      - { label: "🔗 Publication Button Label", name: "publicationLabel", widget: "string", required: false, default: "View Publication",
+          hint: "PROJECT INFO — Text on the button. e.g. View on Instagram, Watch on Vimeo, Read Case Study. Only used if Publication Link is set." }
+      - { label: "📝 Description / Case Study Text", name: "description", widget: "text", required: false,
+          hint: "PROJECT INFO — Long-form story of the project. Separate paragraphs with a blank line." }
+
+      # ═══ 🖼 CONTENT BLOCKS ════════════════════════════════
+      - label: "🖼️ Gallery Blocks"
+        name: "galleryBlocks"
+        widget: "list"
+        required: false
+        summary: "{{fields.heading}} · {{fields.images.length}} items"
+        hint: "CONTENT BLOCKS — Each block is a titled group of images or videos (e.g. 'Client References', 'My Proposals', 'Final Renders'). Add as many blocks as you want."
         fields:
-          - label: "Projects"
-            name: "items"
+          - { label: "Tag (small uppercase label)", name: "tag", widget: "string", required: false,
+              hint: "Small red uppercase label above the block. e.g. CLIENT REFERENCES, MY PROPOSAL, FINAL RENDERS" }
+          - { label: "Heading", name: "heading", widget: "string", required: false,
+              hint: "Big display title for this gallery block." }
+          - { label: "Caption / Description", name: "caption", widget: "text", required: false,
+              hint: "Short italic paragraph that introduces the images below." }
+          - label: "Images or Videos"
+            name: "images"
             widget: "list"
-            summary: "{{fields.order}}. {{fields.title}} — {{fields.year}} · {{fields.client}}"
-            hint: "Each item = one project. Sort them with 'Display Order' inside each project."
+            summary: "{{fields.alt}}"
+            hint: "Images (JPG/PNG/WEBP) or videos (MP4/WEBM/MOV). Native aspect ratios are preserved. ⚠️ Keep videos small (<5MB, 1-5s) — GitHub API limits uploads to ~30MB."
             fields:
+              - { label: "Image or Video file", name: "src", widget: "file",
+                  hint: "Upload image or video. The site auto-detects the type by extension." }
+              - { label: "Alt text (optional)", name: "alt", widget: "string", required: false,
+                  hint: "Short description for accessibility & SEO." }
 
-              # ═══ 📌 BASICS ═══════════════════════════════════════
-              - { label: "Display Order", name: "order", widget: "number", value_type: "int",
-                  hint: "Lower number = appears first in the Work grid. e.g. 1, 2, 3..." }
-              - { label: "Slug (URL identifier)", name: "slug", widget: "string", required: false,
-                  hint: "Used in the URL: project.html?id=YOUR-SLUG. Lowercase + hyphens only. Leave empty to auto-generate from title." }
-              - { label: "Title", name: "title", widget: "string",
-                  hint: "Project name. Big heading on the project page. e.g. Pedri × Adidas" }
-              - { label: "Year", name: "year", widget: "string",
-                  hint: "Year the project was made. e.g. 2026" }
-              - { label: "Category", name: "category", widget: "string",
-                  hint: "Short label. e.g. Football, Automotive, Fashion, Music Video" }
+      - label: "🎬 Video Blocks"
+        name: "videoBlocks"
+        widget: "list"
+        required: false
+        summary: "{{fields.heading}}"
+        hint: "CONTENT BLOCKS — Each block = one video with optional title & caption. Choose ONE of: upload a video file (MP4) OR paste a Vimeo/YouTube URL."
+        fields:
+          - { label: "Tag", name: "tag", widget: "string", required: false,
+              hint: "Small red uppercase label. e.g. FINAL EDIT, DIRECTOR'S CUT, BTS" }
+          - { label: "Heading", name: "heading", widget: "string", required: false }
+          - { label: "Caption / Description", name: "caption", widget: "text", required: false }
+          - { label: "Video File (MP4 upload)", name: "file", widget: "file", required: false,
+              hint: "Upload a video file directly. Takes priority over the URL below. ⚠️ Keep it small (<10MB) — GitHub API limits uploads to ~30MB." }
+          - { label: "Video URL (Vimeo or YouTube)", name: "url", widget: "string", required: false,
+              hint: "Paste the full Vimeo or YouTube URL. Used only if no file is uploaded above. Recommended for larger/longer videos." }
 
-              # ═══ 🎥 COVER MEDIA ═══════════════════════════════════
-              # ═══ 🎥 COVER MEDIA ═══════════════════════════════════
-              # Each project can have THREE distinct covers:
-              # 1) Grid Cover (image)    → shown in the HOMEPAGE tile
-              # 2) Grid Preview Video    → plays on HOVER in the homepage tile
-              # 3) Inside Cover          → big hero shown INSIDE the project page
-              # ═════════════════════════════════════════════════════════
+      - label: "🔀 Before / After — Image Slides"
+        name: "beforeAfters"
+        widget: "list"
+        required: false
+        summary: "{{fields.title}}"
+        hint: "CONTENT BLOCKS — Drag-to-compare sliders for still frames. Add one per shot you want to showcase."
+        fields:
+          - { label: "Title", name: "title", widget: "string", required: false,
+              hint: "e.g. Shot 01, Wide, Close-up. Shown above the slider when there's more than one." }
+          - { label: "Image — Before (raw plate)", name: "imageBefore", widget: "image", required: false }
+          - { label: "Image — After (final CGI)", name: "imageAfter", widget: "image", required: false }
+          - { label: "Label — Before", name: "labelBefore", widget: "string", required: false, default: "Raw Plate" }
+          - { label: "Label — After", name: "labelAfter", widget: "string", required: false, default: "Final CGI" }
 
-              - { label: "🎥 Grid Cover — Image (homepage tile)", name: "image", widget: "image",
-                  hint: "COVER MEDIA — The image visible in the homepage Work grid. Upload it in the format matching your chosen 'Card Orientation' below (e.g. 9:16 vertical → upload a 9:16 image). Also used as the inside-page hero if no 'Inside Cover' below." }
+      - label: "🎞️ Before / After — Video Slides"
+        name: "videoBeforeAfters"
+        widget: "list"
+        required: false
+        summary: "{{fields.title}}"
+        hint: "CONTENT BLOCKS — Synced video before/after sliders. Use short MP4s (10-30s, <10MB)."
+        fields:
+          - { label: "Title", name: "title", widget: "string", required: false,
+              hint: "e.g. Shot 01, Crash scene. Shown above the slider when there's more than one." }
+          - { label: "Video — Before (raw plate)", name: "videoBefore", widget: "file", required: false }
+          - { label: "Video — After (final CGI)", name: "videoAfter", widget: "file", required: false }
+          - { label: "Label — Before", name: "labelBefore", widget: "string", required: false, default: "Raw Plate" }
+          - { label: "Label — After", name: "labelAfter", widget: "string", required: false, default: "Final CGI" }
 
-              - label: "🎥 Grid Card Orientation (homepage tile shape)"
-                name: "cardOrientation"
-                widget: "select"
-                required: false
-                default: ""
-                hint: "COVER MEDIA — Choose the shape of this project's tile in the homepage grid. Leave 'Auto (default)' to keep the classic asymmetric layout for this card. The Grid Cover image must be uploaded in the matching aspect ratio to avoid crop."
-                options:
-                  - { label: "Auto (default asymmetric layout)", value: "" }
-                  - { label: "16 : 9 — Wide landscape",           value: "16-9" }
-                  - { label: "4 : 3 — Landscape",                 value: "4-3" }
-                  - { label: "1 : 1 — Square",                    value: "1-1" }
-                  - { label: "4 : 5 — Portrait (Instagram)",     value: "4-5" }
-                  - { label: "3 : 4 — Portrait",                  value: "3-4" }
-                  - { label: "9 : 16 — Vertical (Reels/TikTok)", value: "9-16" }
-                  - { label: "21 : 9 — Ultra-wide (full row)",   value: "21-9" }
+      # ═══ 🎬 EXTRAS ════════════════════════════════════════
+      - label: "📖 Storytelling Blocks"
+        name: "storytelling"
+        widget: "list"
+        required: false
+        summary: "{{fields.heading}}"
+        hint: "EXTRAS — Alternating image/video + text blocks (BTS, process shots, moodboards). Blocks alternate left/right automatically."
+        fields:
+          - { label: "Heading", name: "heading", widget: "string", required: false }
+          - { label: "Text", name: "text", widget: "text", required: false }
+          - { label: "Image or Video (single — legacy field)", name: "image", widget: "file", required: false,
+              hint: "One image OR video file (MP4/WEBM/MOV). If you add multiple files below, this is ignored." }
+          - label: "Images or Videos (multiple — optional)"
+            name: "images"
+            widget: "list"
+            required: false
+            summary: "Item {{index}}"
+            hint: "Optional. Add 2+ images or videos to display them side-by-side in this Process block. Native aspect ratios preserved. ⚠️ Keep videos small (<5MB, 1-5s)."
+            field: { label: "Image or Video file", name: "src", widget: "file" }
 
-              - { label: "🎥 Grid Preview Video (HOVER on homepage)", name: "previewVideo", widget: "file", required: false,
-                  hint: "COVER MEDIA — Optional short MP4 (5-15s) that plays when a visitor HOVERS the tile in the homepage. Upload it in the SAME aspect ratio as the Grid Cover above. Keep <5MB." }
+      - label: "🏆 Credits"
+        name: "credits"
+        widget: "list"
+        required: false
+        summary: "{{fields.role}} — {{fields.name}}"
+        hint: "EXTRAS — Team credits shown at the bottom of the project page. e.g. Director / Kristian Cimò"
+        fields:
+          - { label: "Role", name: "role", widget: "string",
+              hint: "e.g. Director, VFX Supervisor, Producer" }
+          - { label: "Name", name: "name", widget: "string",
+              hint: "Person or studio name." }
 
-              - { label: "🎥 Grid Cover 16:9 (uniform layout only)", name: "gridCover169", widget: "image", required: false,
-                  hint: "COVER MEDIA — Optional horizontal 16:9 version of the cover, used ONLY when a visitor switches the homepage layout to 'Uniform 16:9'. Recommended: 1920×1080 landscape. Leave empty to fall back to the main Grid Cover (which will be center-cropped)." }
-
-              - { label: "🎥 Inside Cover — Image (project page hero)", name: "insideCover", widget: "image", required: false,
-                  hint: "COVER MEDIA — Optional. Different image shown as the BIG HERO inside the project page (e.g. a horizontal 21:9 cinematic version while the homepage tile is vertical). If empty, the Grid Cover is used." }
-
-              - { label: "🎥 Inside Cover — Video URL (project page hero, wins over image)", name: "coverVideo", widget: "string", required: false,
-                  hint: "COVER MEDIA — Optional Vimeo/YouTube URL or direct video URL. If set, this video is used as the inside-page hero INSTEAD of the Inside Cover image." }
-
-              - { label: "🎥 Featured badge on card?", name: "featured", widget: "boolean", default: false,
-                  hint: "COVER MEDIA — If ON, a small badge appears on the project card in the grid." }
-              - { label: "🎥 Featured tag label", name: "tagLabel", widget: "string", required: false, default: "Featured",
-                  hint: "COVER MEDIA — Text shown on the badge when 'Featured' is ON. e.g. Featured, New, 2026" }
-
-              # ═══ 📝 PROJECT INFO ══════════════════════════════════
-              - { label: "📝 Subtitle (italic, under project title)", name: "subtitle", widget: "text", required: false,
-                  hint: "PROJECT INFO — One-line poetic subtitle. Italic serif. e.g. Predator Control — taking control of the game." }
-              - { label: "📝 Client", name: "client", widget: "string", required: false,
-                  hint: "PROJECT INFO — e.g. Adidas, Hawkers, Generali" }
-              - { label: "📝 Talent", name: "talent", widget: "string", required: false,
-                  hint: "PROJECT INFO — e.g. Pedri, Carlos Sainz, Sergio Ramos" }
-              - { label: "📝 Role", name: "role", widget: "string", required: false,
-                  hint: "PROJECT INFO — Your role. e.g. AI VFX Artist, Compositor, CGI Director" }
-              - { label: "📝 Software", name: "software", widget: "string", required: false,
-                  hint: "PROJECT INFO — Tools used. e.g. Nano Banana Pro, Seedance, After Effects, Blender" }
-              - { label: "📝 Format", name: "format", widget: "string", required: false,
-                  hint: "PROJECT INFO — Deliverable format. e.g. 16:9 · 4K · 30s, 9:16 · Vertical, Print" }
-              - { label: "🔗 Publication Link (URL)", name: "publicationUrl", widget: "string", required: false,
-                  hint: "PROJECT INFO — Optional. Public link where this project lives (Instagram post, client's site, Vimeo, press feature...). Shows a button under the info block. Leave empty to hide the button." }
-              - { label: "🔗 Publication Button Label", name: "publicationLabel", widget: "string", required: false, default: "View Publication",
-                  hint: "PROJECT INFO — Text on the button. e.g. View on Instagram, Watch on Vimeo, Read Case Study. Only used if Publication Link is set." }
-              - { label: "📝 Description / Case Study Text", name: "description", widget: "text", required: false,
-                  hint: "PROJECT INFO — Long-form story of the project. Separate paragraphs with a blank line." }
-
-              # ═══ 🖼 CONTENT BLOCKS ════════════════════════════════
-              - label: "🖼️ Gallery Blocks"
-                name: "galleryBlocks"
-                widget: "list"
-                required: false
-                summary: "{{fields.heading}} · {{fields.images.length}} items"
-                hint: "CONTENT BLOCKS — Each block is a titled group of images or videos (e.g. 'Client References', 'My Proposals', 'Final Renders'). Add as many blocks as you want."
-                fields:
-                  - { label: "Tag (small uppercase label)", name: "tag", widget: "string", required: false,
-                      hint: "Small red uppercase label above the block. e.g. CLIENT REFERENCES, MY PROPOSAL, FINAL RENDERS" }
-                  - { label: "Heading", name: "heading", widget: "string", required: false,
-                      hint: "Big display title for this gallery block." }
-                  - { label: "Caption / Description", name: "caption", widget: "text", required: false,
-                      hint: "Short italic paragraph that introduces the images below." }
-                  - label: "Images or Videos"
-                    name: "images"
-                    widget: "list"
-                    summary: "{{fields.alt}}"
-                    hint: "Images (JPG/PNG/WEBP) or videos (MP4/WEBM/MOV). Native aspect ratios are preserved. ⚠️ Keep videos small (<5MB, 1-5s) — GitHub API limits uploads to ~30MB."
-                    fields:
-                      - { label: "Image or Video file", name: "src", widget: "file",
-                          hint: "Upload image or video. The site auto-detects the type by extension." }
-                      - { label: "Alt text (optional)", name: "alt", widget: "string", required: false,
-                          hint: "Short description for accessibility & SEO." }
-
-              - label: "🎬 Video Blocks"
-                name: "videoBlocks"
-                widget: "list"
-                required: false
-                summary: "{{fields.heading}}"
-                hint: "CONTENT BLOCKS — Each block = one video with optional title & caption. Choose ONE of: upload a video file (MP4) OR paste a Vimeo/YouTube URL."
-                fields:
-                  - { label: "Tag", name: "tag", widget: "string", required: false,
-                      hint: "Small red uppercase label. e.g. FINAL EDIT, DIRECTOR'S CUT, BTS" }
-                  - { label: "Heading", name: "heading", widget: "string", required: false }
-                  - { label: "Caption / Description", name: "caption", widget: "text", required: false }
-                  - { label: "Video File (MP4 upload)", name: "file", widget: "file", required: false,
-                      hint: "Upload a video file directly. Takes priority over the URL below. ⚠️ Keep it small (<10MB) — GitHub API limits uploads to ~30MB." }
-                  - { label: "Video URL (Vimeo or YouTube)", name: "url", widget: "string", required: false,
-                      hint: "Paste the full Vimeo or YouTube URL. Used only if no file is uploaded above. Recommended for larger/longer videos." }
-
-              - label: "🔀 Before / After — Image Slides"
-                name: "beforeAfters"
-                widget: "list"
-                required: false
-                summary: "{{fields.title}}"
-                hint: "CONTENT BLOCKS — Drag-to-compare sliders for still frames. Add one per shot you want to showcase."
-                fields:
-                  - { label: "Title", name: "title", widget: "string", required: false,
-                      hint: "e.g. Shot 01, Wide, Close-up. Shown above the slider when there's more than one." }
-                  - { label: "Image — Before (raw plate)", name: "imageBefore", widget: "image", required: false }
-                  - { label: "Image — After (final CGI)", name: "imageAfter", widget: "image", required: false }
-                  - { label: "Label — Before", name: "labelBefore", widget: "string", required: false, default: "Raw Plate" }
-                  - { label: "Label — After", name: "labelAfter", widget: "string", required: false, default: "Final CGI" }
-
-              - label: "🎞️ Before / After — Video Slides"
-                name: "videoBeforeAfters"
-                widget: "list"
-                required: false
-                summary: "{{fields.title}}"
-                hint: "CONTENT BLOCKS — Synced video before/after sliders. Use short MP4s (10-30s, <10MB)."
-                fields:
-                  - { label: "Title", name: "title", widget: "string", required: false,
-                      hint: "e.g. Shot 01, Crash scene. Shown above the slider when there's more than one." }
-                  - { label: "Video — Before (raw plate)", name: "videoBefore", widget: "file", required: false }
-                  - { label: "Video — After (final CGI)", name: "videoAfter", widget: "file", required: false }
-                  - { label: "Label — Before", name: "labelBefore", widget: "string", required: false, default: "Raw Plate" }
-                  - { label: "Label — After", name: "labelAfter", widget: "string", required: false, default: "Final CGI" }
-
-              # ═══ 🎬 EXTRAS ════════════════════════════════════════
-              - label: "📖 Storytelling Blocks"
-                name: "storytelling"
-                widget: "list"
-                required: false
-                summary: "{{fields.heading}}"
-                hint: "EXTRAS — Alternating image/video + text blocks (BTS, process shots, moodboards). Blocks alternate left/right automatically."
-                fields:
-                  - { label: "Heading", name: "heading", widget: "string", required: false }
-                  - { label: "Text", name: "text", widget: "text", required: false }
-                  - { label: "Image or Video (single — legacy field)", name: "image", widget: "file", required: false,
-                      hint: "One image OR video file (MP4/WEBM/MOV). If you add multiple files below, this is ignored." }
-                  - label: "Images or Videos (multiple — optional)"
-                    name: "images"
-                    widget: "list"
-                    required: false
-                    summary: "Item {{index}}"
-                    hint: "Optional. Add 2+ images or videos to display them side-by-side in this Process block. Native aspect ratios preserved. ⚠️ Keep videos small (<5MB, 1-5s)."
-                    field: { label: "Image or Video file", name: "src", widget: "file" }
-
-              - label: "🏆 Credits"
-                name: "credits"
-                widget: "list"
-                required: false
-                summary: "{{fields.role}} — {{fields.name}}"
-                hint: "EXTRAS — Team credits shown at the bottom of the project page. e.g. Director / Kristian Cimò"
-                fields:
-                  - { label: "Role", name: "role", widget: "string",
-                      hint: "e.g. Director, VFX Supervisor, Producer" }
-                  - { label: "Name", name: "name", widget: "string",
-                      hint: "Person or studio name." }
-
-              - { label: "🎬 Show 'Next Project' link at the bottom?", name: "showNextProject", widget: "boolean", default: true, required: false,
-                  hint: "EXTRAS — If ON, a big 'Next Project' link appears at the end of the page, pointing to the next project by order." }
+      - { label: "🎬 Show 'Next Project' link at the bottom?", name: "showNextProject", widget: "boolean", default: true, required: false,
+          hint: "EXTRAS — If ON, a big 'Next Project' link appears at the end of the page, pointing to the next project by order." }

@@ -1,14 +1,15 @@
 {
   "items": [
     {
+      "draft": false,
       "order": 1,
       "slug": "hawkers-gasly",
       "title": "Hawkers × Gasly",
       "year": "March 2026",
       "category": "Eyewear / F1",
-      "image": "/media/FIRST_FRAME_HORIZONTAL_4_09.png",
+      "image": "/media/projects/hawkers-gasly/FIRST_FRAME_HORIZONTAL_4_09.png",
       "cardOrientation": "16-9",
-      "previewVideo": "/media/horizontal_video.mp4",
+      "previewVideo": "/media/projects/hawkers-gasly/horizontal_video.mp4",
       "coverVideo": "",
       "featured": true,
       "tagLabel": "Featured",
@@ -28,7 +29,7 @@
           "caption": "The client sent me a simple hat to show me what the idea was and let me think around it.\nI decided to go with Blender to do get the work done.",
           "images": [
             {
-              "src": "/media/COPERTINA_HIGH.png",
+              "src": "/media/projects/hawkers-gasly/COPERTINA_HIGH.png",
               "alt": ""
             }
           ]
@@ -39,15 +40,15 @@
           "caption": "Photoshop (first two photos) and Blender (third photo) were used to build the first ideas.",
           "images": [
             {
-              "src": "/media/h_nocircle_centered-1.png",
+              "src": "/media/projects/hawkers-gasly/h_nocircle_centered-1.png",
               "alt": ""
             },
             {
-              "src": "/media/h_circle_centered-1.png",
+              "src": "/media/projects/hawkers-gasly/h_circle_centered-1.png",
               "alt": ""
             },
             {
-              "src": "/media/h_zoomout_centered.png",
+              "src": "/media/projects/hawkers-gasly/h_zoomout_centered.png",
               "alt": ""
             }
           ]
@@ -58,11 +59,11 @@
           "caption": "Two screenshots of the final frames of both horizontal and vertical versions.",
           "images": [
             {
-              "src": "/media/LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).png",
+              "src": "/media/projects/hawkers-gasly/LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).png",
               "alt": ""
             },
             {
-              "src": "/media/LAST_FRAME_VERTICAL_COLOR_hf_20260305_102526_ce7c5e41-9bf6-444d-bc28-6a74f300f4d5 (0-00-00-00).png",
+              "src": "/media/projects/hawkers-gasly/LAST_FRAME_VERTICAL_COLOR_hf_20260305_102526_ce7c5e41-9bf6-444d-bc28-6a74f300f4d5 (0-00-00-00).png",
               "alt": ""
             }
           ]
@@ -72,22 +73,22 @@
       "beforeAfters": [
         {
           "title": "First frame - building the world around him",
-          "imageBefore": "/media/FIRST_FRAME_VERTICAL_4_09_CLAY.png",
-          "imageAfter": "/media/FIRST_FRAME_VERTICAL_4_09.png",
+          "imageBefore": "/media/projects/hawkers-gasly/FIRST_FRAME_VERTICAL_4_09_CLAY.png",
+          "imageAfter": "/media/projects/hawkers-gasly/FIRST_FRAME_VERTICAL_4_09.png",
           "labelBefore": "Viewport",
           "labelAfter": "Final render"
         },
         {
           "title": "",
-          "imageBefore": "/media/CLAY_2.png",
-          "imageAfter": "/media/SECOND_TO_CLAY.png",
+          "imageBefore": "/media/projects/hawkers-gasly/CLAY_2.png",
+          "imageAfter": "/media/projects/hawkers-gasly/SECOND_TO_CLAY.png",
           "labelBefore": "Viewport",
           "labelAfter": "Final Render"
         },
         {
           "title": "",
-          "imageBefore": "/media/CLAY_3.png",
-          "imageAfter": "/media/THIRD_TO_CLAY.png",
+          "imageBefore": "/media/projects/hawkers-gasly/CLAY_3.png",
+          "imageAfter": "/media/projects/hawkers-gasly/THIRD_TO_CLAY.png",
           "labelBefore": "Viewport",
           "labelAfter": "Final render"
         }
@@ -97,20 +98,20 @@
         {
           "heading": "01 — 3D clay building",
           "text": "Blender was used to create the base for the texture projection",
-          "image": "/media/FIRST_FRAME_VERTICAL_4_09_CLAY.png"
+          "image": "/media/projects/hawkers-gasly/FIRST_FRAME_VERTICAL_4_09_CLAY.png"
         },
         {
           "heading": "02 — Environment build",
           "text": "3D creation of Dubai inside, using open source photogrammetry data.",
-          "image": "/media/CLAY_3.png"
+          "image": "/media/projects/hawkers-gasly/CLAY_3.png"
         },
         {
           "heading": "03 — Setting up the clouds and camera movement",
           "text": "One of the first wip",
           "image": "",
           "images": [
-            "/media/WIP_BLENDER.png",
-            "/media/WIP_BLENDER_2.png"
+            "/media/projects/hawkers-gasly/WIP_BLENDER.png",
+            "/media/projects/hawkers-gasly/WIP_BLENDER_2.png"
           ]
         }
       ],
@@ -137,11 +138,11 @@
       "videoCaption": "",
       "gallery": [
         {
-          "src": "/media/LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).png",
+          "src": "/media/projects/hawkers-gasly/LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).png",
           "alt": "Horizontal shot"
         },
         {
-          "src": "/media/LAST_FRAME_VERTICAL_COLOR_hf_20260305_102526_ce7c5e41-9bf6-444d-bc28-6a74f300f4d5 (0-00-00-00).png",
+          "src": "/media/projects/hawkers-gasly/LAST_FRAME_VERTICAL_COLOR_hf_20260305_102526_ce7c5e41-9bf6-444d-bc28-6a74f300f4d5 (0-00-00-00).png",
           "alt": "Vertical shot"
         },
         {
@@ -167,15 +168,16 @@
       }
     },
     {
+      "draft": false,
       "order": 2,
       "slug": "adidas-legacy",
       "title": "Adidas - Legacy Museum",
       "year": "December 2025",
       "category": "Football",
-      "image": "/media/COPERTINA_VERTICALE.png",
+      "image": "/media/projects/adidas-legacy/COPERTINA_VERTICALE.png",
       "cardOrientation": "9-16",
-      "previewVideo": "/media/QUADRO_EDIT_NOSTOP.mp4",
-      "gridCover169": "/media/COPERTINA_ORIZZONTALE.png",
+      "previewVideo": "/media/projects/adidas-legacy/QUADRO_EDIT_NOSTOP.mp4",
+      "gridCover169": "/media/projects/adidas-legacy/COPERTINA_ORIZZONTALE.png",
       "coverVideo": "",
       "featured": false,
       "tagLabel": "",
@@ -195,35 +197,35 @@
           "caption": "",
           "images": [
             {
-              "src": "/media/RAUL.png",
+              "src": "/media/projects/adidas-legacy/RAUL.png",
               "alt": ""
             },
             {
-              "src": "/media/BRAHIM.png",
+              "src": "/media/projects/adidas-legacy/BRAHIM.png",
               "alt": ""
             },
             {
-              "src": "/media/QUADRO_EDIT.png",
+              "src": "/media/projects/adidas-legacy/QUADRO_EDIT.png",
               "alt": ""
             },
             {
-              "src": "/media/BACK_IMPACT_EDIT.png",
+              "src": "/media/projects/adidas-legacy/BACK_IMPACT_EDIT.png",
               "alt": ""
             },
             {
-              "src": "/media/BASKET_EDIT.png",
+              "src": "/media/projects/adidas-legacy/BASKET_EDIT.png",
               "alt": ""
             },
             {
-              "src": "/media/LASERS_EDIT.png",
+              "src": "/media/projects/adidas-legacy/LASERS_EDIT.png",
               "alt": ""
             },
             {
-              "src": "/media/SCREEN_EDIT.png",
+              "src": "/media/projects/adidas-legacy/SCREEN_EDIT.png",
               "alt": ""
             },
             {
-              "src": "/media/TECA.png",
+              "src": "/media/projects/adidas-legacy/TECA.png",
               "alt": ""
             }
           ]
@@ -232,29 +234,29 @@
       "beforeAfters": [
         {
           "title": "Museum Hall - set extension",
-          "imageBefore": "/media/CORRIDOR_2_FIRST_FRAME_RAW.png",
-          "imageAfter": "/media/CORRIDOR_2_FIRST_FRAME_EDIT.png",
+          "imageBefore": "/media/projects/adidas-legacy/CORRIDOR_2_FIRST_FRAME_RAW.png",
+          "imageAfter": "/media/projects/adidas-legacy/CORRIDOR_2_FIRST_FRAME_EDIT.png",
           "labelBefore": "Before",
           "labelAfter": "After"
         },
         {
           "title": "Basket - clean ups",
-          "imageBefore": "/media/BASKET_RAW.png",
-          "imageAfter": "/media/BASKET_EDIT.png",
+          "imageBefore": "/media/projects/adidas-legacy/BASKET_RAW.png",
+          "imageAfter": "/media/projects/adidas-legacy/BASKET_EDIT.png",
           "labelBefore": "Before",
           "labelAfter": "After"
         },
         {
           "title": "Aitana - picture replacement",
-          "imageBefore": "/media/QUADRO_RAW.png",
-          "imageAfter": "/media/QUADRO_EDIT.png",
+          "imageBefore": "/media/projects/adidas-legacy/QUADRO_RAW.png",
+          "imageAfter": "/media/projects/adidas-legacy/QUADRO_EDIT.png",
           "labelBefore": "Before",
           "labelAfter": "After"
         },
         {
           "title": "Aitana & Brahim - set extension and removal",
-          "imageBefore": "/media/BACK_IMPACT_RAW.png",
-          "imageAfter": "/media/BACK_IMPACT_EDIT.png",
+          "imageBefore": "/media/projects/adidas-legacy/BACK_IMPACT_RAW.png",
+          "imageAfter": "/media/projects/adidas-legacy/BACK_IMPACT_EDIT.png",
           "labelBefore": "Before",
           "labelAfter": "After"
         }
@@ -262,50 +264,50 @@
       "videoBeforeAfters": [
         {
           "title": "Intro Museum - 3D pipe, set extension",
-          "videoBefore": "/media/INTRO_MUSEUM_RAW.mp4",
-          "videoAfter": "/media/INTRO_MUSEUM_EDITshort.mp4",
+          "videoBefore": "/media/projects/adidas-legacy/INTRO_MUSEUM_RAW.mp4",
+          "videoAfter": "/media/projects/adidas-legacy/INTRO_MUSEUM_EDITshort.mp4",
           "labelBefore": "Before",
           "labelAfter": "After"
         },
         {
           "title": "Mastantuono - removal",
-          "videoBefore": "/media/SCANNER_RAW.mp4",
-          "videoAfter": "/media/SCANNER_EDIT.mp4",
+          "videoBefore": "/media/projects/adidas-legacy/SCANNER_RAW.mp4",
+          "videoAfter": "/media/projects/adidas-legacy/SCANNER_EDIT.mp4",
           "labelBefore": "Raw Plate",
           "labelAfter": "Final CGI"
         },
         {
           "title": "Control Basket - removal",
-          "videoBefore": "/media/CONTROL_BASKET_RAW.mp4",
-          "videoAfter": "/media/CONTROL_BASKET_EDIT.mp4",
+          "videoBefore": "/media/projects/adidas-legacy/CONTROL_BASKET_RAW.mp4",
+          "videoAfter": "/media/projects/adidas-legacy/CONTROL_BASKET_EDIT.mp4",
           "labelBefore": "Before",
           "labelAfter": "After"
         },
         {
           "title": "Screen replacement",
-          "videoBefore": "/media/SCREEN_RAW.mp4",
-          "videoAfter": "/media/SCREEN_EDIT.mp4",
+          "videoBefore": "/media/projects/adidas-legacy/SCREEN_RAW.mp4",
+          "videoAfter": "/media/projects/adidas-legacy/SCREEN_EDIT.mp4",
           "labelBefore": "Before",
           "labelAfter": "After"
         },
         {
           "title": "Aitana - picure replacement",
-          "videoBefore": "/media/QUADRO_RAW.mp4",
-          "videoAfter": "/media/QUADRO_EDIT.mp4",
+          "videoBefore": "/media/projects/adidas-legacy/QUADRO_RAW.mp4",
+          "videoAfter": "/media/projects/adidas-legacy/QUADRO_EDIT.mp4",
           "labelBefore": "Raw Plate",
           "labelAfter": "Final CGI"
         },
         {
           "title": "Brahim - lasers compositing",
-          "videoBefore": "/media/LASERS_RAWshort.mp4",
-          "videoAfter": "/media/LASERS_EDIT.mp4",
+          "videoBefore": "/media/projects/adidas-legacy/LASERS_RAWshort.mp4",
+          "videoAfter": "/media/projects/adidas-legacy/LASERS_EDIT.mp4",
           "labelBefore": "Before",
           "labelAfter": "After"
         },
         {
           "title": "Aitana and Brahim - set extension and roto",
-          "videoBefore": "/media/IMPACT_RAW.mp4",
-          "videoAfter": "/media/IMPACT_EDIT.mp4",
+          "videoBefore": "/media/projects/adidas-legacy/IMPACT_RAW.mp4",
+          "videoAfter": "/media/projects/adidas-legacy/IMPACT_EDIT.mp4",
           "labelBefore": "Before",
           "labelAfter": "After"
         }
@@ -328,16 +330,17 @@
       ]
     },
     {
+      "draft": false,
       "order": 3,
       "slug": "zidane-map",
-      "title": "Zidane - Insipre Signature",
+      "title": "Zidane - Inspire Signature",
       "year": "May 2025",
       "category": "Football / Cartography / CGI",
-      "image": "/media/COPERTINA_SITO_VERTICALE.png",
+      "image": "/media/projects/zidane-map/COPERTINA_SITO_VERTICALE.png",
       "cardOrientation": "9-16",
-      "previewVideo": "/media/render_site_hover.mp4",
-      "gridCover169": "/media/COPERTINA_SITO.png",
-      "insideCover": "/media/COPERTINA_SITO_21_9.png",
+      "previewVideo": "/media/projects/zidane-map/render_site_hover.mp4",
+      "gridCover169": "/media/projects/zidane-map/COPERTINA_SITO.png",
+      "insideCover": "/media/projects/zidane-map/COPERTINA_SITO_21_9.png",
       "coverVideo": "",
       "tagLabel": "",
       "subtitle": "",
@@ -356,31 +359,31 @@
           "caption": "",
           "images": [
             {
-              "src": "/media/Frame_1.png",
+              "src": "/media/projects/zidane-map/Frame_1.png",
               "alt": ""
             },
             {
-              "src": "/media/Frame_2.png",
+              "src": "/media/projects/zidane-map/Frame_2.png",
               "alt": ""
             },
             {
-              "src": "/media/Frame_3.png",
+              "src": "/media/projects/zidane-map/Frame_3.png",
               "alt": ""
             },
             {
-              "src": "/media/Frame_4.png",
+              "src": "/media/projects/zidane-map/Frame_4.png",
               "alt": ""
             },
             {
-              "src": "/media/Frame_5.png",
+              "src": "/media/projects/zidane-map/Frame_5.png",
               "alt": ""
             },
             {
-              "src": "/media/Frame_6.png",
+              "src": "/media/projects/zidane-map/Frame_6.png",
               "alt": ""
             },
             {
-              "src": "/media/Frame_7.png",
+              "src": "/media/projects/zidane-map/Frame_7.png",
               "alt": ""
             }
           ]
@@ -389,22 +392,22 @@
       "videoBeforeAfters": [
         {
           "title": "Shot 1",
-          "videoBefore": "/media/VIEWPORT.mp4",
-          "videoAfter": "/media/render_short.mp4",
+          "videoBefore": "/media/projects/zidane-map/VIEWPORT.mp4",
+          "videoAfter": "/media/projects/zidane-map/render_short.mp4",
           "labelBefore": "Viewport",
           "labelAfter": "Render"
         },
         {
           "title": "Shot 2",
-          "videoBefore": "/media/trofei_viewport.mp4",
-          "videoAfter": "/media/trofei_rnd.mp4",
+          "videoBefore": "/media/projects/zidane-map/trofei_viewport.mp4",
+          "videoAfter": "/media/projects/zidane-map/trofei_rnd.mp4",
           "labelBefore": "Viewport",
           "labelAfter": "Render"
         },
         {
           "title": "Shot 3",
-          "videoBefore": "/media/tv_viewport.mp4",
-          "videoAfter": "/media/tv_rnd.mp4",
+          "videoBefore": "/media/projects/zidane-map/tv_viewport.mp4",
+          "videoAfter": "/media/projects/zidane-map/tv_rnd.mp4",
           "labelBefore": "Viewport",
           "labelAfter": "Render"
         }
@@ -415,8 +418,8 @@
           "text": "Blender was used to create the room",
           "image": "",
           "images": [
-            "/media/Viewport_1.png",
-            "/media/Viewport_2.png"
+            "/media/projects/zidane-map/Viewport_1.png",
+            "/media/projects/zidane-map/Viewport_2.png"
           ]
         },
         {
@@ -424,9 +427,9 @@
           "text": "Camera animation",
           "image": "",
           "images": [
-            "/media/VIEWPORT.mp4",
-            "/media/trofei_viewport.mp4",
-            "/media/tv_viewport.mp4"
+            "/media/projects/zidane-map/VIEWPORT.mp4",
+            "/media/projects/zidane-map/trofei_viewport.mp4",
+            "/media/projects/zidane-map/tv_viewport.mp4"
           ]
         },
         {
@@ -434,7 +437,7 @@
           "text": "Texturing the scene",
           "image": "",
           "images": [
-            "/media/Texturing.png"
+            "/media/projects/zidane-map/Texturing.png"
           ]
         },
         {
@@ -442,7 +445,7 @@
           "text": "AI was used to create this transition",
           "image": "",
           "images": [
-            "/media/A_smooth_cinematic_transition_from_an_old_paper_map_of_Marseille_to_a_modern_aerial_view_of_the_same_seed467585751.mp4"
+            "/media/projects/zidane-map/A_smooth_cinematic_transition_from_an_old_paper_map_of_Marseille_to_a_modern_aerial_view_of_the_same_seed467585751.mp4"
           ]
         }
       ],
@@ -454,16 +457,17 @@
       ]
     },
     {
+      "draft": false,
       "order": 4,
       "slug": "barcelona-world-cup",
       "title": "Barcelona × World Cup",
       "year": "November 2025",
       "category": "Football",
-      "image": "/media/hf_20260423_040228_8f9482dc-2ad3-4a87-94ba-9d1c28468205.png",
+      "image": "/media/projects/barcelona-world-cup/hf_20260423_040228_8f9482dc-2ad3-4a87-94ba-9d1c28468205.png",
       "cardOrientation": "9-16",
-      "previewVideo": "/media/final_shot.mp4",
-      "gridCover169": "/media/COPERTINA_ORIZZONTALE-1.png",
-      "insideCover": "/media/COPERTINA_ORIZZONTALE-1.png",
+      "previewVideo": "/media/projects/barcelona-world-cup/final_shot.mp4",
+      "gridCover169": "/media/projects/barcelona-world-cup/COPERTINA_ORIZZONTALE-1.png",
+      "insideCover": "/media/projects/barcelona-world-cup/COPERTINA_ORIZZONTALE-1.png",
       "coverVideo": "",
       "tagLabel": "",
       "subtitle": "",
@@ -482,19 +486,19 @@
           "caption": "",
           "images": [
             {
-              "src": "/media/Frame_1-1.png",
+              "src": "/media/projects/barcelona-world-cup/Frame_1-1.png",
               "alt": ""
             },
             {
-              "src": "/media/Frame_2-1.png",
+              "src": "/media/projects/barcelona-world-cup/Frame_2-1.png",
               "alt": ""
             },
             {
-              "src": "/media/Frame_3-1.png",
+              "src": "/media/projects/barcelona-world-cup/Frame_3-1.png",
               "alt": ""
             },
             {
-              "src": "/media/Frame_4-1.png",
+              "src": "/media/projects/barcelona-world-cup/Frame_4-1.png",
               "alt": ""
             }
           ]
@@ -505,19 +509,19 @@
           "caption": "",
           "images": [
             {
-              "src": "/media/WhatsApp Image 2026-04-23 at 05.56.392.jpeg",
+              "src": "/media/projects/barcelona-world-cup/WhatsApp Image 2026-04-23 at 05.56.392.jpeg",
               "alt": ""
             },
             {
-              "src": "/media/WhatsApp Image 2026-04-23 at 05.56.393.jpeg",
+              "src": "/media/projects/barcelona-world-cup/WhatsApp Image 2026-04-23 at 05.56.393.jpeg",
               "alt": ""
             },
             {
-              "src": "/media/WhatsApp Image 2026-04-23 at 05.56.39.jpeg",
+              "src": "/media/projects/barcelona-world-cup/WhatsApp Image 2026-04-23 at 05.56.39.jpeg",
               "alt": ""
             },
             {
-              "src": "/media/WhatsApp Image 2026-04-23 at 05.56.391.jpeg",
+              "src": "/media/projects/barcelona-world-cup/WhatsApp Image 2026-04-23 at 05.56.391.jpeg",
               "alt": ""
             }
           ]
@@ -526,8 +530,8 @@
       "beforeAfters": [
         {
           "title": "Shot",
-          "imageBefore": "/media/hf_20260423_040358_14cabc71-6b16-4796-b2b4-5d436414a6f4.png",
-          "imageAfter": "/media/hf_20260423_040228_8f9482dc-2ad3-4a87-94ba-9d1c28468205.png",
+          "imageBefore": "/media/projects/barcelona-world-cup/hf_20260423_040358_14cabc71-6b16-4796-b2b4-5d436414a6f4.png",
+          "imageAfter": "/media/projects/barcelona-world-cup/hf_20260423_040228_8f9482dc-2ad3-4a87-94ba-9d1c28468205.png",
           "labelBefore": "Viewport",
           "labelAfter": "Render"
         }
@@ -535,8 +539,8 @@
       "videoBeforeAfters": [
         {
           "title": "Raw vs Edit",
-          "videoBefore": "/media/green_screen.mp4",
-          "videoAfter": "/media/final_shot.mp4",
+          "videoBefore": "/media/projects/barcelona-world-cup/green_screen.mp4",
+          "videoAfter": "/media/projects/barcelona-world-cup/final_shot.mp4",
           "labelBefore": "Raw Plate",
           "labelAfter": "Final CGI"
         }
@@ -547,23 +551,24 @@
           "text": "Some environment renders",
           "image": "",
           "images": [
-            "/media/hf_20260423_040921_579e1f17-c0a8-49e1-8148-c0edd43ba96d.png",
-            "/media/hf_20260423_040921_49827b09-83c0-43c9-9dc0-03a7b27f693c.png"
+            "/media/projects/barcelona-world-cup/hf_20260423_040921_579e1f17-c0a8-49e1-8148-c0edd43ba96d.png",
+            "/media/projects/barcelona-world-cup/hf_20260423_040921_49827b09-83c0-43c9-9dc0-03a7b27f693c.png"
           ]
         }
       ]
     },
     {
+      "draft": false,
       "order": 5,
       "slug": "sainz-silverstone",
       "title": "Sainz · Silverstone",
       "year": "July 2025",
       "category": "F1 / Product CGI",
-      "image": "/media/copertina.png",
+      "image": "/media/projects/sainz-silverstone/copertina.png",
       "cardOrientation": "9-16",
-      "previewVideo": "/media/final_video.mp4",
-      "gridCover169": "/media/copertina_hor.png",
-      "insideCover": "/media/copertina_hor.png",
+      "previewVideo": "/media/projects/sainz-silverstone/final_video.mp4",
+      "gridCover169": "/media/projects/sainz-silverstone/copertina_hor.png",
+      "insideCover": "/media/projects/sainz-silverstone/copertina_hor.png",
       "coverVideo": "",
       "tagLabel": "",
       "subtitle": "",
@@ -582,23 +587,23 @@
           "caption": "",
           "images": [
             {
-              "src": "/media/Frame_1-2.png",
+              "src": "/media/projects/sainz-silverstone/Frame_1-2.png",
               "alt": ""
             },
             {
-              "src": "/media/Frame_2-2.png",
+              "src": "/media/projects/sainz-silverstone/Frame_2-2.png",
               "alt": ""
             },
             {
-              "src": "/media/Frame_3-2.png",
+              "src": "/media/projects/sainz-silverstone/Frame_3-2.png",
               "alt": ""
             },
             {
-              "src": "/media/Frame_4-2.png",
+              "src": "/media/projects/sainz-silverstone/Frame_4-2.png",
               "alt": ""
             },
             {
-              "src": "/media/Frame_5-1.png",
+              "src": "/media/projects/sainz-silverstone/Frame_5-1.png",
               "alt": ""
             }
           ]
@@ -609,15 +614,15 @@
           "caption": "Some frames from Blender's viewport",
           "images": [
             {
-              "src": "/media/shot1_vp.png",
+              "src": "/media/projects/sainz-silverstone/shot1_vp.png",
               "alt": ""
             },
             {
-              "src": "/media/Viewport_1-1.png",
+              "src": "/media/projects/sainz-silverstone/Viewport_1-1.png",
               "alt": ""
             },
             {
-              "src": "/media/Viewport_2-1.png",
+              "src": "/media/projects/sainz-silverstone/Viewport_2-1.png",
               "alt": ""
             }
           ]
@@ -628,21 +633,21 @@
           "tag": "",
           "heading": "Shot 1 Render",
           "caption": "",
-          "file": "/media/shot_1.mp4",
+          "file": "/media/projects/sainz-silverstone/shot_1.mp4",
           "url": ""
         },
         {
           "tag": "",
           "heading": "Shot 2 Render",
           "caption": "",
-          "file": "/media/shot_2.mp4",
+          "file": "/media/projects/sainz-silverstone/shot_2.mp4",
           "url": ""
         },
         {
           "tag": "",
           "heading": "Shot 3 Render",
           "caption": "",
-          "file": "/media/shot_3.mp4",
+          "file": "/media/projects/sainz-silverstone/shot_3.mp4",
           "url": ""
         },
         {
@@ -656,6 +661,7 @@
       "videoBeforeAfters": []
     },
     {
+      "draft": true,
       "order": 6,
       "slug": "generali-hexagon-cup",
       "title": "Generali · Hexagon Cup",
@@ -671,6 +677,7 @@
       "format": "Campaign"
     },
     {
+      "draft": true,
       "order": 7,
       "slug": "hakimi-ballon-dor",
       "title": "Hakimi · Ballon d'Or",
@@ -682,6 +689,7 @@
       "role": "CGI · Editorial"
     },
     {
+      "draft": true,
       "order": 8,
       "slug": "sergio-ramos-room",
       "title": "Sergio Ramos · Room",

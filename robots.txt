@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /crediti/
+Disallow: /crediti-giorgio/
+
+Sitemap: https://kristiancimo.it/sitemap.xml

@@ -8,6 +8,11 @@
 <meta property="og:title" content="Kristian Cimò — VFX / CGI / 3D / AI">
 <meta property="og:description" content="Selected work for Adidas, Hawkers, Generali, FC Barcelona, and global athletes.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://kristiancimo.it/">
+<meta property="og:image" content="https://kristiancimo.it/og-image.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -197,7 +202,8 @@
       bind('status', site.status);
 
       // PROJECTS GRID — sortable + zoomable
-      const allProjects = (projects.items || []).slice();
+      // Draft projects are hidden from the public site
+      const allProjects = (projects.items || []).filter(p => !p.draft);
       // Parse year to a number for sorting; unknown years sink to the end
       function projectYear(p) {
         const n = parseInt(String(p.year || '').replace(/\D/g, ''), 10);

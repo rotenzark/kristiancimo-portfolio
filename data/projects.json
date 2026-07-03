@@ -499,6 +499,15 @@
             }
           ]
         }
+      ],
+      "videoBeforeAfters": [
+        {
+          "title": "Raw vs Edit",
+          "videoBefore": "/media/green_screen.mp4",
+          "videoAfter": "/media/final_shot.mp4",
+          "labelBefore": "Raw Plate",
+          "labelAfter": "Final CGI"
+        }
       ]
     },
     {

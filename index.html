@@ -58,6 +58,9 @@
 </section>
 
 <section class="work" id="work">
+  <!-- Ambient particles filling the empty spaces in the asymmetric grid -->
+  <canvas class="work-particles" id="work-particles" aria-hidden="true"></canvas>
+
   <div class="section-head reveal">
     <span><span class="num">01</span> &nbsp;/&nbsp; Selected Work</span>
     <span>2023 — 2026</span>
@@ -545,11 +548,75 @@
     });
   }
 
+  /* Ambient particles filling the .work section background — a subtle
+     dust/starfield effect that shows through the gaps in the asymmetric grid.
+     Canvas 2D, very lightweight, respects prefers-reduced-motion. */
+  function setupWorkParticles() {
+    const canvas = document.getElementById('work-particles');
+    const workEl = document.getElementById('work');
+    if (!canvas || !workEl) return;
+    // Skip on reduced-motion (accessibility)
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      canvas.style.display = 'none';
+      return;
+    }
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    const density = 0.00012; // particles per pixel²  → auto-scales to section size
+
+    function resize() {
+      const rect = workEl.getBoundingClientRect();
+      const w = workEl.offsetWidth;
+      const h = workEl.offsetHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // Rebuild particle count on resize (density-based)
+      const targetCount = Math.min(220, Math.max(40, Math.round(w * h * density)));
+      particles = Array.from({ length: targetCount }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.4 + 0.3,
+        vx: (Math.random() - 0.5) * 0.12,
+        vy: (Math.random() - 0.5) * 0.12,
+        a: Math.random() * 0.35 + 0.1
+      }));
+    }
+    resize();
+    // Re-measure when the grid re-renders (density slider, sort change, etc.)
+    const resizeObs = new ResizeObserver(resize);
+    resizeObs.observe(workEl);
+    window.addEventListener('resize', resize);
+
+    function draw() {
+      const w = parseFloat(canvas.style.width);
+      const h = parseFloat(canvas.style.height);
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < -5) p.x = w + 5;
+        if (p.x > w + 5) p.x = -5;
+        if (p.y < -5) p.y = h + 5;
+        if (p.y > h + 5) p.y = -5;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(245, 243, 239, ${p.a})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
   setupHero();
   loadContent().then(() => {
     bindCursor();
     setupReveals();
     setupHoverVideos();
+    setupWorkParticles();
     hideLoader();
   });
 

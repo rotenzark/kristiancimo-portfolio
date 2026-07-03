@@ -238,7 +238,24 @@ nav {
 }
 
 /* WORK GRID */
-.work { padding: 160px 32px 120px; }
+.work {
+  padding: 160px 32px 120px;
+  position: relative; /* anchor for the ambient particle canvas */
+}
+/* Ambient particles canvas — sits behind cards, above the section background */
+.work-particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.85;
+}
+/* Make sure grid cards render above the particles */
+.work-controls,
+.work-grid,
+.section-head { position: relative; z-index: 1; }
 
 /* ─── Work controls bar (sort + zoom) ─── */
 .work-controls {

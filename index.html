@@ -62,6 +62,32 @@
     <span><span class="num">01</span> &nbsp;/&nbsp; Selected Work</span>
     <span>2023 — 2026</span>
   </div>
+
+  <!-- Work grid controls: sort + zoom.
+       User preferences persist in localStorage. -->
+  <div class="work-controls reveal">
+    <div class="wc-group">
+      <label class="wc-label" for="wc-sort">Sort by</label>
+      <div class="wc-select-wrap">
+        <select id="wc-sort" class="wc-select interactive" aria-label="Sort projects">
+          <option value="featured">Featured first</option>
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="custom">Custom order</option>
+        </select>
+        <span class="wc-select-arrow" aria-hidden="true">▾</span>
+      </div>
+    </div>
+    <div class="wc-group wc-group-zoom">
+      <label class="wc-label" for="wc-zoom">Density</label>
+      <div class="wc-zoom">
+        <span class="wc-zoom-icon wc-zoom-icon-min" aria-hidden="true">▦</span>
+        <input id="wc-zoom" class="wc-zoom-input interactive" type="range" min="0" max="4" step="1" value="2" aria-label="Grid density">
+        <span class="wc-zoom-icon wc-zoom-icon-max" aria-hidden="true">▢</span>
+      </div>
+    </div>
+  </div>
+
   <div class="work-grid reveal-stagger" id="work-grid"></div>
 </section>
 
@@ -123,12 +149,13 @@
   function setupHoverVideos() {
     if (isMobile()) return; // skip hover behavior on touch devices
     document.querySelectorAll('.project').forEach(project => {
+      if (project.dataset.hoverBound) return;
+      project.dataset.hoverBound = '1';
       const video = project.querySelector('.cover-video');
       if (!video) return;
       let preloaded = false;
       project.addEventListener('mouseenter', () => {
         if (!preloaded) {
-          // assign src now (delays bandwidth use until first hover)
           const src = video.dataset.src;
           if (src && !video.src) video.src = src;
           preloaded = true;
@@ -160,30 +187,115 @@
       bind('location', site.location);
       bind('status', site.status);
 
-      // PROJECTS GRID — colored covers + optional hover video
-      const projList = (projects.items || []).slice().sort((a,b) => (a.order||999) - (b.order||999));
+      // PROJECTS GRID — sortable + zoomable
+      const allProjects = (projects.items || []).slice();
+      // Parse year to a number for sorting; unknown years sink to the end
+      function projectYear(p) {
+        const n = parseInt(String(p.year || '').replace(/\D/g, ''), 10);
+        return isNaN(n) ? -Infinity : n;
+      }
+      function sortProjects(order) {
+        const list = allProjects.slice();
+        switch (order) {
+          case 'newest':
+            return list.sort((a, b) => projectYear(b) - projectYear(a) || (a.order||999) - (b.order||999));
+          case 'oldest':
+            return list.sort((a, b) => projectYear(a) - projectYear(b) || (a.order||999) - (b.order||999));
+          case 'custom':
+            return list.sort((a, b) => (a.order||999) - (b.order||999));
+          case 'featured':
+          default:
+            // Featured on top, then by custom order
+            return list.sort((a, b) => {
+              const fa = a.featured ? 0 : 1;
+              const fb = b.featured ? 0 : 1;
+              if (fa !== fb) return fa - fb;
+              return (a.order||999) - (b.order||999);
+            });
+        }
+      }
+
       const grid = document.getElementById('work-grid');
-      grid.innerHTML = projList.map(p => {
-        const id = p.slug || slug(p.title);
-        const href = `project.html?id=${encodeURIComponent(id)}`;
-        const previewVideo = p.previewVideo || '';
-        const hasPreview = !!previewVideo;
-        // Card orientation attribute — sets the tile's aspect ratio via CSS
-        const orientAttr = p.cardOrientation ? ` data-orient="${escapeHtml(p.cardOrientation)}"` : '';
-        return `
-          <a href="${href}" class="project interactive${hasPreview ? '' : ' no-preview'}"${orientAttr}>
-            ${p.featured ? `<span class="project-tag">${escapeHtml(p.tagLabel || 'Featured')}</span>` : ''}
-            <img class="cover-img" src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" loading="lazy">
-            ${hasPreview ? `
-              <video class="cover-video" data-src="${escapeHtml(previewVideo)}" muted loop playsinline preload="none"></video>
-            ` : ''}
-            <div class="project-meta">
-              <div class="project-title">${escapeHtml(p.title)}</div>
-              <div class="project-info"><div class="year">${escapeHtml(p.year)}</div><div>${escapeHtml(p.category)}</div></div>
-            </div>
-          </a>
-        `;
-      }).join('');
+      function renderProjectsGrid(order) {
+        const projList = sortProjects(order);
+        grid.innerHTML = projList.map(p => {
+          const id = p.slug || slug(p.title);
+          const href = `project.html?id=${encodeURIComponent(id)}`;
+          const previewVideo = p.previewVideo || '';
+          const hasPreview = !!previewVideo;
+          const orientAttr = p.cardOrientation ? ` data-orient="${escapeHtml(p.cardOrientation)}"` : '';
+          return `
+            <a href="${href}" class="project interactive${hasPreview ? '' : ' no-preview'}"${orientAttr}>
+              ${p.featured ? `<span class="project-tag">${escapeHtml(p.tagLabel || 'Featured')}</span>` : ''}
+              <img class="cover-img" src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" loading="lazy">
+              ${hasPreview ? `
+                <video class="cover-video" data-src="${escapeHtml(previewVideo)}" muted loop playsinline preload="none"></video>
+              ` : ''}
+              <div class="project-meta">
+                <div class="project-title">${escapeHtml(p.title)}</div>
+                <div class="project-info"><div class="year">${escapeHtml(p.year)}</div><div>${escapeHtml(p.category)}</div></div>
+              </div>
+            </a>
+          `;
+        }).join('');
+        // Re-bind hover-video and cursor to freshly-rendered cards
+        setupHoverVideos();
+        bindCursor();
+      }
+
+      // Restore saved preferences (or defaults)
+      const savedSort = localStorage.getItem('kc-sort') || 'featured';
+      const savedZoom = localStorage.getItem('kc-zoom') || '2';
+      const sortEl = document.getElementById('wc-sort');
+      const zoomEl = document.getElementById('wc-zoom');
+      if (sortEl) sortEl.value = savedSort;
+      if (zoomEl) zoomEl.value = savedZoom;
+      // Apply density level to the .work section (CSS reads data-density)
+      document.querySelector('.work').setAttribute('data-density', savedZoom);
+
+      renderProjectsGrid(savedSort);
+
+      // Wire sort dropdown
+      if (sortEl) {
+        sortEl.addEventListener('change', () => {
+          const v = sortEl.value;
+          localStorage.setItem('kc-sort', v);
+          renderProjectsGrid(v);
+        });
+      }
+      // Wire zoom slider — pure CSS transform via data-density, no re-render needed
+      const workEl = document.querySelector('.work');
+      const gridEl = document.getElementById('work-grid');
+      function updateGridScale(level) {
+        workEl.setAttribute('data-density', level);
+        // Skip visual compensation on mobile — the CSS disables scaling there
+        if (isMobile()) {
+          workEl.style.paddingBottom = '';
+          return;
+        }
+        const scaleMap = { '0': 0.65, '1': 0.82, '2': 1, '3': 1.18, '4': 1.40 };
+        const scale = scaleMap[String(level)] || 1;
+        requestAnimationFrame(() => {
+          const natural = gridEl.offsetHeight;
+          const visual  = natural * scale;
+          const diff    = visual - natural;
+          if (scale < 1) {
+            workEl.style.paddingBottom = `${Math.max(60, 120 + diff)}px`;
+          } else {
+            workEl.style.paddingBottom = `calc(120px + ${Math.max(0, diff)}px)`;
+          }
+        });
+      }
+      if (zoomEl) {
+        zoomEl.addEventListener('input', () => {
+          const v = zoomEl.value;
+          localStorage.setItem('kc-zoom', v);
+          updateGridScale(v);
+        });
+      }
+      // Also compensate on initial load and on window resize
+      updateGridScale(savedZoom);
+      window.addEventListener('resize', () => updateGridScale(zoomEl ? zoomEl.value : savedZoom));
 
       // CLIENTS
       const clientList = clients.items || [];

@@ -239,11 +239,135 @@ nav {
 
 /* WORK GRID */
 .work { padding: 160px 32px 120px; }
+
+/* ─── Work controls bar (sort + zoom) ─── */
+.work-controls {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 0 32px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.wc-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.wc-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+/* Sort select — custom styled */
+.wc-select-wrap { position: relative; display: inline-block; }
+.wc-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--fg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 10px 34px 10px 14px;
+  cursor: pointer;
+  transition: border-color 0.3s, color 0.3s;
+}
+.wc-select:hover, .wc-select:focus { border-color: var(--fg); outline: none; }
+.wc-select option { background: var(--bg); color: var(--fg); }
+.wc-select-arrow {
+  position: absolute; right: 12px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 10px;
+  pointer-events: none;
+}
+/* Zoom slider */
+.wc-zoom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.wc-zoom-icon {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1;
+}
+.wc-zoom-icon-max { font-size: 16px; }
+.wc-zoom-input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 140px;
+  height: 2px;
+  background: var(--line);
+  border-radius: 0;
+  outline: none;
+  cursor: pointer;
+}
+.wc-zoom-input::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--fg);
+  cursor: pointer;
+  border: 0;
+  transition: transform 0.2s, background 0.2s;
+}
+.wc-zoom-input::-webkit-slider-thumb:hover { transform: scale(1.2); background: var(--accent); }
+.wc-zoom-input::-moz-range-thumb {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--fg);
+  cursor: pointer;
+  border: 0;
+  transition: transform 0.2s, background 0.2s;
+}
+.wc-zoom-input::-moz-range-thumb:hover { transform: scale(1.2); background: var(--accent); }
+@media (max-width: 768px) {
+  .work-controls { gap: 20px; justify-content: space-between; padding-bottom: 20px; }
+  .wc-group { gap: 10px; }
+  .wc-label { font-size: 9px; letter-spacing: 0.18em; }
+  .wc-select { font-size: 10px; padding: 8px 28px 8px 12px; }
+  .wc-zoom-input { width: 100px; }
+}
+
+/* ─── Density scaling (zoom slider) ───
+   Level 2 is the default (original layout at 100%). Other levels scale
+   the entire grid up/down while preserving proportions AND the asymmetric
+   layout. Origin is top-left so cards stay aligned to the left edge.
+   Negative margins on the parent compensate for the visual bounding box. */
+.work { overflow: hidden; } /* clip overflow when grid is scaled up */
+.work[data-density] .work-grid {
+  transform-origin: top left;
+  transition: transform 0.35s cubic-bezier(.2,.8,.2,1);
+  will-change: transform;
+}
+/* Compensate for scale by widening the grid container inversely,
+   so that after scaling it occupies the full width visually. */
+.work[data-density="0"] .work-grid { transform: scale(0.65); width: calc(100% / 0.65); }
+.work[data-density="1"] .work-grid { transform: scale(0.82); width: calc(100% / 0.82); }
+.work[data-density="2"] .work-grid { transform: scale(1);    width: 100%; }
+.work[data-density="3"] .work-grid { transform: scale(1.18); width: calc(100% / 1.18); }
+.work[data-density="4"] .work-grid { transform: scale(1.40); width: calc(100% / 1.40); }
+/* Compensate for the height of the scaled grid (or it'd leave big gaps) */
+.work[data-density="0"] .work-grid { margin-bottom: 0; }
+.work[data-density="1"] .work-grid { margin-bottom: 0; }
+.work[data-density="3"] .work-grid { margin-bottom: 0; }
+.work[data-density="4"] .work-grid { margin-bottom: 0; }
+
 .work-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 24px;
-  grid-auto-flow: dense; /* fills gaps intelligently when column spans vary */
+  grid-auto-flow: dense;
+  margin: 0 auto;
 }
 .project {
   position: relative; overflow: hidden;
@@ -340,6 +464,13 @@ nav {
   .project { grid-column: 1 / -1 !important; aspect-ratio: 4 / 3 !important; }
   /* on mobile, hover doesn't exist — hide preview video to save bandwidth */
   .project .cover-video { display: none; }
+  /* On mobile density scaling is disabled — grid always at 100%, no zoom */
+  .work[data-density] .work-grid {
+    transform: none !important;
+    width: 100% !important;
+  }
+  /* Hide zoom slider on mobile since it's not useful with single-column layout */
+  .work-controls .wc-group-zoom { display: none; }
 }
 
 /* CLIENTS */

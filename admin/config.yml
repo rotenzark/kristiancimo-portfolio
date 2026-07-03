@@ -182,6 +182,11 @@ collections:
               - { label: "🎥 Grid Cover 16:9 (uniform layout only)", name: "gridCover169", widget: "image", required: false,
                   hint: "COVER MEDIA — Optional horizontal 16:9 version of the cover, used ONLY when a visitor switches the homepage layout to 'Uniform 16:9'. Recommended: 1920×1080 landscape. Leave empty to fall back to the main Grid Cover (which will be center-cropped)." }
 
+              - { label: "🌌 Space Position X (0-100, spatial layout only)", name: "spaceX", widget: "number", value_type: "float", required: false, min: 0, max: 100,
+                  hint: "SPATIAL LAYOUT — Optional. Horizontal position (0=left, 50=center, 100=right) of this project card in the cosmic spatial homepage view. Leave empty for automatic placement." }
+              - { label: "🌌 Space Position Y (0-100, spatial layout only)", name: "spaceY", widget: "number", value_type: "float", required: false, min: 0, max: 100,
+                  hint: "SPATIAL LAYOUT — Optional. Vertical position (0=top, 50=center, 100=bottom) in the cosmic spatial homepage view. Leave empty for automatic placement." }
+
               - { label: "🎥 Inside Cover — Image (project page hero)", name: "insideCover", widget: "image", required: false,
                   hint: "COVER MEDIA — Optional. Different image shown as the BIG HERO inside the project page (e.g. a horizontal 21:9 cinematic version while the homepage tile is vertical). If empty, the Grid Cover is used." }
 

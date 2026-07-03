@@ -138,7 +138,7 @@ collections:
     slug: "{{fields.slug}}"
     summary: "{{fields.order}}. {{fields.title}} — {{fields.year}} · {{fields.client}}"
     sortable_fields: ["order", "title", "year"]
-    media_folder: "/media/projects/{{fields.slug}}"
+    media_folder: "media/projects/{{fields.slug}}"
     public_folder: "/media/projects/{{fields.slug}}"
     fields:
       - { label: "🚫 Draft (hide from website)", name: "draft", widget: "boolean", default: false, required: false,

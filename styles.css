@@ -533,6 +533,19 @@ nav {
   .work-controls .wc-group-zoom { display: none; }
 }
 
+/* ─── Portrait-oriented screens: force 1 column ───
+   Any device held vertically (phones, tablets in portrait) shows one
+   project per row regardless of the density slider default. This
+   overrides the uniform density rules whose default is 2 columns.
+   Landscape orientation (rotated phone, tablet, laptop) keeps the
+   normal multi-column behavior. */
+@media (orientation: portrait) and (max-width: 900px) {
+  .work[data-layout="uniform"] .work-grid,
+  .work[data-layout="uniform"][data-density] .work-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 /* CLIENTS */
 .clients {
   padding: 40px 0;

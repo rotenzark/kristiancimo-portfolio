@@ -133,38 +133,38 @@
         }
       ],
       "showNextProject": true,
-      "videoUrl": "",
-      "videoCaption": "",
+      "videoBeforeAfter": {
+        "labelAfter": "Final CGI",
+        "labelBefore": "Raw Plate",
+        "videoAfter": "",
+        "videoBefore": ""
+      },
+      "beforeAfter": {
+        "labelAfter": "Final CGI",
+        "labelBefore": "Raw Plate",
+        "imageAfter": "https://picsum.photos/seed/gasly-final/1600/900",
+        "imageBefore": "https://picsum.photos/seed/gasly-raw/1600/900"
+      },
       "gallery": [
         {
-          "src": "/media/LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).png",
-          "alt": "Horizontal shot"
+          "alt": "Horizontal shot",
+          "src": "/media/LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).png"
         },
         {
-          "src": "/media/LAST_FRAME_VERTICAL_COLOR_hf_20260305_102526_ce7c5e41-9bf6-444d-bc28-6a74f300f4d5 (0-00-00-00).png",
-          "alt": "Vertical shot"
+          "alt": "Vertical shot",
+          "src": "/media/LAST_FRAME_VERTICAL_COLOR_hf_20260305_102526_ce7c5e41-9bf6-444d-bc28-6a74f300f4d5 (0-00-00-00).png"
         },
         {
-          "src": "https://picsum.photos/seed/gasly-3/900/1200",
-          "alt": "Color study"
+          "alt": "Color study",
+          "src": "https://picsum.photos/seed/gasly-3/900/1200"
         },
         {
-          "src": "https://picsum.photos/seed/gasly-4/1600/900",
-          "alt": "Final composite"
+          "alt": "Final composite",
+          "src": "https://picsum.photos/seed/gasly-4/1600/900"
         }
       ],
-      "beforeAfter": {
-        "imageBefore": "https://picsum.photos/seed/gasly-raw/1600/900",
-        "imageAfter": "https://picsum.photos/seed/gasly-final/1600/900",
-        "labelBefore": "Raw Plate",
-        "labelAfter": "Final CGI"
-      },
-      "videoBeforeAfter": {
-        "videoBefore": "",
-        "videoAfter": "",
-        "labelBefore": "Raw Plate",
-        "labelAfter": "Final CGI"
-      }
+      "videoCaption": "",
+      "videoUrl": ""
     },
     {
       "order": 2,
@@ -316,8 +316,6 @@
           "name": "Kristian Cimò"
         }
       ],
-      "videoUrl": "",
-      "videoCaption": "",
       "gallery": [
         {
           "src": "https://picsum.photos/seed/adidas-1/1600/900"
@@ -325,7 +323,9 @@
         {
           "src": "https://picsum.photos/seed/adidas-2/900/1200"
         }
-      ]
+      ],
+      "videoCaption": "",
+      "videoUrl": ""
     },
     {
       "order": 3,
@@ -458,8 +458,12 @@
       "slug": "barcelona-world-cup",
       "title": "Barcelona × World Cup",
       "year": "2025",
-      "category": "Sport / Identity",
-      "image": "https://picsum.photos/seed/barcelona/1400/800",
+      "category": "Football",
+      "image": "/media/hf_20260423_040228_8f9482dc-2ad3-4a87-94ba-9d1c28468205.png",
+      "cardOrientation": "9-16",
+      "previewVideo": "/media/WhatsApp Video 2026-04-23 at 05.53.30.mp4",
+      "gridCover169": "/media/COPERTINA_ORIZZONTALE-1.png",
+      "insideCover": "/media/COPERTINA_ORIZZONTALE-1.png",
       "coverVideo": "",
       "tagLabel": "",
       "subtitle": "",

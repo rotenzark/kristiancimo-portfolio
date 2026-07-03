@@ -297,6 +297,10 @@
      Works for both .p-gallery blocks and .story-images.multi blocks.
      Runs once per image (on load) and re-runs on window resize. */
   function applyJustifiedRow(container, items) {
+    // On mobile the gallery stacks vertically (CSS handles it); the justified-row
+    // math is desktop-only. Running it on mobile sets flex-basis:0 which collapses
+    // images to zero height. So bail out on narrow screens.
+    if (window.matchMedia('(max-width: 900px)').matches) return;
     items.forEach(item => {
       const media = item.querySelector('img, video');
       if (!media) return;

@@ -926,9 +926,22 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
 
 @media (max-width: 900px) {
   .p-gallery { flex-direction: column; }
-  .p-gallery .item { min-width: 0; width: 100%; }
+  /* On mobile, stack items full-width at natural height.
+     !important overrides the inline flex-grow / flex-basis:0 / min-width
+     that the justified-row JS sets for the desktop layout — without this,
+     images collapse to zero height and disappear. */
+  .p-gallery .item {
+    min-width: 0 !important;
+    width: 100% !important;
+    flex: none !important;
+    height: auto !important;
+  }
   .p-gallery .item img,
-  .p-gallery .item video { height: auto; }
+  .p-gallery .item video {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+  }
   .gallery-block { margin-bottom: 60px; }
 }
 

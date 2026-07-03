@@ -270,6 +270,13 @@
           "videoAfter": "/media/LASERS_EDIT.mp4",
           "labelBefore": "Raw Plate",
           "labelAfter": "Final CGI"
+        },
+        {
+          "title": "Screen replacement",
+          "videoBefore": "/media/SCREEN_RAW.png",
+          "videoAfter": "/media/SCREEN_EDIT.mp4",
+          "labelBefore": "Raw Plate",
+          "labelAfter": "Final CGI"
         }
       ],
       "credits": [

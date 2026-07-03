@@ -400,6 +400,13 @@
           "videoAfter": "/media/trofei_rnd.mp4",
           "labelBefore": "Viewport",
           "labelAfter": "Render"
+        },
+        {
+          "title": "Shot 3",
+          "videoBefore": "/media/tv_viewport.mp4",
+          "videoAfter": "/media/tv_rnd.mp4",
+          "labelBefore": "Viewport",
+          "labelAfter": "Render"
         }
       ],
       "storytelling": [
@@ -455,6 +462,8 @@
       "role": "VFX · CGI",
       "software": "C4D · Nuke",
       "format": "Identity",
+      "publicationUrl": "",
+      "publicationLabel": "",
       "description": ""
     },
     {

@@ -265,7 +265,7 @@
         {
           "title": "Screen replacement",
           "videoBefore": "/media/SCREEN_RAW.mp4",
-          "videoAfter": "/media/SCANNER_EDIT.mp4",
+          "videoAfter": "/media/SCREEN_EDIT.mp4",
           "labelBefore": "Before",
           "labelAfter": "After"
         },

@@ -405,6 +405,14 @@
             "/media/trofei_viewport.mp4",
             "/media/tv_viewport.mp4"
           ]
+        },
+        {
+          "heading": "03 - Textures",
+          "text": "Texturing the scene",
+          "image": "",
+          "images": [
+            "/media/Texturing.png"
+          ]
         }
       ]
     },

@@ -602,6 +602,25 @@
               "alt": ""
             }
           ]
+        },
+        {
+          "tag": "",
+          "heading": "Viewport",
+          "caption": "Some frames from Blender's viewport",
+          "images": [
+            {
+              "src": "/media/shot1_vp.png",
+              "alt": ""
+            },
+            {
+              "src": "/media/Viewport_1-1.png",
+              "alt": ""
+            },
+            {
+              "src": "/media/Viewport_2-1.png",
+              "alt": ""
+            }
+          ]
         }
       ]
     },

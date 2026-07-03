@@ -144,15 +144,15 @@ collections:
     fields:
       - { label: "🚫 Draft (hide from website)", name: "draft", widget: "boolean", default: false, required: false,
           hint: "If ON, this project is NOT shown on the website (homepage grid and sitemap). Turn OFF when the project is ready to publish." }
-      - { label: "Display Order", name: "order", widget: "number", value_type: "int",
+      - { label: "Display Order", name: "order", widget: "number", value_type: "int", required: false,
           hint: "Lower number = appears first in the Work grid. e.g. 1, 2, 3..." }
       - { label: "Slug (URL identifier — REQUIRED)", name: "slug", widget: "string", required: true,
           hint: "Used in the URL: project.html?id=YOUR-SLUG. Lowercase + hyphens only. Leave empty to auto-generate from title." }
-      - { label: "Title", name: "title", widget: "string",
+      - { label: "Title", name: "title", widget: "string", required: false,
           hint: "Project name. Big heading on the project page. e.g. Pedri × Adidas" }
-      - { label: "Year", name: "year", widget: "string",
+      - { label: "Year", name: "year", widget: "string", required: false,
           hint: "Year the project was made. e.g. 2026" }
-      - { label: "Category", name: "category", widget: "string",
+      - { label: "Category", name: "category", widget: "string", required: false,
           hint: "Short label. e.g. Football, Automotive, Fashion, Music Video" }
 
       # ═══ 🎥 COVER MEDIA ═══════════════════════════════════
@@ -163,7 +163,7 @@ collections:
       # 3) Inside Cover          → big hero shown INSIDE the project page
       # ═════════════════════════════════════════════════════════
 
-      - { label: "🎥 Grid Cover — Image (homepage tile)", name: "image", widget: "image",
+      - { label: "🎥 Grid Cover — Image (homepage tile)", name: "image", widget: "image", required: false,
           hint: "COVER MEDIA — The image visible in the homepage Work grid. Upload it in the format matching your chosen 'Card Orientation' below (e.g. 9:16 vertical → upload a 9:16 image). Also used as the inside-page hero if no 'Inside Cover' below." }
 
       - label: "🎥 Grid Card Orientation (homepage tile shape)"
@@ -239,7 +239,7 @@ collections:
             summary: "{{fields.alt}}"
             hint: "Images (JPG/PNG/WEBP) or videos (MP4/WEBM/MOV). Native aspect ratios are preserved. ⚠️ Keep videos small (<5MB, 1-5s) — GitHub API limits uploads to ~30MB."
             fields:
-              - { label: "Image or Video file", name: "src", widget: "file",
+              - { label: "Image or Video file", name: "src", widget: "file", required: false,
                   hint: "Upload image or video. The site auto-detects the type by extension." }
               - { label: "Alt text (optional)", name: "alt", widget: "string", required: false,
                   hint: "Short description for accessibility & SEO." }
@@ -306,7 +306,7 @@ collections:
             required: false
             summary: "Item {{index}}"
             hint: "Optional. Add 2+ images or videos to display them side-by-side in this Process block. Native aspect ratios preserved. ⚠️ Keep videos small (<5MB, 1-5s)."
-            field: { label: "Image or Video file", name: "src", widget: "file" }
+            field: { label: "Image or Video file", name: "src", widget: "file", required: false }
 
       - label: "🏆 Credits"
         name: "credits"
@@ -315,9 +315,9 @@ collections:
         summary: "{{fields.role}} — {{fields.name}}"
         hint: "EXTRAS — Team credits shown at the bottom of the project page. e.g. Director / Kristian Cimò"
         fields:
-          - { label: "Role", name: "role", widget: "string",
+          - { label: "Role", name: "role", widget: "string", required: false,
               hint: "e.g. Director, VFX Supervisor, Producer" }
-          - { label: "Name", name: "name", widget: "string",
+          - { label: "Name", name: "name", widget: "string", required: false,
               hint: "Person or studio name." }
 
       - { label: "🎬 Show 'Next Project' link at the bottom?", name: "showNextProject", widget: "boolean", default: true, required: false,

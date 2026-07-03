@@ -257,7 +257,15 @@ collections:
                 fields:
                   - { label: "Heading", name: "heading", widget: "string", required: false }
                   - { label: "Text", name: "text", widget: "text", required: false }
-                  - { label: "Image", name: "image", widget: "image" }
+                  - { label: "Image (single — legacy field)", name: "image", widget: "image", required: false,
+                      hint: "Old single-image field. Keep using it if you want one image per block. If you add multiple images below, this is ignored." }
+                  - label: "Images (multiple — optional)"
+                    name: "images"
+                    widget: "list"
+                    required: false
+                    summary: "Image {{index}}"
+                    hint: "Optional. Add 2+ images to display them side-by-side in this Process block (native aspect ratios preserved). Overrides the single Image above when used."
+                    field: { label: "Image", name: "src", widget: "image" }
 
               - label: "🏆 Credits"
                 name: "credits"

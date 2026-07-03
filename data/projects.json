@@ -207,16 +207,9 @@
       ],
       "beforeAfters": [
         {
-          "title": "Aitana - picture replacement",
-          "imageBefore": "/media/QUADRO_RAW.png",
-          "imageAfter": "/media/QUADRO_EDIT.png",
-          "labelBefore": "Before",
-          "labelAfter": "After"
-        },
-        {
-          "title": "Aitana & Brahim - set extension and removal",
-          "imageBefore": "/media/BACK_IMPACT_RAW.png",
-          "imageAfter": "/media/BACK_IMPACT_EDIT.png",
+          "title": "Museum Hall - set extension",
+          "imageBefore": "/media/CORRIDOR_2_FIRST_FRAME_RAW.png",
+          "imageAfter": "/media/CORRIDOR_2_FIRST_FRAME_EDIT.png",
           "labelBefore": "Before",
           "labelAfter": "After"
         },
@@ -228,9 +221,16 @@
           "labelAfter": "After"
         },
         {
-          "title": "Museum Hall - set extension",
-          "imageBefore": "/media/CORRIDOR_2_FIRST_FRAME_RAW.png",
-          "imageAfter": "/media/CORRIDOR_2_FIRST_FRAME_EDIT.png",
+          "title": "Aitana - picture replacement",
+          "imageBefore": "/media/QUADRO_RAW.png",
+          "imageAfter": "/media/QUADRO_EDIT.png",
+          "labelBefore": "Before",
+          "labelAfter": "After"
+        },
+        {
+          "title": "Aitana & Brahim - set extension and removal",
+          "imageBefore": "/media/BACK_IMPACT_RAW.png",
+          "imageAfter": "/media/BACK_IMPACT_EDIT.png",
           "labelBefore": "Before",
           "labelAfter": "After"
         }
@@ -244,16 +244,9 @@
           "labelAfter": "Final CGI"
         },
         {
-          "title": "Aitana and Brahim - set extension and roto",
-          "videoBefore": "/media/IMPACT_RAW.mp4",
-          "videoAfter": "/media/IMPACT_EDIT.mp4",
-          "labelBefore": "Before",
-          "labelAfter": "After"
-        },
-        {
-          "title": "Aitana - picure replacement",
-          "videoBefore": "/media/QUADRO_RAW.mp4",
-          "videoAfter": "/media/QUADRO_EDIT.mp4",
+          "title": "Mastantuono - removal",
+          "videoBefore": "/media/SCANNER_RAW.mp4",
+          "videoAfter": "/media/SCANNER_EDIT.mp4",
           "labelBefore": "Raw Plate",
           "labelAfter": "Final CGI"
         },
@@ -265,6 +258,20 @@
           "labelAfter": "After"
         },
         {
+          "title": "Screen replacement",
+          "videoBefore": "/media/SCREEN_RAW.mp4",
+          "videoAfter": "/media/SCANNER_EDIT.mp4",
+          "labelBefore": "Before",
+          "labelAfter": "After"
+        },
+        {
+          "title": "Aitana - picure replacement",
+          "videoBefore": "/media/QUADRO_RAW.mp4",
+          "videoAfter": "/media/QUADRO_EDIT.mp4",
+          "labelBefore": "Raw Plate",
+          "labelAfter": "Final CGI"
+        },
+        {
           "title": "Brahim - lasers compositing",
           "videoBefore": "/media/LASERS_RAW.mp4",
           "videoAfter": "/media/LASERS_EDIT.mp4",
@@ -272,9 +279,9 @@
           "labelAfter": "After"
         },
         {
-          "title": "Screen replacement",
-          "videoBefore": "/media/SCREEN_RAW.mp4",
-          "videoAfter": "/media/SCREEN_EDIT.mp4",
+          "title": "Aitana and Brahim - set extension and roto",
+          "videoBefore": "/media/IMPACT_RAW.mp4",
+          "videoAfter": "/media/IMPACT_EDIT.mp4",
           "labelBefore": "Before",
           "labelAfter": "After"
         }

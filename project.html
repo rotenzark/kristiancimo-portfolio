@@ -244,6 +244,12 @@
 
   /* ─── HELPERS to render sub-blocks ─── */
 
+  // Detects a video file by extension (used to render <video> instead of <img>)
+  function isVideoFile(url) {
+    if (!url) return false;
+    return /\.(mp4|webm|mov|m4v|ogv)($|\?)/i.test(url);
+  }
+
   function renderGalleryBlock(block, idx, total) {
     if (!block) return '';
     const images = (block.images || []).filter(Boolean);
@@ -267,7 +273,13 @@
           ${images.map(img => {
             const src = typeof img === 'string' ? img : img.src;
             const alt = typeof img === 'string' ? '' : (img.alt || '');
-            // orientation will be set by JS after image loads
+            // If it's a video file, render an autoplay muted looping video.
+            // Otherwise render an image. JS reads dimensions for justified-row layout.
+            if (isVideoFile(src)) {
+              return `<div class="item is-video">
+                <video src="${escapeHtml(src)}" autoplay muted loop playsinline preload="metadata" data-needs-orient="1"></video>
+              </div>`;
+            }
             return `<div class="item"><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" data-needs-orient="1"></div>`;
           }).join('')}
         </div>
@@ -281,10 +293,12 @@
      Runs once per image (on load) and re-runs on window resize. */
   function applyJustifiedRow(container, items) {
     items.forEach(item => {
-      const img = item.querySelector('img');
-      if (!img) return;
+      const media = item.querySelector('img, video');
+      if (!media) return;
+      const isVid = media.tagName === 'VIDEO';
       const apply = () => {
-        const w = img.naturalWidth, h = img.naturalHeight;
+        const w = isVid ? media.videoWidth : media.naturalWidth;
+        const h = isVid ? media.videoHeight : media.naturalHeight;
         if (!w || !h) return;
         const ratio = w / h;
         let orient = 'landscape';
@@ -296,10 +310,15 @@
         item.style.flexBasis = '0';
         const minW = Math.max(140, Math.round(ratio * 180));
         item.style.minWidth = minW + 'px';
-        img.removeAttribute('data-needs-orient');
+        media.removeAttribute('data-needs-orient');
       };
-      if (img.complete && img.naturalWidth) apply();
-      else img.addEventListener('load', apply, { once: true });
+      if (isVid) {
+        if (media.readyState >= 1 && media.videoWidth) apply();
+        else media.addEventListener('loadedmetadata', apply, { once: true });
+      } else {
+        if (media.complete && media.naturalWidth) apply();
+        else media.addEventListener('load', apply, { once: true });
+      }
     });
   }
 
@@ -319,42 +338,61 @@
     });
   }
 
-  /* ─── LIGHTBOX: click any gallery image to open it fullscreen ─── */
+  /* ─── LIGHTBOX: click any gallery image/video to open fullscreen ─── */
   function setupLightbox() {
-    // Build lightbox once and reuse
     let box = document.querySelector('.lightbox');
     if (!box) {
       box = document.createElement('div');
       box.className = 'lightbox';
       box.innerHTML = `
         <button class="lightbox-close interactive" aria-label="Close">✕</button>
-        <img alt="">
+        <img alt="" hidden>
+        <video controls playsinline hidden></video>
       `;
       document.body.appendChild(box);
     }
     const boxImg = box.querySelector('img');
+    const boxVid = box.querySelector('video');
     const closeBtn = box.querySelector('.lightbox-close');
 
-    function open(src, alt) {
+    function openImage(src, alt) {
+      boxVid.hidden = true; boxVid.pause(); boxVid.removeAttribute('src'); boxVid.load();
+      boxImg.hidden = false;
       boxImg.src = src;
       boxImg.alt = alt || '';
       box.classList.add('open');
-      document.body.style.overflow = 'hidden'; // lock scroll while open
+      document.body.style.overflow = 'hidden';
+    }
+    function openVideo(src) {
+      boxImg.hidden = true; boxImg.src = '';
+      boxVid.hidden = false;
+      boxVid.src = src;
+      boxVid.currentTime = 0;
+      boxVid.play().catch(() => {});
+      box.classList.add('open');
+      document.body.style.overflow = 'hidden';
     }
     function close() {
       box.classList.remove('open');
       document.body.style.overflow = '';
-      // clear src after fade to free memory
-      setTimeout(() => { if (!box.classList.contains('open')) boxImg.src = ''; }, 400);
+      setTimeout(() => {
+        if (!box.classList.contains('open')) {
+          boxImg.src = '';
+          if (!boxVid.paused) boxVid.pause();
+          boxVid.removeAttribute('src'); boxVid.load();
+        }
+      }, 400);
     }
 
-    // Click on gallery images or storytelling images opens the lightbox
+    // Click on gallery items or storytelling items opens the lightbox
     document.querySelectorAll('.p-gallery .item, .story-images .item').forEach(item => {
       if (item.dataset.lightboxBound) return;
       item.dataset.lightboxBound = '1';
       item.addEventListener('click', () => {
+        const vid = item.querySelector('video');
+        if (vid) return openVideo(vid.currentSrc || vid.src);
         const img = item.querySelector('img');
-        if (img) open(img.src, img.alt);
+        if (img) return openImage(img.src, img.alt);
       });
     });
 
@@ -372,8 +410,10 @@
 
   function renderVideoBlock(block, idx, total) {
     if (!block) return '';
+    // Priority: uploaded video file wins over external URL
+    const file = block.file || block.videoFile;
     const url = block.url;
-    if (!url) return '';
+    if (!file && !url) return '';
     const tag = block.tag ? `<span class="tag">${escapeHtml(block.tag)}</span>` : '';
     const heading = block.heading ? `<h3>${escapeHtml(block.heading)}</h3>` : '';
     const caption = block.caption ? `<p>${escapeHtml(block.caption)}</p>` : '';
@@ -384,14 +424,20 @@
         ${caption}
       </div>
     ` : '';
-    const embed = videoEmbed(url);
+    let media;
+    if (file) {
+      media = `<video src="${escapeHtml(file)}" controls playsinline preload="metadata"></video>`;
+    } else {
+      const embed = videoEmbed(url);
+      media = embed
+        ? `<iframe src="${escapeHtml(embed)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
+        : `<video src="${escapeHtml(url)}" controls playsinline></video>`;
+    }
     return `
       <div class="video-block reveal">
         ${head}
         <div class="p-video">
-          ${embed
-            ? `<iframe src="${escapeHtml(embed)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
-            : `<video src="${escapeHtml(url)}" controls playsinline></video>`}
+          ${media}
         </div>
       </div>
     `;
@@ -652,15 +698,18 @@
           // normalize: prefer new `images` array; fall back to old single `image`
           // each entry can be a plain string url OR an object like {src: "url"}
           const pickSrc = x => (typeof x === 'string' ? x : (x && x.src) ? x.src : '');
-          const imgs = Array.isArray(item.images) && item.images.length
+          const media = Array.isArray(item.images) && item.images.length
             ? item.images.map(pickSrc).filter(Boolean)
             : (item.image ? [item.image] : []);
-          const imgsHTML = imgs.length === 1
-            ? `<div class="story-images single"><div class="item"><img src="${escapeHtml(imgs[0])}" alt="${escapeHtml(item.heading || '')}" loading="lazy" data-needs-orient="1"></div></div>`
-            : imgs.length > 1
-              ? `<div class="story-images multi">${imgs.map(src =>
-                  `<div class="item"><img src="${escapeHtml(src)}" alt="${escapeHtml(item.heading || '')}" loading="lazy" data-needs-orient="1"></div>`
-                ).join('')}</div>`
+          // Helper: render one media entry as <img> or <video> depending on extension
+          const mediaTag = (src, extraClasses = '') =>
+            isVideoFile(src)
+              ? `<div class="item is-video ${extraClasses}"><video src="${escapeHtml(src)}" autoplay muted loop playsinline preload="metadata" data-needs-orient="1"></video></div>`
+              : `<div class="item ${extraClasses}"><img src="${escapeHtml(src)}" alt="${escapeHtml(item.heading || '')}" loading="lazy" data-needs-orient="1"></div>`;
+          const imgsHTML = media.length === 1
+            ? `<div class="story-images single">${mediaTag(media[0])}</div>`
+            : media.length > 1
+              ? `<div class="story-images multi">${media.map(src => mediaTag(src)).join('')}</div>`
               : '';
           return `
             <div class="p-story reveal ${i % 2 ? 'reverse' : ''}">

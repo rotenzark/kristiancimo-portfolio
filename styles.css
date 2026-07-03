@@ -925,22 +925,37 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
 .p-gallery.count-1 .item video { width: 100%; height: auto; }
 
 @media (max-width: 900px) {
-  .p-gallery { flex-direction: column; }
-  /* On mobile, stack items full-width at natural height.
-     !important overrides the inline flex-grow / flex-basis:0 / min-width
-     that the justified-row JS sets for the desktop layout — without this,
-     images collapse to zero height and disappear. */
+  /* Mobile gallery = clean 2-column grid.
+     Using CSS grid (not flex) so the justified-row JS is irrelevant here.
+     Images display at their natural height (height:auto) so nothing collapses
+     and the dark .item background never shows through. */
+  .p-gallery {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
   .p-gallery .item {
     min-width: 0 !important;
     width: 100% !important;
-    flex: none !important;
     height: auto !important;
+    flex: none !important;
+    background: transparent;        /* no black box behind images */
   }
   .p-gallery .item img,
   .p-gallery .item video {
     width: 100% !important;
-    height: auto !important;
+    height: auto !important;        /* natural height — key fix for "black" images */
     object-fit: contain;
+    display: block;
+  }
+  /* A single-image block spans both columns so it isn't tiny */
+  .p-gallery.count-1 {
+    display: block !important;
+  }
+  .p-gallery.count-1 .item img,
+  .p-gallery.count-1 .item video {
+    width: 100% !important;
+    height: auto !important;
   }
   .gallery-block { margin-bottom: 60px; }
 }

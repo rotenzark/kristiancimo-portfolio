@@ -95,18 +95,6 @@
   </div>
 
   <div class="work-grid reveal-stagger" id="work-grid"></div>
-
-  <!-- Spatial (2.5D) work display: only used in "asymmetric" mode on desktop.
-       CSS shows this and hides the grid; JS positions the cards in space. -->
-  <div class="work-space" id="work-space" aria-hidden="true">
-    <canvas class="work-space-particles" id="work-space-particles"></canvas>
-    <div class="work-space-viewport" id="work-space-viewport">
-      <div class="work-space-scene" id="work-space-scene"></div>
-    </div>
-    <div class="work-space-hint" aria-hidden="true">
-      <span class="ws-hint-line">Move the cursor to explore</span>
-    </div>
-  </div>
 </section>
 
 <section class="clients">
@@ -265,209 +253,6 @@
         bindCursor();
       }
 
-      /* ═════════════════════════════════════════════════════════════
-         SPATIAL (2.5D) LAYOUT — the "cosmic space" view.
-         Only active on desktop when layout = 'asymmetric'.
-
-         Each project card is placed in a virtual 2D space with a depth
-         layer (z). Mouse movement drives a parallax where different
-         depth layers move at different speeds → sense of 3D.
-
-         Default positions are computed algorithmically to create a
-         balanced composition. If the CMS provides spaceX/spaceY they
-         override the algorithm.
-         ═════════════════════════════════════════════════════════════ */
-
-      const spaceEl    = document.getElementById('work-space');
-      const sceneEl    = document.getElementById('work-space-scene');
-      const viewportEl = document.getElementById('work-space-viewport');
-      const particlesCanvas = document.getElementById('work-space-particles');
-
-      // Deterministic pseudo-random from a string seed — so the same project
-      // always lands in the same spot even after re-render.
-      function seedFromString(s) {
-        let h = 2166136261;
-        for (let i = 0; i < s.length; i++) {
-          h ^= s.charCodeAt(i);
-          h = Math.imul(h, 16777619);
-        }
-        return (h >>> 0) / 0xffffffff;
-      }
-      function mulberry32(seed) {
-        return function() {
-          let t = seed += 0x6D2B79F5;
-          t = Math.imul(t ^ (t >>> 15), t | 1);
-          t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-        };
-      }
-
-      // Compute default positions with a poisson-ish spread so cards don't overlap.
-      // Grid-of-jitter method: divide the space into cells, jitter within each cell.
-      function computeSpacePositions(list) {
-        const n = list.length;
-        // Rough grid: keep cards spread in a wider-than-tall canvas
-        const cols = Math.ceil(Math.sqrt(n * 1.6));
-        const rows = Math.ceil(n / cols);
-        const results = [];
-        list.forEach((p, i) => {
-          const rand = mulberry32(Math.floor(seedFromString(p.slug || p.title || String(i)) * 1e9));
-          const col = i % cols;
-          const row = Math.floor(i / cols);
-          // Base grid position, then jitter within the cell
-          const baseX = (col + 0.5) / cols * 100;
-          const baseY = (row + 0.5) / rows * 100;
-          const jitterX = (rand() - 0.5) * (80 / cols);
-          const jitterY = (rand() - 0.5) * (60 / rows);
-          // Depth layer: 3 tiers (near, mid, far). Featured lands nearer.
-          const zTier = p.featured ? 0 : (rand() < 0.5 ? 1 : 2);
-          // Slight random size boost so scene feels organic
-          const scale = zTier === 0 ? 1.05 : zTier === 1 ? 0.9 : 0.75;
-          results.push({
-            x: (typeof p.spaceX === 'number') ? p.spaceX : baseX,
-            y: (typeof p.spaceY === 'number') ? p.spaceY : baseY,
-            zTier, scale
-          });
-        });
-        return results;
-      }
-
-      function renderSpaceScene(order) {
-        const projList = sortProjects(order);
-        const positions = computeSpacePositions(projList);
-        sceneEl.innerHTML = projList.map((p, i) => {
-          const pos = positions[i];
-          const id = p.slug || slug(p.title);
-          const href = `project.html?id=${encodeURIComponent(id)}`;
-          const previewVideo = p.previewVideo || '';
-          const hasPreview = !!previewVideo;
-          // Native aspect ratio used exactly as declared
-          const aspectMap = {
-            '16-9': '16 / 9', '21-9': '21 / 9', '4-3': '4 / 3',
-            '9-16': '9 / 16', '3-4': '3 / 4', '4-5': '4 / 5',
-            '1-1': '1 / 1'
-          };
-          const ratio = aspectMap[p.cardOrientation] || '16 / 9';
-          // Card baseline width: bigger for near layer, smaller for far layer
-          const widthPct = pos.zTier === 0 ? 32 : pos.zTier === 1 ? 26 : 20;
-          return `
-            <a href="${href}"
-               class="ws-card interactive${hasPreview ? '' : ' no-preview'}"
-               data-z-tier="${pos.zTier}"
-               style="left:${pos.x}%; top:${pos.y}%;
-                      width:${widthPct * pos.scale}%;
-                      aspect-ratio: ${ratio};
-                      --z-tier: ${pos.zTier};">
-              ${p.featured ? `<span class="project-tag">${escapeHtml(p.tagLabel || 'Featured')}</span>` : ''}
-              <img class="cover-img cover-img-default" src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" loading="lazy">
-              ${hasPreview ? `
-                <video class="cover-video" data-src="${escapeHtml(previewVideo)}" muted loop playsinline preload="none"></video>
-              ` : ''}
-              <div class="project-meta">
-                <div class="project-title">${escapeHtml(p.title)}</div>
-                <div class="project-info"><div class="year">${escapeHtml(p.year)}</div><div>${escapeHtml(p.category)}</div></div>
-              </div>
-            </a>
-          `;
-        }).join('');
-        // Bind hover-video on the spatial cards too
-        sceneEl.querySelectorAll('.ws-card').forEach(card => {
-          if (card.dataset.hoverBound) return;
-          card.dataset.hoverBound = '1';
-          const video = card.querySelector('.cover-video');
-          if (video) {
-            let preloaded = false;
-            card.addEventListener('mouseenter', () => {
-              if (!preloaded) {
-                const src = video.dataset.src;
-                if (src && !video.src) video.src = src;
-                preloaded = true;
-              }
-              video.play().catch(() => {});
-            });
-            card.addEventListener('mouseleave', () => {
-              video.pause();
-              video.currentTime = 0;
-            });
-          }
-        });
-        bindCursor();
-      }
-
-      // Mouse parallax animation loop
-      let mouseX = 0, mouseY = 0, tX = 0, tY = 0;
-      let spaceActive = false;
-      function onSpaceMouseMove(e) {
-        const rect = spaceEl.getBoundingClientRect();
-        // Normalized -1..1 relative to space center
-        mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-        mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-      }
-      function spaceAnimLoop() {
-        if (!spaceActive) return;
-        // Smooth toward target
-        tX += (mouseX - tX) * 0.08;
-        tY += (mouseY - tY) * 0.08;
-        // Move parallax in px (compatible with CSS calc); depth tiers scale via CSS
-        sceneEl.style.setProperty('--parallax-x', (-tX * 60) + 'px');
-        sceneEl.style.setProperty('--parallax-y', (-tY * 40) + 'px');
-        requestAnimationFrame(spaceAnimLoop);
-      }
-
-      // Particles: simple 2D canvas backdrop
-      let particleCtx, particles = [], particleAnimId;
-      function initParticles() {
-        if (!particlesCanvas) return;
-        particleCtx = particlesCanvas.getContext('2d');
-        const resize = () => {
-          particlesCanvas.width = spaceEl.offsetWidth;
-          particlesCanvas.height = spaceEl.offsetHeight;
-        };
-        resize();
-        window.addEventListener('resize', resize);
-        // Sparse particles for a subtle "dust" feel
-        const count = 80;
-        particles = Array.from({ length: count }, () => ({
-          x: Math.random() * particlesCanvas.width,
-          y: Math.random() * particlesCanvas.height,
-          r: Math.random() * 1.5 + 0.3,
-          vx: (Math.random() - 0.5) * 0.15,
-          vy: (Math.random() - 0.5) * 0.15,
-          a: Math.random() * 0.4 + 0.15
-        }));
-      }
-      function animateParticles() {
-        if (!particleCtx || !spaceActive) return;
-        particleCtx.clearRect(0, 0, particlesCanvas.width, particlesCanvas.height);
-        particles.forEach(p => {
-          p.x += p.vx; p.y += p.vy;
-          if (p.x < 0) p.x = particlesCanvas.width;
-          if (p.x > particlesCanvas.width) p.x = 0;
-          if (p.y < 0) p.y = particlesCanvas.height;
-          if (p.y > particlesCanvas.height) p.y = 0;
-          particleCtx.beginPath();
-          particleCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          particleCtx.fillStyle = `rgba(245, 243, 239, ${p.a})`;
-          particleCtx.fill();
-        });
-        particleAnimId = requestAnimationFrame(animateParticles);
-      }
-
-      function activateSpaceMode() {
-        if (spaceActive) return;
-        spaceActive = true;
-        renderSpaceScene(sortEl ? sortEl.value : 'featured');
-        initParticles();
-        spaceEl.addEventListener('mousemove', onSpaceMouseMove);
-        requestAnimationFrame(spaceAnimLoop);
-        requestAnimationFrame(animateParticles);
-      }
-      function deactivateSpaceMode() {
-        if (!spaceActive) return;
-        spaceActive = false;
-        spaceEl.removeEventListener('mousemove', onSpaceMouseMove);
-        if (particleAnimId) cancelAnimationFrame(particleAnimId);
-      }
 
       // ─── User controls: layout toggle + sort + zoom ───
       const workEl = document.querySelector('.work');
@@ -495,12 +280,6 @@
           const on = mode === 'uniform';
           layoutToggle.setAttribute('aria-checked', on ? 'true' : 'false');
           layoutToggle.classList.toggle('is-on', on);
-        }
-        // Spatial mode is active only on desktop + asymmetric layout
-        if (!mobile && mode === 'asymmetric') {
-          activateSpaceMode();
-        } else {
-          deactivateSpaceMode();
         }
         // The slider means different things in each layout, so we
         // rebind its config (min/max/value) and re-apply.
@@ -568,7 +347,6 @@
           const v = sortEl.value;
           localStorage.setItem('kc-sort', v);
           renderProjectsGrid(v);
-          if (spaceActive) renderSpaceScene(v);
         });
       }
       // Wire zoom slider

@@ -108,9 +108,9 @@
       "labelAfter": "After"
     },
     {
-      "title": "Control Basket - removal",
-      "videoBefore": "",
-      "videoAfter": "",
+      "title": "Control Basket - clean ups, fill",
+      "videoBefore": "data/projects/adidas-legacy/CONTROL_BASKET_RAW.mp4",
+      "videoAfter": "data/projects/adidas-legacy/CONTROL_BASKET_EDIT.mp4",
       "labelBefore": "Before",
       "labelAfter": "After"
     },

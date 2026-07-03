@@ -104,29 +104,29 @@
   "videoBeforeAfters": [
     {
       "title": "Entering the museum - 3D pipe, 3D set extension, clean ups, tracking",
-      "videoBefore": "data/projects/adidas-legacy/INTRO_MUSEUM_RAW.mp4",
-      "videoAfter": "data/projects/adidas-legacy/INTRO_MUSEUM_EDIT.mp4",
+      "videoBefore": "INTRO_MUSEUM_RAW.mp4",
+      "videoAfter": "INTRO_MUSEUM_EDIT.mp4",
       "labelBefore": "Before",
       "labelAfter": "After"
     },
     {
       "title": "Mastantuono - clean ups, tracking",
-      "videoBefore": "data/projects/adidas-legacy/MASTANTUONO_SCANNER_RAW.mp4",
-      "videoAfter": "data/projects/adidas-legacy/MASTANTUONO_SCANNER_EDIT.mp4",
+      "videoBefore": "MASTANTUONO_SCANNER_RAW.mp4",
+      "videoAfter": "MASTANTUONO_SCANNER_EDIT.mp4",
       "labelBefore": "Before",
       "labelAfter": "After"
     },
     {
       "title": "Control Basket - clean ups, fill",
-      "videoBefore": "data/projects/adidas-legacy/CONTROL_BASKET_RAW.mp4",
-      "videoAfter": "data/projects/adidas-legacy/CONTROL_BASKET_EDIT.mp4",
+      "videoBefore": "CONTROL_BASKET_RAW.mp4",
+      "videoAfter": "CONTROL_BASKET_EDIT.mp4",
       "labelBefore": "Before",
       "labelAfter": "After"
     },
     {
       "title": "PC - Screen replacement, relight",
-      "videoBefore": "data/projects/adidas-legacy/SCREEN_RAW.mp4",
-      "videoAfter": "data/projects/adidas-legacy/SCREEN_EDIT.mp4",
+      "videoBefore": "SCREEN_RAW.mp4",
+      "videoAfter": "SCREEN_EDIT.mp4",
       "labelBefore": "Before",
       "labelAfter": "After"
     },

@@ -391,8 +391,15 @@
           "title": "Shot 1",
           "videoBefore": "/media/VIEWPORT.mp4",
           "videoAfter": "/media/render_short.mp4",
-          "labelBefore": "Raw Plate",
-          "labelAfter": "Final CGI"
+          "labelBefore": "Viewport",
+          "labelAfter": "Render"
+        },
+        {
+          "title": "Shot 2",
+          "videoBefore": "/media/trofei_viewport.mp4",
+          "videoAfter": "/media/trofei_rnd.mp4",
+          "labelBefore": "Viewport",
+          "labelAfter": "Render"
         }
       ],
       "storytelling": [

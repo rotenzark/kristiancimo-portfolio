@@ -395,6 +395,14 @@
             "/media/Viewport_1.png",
             "/media/Viewport_2.png"
           ]
+        },
+        {
+          "heading": "02 - Shot 1 Viewport",
+          "text": "Camera animation",
+          "image": "",
+          "images": [
+            "/media/VIEWPORT.mp4"
+          ]
         }
       ]
     },

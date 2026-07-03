@@ -628,8 +628,7 @@ nav {
   aspect-ratio: 4 / 3;
   display: block;
 }
-/* Default asymmetric layout — used as FALLBACK when the packer can't
-   assign a pattern to a project (i.e. when no cardOrientation is set). */
+/* Default asymmetric layout (unchanged from before) */
 .project:nth-child(8n+1) { grid-column: 1 / 8; aspect-ratio: 16 / 9; }
 .project:nth-child(8n+2) { grid-column: 8 / 13; aspect-ratio: 3 / 4; }
 .project:nth-child(8n+3) { grid-column: 1 / 5; aspect-ratio: 3 / 4; }
@@ -639,60 +638,18 @@ nav {
 .project:nth-child(8n+7) { grid-column: 1 / 6; aspect-ratio: 3 / 4; }
 .project:nth-child(8n) { grid-column: 6 / 13; aspect-ratio: 16 / 9; }
 
-/* ─── PACKED LAYOUT (asymmetric mode) ─────────────────────────
-   The JS packer classifies each project's cardOrientation and assigns
-   a data-shape + data-span. The rules below turn those into a balanced
-   mosaic where every row is filled. Higher specificity than nth-child,
-   so shaped projects override the default slot logic. */
-
-/* Every shaped project uses its own aspect ratio based on orientation */
-.project[data-orient="16-9"][data-shape] { aspect-ratio: 16 / 9; }
-.project[data-orient="21-9"][data-shape] { aspect-ratio: 21 / 9; }
-.project[data-orient="4-3"][data-shape]  { aspect-ratio: 4 / 3;  }
-.project[data-orient="9-16"][data-shape] { aspect-ratio: 9 / 16; }
-.project[data-orient="3-4"][data-shape]  { aspect-ratio: 3 / 4;  }
-.project[data-orient="4-5"][data-shape]  { aspect-ratio: 4 / 5;  }
-.project[data-orient="1-1"][data-shape]  { aspect-ratio: 1 / 1;  }
-
-/* Column spans from the packer (data-span drives grid-column) */
-.project[data-span="3"]  { grid-column: span 3;  }
-.project[data-span="4"]  { grid-column: span 4;  }
-.project[data-span="5"]  { grid-column: span 5;  }
-.project[data-span="6"]  { grid-column: span 6;  }
-.project[data-span="7"]  { grid-column: span 7;  }
-.project[data-span="8"]  { grid-column: span 8;  }
-.project[data-span="12"] { grid-column: 1 / -1; }
-
-/* Special pattern: 1 big horizontal + 2 stacked verticals.
-   The big horizontal takes 8 cols × 2 rows.
-   The two verticals each take 4 cols × 1 row, stacking on top of each other.
-   Result: a perfectly balanced row that fills the width. */
-.project[data-shape="row-h-vv"][data-stack="top"],
-.project[data-shape="row-h-vv"][data-stack="bot"] {
-  aspect-ratio: 16 / 9 !important;
-  grid-column: span 4;
-}
-/* The horizontal one in this pattern (no data-stack) spans 2 rows */
-.project[data-shape="row-h-vv"]:not([data-stack]) {
-  grid-column: span 8;
-  grid-row: span 2;
-  aspect-ratio: 32 / 9; /* twice as wide as 16:9 vertically = matches the 2 stacked verts */
-}
-
-/* Row-solo helpers: a lone V or S takes half the row, subsequent
-   flow fills the other half naturally due to grid-auto-flow: dense */
-
-/* Featured with row-h shape (span 12) gets a max aspect to avoid a
-   giant 21:9 dominating the whole first fold */
-.project[data-shape="row-h"][data-orient="21-9"] {
-  aspect-ratio: 21 / 9;
-  max-height: 78vh;   /* prevents a single ultra-wide from being too tall */
-  object-fit: cover;
-}
-.project[data-shape="row-h"][data-orient="16-9"],
-.project[data-shape="row-h"][data-orient="4-3"] {
-  max-height: 82vh;
-}
+/* ─── Per-project aspect ratio override (from CMS "Card Orientation") ─── */
+/* When you pick a specific orientation for a project in the CMS,
+   that value wins over the default slot ratio above.
+   The column span is inferred from the ratio to keep the row balanced. */
+.project[data-orient="16-9"]  { aspect-ratio: 16 / 9;  grid-column: span 8; }
+.project[data-orient="9-16"]  { aspect-ratio: 9 / 16;  grid-column: span 4; }
+.project[data-orient="4-5"]   { aspect-ratio: 4 / 5;   grid-column: span 5; }
+.project[data-orient="1-1"]   { aspect-ratio: 1 / 1;   grid-column: span 6; }
+.project[data-orient="3-4"]   { aspect-ratio: 3 / 4;   grid-column: span 4; }
+.project[data-orient="4-3"]   { aspect-ratio: 4 / 3;   grid-column: span 7; }
+.project[data-orient="21-9"]  { aspect-ratio: 21 / 9;  grid-column: 1 / -1; }
+.project[data-orient="wide"]  { aspect-ratio: 21 / 9;  grid-column: 1 / -1; }
 
 /* ◆ v3 CHANGE: full color always, slight darken for legibility, scale on hover */
 .project .cover-img,

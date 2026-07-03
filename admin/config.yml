@@ -179,16 +179,8 @@ collections:
               - { label: "🎥 Grid Preview Video (HOVER on homepage)", name: "previewVideo", widget: "file", required: false,
                   hint: "COVER MEDIA — Optional short MP4 (5-15s) that plays when a visitor HOVERS the tile in the homepage. Upload it in the SAME aspect ratio as the Grid Cover above. Keep <5MB." }
 
-              - { label: "🎥 Grid Cover 16:9 (uniform layout only)", name: "gridCover169", widget: "image", required: false,
-                  hint: "COVER MEDIA — Optional horizontal 16:9 version of the cover, used ONLY when a visitor switches the homepage layout to 'Uniform 16:9'. Recommended: 1920×1080 landscape. Leave empty to fall back to the main Grid Cover (which will be center-cropped)." }
-
-              - { label: "🌌 Space Position X (0-100, spatial layout only)", name: "spaceX", widget: "number", value_type: "float", required: false, min: 0, max: 100,
-                  hint: "SPATIAL LAYOUT — Optional. Horizontal position (0=left, 50=center, 100=right) of this project card in the cosmic spatial homepage view. Leave empty for automatic placement." }
-              - { label: "🌌 Space Position Y (0-100, spatial layout only)", name: "spaceY", widget: "number", value_type: "float", required: false, min: 0, max: 100,
-                  hint: "SPATIAL LAYOUT — Optional. Vertical position (0=top, 50=center, 100=bottom) in the cosmic spatial homepage view. Leave empty for automatic placement." }
-
               - { label: "🎥 Inside Cover — Image (project page hero)", name: "insideCover", widget: "image", required: false,
-                  hint: "COVER MEDIA — Optional. Different image shown as the BIG HERO inside the project page (e.g. a horizontal 21:9 cinematic version while the homepage tile is vertical). If empty, the Grid Cover is used." }
+                  hint: "COVER MEDIA — Optional. Different image shown as the BIG HERO inside the project page (e.g. a horizontal 21:9 version while the homepage tile is vertical). If empty, the Grid Cover is used." }
 
               - { label: "🎥 Inside Cover — Video URL (project page hero, wins over image)", name: "coverVideo", widget: "string", required: false,
                   hint: "COVER MEDIA — Optional Vimeo/YouTube URL or direct video URL. If set, this video is used as the inside-page hero INSTEAD of the Inside Cover image." }
@@ -223,8 +215,8 @@ collections:
                 name: "galleryBlocks"
                 widget: "list"
                 required: false
-                summary: "{{fields.heading}} · {{fields.images.length}} images"
-                hint: "CONTENT BLOCKS — Each block is a titled group of images (e.g. 'Client References', 'My Proposals', 'Final Renders'). Add as many blocks as you want."
+                summary: "{{fields.heading}} · {{fields.images.length}} items"
+                hint: "CONTENT BLOCKS — Each block is a titled group of images or videos (e.g. 'Client References', 'My Proposals', 'Final Renders'). Add as many blocks as you want."
                 fields:
                   - { label: "Tag (small uppercase label)", name: "tag", widget: "string", required: false,
                       hint: "Small red uppercase label above the block. e.g. CLIENT REFERENCES, MY PROPOSAL, FINAL RENDERS" }
@@ -232,13 +224,14 @@ collections:
                       hint: "Big display title for this gallery block." }
                   - { label: "Caption / Description", name: "caption", widget: "text", required: false,
                       hint: "Short italic paragraph that introduces the images below." }
-                  - label: "Images"
+                  - label: "Images or Videos"
                     name: "images"
                     widget: "list"
                     summary: "{{fields.alt}}"
-                    hint: "Images in this block. Native aspect ratios are preserved."
+                    hint: "Images (JPG/PNG/WEBP) or videos (MP4/WEBM/MOV). Native aspect ratios are preserved. ⚠️ Keep videos small (<5MB, 1-5s) — GitHub API limits uploads to ~30MB."
                     fields:
-                      - { label: "Image", name: "src", widget: "image" }
+                      - { label: "Image or Video file", name: "src", widget: "file",
+                          hint: "Upload image or video. The site auto-detects the type by extension." }
                       - { label: "Alt text (optional)", name: "alt", widget: "string", required: false,
                           hint: "Short description for accessibility & SEO." }
 
@@ -247,14 +240,16 @@ collections:
                 widget: "list"
                 required: false
                 summary: "{{fields.heading}}"
-                hint: "CONTENT BLOCKS — Each block = one embedded video (Vimeo or YouTube), with optional title & caption."
+                hint: "CONTENT BLOCKS — Each block = one video with optional title & caption. Choose ONE of: upload a video file (MP4) OR paste a Vimeo/YouTube URL."
                 fields:
                   - { label: "Tag", name: "tag", widget: "string", required: false,
                       hint: "Small red uppercase label. e.g. FINAL EDIT, DIRECTOR'S CUT, BTS" }
                   - { label: "Heading", name: "heading", widget: "string", required: false }
                   - { label: "Caption / Description", name: "caption", widget: "text", required: false }
-                  - { label: "Video URL (Vimeo or YouTube)", name: "url", widget: "string",
-                      hint: "Paste the full Vimeo or YouTube URL." }
+                  - { label: "Video File (MP4 upload)", name: "file", widget: "file", required: false,
+                      hint: "Upload a video file directly. Takes priority over the URL below. ⚠️ Keep it small (<10MB) — GitHub API limits uploads to ~30MB." }
+                  - { label: "Video URL (Vimeo or YouTube)", name: "url", widget: "string", required: false,
+                      hint: "Paste the full Vimeo or YouTube URL. Used only if no file is uploaded above. Recommended for larger/longer videos." }
 
               - label: "🔀 Before / After — Image Slides"
                 name: "beforeAfters"
@@ -290,19 +285,19 @@ collections:
                 widget: "list"
                 required: false
                 summary: "{{fields.heading}}"
-                hint: "EXTRAS — Alternating image + text blocks (BTS, process shots, moodboards). Blocks alternate left/right automatically."
+                hint: "EXTRAS — Alternating image/video + text blocks (BTS, process shots, moodboards). Blocks alternate left/right automatically."
                 fields:
                   - { label: "Heading", name: "heading", widget: "string", required: false }
                   - { label: "Text", name: "text", widget: "text", required: false }
-                  - { label: "Image (single — legacy field)", name: "image", widget: "image", required: false,
-                      hint: "Old single-image field. Keep using it if you want one image per block. If you add multiple images below, this is ignored." }
-                  - label: "Images (multiple — optional)"
+                  - { label: "Image or Video (single — legacy field)", name: "image", widget: "file", required: false,
+                      hint: "Optional. One image OR video file (MP4/WEBM/MOV) for this block. If you add multiple files below, this is ignored." }
+                  - label: "Images or Videos (multiple — optional)"
                     name: "images"
                     widget: "list"
                     required: false
-                    summary: "Image {{index}}"
-                    hint: "Optional. Add 2+ images to display them side-by-side in this Process block (native aspect ratios preserved). Overrides the single Image above when used."
-                    field: { label: "Image", name: "src", widget: "image" }
+                    summary: "Item {{index}}"
+                    hint: "Optional. Add 2+ images or videos to display them side-by-side in this Process block (native aspect ratios preserved). Overrides the single Image/Video above when used. ⚠️ Keep videos small (<5MB, 1-5s)."
+                    field: { label: "Image or Video file", name: "src", widget: "file" }
 
               - label: "🏆 Credits"
                 name: "credits"

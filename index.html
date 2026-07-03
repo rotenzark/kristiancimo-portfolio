@@ -222,19 +222,131 @@
       }
 
       const grid = document.getElementById('work-grid');
+      // Classify a card orientation into one of 3 buckets used by the packer
+      function orientBucket(orient) {
+        if (!orient) return 'flex'; // no explicit choice → flexible
+        if (['16-9', '21-9', '4-3'].includes(orient)) return 'h'; // horizontal
+        if (['9-16', '3-4', '4-5'].includes(orient)) return 'v'; // vertical
+        if (orient === '1-1') return 's'; // square
+        return 'flex';
+      }
+
+      /* ─── Packer: assigns a "row-shape" class + span to each project.
+         The goal: never leave visual gaps, always create balanced rows.
+
+         Patterns (in priority order of aesthetic value):
+           • H            → 1 horizontal fills the row       [span 12]
+           • H + H        → 2 horizontals side-by-side       [span 6 each]
+           • V + V + V + V→ 4 verticals in a row             [span 3 each]
+           • V + V + V    → 3 verticals in a row             [span 4 each]
+           • V + V        → 2 verticals side-by-side         [span 6 each]
+           • S + S        → 2 squares side-by-side           [span 6 each]
+           • S + S + S    → 3 squares in a row               [span 4 each]
+           • H + V + V    → 1 big horizontal + 2 stacked verticals
+                           (horizontal spans 8, verticals stack in span 4)
+           • Anything left over falls back to the default asymmetric grid slot.
+      */
+      function assignRowShapes(list) {
+        const items = list.map(p => ({ p, bucket: orientBucket(p.cardOrientation), shape: null, span: null, stack: null }));
+        let i = 0;
+        while (i < items.length) {
+          const a = items[i], b = items[i+1], c = items[i+2], d = items[i+3];
+          // Look ahead up to 4 items to pick the best pattern
+
+          // H alone
+          if (a.bucket === 'h') {
+            // Try H + H (two horizontals side by side)
+            if (b && b.bucket === 'h') {
+              a.shape = 'row-2h'; a.span = 6;
+              b.shape = 'row-2h'; b.span = 6;
+              i += 2; continue;
+            }
+            // Try H + V + V (big left + two stacked verticals right)
+            if (b && c && b.bucket === 'v' && c.bucket === 'v') {
+              a.shape = 'row-h-vv'; // CSS handles span+row for this special pattern
+              b.shape = 'row-h-vv'; b.stack = 'top';
+              c.shape = 'row-h-vv'; c.stack = 'bot';
+              i += 3; continue;
+            }
+            // H alone (full row)
+            a.shape = 'row-h'; a.span = 12;
+            i += 1; continue;
+          }
+
+          // 4 verticals in a row
+          if (a.bucket === 'v' && b && b.bucket === 'v' && c && c.bucket === 'v' && d && d.bucket === 'v') {
+            a.shape = b.shape = c.shape = d.shape = 'row-4v';
+            a.span = b.span = c.span = d.span = 3;
+            i += 4; continue;
+          }
+          // 3 verticals in a row
+          if (a.bucket === 'v' && b && b.bucket === 'v' && c && c.bucket === 'v') {
+            a.shape = b.shape = c.shape = 'row-3v';
+            a.span = b.span = c.span = 4;
+            i += 3; continue;
+          }
+          // 2 verticals side by side
+          if (a.bucket === 'v' && b && b.bucket === 'v') {
+            a.shape = b.shape = 'row-2v';
+            a.span = b.span = 6;
+            i += 2; continue;
+          }
+          // V alone → try to pair with an H after: V + V + H not typical,
+          // so we treat lone V as half-width, next slot filled by whatever comes next
+          if (a.bucket === 'v') {
+            // V + S (vertical + square) → half + half
+            if (b && b.bucket === 's') {
+              a.shape = 'row-vs'; a.span = 6;
+              b.shape = 'row-vs'; b.span = 6;
+              i += 2; continue;
+            }
+            // Lone V: give it half a row and let the next go beside it
+            a.shape = 'row-solo-v'; a.span = 6;
+            i += 1; continue;
+          }
+
+          // 3 squares in a row
+          if (a.bucket === 's' && b && b.bucket === 's' && c && c.bucket === 's') {
+            a.shape = b.shape = c.shape = 'row-3s';
+            a.span = b.span = c.span = 4;
+            i += 3; continue;
+          }
+          // 2 squares side by side
+          if (a.bucket === 's' && b && b.bucket === 's') {
+            a.shape = b.shape = 'row-2s';
+            a.span = b.span = 6;
+            i += 2; continue;
+          }
+          // Lone square: half-width
+          if (a.bucket === 's') {
+            a.shape = 'row-solo-s'; a.span = 6;
+            i += 1; continue;
+          }
+
+          // Flex / unknown → let default asymmetric take over (no shape assigned)
+          a.shape = null; a.span = null;
+          i += 1;
+        }
+        return items;
+      }
+
       function renderProjectsGrid(order) {
         const projList = sortProjects(order);
-        grid.innerHTML = projList.map(p => {
+        const packed = assignRowShapes(projList);
+        grid.innerHTML = packed.map(({ p, shape, span, stack }) => {
           const id = p.slug || slug(p.title);
           const href = `project.html?id=${encodeURIComponent(id)}`;
           const previewVideo = p.previewVideo || '';
           const hasPreview = !!previewVideo;
           const orientAttr = p.cardOrientation ? ` data-orient="${escapeHtml(p.cardOrientation)}"` : '';
+          const shapeAttr  = shape ? ` data-shape="${shape}"` : '';
+          const spanAttr   = span ? ` data-span="${span}"` : '';
+          const stackAttr  = stack ? ` data-stack="${stack}"` : '';
           // Uniform layout uses the 16:9 grid cover if provided; falls back to the
           // regular image (with object-fit: cover) if not.
           const cover169 = p.gridCover169 || p.image;
           return `
-            <a href="${href}" class="project interactive${hasPreview ? '' : ' no-preview'}"${orientAttr}>
+            <a href="${href}" class="project interactive${hasPreview ? '' : ' no-preview'}"${orientAttr}${shapeAttr}${spanAttr}${stackAttr}>
               ${p.featured ? `<span class="project-tag">${escapeHtml(p.tagLabel || 'Featured')}</span>` : ''}
               <img class="cover-img cover-img-default" src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" loading="lazy">
               <img class="cover-img cover-img-169" src="${escapeHtml(cover169)}" alt="${escapeHtml(p.title)}" loading="lazy">

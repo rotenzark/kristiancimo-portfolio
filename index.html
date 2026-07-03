@@ -63,9 +63,15 @@
     <span>2023 — 2026</span>
   </div>
 
-  <!-- Work grid controls: sort + zoom.
+  <!-- Work grid controls: layout + sort + zoom.
        User preferences persist in localStorage. -->
   <div class="work-controls reveal">
+    <div class="wc-group wc-group-layout">
+      <label class="wc-label" for="wc-layout-toggle">Uniform 16:9</label>
+      <button id="wc-layout-toggle" class="wc-toggle interactive" role="switch" aria-checked="false" aria-label="Toggle uniform 16:9 layout">
+        <span class="wc-toggle-track"><span class="wc-toggle-thumb"></span></span>
+      </button>
+    </div>
     <div class="wc-group">
       <label class="wc-label" for="wc-sort">Sort by</label>
       <div class="wc-select-wrap">
@@ -224,10 +230,14 @@
           const previewVideo = p.previewVideo || '';
           const hasPreview = !!previewVideo;
           const orientAttr = p.cardOrientation ? ` data-orient="${escapeHtml(p.cardOrientation)}"` : '';
+          // Uniform layout uses the 16:9 grid cover if provided; falls back to the
+          // regular image (with object-fit: cover) if not.
+          const cover169 = p.gridCover169 || p.image;
           return `
             <a href="${href}" class="project interactive${hasPreview ? '' : ' no-preview'}"${orientAttr}>
               ${p.featured ? `<span class="project-tag">${escapeHtml(p.tagLabel || 'Featured')}</span>` : ''}
-              <img class="cover-img" src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" loading="lazy">
+              <img class="cover-img cover-img-default" src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" loading="lazy">
+              <img class="cover-img cover-img-169" src="${escapeHtml(cover169)}" alt="${escapeHtml(p.title)}" loading="lazy">
               ${hasPreview ? `
                 <video class="cover-video" data-src="${escapeHtml(previewVideo)}" muted loop playsinline preload="none"></video>
               ` : ''}
@@ -243,33 +253,76 @@
         bindCursor();
       }
 
-      // Restore saved preferences (or defaults)
-      const savedSort = localStorage.getItem('kc-sort') || 'featured';
-      const savedZoom = localStorage.getItem('kc-zoom') || '2';
+      // ─── User controls: layout toggle + sort + zoom ───
+      const workEl = document.querySelector('.work');
+      const gridEl = document.getElementById('work-grid');
       const sortEl = document.getElementById('wc-sort');
       const zoomEl = document.getElementById('wc-zoom');
+      const layoutToggle = document.getElementById('wc-layout-toggle');
+
+      // Defaults: on mobile the site auto-uses uniform 16:9 (looks better on narrow screens).
+      // On desktop the default is asymmetric.
+      const mobile = isMobile();
+      const savedSort   = localStorage.getItem('kc-sort') || 'featured';
+      const savedZoom   = localStorage.getItem('kc-zoom') || '2';
+      const savedLayout = localStorage.getItem('kc-layout') || (mobile ? 'uniform' : 'asymmetric');
+
       if (sortEl) sortEl.value = savedSort;
       if (zoomEl) zoomEl.value = savedZoom;
-      // Apply density level to the .work section (CSS reads data-density)
-      document.querySelector('.work').setAttribute('data-density', savedZoom);
 
       renderProjectsGrid(savedSort);
 
-      // Wire sort dropdown
-      if (sortEl) {
-        sortEl.addEventListener('change', () => {
-          const v = sortEl.value;
-          localStorage.setItem('kc-sort', v);
-          renderProjectsGrid(v);
-        });
+      // Apply the current layout mode (asymmetric or uniform) to <.work>
+      function applyLayout(mode) {
+        workEl.setAttribute('data-layout', mode);
+        if (layoutToggle) {
+          const on = mode === 'uniform';
+          layoutToggle.setAttribute('aria-checked', on ? 'true' : 'false');
+          layoutToggle.classList.toggle('is-on', on);
+        }
+        // The slider means different things in each layout, so we
+        // rebind its config (min/max/value) and re-apply.
+        configureZoomForLayout(mode);
+        updateGridDensity(zoomEl ? zoomEl.value : (mode === 'uniform' ? '2' : '2'));
       }
-      // Wire zoom slider — pure CSS transform via data-density, no re-render needed
-      const workEl = document.querySelector('.work');
-      const gridEl = document.getElementById('work-grid');
-      function updateGridScale(level) {
+
+      // Slider configuration switches when layout changes:
+      //  - Asymmetric: 5 continuous steps (0..4), fluid scale
+      //  - Uniform:    4 discrete steps (1..4 columns), integer
+      function configureZoomForLayout(mode) {
+        if (!zoomEl) return;
+        if (mode === 'uniform') {
+          zoomEl.min = '1'; zoomEl.max = '4'; zoomEl.step = '1';
+          // Clamp saved value to uniform range
+          let v = parseInt(zoomEl.value, 10);
+          if (isNaN(v) || v < 1) v = 3;
+          if (v > 4) v = 4;
+          zoomEl.value = String(v);
+        } else {
+          zoomEl.min = '0'; zoomEl.max = '4'; zoomEl.step = '1';
+          // Restore saved level for asymmetric (or default 2)
+          const savedA = localStorage.getItem('kc-zoom-asym');
+          if (savedA !== null) zoomEl.value = savedA;
+          else zoomEl.value = '2';
+        }
+      }
+
+      // Applies density level to CSS depending on current layout
+      function updateGridDensity(level) {
+        const mode = workEl.getAttribute('data-layout') || 'asymmetric';
         workEl.setAttribute('data-density', level);
-        // Skip visual compensation on mobile — the CSS disables scaling there
-        if (isMobile()) {
+        // Persist layout-specific value
+        if (mode === 'uniform') {
+          localStorage.setItem('kc-zoom-uni', level);
+        } else {
+          localStorage.setItem('kc-zoom-asym', level);
+        }
+        localStorage.setItem('kc-zoom', level);
+
+        // Compensate the .work section height so the following content
+        // (Clients marquee) sits right under the visually transformed grid.
+        // Only matters for the asymmetric mode which uses transform: scale().
+        if (mobile || mode === 'uniform') {
           workEl.style.paddingBottom = '';
           return;
         }
@@ -286,16 +339,37 @@
           }
         });
       }
-      if (zoomEl) {
-        zoomEl.addEventListener('input', () => {
-          const v = zoomEl.value;
-          localStorage.setItem('kc-zoom', v);
-          updateGridScale(v);
+
+      // Wire sort dropdown
+      if (sortEl) {
+        sortEl.addEventListener('change', () => {
+          const v = sortEl.value;
+          localStorage.setItem('kc-sort', v);
+          renderProjectsGrid(v);
         });
       }
-      // Also compensate on initial load and on window resize
-      updateGridScale(savedZoom);
-      window.addEventListener('resize', () => updateGridScale(zoomEl ? zoomEl.value : savedZoom));
+      // Wire zoom slider
+      if (zoomEl) {
+        zoomEl.addEventListener('input', () => {
+          updateGridDensity(zoomEl.value);
+        });
+      }
+      // Wire layout toggle
+      if (layoutToggle) {
+        layoutToggle.addEventListener('click', () => {
+          const current = workEl.getAttribute('data-layout') || 'asymmetric';
+          const next = current === 'uniform' ? 'asymmetric' : 'uniform';
+          localStorage.setItem('kc-layout', next);
+          applyLayout(next);
+        });
+      }
+      // Re-apply on window resize (handles orientation change / desktop↔mobile)
+      window.addEventListener('resize', () => {
+        updateGridDensity(zoomEl ? zoomEl.value : savedZoom);
+      });
+
+      // Initial apply
+      applyLayout(savedLayout);
 
       // CLIENTS
       const clientList = clients.items || [];

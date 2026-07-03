@@ -330,6 +330,39 @@ nav {
   transition: transform 0.2s, background 0.2s;
 }
 .wc-zoom-input::-moz-range-thumb:hover { transform: scale(1.2); background: var(--accent); }
+
+/* ─── Layout toggle (switch: Asymmetric ↔ Uniform 16:9) ─── */
+.wc-toggle {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+.wc-toggle-track {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  transition: border-color 0.3s, background 0.3s;
+}
+.wc-toggle-thumb {
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--fg);
+  transition: transform 0.3s cubic-bezier(.2,.8,.2,1), background 0.3s;
+}
+.wc-toggle:hover .wc-toggle-track { border-color: var(--fg); }
+.wc-toggle.is-on .wc-toggle-track { border-color: var(--accent); background: var(--accent); }
+.wc-toggle.is-on .wc-toggle-thumb { transform: translateX(20px); background: #fff; }
+
 @media (max-width: 768px) {
   .work-controls { gap: 20px; justify-content: space-between; padding-bottom: 20px; }
   .wc-group { gap: 10px; }
@@ -338,29 +371,43 @@ nav {
   .wc-zoom-input { width: 100px; }
 }
 
-/* ─── Density scaling (zoom slider) ───
+/* ─── Density scaling — ASYMMETRIC layout ───
    Level 2 is the default (original layout at 100%). Other levels scale
-   the entire grid up/down while preserving proportions AND the asymmetric
-   layout. Origin is top-left so cards stay aligned to the left edge.
-   Negative margins on the parent compensate for the visual bounding box. */
-.work { overflow: hidden; } /* clip overflow when grid is scaled up */
-.work[data-density] .work-grid {
+   the whole grid up/down while preserving proportions AND the asymmetric
+   layout. Origin is top-left so cards stay aligned to the left edge. */
+.work[data-layout="asymmetric"] { overflow: hidden; } /* clip overflow when scaled up */
+.work[data-layout="asymmetric"][data-density] .work-grid {
   transform-origin: top left;
   transition: transform 0.35s cubic-bezier(.2,.8,.2,1);
   will-change: transform;
 }
-/* Compensate for scale by widening the grid container inversely,
-   so that after scaling it occupies the full width visually. */
-.work[data-density="0"] .work-grid { transform: scale(0.65); width: calc(100% / 0.65); }
-.work[data-density="1"] .work-grid { transform: scale(0.82); width: calc(100% / 0.82); }
-.work[data-density="2"] .work-grid { transform: scale(1);    width: 100%; }
-.work[data-density="3"] .work-grid { transform: scale(1.18); width: calc(100% / 1.18); }
-.work[data-density="4"] .work-grid { transform: scale(1.40); width: calc(100% / 1.40); }
-/* Compensate for the height of the scaled grid (or it'd leave big gaps) */
-.work[data-density="0"] .work-grid { margin-bottom: 0; }
-.work[data-density="1"] .work-grid { margin-bottom: 0; }
-.work[data-density="3"] .work-grid { margin-bottom: 0; }
-.work[data-density="4"] .work-grid { margin-bottom: 0; }
+.work[data-layout="asymmetric"][data-density="0"] .work-grid { transform: scale(0.65); width: calc(100% / 0.65); }
+.work[data-layout="asymmetric"][data-density="1"] .work-grid { transform: scale(0.82); width: calc(100% / 0.82); }
+.work[data-layout="asymmetric"][data-density="2"] .work-grid { transform: scale(1);    width: 100%; }
+.work[data-layout="asymmetric"][data-density="3"] .work-grid { transform: scale(1.18); width: calc(100% / 1.18); }
+.work[data-layout="asymmetric"][data-density="4"] .work-grid { transform: scale(1.40); width: calc(100% / 1.40); }
+
+/* ─── UNIFORM 16:9 layout ───
+   All project cards are forced to 16:9 aspect ratio. The slider becomes
+   a discrete column selector: 1 (large, one at a time), 2, 3, 4 columns.
+   The asymmetric per-project overrides are neutralized here. */
+.work[data-layout="uniform"] .work-grid {
+  display: grid;
+  gap: 24px;
+  grid-auto-flow: row;
+  transform: none;
+  width: 100%;
+  transition: gap 0.3s ease;
+}
+.work[data-layout="uniform"] .project,
+.work[data-layout="uniform"] .project[data-orient] {
+  aspect-ratio: 16 / 9 !important;
+  grid-column: auto !important;
+}
+.work[data-layout="uniform"][data-density="1"] .work-grid { grid-template-columns: 1fr; }
+.work[data-layout="uniform"][data-density="2"] .work-grid { grid-template-columns: repeat(2, 1fr); }
+.work[data-layout="uniform"][data-density="3"] .work-grid { grid-template-columns: repeat(3, 1fr); }
+.work[data-layout="uniform"][data-density="4"] .work-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
 
 .work-grid {
   display: grid;
@@ -409,6 +456,12 @@ nav {
 .project .cover-img {
   filter: brightness(0.78) contrast(1.04);
 }
+/* Layout swaps between two <img> tags per card (asymmetric uses the
+   default cover; uniform uses the dedicated 16:9 cover). Default
+   behaviour = asymmetric, so we hide the 16:9 image unless explicitly enabled. */
+.project .cover-img-169 { display: none; }
+.work[data-layout="uniform"] .project .cover-img-default { display: none; }
+.work[data-layout="uniform"] .project .cover-img-169 { display: block; }
 .project .cover-video {
   opacity: 0;
   pointer-events: none;
@@ -460,16 +513,23 @@ nav {
 }
 @media (max-width: 900px) {
   .work { padding: 80px 20px; }
+  /* Mobile forces uniform 16:9 single-column by default.
+     JS also sets data-layout="uniform" on init, but we defensively
+     enforce it here so it works even before JS runs. */
   .work-grid { grid-template-columns: 1fr; gap: 12px; }
-  .project { grid-column: 1 / -1 !important; aspect-ratio: 4 / 3 !important; }
+  .project { grid-column: 1 / -1 !important; aspect-ratio: 16 / 9 !important; }
+  /* Show the 16:9 cover, hide the default asymmetric one */
+  .project .cover-img-default { display: none; }
+  .project .cover-img-169 { display: block; }
   /* on mobile, hover doesn't exist — hide preview video to save bandwidth */
   .project .cover-video { display: none; }
-  /* On mobile density scaling is disabled — grid always at 100%, no zoom */
-  .work[data-density] .work-grid {
+  /* On mobile, disable asymmetric scaling entirely */
+  .work[data-layout="asymmetric"][data-density] .work-grid {
     transform: none !important;
     width: 100% !important;
   }
-  /* Hide zoom slider on mobile since it's not useful with single-column layout */
+  /* Hide layout toggle AND zoom slider on mobile — single column is fixed */
+  .work-controls .wc-group-layout,
   .work-controls .wc-group-zoom { display: none; }
 }
 

@@ -123,10 +123,10 @@
     },
     {
       "title": "Aitana - tracking, rotoscope",
-      "videoBefore": "",
-      "videoAfter": "",
-      "labelBefore": "Raw Plate",
-      "labelAfter": "Final CGI"
+      "videoBefore": "QUADRO_RAW.mp4",
+      "videoAfter": "QUADRO_EDIT.mp4",
+      "labelBefore": "Before",
+      "labelAfter": "After"
     },
     {
       "title": "Brahim - lasers compositing",

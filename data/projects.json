@@ -278,7 +278,7 @@
         },
         {
           "title": "Brahim - lasers compositing",
-          "videoBefore": "/media/LASERS_RAW.mp4",
+          "videoBefore": "/media/LASERS_RAWshort.mp4",
           "videoAfter": "/media/LASERS_EDIT.mp4",
           "labelBefore": "Before",
           "labelAfter": "After"

@@ -102,8 +102,8 @@
     },
     {
       "title": "Mastantuono - removal",
-      "videoBefore": "/media/projects/adidas-legacy/SCANNER_RAW.mp4",
-      "videoAfter": "/media/projects/adidas-legacy/SCANNER_EDIT.mp4",
+      "videoBefore": "/media/MASTANTUONO_SCANNER_RAW.mp4",
+      "videoAfter": "/media/MASTANTUONO_SCANNER_EDIT.mp4",
       "labelBefore": "Raw Plate",
       "labelAfter": "Final CGI"
     },

@@ -132,38 +132,38 @@
         }
       ],
       "showNextProject": true,
-      "videoBeforeAfter": {
-        "labelAfter": "Final CGI",
-        "labelBefore": "Raw Plate",
-        "videoAfter": "",
-        "videoBefore": ""
-      },
-      "beforeAfter": {
-        "labelAfter": "Final CGI",
-        "labelBefore": "Raw Plate",
-        "imageAfter": "https://picsum.photos/seed/gasly-final/1600/900",
-        "imageBefore": "https://picsum.photos/seed/gasly-raw/1600/900"
-      },
+      "videoUrl": "",
+      "videoCaption": "",
       "gallery": [
         {
-          "alt": "Horizontal shot",
-          "src": "/media/LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).png"
+          "src": "/media/LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).png",
+          "alt": "Horizontal shot"
         },
         {
-          "alt": "Vertical shot",
-          "src": "/media/LAST_FRAME_VERTICAL_COLOR_hf_20260305_102526_ce7c5e41-9bf6-444d-bc28-6a74f300f4d5 (0-00-00-00).png"
+          "src": "/media/LAST_FRAME_VERTICAL_COLOR_hf_20260305_102526_ce7c5e41-9bf6-444d-bc28-6a74f300f4d5 (0-00-00-00).png",
+          "alt": "Vertical shot"
         },
         {
-          "alt": "Color study",
-          "src": "https://picsum.photos/seed/gasly-3/900/1200"
+          "src": "https://picsum.photos/seed/gasly-3/900/1200",
+          "alt": "Color study"
         },
         {
-          "alt": "Final composite",
-          "src": "https://picsum.photos/seed/gasly-4/1600/900"
+          "src": "https://picsum.photos/seed/gasly-4/1600/900",
+          "alt": "Final composite"
         }
       ],
-      "videoCaption": "",
-      "videoUrl": ""
+      "beforeAfter": {
+        "imageBefore": "https://picsum.photos/seed/gasly-raw/1600/900",
+        "imageAfter": "https://picsum.photos/seed/gasly-final/1600/900",
+        "labelBefore": "Raw Plate",
+        "labelAfter": "Final CGI"
+      },
+      "videoBeforeAfter": {
+        "videoBefore": "",
+        "videoAfter": "",
+        "labelBefore": "Raw Plate",
+        "labelAfter": "Final CGI"
+      }
     },
     {
       "order": 2,
@@ -313,6 +313,8 @@
           "name": "Kristian Cimò"
         }
       ],
+      "videoUrl": "",
+      "videoCaption": "",
       "gallery": [
         {
           "src": "https://picsum.photos/seed/adidas-1/1600/900"
@@ -320,25 +322,26 @@
         {
           "src": "https://picsum.photos/seed/adidas-2/900/1200"
         }
-      ],
-      "videoCaption": "",
-      "videoUrl": ""
+      ]
     },
     {
       "order": 3,
       "slug": "zidane-map",
-      "title": "Zidane Map",
-      "year": "2026",
-      "category": "Cartography / CGI",
-      "image": "https://picsum.photos/seed/zidane/900/1200",
+      "title": "Zidane - Insipre Signature",
+      "year": "May 2025",
+      "category": "Football / Cartography / CGI",
+      "image": "/media/500483556_18507956449039772_5474198135738450892_n.jpg",
+      "previewVideo": "/media/render_site_hover.mp4",
       "coverVideo": "",
       "tagLabel": "",
       "subtitle": "",
-      "client": "—",
+      "client": "Zinédine Zidane",
       "talent": "Zinédine Zidane",
-      "role": "CGI · Editorial",
-      "software": "Houdini · Redshift",
-      "format": "Editorial",
+      "role": "CGI Artist",
+      "software": "Blender · After Effects",
+      "format": "Social",
+      "publicationUrl": "https://www.instagram.com/reel/DKCy1mdMO-Q/?igsh=MWZqNzJveDBjZXU3eg==",
+      "publicationLabel": "View on Instagram",
       "description": "A topographic portrait of Zidane's career, rendered as 3D cartography. Every peak is a final, every valley a club he never returned to."
     },
     {

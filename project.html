@@ -273,8 +273,6 @@
           ${images.map(img => {
             const src = typeof img === 'string' ? img : img.src;
             const alt = typeof img === 'string' ? '' : (img.alt || '');
-            // If it's a video file, render an autoplay muted looping video.
-            // Otherwise render an image. JS reads dimensions for justified-row layout.
             if (isVideoFile(src)) {
               return `<div class="item is-video">
                 <video src="${escapeHtml(src)}" autoplay muted loop playsinline preload="metadata" data-needs-orient="1"></video>
@@ -338,8 +336,9 @@
     });
   }
 
-  /* ─── LIGHTBOX: click any gallery image/video to open fullscreen ─── */
+  /* ─── LIGHTBOX: click any gallery image to open it fullscreen ─── */
   function setupLightbox() {
+    // Build lightbox once and reuse
     let box = document.querySelector('.lightbox');
     if (!box) {
       box = document.createElement('div');
@@ -410,7 +409,6 @@
 
   function renderVideoBlock(block, idx, total) {
     if (!block) return '';
-    // Priority: uploaded video file wins over external URL
     const file = block.file || block.videoFile;
     const url = block.url;
     if (!file && !url) return '';
@@ -696,16 +694,14 @@
         ${head('Process')}
         ${p.storytelling.map((item, i) => {
           // normalize: prefer new `images` array; fall back to old single `image`
-          // each entry can be a plain string url OR an object like {src: "url"}
           const pickSrc = x => (typeof x === 'string' ? x : (x && x.src) ? x.src : '');
           const media = Array.isArray(item.images) && item.images.length
             ? item.images.map(pickSrc).filter(Boolean)
             : (item.image ? [item.image] : []);
-          // Helper: render one media entry as <img> or <video> depending on extension
-          const mediaTag = (src, extraClasses = '') =>
+          const mediaTag = (src) =>
             isVideoFile(src)
-              ? `<div class="item is-video ${extraClasses}"><video src="${escapeHtml(src)}" autoplay muted loop playsinline preload="metadata" data-needs-orient="1"></video></div>`
-              : `<div class="item ${extraClasses}"><img src="${escapeHtml(src)}" alt="${escapeHtml(item.heading || '')}" loading="lazy" data-needs-orient="1"></div>`;
+              ? `<div class="item is-video"><video src="${escapeHtml(src)}" autoplay muted loop playsinline preload="metadata" data-needs-orient="1"></video></div>`
+              : `<div class="item"><img src="${escapeHtml(src)}" alt="${escapeHtml(item.heading || '')}" loading="lazy" data-needs-orient="1"></div>`;
           const imgsHTML = media.length === 1
             ? `<div class="story-images single">${mediaTag(media[0])}</div>`
             : media.length > 1

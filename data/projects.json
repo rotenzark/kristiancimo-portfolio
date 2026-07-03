@@ -470,11 +470,36 @@
       "client": "FC Barcelona",
       "talent": "",
       "role": "VFX · CGI",
-      "software": "C4D · Nuke",
-      "format": "Identity",
-      "publicationUrl": "",
-      "publicationLabel": "",
-      "description": ""
+      "software": "Blender · Nuke",
+      "format": "Social",
+      "publicationUrl": "https://www.instagram.com/reel/DRO1Zt8DEBP/?igsh=ZTdsNWdzNXRvN2hv",
+      "publicationLabel": "View on Instagram",
+      "description": "",
+      "galleryBlocks": [
+        {
+          "tag": "",
+          "heading": "",
+          "caption": "",
+          "images": [
+            {
+              "src": "/media/Frame_1-1.png",
+              "alt": ""
+            },
+            {
+              "src": "/media/Frame_2-1.png",
+              "alt": ""
+            },
+            {
+              "src": "/media/Frame_3-1.png",
+              "alt": ""
+            },
+            {
+              "src": "/media/Frame_4-1.png",
+              "alt": ""
+            }
+          ]
+        }
+      ]
     },
     {
       "order": 5,

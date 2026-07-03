@@ -4,36 +4,36 @@
       "order": 1,
       "slug": "hawkers-gasly",
       "title": "Hawkers × Gasly",
-      "year": "2026",
+      "year": "March 2026",
       "category": "Eyewear / F1",
       "image": "/media/FIRST_FRAME_HORIZONTAL_4_09.png",
       "previewVideo": "/media/horizontal_video.mp4",
       "coverVideo": "",
       "featured": true,
       "tagLabel": "Featured",
-      "subtitle": "Speed of light and the silence after the corner. Rebuilding Dubai, frame by frame.",
+      "subtitle": "Rebuilding Dubai, frame by frame.",
       "client": "Hawkers Co.",
       "talent": "Pierre Gasly",
       "role": "VFX · CGI · COMPOSITING",
       "software": "Blender · After Effects",
       "format": "Campaign · Social",
-      "description": "A campaign film built around the speed of light and the silence after the corner. I rebuilt Dubai's Palm  in CGI, extending the surrounding environment and creating a transition from the view of Gasly to the top view of Dubai.",
+      "description": "I rebuilt Dubai's Palm  in CGI, extending the surrounding environment and creating a transition from the view of Gasly to the top view of Dubai.",
       "galleryBlocks": [
         {
-          "tag": "Ideas from client",
-          "heading": "Creating an H shaped island",
-          "caption": "",
+          "tag": "",
+          "heading": "Idea from client: creating an H shaped island",
+          "caption": "The client sent me a simple hat to show me what the idea was and let me think around it.\nI decided to go with Blender to do get the work done.",
           "images": [
             {
-              "src": "/media/WhatsApp Image 2026-02-20 at 11.23.12.jpeg",
+              "src": "/media/COPERTINA_HIGH.png",
               "alt": ""
             }
           ]
         },
         {
-          "tag": "My creation",
-          "heading": "H shaped Island",
-          "caption": "",
+          "tag": "",
+          "heading": "My creation: H shaped Islands",
+          "caption": "Photoshop (first two photos) and Blender (third photo) were used to build the first ideas.",
           "images": [
             {
               "src": "/media/h_nocircle_centered-1.png",
@@ -52,7 +52,7 @@
         {
           "tag": "",
           "heading": "Final renders",
-          "caption": "",
+          "caption": "Two screenshots of the final frames of both horizontal and vertical versions.",
           "images": [
             {
               "src": "/media/LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).png",
@@ -68,7 +68,7 @@
       "videoBlocks": [],
       "beforeAfters": [
         {
-          "title": "",
+          "title": "First frame - building the world around him",
           "imageBefore": "/media/FIRST_FRAME_VERTICAL_4_09_CLAY.png",
           "imageAfter": "/media/FIRST_FRAME_VERTICAL_4_09.png",
           "labelBefore": "Viewport",
@@ -98,7 +98,7 @@
         },
         {
           "heading": "02 — Environment build",
-          "text": "3D creation of Dubai, using open source photogrammetry data.",
+          "text": "3D creation of Dubai inside, using open source photogrammetry data.",
           "image": "/media/CLAY_3.png"
         }
       ],

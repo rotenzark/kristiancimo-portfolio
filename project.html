@@ -275,43 +275,47 @@
     `;
   }
 
-  /* Set each gallery item's flex-grow proportional to its aspect ratio so that
+  /* Set each item's flex-grow proportional to its aspect ratio so that
      images on the same row end up sharing the same height (justified rows).
+     Works for both .p-gallery blocks and .story-images.multi blocks.
      Runs once per image (on load) and re-runs on window resize. */
+  function applyJustifiedRow(container, items) {
+    items.forEach(item => {
+      const img = item.querySelector('img');
+      if (!img) return;
+      const apply = () => {
+        const w = img.naturalWidth, h = img.naturalHeight;
+        if (!w || !h) return;
+        const ratio = w / h;
+        let orient = 'landscape';
+        if (ratio < 0.85) orient = 'portrait';
+        else if (ratio < 1.2) orient = 'square';
+        else if (ratio > 2.2) orient = 'wide';
+        item.setAttribute('data-orient', orient);
+        item.style.flexGrow = ratio.toFixed(3);
+        item.style.flexBasis = '0';
+        const minW = Math.max(140, Math.round(ratio * 180));
+        item.style.minWidth = minW + 'px';
+        img.removeAttribute('data-needs-orient');
+      };
+      if (img.complete && img.naturalWidth) apply();
+      else img.addEventListener('load', apply, { once: true });
+    });
+  }
+
   function detectOrientations() {
+    // Gallery blocks
     document.querySelectorAll('.p-gallery').forEach(gallery => {
       const items = Array.from(gallery.querySelectorAll('.item'));
       if (!items.length) return;
-      // Skip single-image blocks — they already flow full-width natural
-      if (gallery.classList.contains('count-1')) return;
-
-      items.forEach(item => {
-        const img = item.querySelector('img');
-        if (!img) return;
-        const apply = () => {
-          const w = img.naturalWidth, h = img.naturalHeight;
-          if (!w || !h) return;
-          const ratio = w / h;
-          // orient tag (kept for backward compat and CSS hooks)
-          let orient = 'landscape';
-          if (ratio < 0.85) orient = 'portrait';
-          else if (ratio < 1.2) orient = 'square';
-          else if (ratio > 2.2) orient = 'wide';
-          item.setAttribute('data-orient', orient);
-          // Justified-rows sizing:
-          //   flex-grow proportional to aspect ratio → wider images take more width,
-          //   narrower ones take less, but everything on the row ends up the same height.
-          item.style.flexGrow = ratio.toFixed(3);
-          item.style.flexBasis = '0';
-          // Sensible min-width so a tall portrait doesn't collapse:
-          // proportional to aspect ratio (portrait ~140px, landscape ~260px)
-          const minW = Math.max(140, Math.round(ratio * 180));
-          item.style.minWidth = minW + 'px';
-          img.removeAttribute('data-needs-orient');
-        };
-        if (img.complete && img.naturalWidth) apply();
-        else img.addEventListener('load', apply, { once: true });
-      });
+      if (gallery.classList.contains('count-1')) return; // skip single-image blocks
+      applyJustifiedRow(gallery, items);
+    });
+    // Storytelling image containers with multiple images
+    document.querySelectorAll('.story-images.multi').forEach(container => {
+      const items = Array.from(container.querySelectorAll('.item'));
+      if (!items.length) return;
+      applyJustifiedRow(container, items);
     });
   }
 
@@ -344,8 +348,8 @@
       setTimeout(() => { if (!box.classList.contains('open')) boxImg.src = ''; }, 400);
     }
 
-    // Click on gallery images opens the lightbox
-    document.querySelectorAll('.p-gallery .item').forEach(item => {
+    // Click on gallery images or storytelling images opens the lightbox
+    document.querySelectorAll('.p-gallery .item, .story-images .item').forEach(item => {
       if (item.dataset.lightboxBound) return;
       item.dataset.lightboxBound = '1';
       item.addEventListener('click', () => {
@@ -638,15 +642,30 @@
     if (Array.isArray(p.storytelling) && p.storytelling.length) {
       html += `<section class="p-section">
         ${head('Process')}
-        ${p.storytelling.map((item, i) => `
-          <div class="p-story reveal ${i % 2 ? 'reverse' : ''}">
-            <div class="img"><img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.heading || '')}" loading="lazy"></div>
-            <div class="text">
-              ${item.heading ? `<h3>${escapeHtml(item.heading)}</h3>` : ''}
-              ${item.text ? `<p>${escapeHtml(item.text)}</p>` : ''}
+        ${p.storytelling.map((item, i) => {
+          // normalize: prefer new `images` array; fall back to old single `image`
+          // each entry can be a plain string url OR an object like {src: "url"}
+          const pickSrc = x => (typeof x === 'string' ? x : (x && x.src) ? x.src : '');
+          const imgs = Array.isArray(item.images) && item.images.length
+            ? item.images.map(pickSrc).filter(Boolean)
+            : (item.image ? [item.image] : []);
+          const imgsHTML = imgs.length === 1
+            ? `<div class="story-images single"><div class="item"><img src="${escapeHtml(imgs[0])}" alt="${escapeHtml(item.heading || '')}" loading="lazy" data-needs-orient="1"></div></div>`
+            : imgs.length > 1
+              ? `<div class="story-images multi">${imgs.map(src =>
+                  `<div class="item"><img src="${escapeHtml(src)}" alt="${escapeHtml(item.heading || '')}" loading="lazy" data-needs-orient="1"></div>`
+                ).join('')}</div>`
+              : '';
+          return `
+            <div class="p-story reveal ${i % 2 ? 'reverse' : ''}">
+              <div class="img">${imgsHTML}</div>
+              <div class="text">
+                ${item.heading ? `<h3>${escapeHtml(item.heading)}</h3>` : ''}
+                ${item.text ? `<p>${escapeHtml(item.text)}</p>` : ''}
+              </div>
             </div>
-          </div>
-        `).join('')}
+          `;
+        }).join('')}
       </section>`;
     }
 

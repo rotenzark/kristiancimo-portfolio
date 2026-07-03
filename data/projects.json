@@ -630,6 +630,27 @@
           "caption": "",
           "file": "/media/shot_1.mp4",
           "url": ""
+        },
+        {
+          "tag": "",
+          "heading": "Shot 2 Render",
+          "caption": "",
+          "file": "/media/shot_2.mp4",
+          "url": ""
+        },
+        {
+          "tag": "",
+          "heading": "Shot 3 Render",
+          "caption": "",
+          "file": "/media/shot_3.mp4",
+          "url": ""
+        },
+        {
+          "tag": "",
+          "heading": "Shot 4 Render",
+          "caption": "",
+          "file": "",
+          "url": ""
         }
       ],
       "videoBeforeAfters": []

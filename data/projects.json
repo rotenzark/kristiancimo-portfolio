@@ -622,7 +622,17 @@
             }
           ]
         }
-      ]
+      ],
+      "videoBlocks": [
+        {
+          "tag": "",
+          "heading": "Shot 1 Render",
+          "caption": "",
+          "file": "/media/shot_1.mp4",
+          "url": ""
+        }
+      ],
+      "videoBeforeAfters": []
     },
     {
       "order": 6,

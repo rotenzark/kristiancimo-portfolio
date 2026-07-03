@@ -239,9 +239,9 @@
         {
           "title": "Intro Museum - 3D pipe, set extension",
           "videoBefore": "/media/INTRO_MUSEUM_RAW.mp4",
-          "videoAfter": "/media/INTRO_MUSEUM_EDIT.mp4",
-          "labelBefore": "Raw Plate",
-          "labelAfter": "Final CGI"
+          "videoAfter": "/media/INTRO_MUSEUM_EDITshort.mp4",
+          "labelBefore": "Before",
+          "labelAfter": "After"
         },
         {
           "title": "Mastantuono - removal",

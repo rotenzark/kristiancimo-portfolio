@@ -507,6 +507,42 @@
 
   /* ─── BACKWARD COMPAT: normalize old single fields → arrays ─── */
   function normalizeProject(p) {
+    // ── FIX MEDIA PATHS ──────────────────────────────────────────────
+    // The CMS (Sveltia, media_folder empty) writes bare filenames like
+    // "COVER.webp" instead of the full path. Media lives next to the
+    // project JSON in data/projects/<slug>/. So we prefix any bare
+    // filename with that folder. Absolute paths (/…), URLs (http…),
+    // and Vimeo/YouTube embeds are left untouched.
+    const slugForMedia = p.slug || slug(p.title || '');
+    const mediaBase = 'data/projects/' + slugForMedia + '/';
+    const fixPath = (v) => {
+      if (typeof v !== 'string' || !v) return v;
+      // leave absolute paths, full URLs, and data URIs alone
+      if (v.startsWith('/') || /^https?:\/\//i.test(v) || v.startsWith('data:')) return v;
+      // leave YouTube/Vimeo bare IDs/urls handled elsewhere alone (they contain no dot-extension of a media file)
+      return mediaBase + v;
+    };
+    const fixDeep = (obj) => {
+      if (Array.isArray(obj)) return obj.map(fixDeep);
+      if (obj && typeof obj === 'object') {
+        const out = {};
+        for (const [k, val] of Object.entries(obj)) {
+          // These keys hold media file references → fix them
+          const mediaKeys = ['image','previewVideo','gridCover169','insideCover',
+                             'src','imageBefore','imageAfter','videoBefore','videoAfter','file'];
+          if (mediaKeys.includes(k) && typeof val === 'string') {
+            out[k] = fixPath(val);
+          } else {
+            out[k] = fixDeep(val);
+          }
+        }
+        return out;
+      }
+      return obj;
+    };
+    p = fixDeep(p);
+    // ─────────────────────────────────────────────────────────────────
+
     // gallery: if it's a flat array of images (v2), wrap it in a single block
     let galleryBlocks = [];
     if (Array.isArray(p.galleryBlocks) && p.galleryBlocks.length) {

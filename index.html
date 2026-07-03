@@ -236,16 +236,26 @@
         grid.innerHTML = projList.map(p => {
           const id = p.slug || slug(p.title);
           const href = `project.html?id=${encodeURIComponent(id)}`;
-          const previewVideo = p.previewVideo || '';
+          // ── FIX MEDIA PATHS ──────────────────────────────────────────
+          // The CMS writes bare filenames ("COVER.webp"); media lives in
+          // data/projects/<slug>/. Prefix bare names; leave /…, http…, data: alone.
+          const mediaBase = 'data/projects/' + id + '/';
+          const fixPath = (v) => {
+            if (typeof v !== 'string' || !v) return '';
+            if (v.startsWith('/') || /^https?:\/\//i.test(v) || v.startsWith('data:')) return v;
+            return mediaBase + v;
+          };
+          const imgPath = fixPath(p.image);
+          const previewVideo = fixPath(p.previewVideo);
           const hasPreview = !!previewVideo;
           const orientAttr = p.cardOrientation ? ` data-orient="${escapeHtml(p.cardOrientation)}"` : '';
           // Uniform layout uses the 16:9 grid cover if provided; falls back to the
           // regular image (with object-fit: cover) if not.
-          const cover169 = p.gridCover169 || p.image;
+          const cover169 = fixPath(p.gridCover169) || imgPath;
           return `
             <a href="${href}" class="project interactive${hasPreview ? '' : ' no-preview'}"${orientAttr}>
               ${p.featured ? `<span class="project-tag">${escapeHtml(p.tagLabel || 'Featured')}</span>` : ''}
-              <img class="cover-img cover-img-default" src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" loading="lazy">
+              <img class="cover-img cover-img-default" src="${escapeHtml(imgPath)}" alt="${escapeHtml(p.title)}" loading="lazy">
               <img class="cover-img cover-img-169" src="${escapeHtml(cover169)}" alt="${escapeHtml(p.title)}" loading="lazy">
               ${hasPreview ? `
                 <video class="cover-video" data-src="${escapeHtml(previewVideo)}" muted loop playsinline preload="none"></video>

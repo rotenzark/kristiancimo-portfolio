@@ -1,0 +1,50 @@
+name: Build projects index
+
+# Whenever a project file changes (CMS save, manual edit, delete),
+# rebuild data/projects.json by merging all data/projects/*/index.json.
+# The website reads ONLY data/projects.json — this keeps it in sync.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/projects/**"
+
+permissions:
+  contents: write
+
+jobs:
+  build-index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Merge project files into projects.json
+        run: |
+          python3 - << 'PY'
+          import json, glob
+
+          items = []
+          for path in sorted(glob.glob("data/projects/*/index.json")):
+              with open(path, encoding="utf-8") as fh:
+                  items.append(json.load(fh))
+
+          items.sort(key=lambda p: p.get("order", 999))
+
+          with open("data/projects.json", "w", encoding="utf-8") as fh:
+              json.dump({"items": items}, fh, ensure_ascii=False, indent=2)
+              fh.write("\n")
+
+          print(f"Rebuilt projects.json with {len(items)} projects")
+          PY
+
+      - name: Commit updated index (if changed)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/projects.json
+          git diff --cached --quiet && echo "projects.json already up to date" || {
+            git commit -m "chore: rebuild projects.json"
+            git push
+          }

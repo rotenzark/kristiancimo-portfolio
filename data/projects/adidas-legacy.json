@@ -95,8 +95,8 @@
   "videoBeforeAfters": [
     {
       "title": "Intro Museum - 3D pipe, set extension",
-      "videoBefore": "/media/INTRO_MUSEUM_RAW.mp4",
-      "videoAfter": "/media/INTRO_MUSEUM_EDIT.mp4",
+      "videoBefore": "media/projects/adidas-legacy/INTRO_MUSEUM_RAW.mp4",
+      "videoAfter": "media/projects/adidas-legacy/INTRO_MUSEUM_EDIT.mp4",
       "labelBefore": "Before",
       "labelAfter": "After"
     },

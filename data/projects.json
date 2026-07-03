@@ -397,11 +397,13 @@
           ]
         },
         {
-          "heading": "02 - Shot 1 Viewport",
+          "heading": "02 - Shot 1/2/3  Viewport",
           "text": "Camera animation",
           "image": "",
           "images": [
-            "/media/VIEWPORT.mp4"
+            "/media/VIEWPORT.mp4",
+            "/media/trofei_viewport.mp4",
+            "/media/tv_viewport.mp4"
           ]
         }
       ]

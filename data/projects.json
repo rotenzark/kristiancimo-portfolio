@@ -567,14 +567,43 @@
       "coverVideo": "",
       "tagLabel": "",
       "subtitle": "",
-      "client": "",
+      "client": "Carlos Sainz",
       "talent": "Carlos Sainz",
-      "role": "CGI · Product Design",
-      "software": "C4D · Octane",
-      "format": "",
-      "publicationUrl": "",
-      "publicationLabel": "",
-      "description": ""
+      "role": "CGI · VFX ·  Compositing",
+      "software": "Blender · After Effects",
+      "format": "Social",
+      "publicationUrl": "https://www.instagram.com/reel/DLqANufIfee/?igsh=MWp0b3JnNGx3b2VyeQ==",
+      "publicationLabel": "View on Instagram",
+      "description": "",
+      "galleryBlocks": [
+        {
+          "tag": "",
+          "heading": "",
+          "caption": "",
+          "images": [
+            {
+              "src": "/media/Frame_1-2.png",
+              "alt": ""
+            },
+            {
+              "src": "/media/Frame_2-2.png",
+              "alt": ""
+            },
+            {
+              "src": "/media/Frame_3-2.png",
+              "alt": ""
+            },
+            {
+              "src": "/media/Frame_4-2.png",
+              "alt": ""
+            },
+            {
+              "src": "/media/Frame_5-1.png",
+              "alt": ""
+            }
+          ]
+        }
+      ]
     },
     {
       "order": 6,

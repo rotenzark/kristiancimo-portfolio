@@ -270,11 +270,11 @@
           "labelAfter": "After"
         },
         {
-          "title": "Mastantuono - removal",
-          "videoBefore": "",
-          "videoAfter": "",
-          "labelBefore": "Raw Plate",
-          "labelAfter": "Final CGI"
+          "title": "Mastantuono - clean ups, tracking",
+          "videoBefore": "data/projects/adidas-legacy/MASTANTUONO_SCANNER_RAW.mp4",
+          "videoAfter": "data/projects/adidas-legacy/MASTANTUONO_SCANNER_EDIT.mp4",
+          "labelBefore": "Before",
+          "labelAfter": "After"
         },
         {
           "title": "Control Basket - removal",

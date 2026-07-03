@@ -179,8 +179,16 @@ collections:
               - { label: "🎥 Grid Preview Video (HOVER on homepage)", name: "previewVideo", widget: "file", required: false,
                   hint: "COVER MEDIA — Optional short MP4 (5-15s) that plays when a visitor HOVERS the tile in the homepage. Upload it in the SAME aspect ratio as the Grid Cover above. Keep <5MB." }
 
+              - { label: "🎥 Grid Cover 16:9 (uniform layout only)", name: "gridCover169", widget: "image", required: false,
+                  hint: "COVER MEDIA — Optional horizontal 16:9 version of the cover, used ONLY when a visitor switches the homepage layout to 'Uniform 16:9'. Recommended: 1920×1080 landscape. Leave empty to fall back to the main Grid Cover (which will be center-cropped)." }
+
+              - { label: "🌌 Space Position X (0-100, spatial layout only)", name: "spaceX", widget: "number", value_type: "float", required: false, min: 0, max: 100,
+                  hint: "SPATIAL LAYOUT — Optional. Horizontal position (0=left, 50=center, 100=right) of this project card in the cosmic spatial homepage view. Leave empty for automatic placement." }
+              - { label: "🌌 Space Position Y (0-100, spatial layout only)", name: "spaceY", widget: "number", value_type: "float", required: false, min: 0, max: 100,
+                  hint: "SPATIAL LAYOUT — Optional. Vertical position (0=top, 50=center, 100=bottom) in the cosmic spatial homepage view. Leave empty for automatic placement." }
+
               - { label: "🎥 Inside Cover — Image (project page hero)", name: "insideCover", widget: "image", required: false,
-                  hint: "COVER MEDIA — Optional. Different image shown as the BIG HERO inside the project page (e.g. a horizontal 21:9 version while the homepage tile is vertical). If empty, the Grid Cover is used." }
+                  hint: "COVER MEDIA — Optional. Different image shown as the BIG HERO inside the project page (e.g. a horizontal 21:9 cinematic version while the homepage tile is vertical). If empty, the Grid Cover is used." }
 
               - { label: "🎥 Inside Cover — Video URL (project page hero, wins over image)", name: "coverVideo", widget: "string", required: false,
                   hint: "COVER MEDIA — Optional Vimeo/YouTube URL or direct video URL. If set, this video is used as the inside-page hero INSTEAD of the Inside Cover image." }
@@ -290,13 +298,13 @@ collections:
                   - { label: "Heading", name: "heading", widget: "string", required: false }
                   - { label: "Text", name: "text", widget: "text", required: false }
                   - { label: "Image or Video (single — legacy field)", name: "image", widget: "file", required: false,
-                      hint: "Optional. One image OR video file (MP4/WEBM/MOV) for this block. If you add multiple files below, this is ignored." }
+                      hint: "One image OR video file (MP4/WEBM/MOV). If you add multiple files below, this is ignored." }
                   - label: "Images or Videos (multiple — optional)"
                     name: "images"
                     widget: "list"
                     required: false
                     summary: "Item {{index}}"
-                    hint: "Optional. Add 2+ images or videos to display them side-by-side in this Process block (native aspect ratios preserved). Overrides the single Image/Video above when used. ⚠️ Keep videos small (<5MB, 1-5s)."
+                    hint: "Optional. Add 2+ images or videos to display them side-by-side in this Process block. Native aspect ratios preserved. ⚠️ Keep videos small (<5MB, 1-5s)."
                     field: { label: "Image or Video file", name: "src", widget: "file" }
 
               - label: "🏆 Credits"

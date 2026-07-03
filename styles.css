@@ -239,26 +239,40 @@ nav {
 
 /* WORK GRID */
 .work { padding: 160px 32px 120px; }
-/* Work grid — aspect-aware: each project keeps its cover's native aspect ratio.
-   Rows are justified (uniform height, widths proportional to aspect).
-   JS reads the cover image/video dimensions and sets flex-grow accordingly. */
 .work-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
   gap: 24px;
+  grid-auto-flow: dense; /* fills gaps intelligently when column spans vary */
 }
 .project {
   position: relative; overflow: hidden;
   background: var(--bg-2);
+  aspect-ratio: 4 / 3;
   display: block;
-  /* JS overrides these once dimensions are known.
-     Until then, keep a decent placeholder so nothing collapses. */
-  flex: 1 1 0;
-  min-width: 260px;
-  aspect-ratio: 16 / 9;
 }
-/* When JS has set data-ratio, honor the native aspect ratio */
-.project[data-ratio] { aspect-ratio: var(--cover-ratio, 16 / 9); }
+/* Default asymmetric layout (unchanged from before) */
+.project:nth-child(8n+1) { grid-column: 1 / 8; aspect-ratio: 16 / 9; }
+.project:nth-child(8n+2) { grid-column: 8 / 13; aspect-ratio: 3 / 4; }
+.project:nth-child(8n+3) { grid-column: 1 / 5; aspect-ratio: 3 / 4; }
+.project:nth-child(8n+4) { grid-column: 5 / 13; aspect-ratio: 16 / 9; }
+.project:nth-child(8n+5) { grid-column: 1 / 7; }
+.project:nth-child(8n+6) { grid-column: 7 / 13; }
+.project:nth-child(8n+7) { grid-column: 1 / 6; aspect-ratio: 3 / 4; }
+.project:nth-child(8n) { grid-column: 6 / 13; aspect-ratio: 16 / 9; }
+
+/* ─── Per-project aspect ratio override (from CMS "Card Orientation") ─── */
+/* When you pick a specific orientation for a project in the CMS,
+   that value wins over the default slot ratio above.
+   The column span is inferred from the ratio to keep the row balanced. */
+.project[data-orient="16-9"]  { aspect-ratio: 16 / 9;  grid-column: span 8; }
+.project[data-orient="9-16"]  { aspect-ratio: 9 / 16;  grid-column: span 4; }
+.project[data-orient="4-5"]   { aspect-ratio: 4 / 5;   grid-column: span 5; }
+.project[data-orient="1-1"]   { aspect-ratio: 1 / 1;   grid-column: span 6; }
+.project[data-orient="3-4"]   { aspect-ratio: 3 / 4;   grid-column: span 4; }
+.project[data-orient="4-3"]   { aspect-ratio: 4 / 3;   grid-column: span 7; }
+.project[data-orient="21-9"]  { aspect-ratio: 21 / 9;  grid-column: 1 / -1; }
+.project[data-orient="wide"]  { aspect-ratio: 21 / 9;  grid-column: 1 / -1; }
 
 /* ◆ v3 CHANGE: full color always, slight darken for legibility, scale on hover */
 .project .cover-img,
@@ -322,14 +336,8 @@ nav {
 }
 @media (max-width: 900px) {
   .work { padding: 80px 20px; }
-  .work-grid { flex-direction: column; gap: 12px; }
-  .project {
-    flex: none;
-    width: 100%;
-    min-width: 0;
-    /* Native ratio from JS. Fallback = 16/9 if JS hasn't run yet. */
-    aspect-ratio: var(--cover-ratio, 16 / 9) !important;
-  }
+  .work-grid { grid-template-columns: 1fr; gap: 12px; }
+  .project { grid-column: 1 / -1 !important; aspect-ratio: 4 / 3 !important; }
   /* on mobile, hover doesn't exist — hide preview video to save bandwidth */
   .project .cover-video { display: none; }
 }
@@ -664,49 +672,28 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   min-width: 200px;
   cursor: pointer;                          /* signal that images are clickable */
 }
-.p-gallery .item img,
-.p-gallery .item video {
+.p-gallery .item img {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
   transition: transform 1.2s cubic-bezier(.2,.8,.2,1);
 }
-.p-gallery .item:hover img,
-.p-gallery .item:hover video { transform: scale(1.03); }
-/* Video tile badge */
-.p-gallery .item.is-video { position: relative; }
-.p-gallery .item.is-video::after {
-  content: '▶';
-  position: absolute;
-  right: 12px; bottom: 10px;
-  font-size: 12px;
-  color: rgba(255,255,255,0.85);
-  background: rgba(0,0,0,0.55);
-  padding: 4px 8px;
-  border-radius: 2px;
-  letter-spacing: 0.12em;
-  pointer-events: none;
-  opacity: 0.85;
-  transition: opacity 0.25s;
-}
-.p-gallery .item.is-video:hover::after { opacity: 1; }
+.p-gallery .item:hover img { transform: scale(1.03); }
 
 /* single image gets the full width, natural ratio (no forced crop) */
 .p-gallery.count-1 { display: block; }
 .p-gallery.count-1 .item { flex: none; }
-.p-gallery.count-1 .item img,
-.p-gallery.count-1 .item video { width: 100%; height: auto; }
+.p-gallery.count-1 .item img { width: 100%; height: auto; }
 
 @media (max-width: 900px) {
   .p-gallery { flex-direction: column; }
   .p-gallery .item { min-width: 0; width: 100%; }
-  .p-gallery .item img,
-  .p-gallery .item video { height: auto; }
+  .p-gallery .item img { height: auto; }
   .gallery-block { margin-bottom: 60px; }
 }
 
-/* ════════ LIGHTBOX (fullscreen image/video viewer on click) ════════ */
+/* ════════ LIGHTBOX (fullscreen image viewer on click) ════════ */
 .lightbox {
   position: fixed; inset: 0;
   background: rgba(6, 6, 6, 0.96);
@@ -723,8 +710,7 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   opacity: 1;
   visibility: visible;
 }
-.lightbox img,
-.lightbox video {
+.lightbox img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
@@ -732,12 +718,8 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   cursor: default;
   transform: scale(0.96);
   transition: transform 0.35s cubic-bezier(.2,.8,.2,1);
-  background: #000;
 }
-.lightbox.open img,
-.lightbox.open video { transform: scale(1); }
-.lightbox img[hidden],
-.lightbox video[hidden] { display: none; }
+.lightbox.open img { transform: scale(1); }
 .lightbox-close {
   position: absolute;
   top: 24px; right: 32px;

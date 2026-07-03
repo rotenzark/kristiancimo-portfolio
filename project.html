@@ -244,12 +244,6 @@
 
   /* ─── HELPERS to render sub-blocks ─── */
 
-  // Detects a video file by extension (used to render <video> instead of <img>)
-  function isVideoFile(url) {
-    if (!url) return false;
-    return /\.(mp4|webm|mov|m4v|ogv)($|\?)/i.test(url);
-  }
-
   function renderGalleryBlock(block, idx, total) {
     if (!block) return '';
     const images = (block.images || []).filter(Boolean);
@@ -273,13 +267,7 @@
           ${images.map(img => {
             const src = typeof img === 'string' ? img : img.src;
             const alt = typeof img === 'string' ? '' : (img.alt || '');
-            // If it's a video file, render an autoplay muted looping video.
-            // Otherwise render an image. JS reads intrinsic dimensions for justified rows.
-            if (isVideoFile(src)) {
-              return `<div class="item is-video">
-                <video src="${escapeHtml(src)}" autoplay muted loop playsinline preload="metadata" data-needs-orient="1"></video>
-              </div>`;
-            }
+            // orientation will be set by JS after image loads
             return `<div class="item"><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" data-needs-orient="1"></div>`;
           }).join('')}
         </div>
@@ -293,12 +281,10 @@
      Runs once per image (on load) and re-runs on window resize. */
   function applyJustifiedRow(container, items) {
     items.forEach(item => {
-      const media = item.querySelector('img, video');
-      if (!media) return;
-      const isVid = media.tagName === 'VIDEO';
+      const img = item.querySelector('img');
+      if (!img) return;
       const apply = () => {
-        const w = isVid ? media.videoWidth : media.naturalWidth;
-        const h = isVid ? media.videoHeight : media.naturalHeight;
+        const w = img.naturalWidth, h = img.naturalHeight;
         if (!w || !h) return;
         const ratio = w / h;
         let orient = 'landscape';
@@ -310,15 +296,10 @@
         item.style.flexBasis = '0';
         const minW = Math.max(140, Math.round(ratio * 180));
         item.style.minWidth = minW + 'px';
-        media.removeAttribute('data-needs-orient');
+        img.removeAttribute('data-needs-orient');
       };
-      if (isVid) {
-        if (media.readyState >= 1 && media.videoWidth) apply();
-        else media.addEventListener('loadedmetadata', apply, { once: true });
-      } else {
-        if (media.complete && media.naturalWidth) apply();
-        else media.addEventListener('load', apply, { once: true });
-      }
+      if (img.complete && img.naturalWidth) apply();
+      else img.addEventListener('load', apply, { once: true });
     });
   }
 
@@ -338,7 +319,7 @@
     });
   }
 
-  /* ─── LIGHTBOX: click any gallery image/video to open fullscreen ─── */
+  /* ─── LIGHTBOX: click any gallery image to open it fullscreen ─── */
   function setupLightbox() {
     // Build lightbox once and reuse
     let box = document.querySelector('.lightbox');
@@ -347,53 +328,33 @@
       box.className = 'lightbox';
       box.innerHTML = `
         <button class="lightbox-close interactive" aria-label="Close">✕</button>
-        <img alt="" hidden>
-        <video controls playsinline hidden></video>
+        <img alt="">
       `;
       document.body.appendChild(box);
     }
     const boxImg = box.querySelector('img');
-    const boxVid = box.querySelector('video');
     const closeBtn = box.querySelector('.lightbox-close');
 
-    function openImage(src, alt) {
-      boxVid.hidden = true; boxVid.pause(); boxVid.removeAttribute('src'); boxVid.load();
-      boxImg.hidden = false;
+    function open(src, alt) {
       boxImg.src = src;
       boxImg.alt = alt || '';
       box.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function openVideo(src) {
-      boxImg.hidden = true; boxImg.src = '';
-      boxVid.hidden = false;
-      boxVid.src = src;
-      boxVid.currentTime = 0;
-      boxVid.play().catch(() => {}); // autoplay may be blocked, controls still available
-      box.classList.add('open');
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden'; // lock scroll while open
     }
     function close() {
       box.classList.remove('open');
       document.body.style.overflow = '';
-      setTimeout(() => {
-        if (!box.classList.contains('open')) {
-          boxImg.src = '';
-          if (!boxVid.paused) boxVid.pause();
-          boxVid.removeAttribute('src'); boxVid.load();
-        }
-      }, 400);
+      // clear src after fade to free memory
+      setTimeout(() => { if (!box.classList.contains('open')) boxImg.src = ''; }, 400);
     }
 
-    // Click on gallery items or storytelling items opens the lightbox
+    // Click on gallery images or storytelling images opens the lightbox
     document.querySelectorAll('.p-gallery .item, .story-images .item').forEach(item => {
       if (item.dataset.lightboxBound) return;
       item.dataset.lightboxBound = '1';
       item.addEventListener('click', () => {
-        const vid = item.querySelector('video');
-        if (vid) return openVideo(vid.currentSrc || vid.src);
         const img = item.querySelector('img');
-        if (img) return openImage(img.src, img.alt);
+        if (img) open(img.src, img.alt);
       });
     });
 
@@ -411,10 +372,8 @@
 
   function renderVideoBlock(block, idx, total) {
     if (!block) return '';
-    // Priority: uploaded video file wins over external URL
-    const file = block.file || block.videoFile;
     const url = block.url;
-    if (!file && !url) return '';
+    if (!url) return '';
     const tag = block.tag ? `<span class="tag">${escapeHtml(block.tag)}</span>` : '';
     const heading = block.heading ? `<h3>${escapeHtml(block.heading)}</h3>` : '';
     const caption = block.caption ? `<p>${escapeHtml(block.caption)}</p>` : '';
@@ -425,20 +384,14 @@
         ${caption}
       </div>
     ` : '';
-    let media;
-    if (file) {
-      media = `<video src="${escapeHtml(file)}" controls playsinline preload="metadata"></video>`;
-    } else {
-      const embed = videoEmbed(url);
-      media = embed
-        ? `<iframe src="${escapeHtml(embed)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
-        : `<video src="${escapeHtml(url)}" controls playsinline></video>`;
-    }
+    const embed = videoEmbed(url);
     return `
       <div class="video-block reveal">
         ${head}
         <div class="p-video">
-          ${media}
+          ${embed
+            ? `<iframe src="${escapeHtml(embed)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
+            : `<video src="${escapeHtml(url)}" controls playsinline></video>`}
         </div>
       </div>
     `;
@@ -619,7 +572,11 @@
       </section>
     `;
 
-    /* COVER */
+    /* COVER — project page hero
+       Priority order (first non-empty wins):
+       1. coverVideo (Vimeo/YouTube/direct file) — video hero
+       2. insideCover (dedicated inside-page image, e.g. horizontal) — different from home tile
+       3. image (the home tile image, fallback) */
     if (p.coverVideo) {
       const embed = videoEmbed(p.coverVideo);
       if (embed) {
@@ -627,6 +584,8 @@
       } else {
         html += `<section class="project-cover"><video src="${escapeHtml(p.coverVideo)}" autoplay muted loop playsinline></video></section>`;
       }
+    } else if (p.insideCover) {
+      html += `<section class="project-cover"><img src="${escapeHtml(p.insideCover)}" alt="${escapeHtml(p.title)}"></section>`;
     } else if (p.image) {
       html += `<section class="project-cover"><img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}"></section>`;
     }

@@ -1,0 +1,101 @@
+{
+  "draft": false,
+  "order": 4,
+  "slug": "barcelona-world-cup",
+  "title": "Barcelona × World Cup",
+  "year": "November 2025",
+  "category": "Football",
+  "image": "",
+  "cardOrientation": "9-16",
+  "previewVideo": "",
+  "gridCover169": "",
+  "insideCover": "",
+  "coverVideo": "",
+  "tagLabel": "",
+  "subtitle": "",
+  "client": "FC Barcelona",
+  "talent": "",
+  "role": "VFX · CGI",
+  "software": "Blender · Nuke",
+  "format": "Social",
+  "publicationUrl": "https://www.instagram.com/reel/DRO1Zt8DEBP/?igsh=ZTdsNWdzNXRvN2hv",
+  "publicationLabel": "View on Instagram",
+  "description": "",
+  "galleryBlocks": [
+    {
+      "tag": "",
+      "heading": "",
+      "caption": "",
+      "images": [
+        {
+          "src": "",
+          "alt": ""
+        },
+        {
+          "src": "",
+          "alt": ""
+        },
+        {
+          "src": "",
+          "alt": ""
+        },
+        {
+          "src": "",
+          "alt": ""
+        }
+      ]
+    },
+    {
+      "tag": "",
+      "heading": "References from client",
+      "caption": "",
+      "images": [
+        {
+          "src": "",
+          "alt": ""
+        },
+        {
+          "src": "",
+          "alt": ""
+        },
+        {
+          "src": "",
+          "alt": ""
+        },
+        {
+          "src": "",
+          "alt": ""
+        }
+      ]
+    }
+  ],
+  "beforeAfters": [
+    {
+      "title": "Shot",
+      "imageBefore": "",
+      "imageAfter": "",
+      "labelBefore": "Viewport",
+      "labelAfter": "Render"
+    }
+  ],
+  "videoBeforeAfters": [
+    {
+      "title": "Raw vs Edit",
+      "videoBefore": "",
+      "videoAfter": "",
+      "labelBefore": "Raw Plate",
+      "labelAfter": "Final CGI"
+    }
+  ],
+  "storytelling": [
+    {
+      "heading": "Extra angles",
+      "text": "Some environment renders",
+      "image": "",
+      "images": [
+        "",
+        ""
+      ]
+    }
+  ]
+}

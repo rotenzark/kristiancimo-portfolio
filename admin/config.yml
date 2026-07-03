@@ -128,8 +128,9 @@ collections:
   - name: "projects"
     label: "📁 Projects"
     label_singular: "Project"
-    description: "Each project is a separate entry. Media you upload inside a project is automatically stored in its own folder: media/projects/<slug>/."
+    description: "Each project is a separate entry with its OWN folder. Media you upload inside a project is stored right next to it, in data/projects/<slug>/. Filenames can repeat across projects without conflict."
     folder: "data/projects"
+    path: "{{fields.slug}}/index"
     format: "json"
     extension: "json"
     create: true
@@ -138,8 +139,8 @@ collections:
     slug: "{{fields.slug}}"
     summary: "{{fields.order}}. {{fields.title}} — {{fields.year}} · {{fields.client}}"
     sortable_fields: ["order", "title", "year"]
-    media_folder: "/media/projects/{{fields.slug}}"
-    public_folder: "/media/projects/{{fields.slug}}"
+    media_folder: ""
+    public_folder: "/data/projects/{{fields.slug}}"
     fields:
       - { label: "🚫 Draft (hide from website)", name: "draft", widget: "boolean", default: false, required: false,
           hint: "If ON, this project is NOT shown on the website (homepage grid and sitemap). Turn OFF when the project is ready to publish." }

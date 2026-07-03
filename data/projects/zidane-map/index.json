@@ -5,11 +5,11 @@
   "title": "Zidane - Inspire Signature",
   "year": "May 2025",
   "category": "Football / Cartography / CGI",
-  "image": "/media/projects/zidane-map/COPERTINA_SITO_VERTICALE.png",
+  "image": "",
   "cardOrientation": "9-16",
-  "previewVideo": "/media/projects/zidane-map/render_site_hover.mp4",
-  "gridCover169": "/media/projects/zidane-map/COPERTINA_SITO.png",
-  "insideCover": "/media/projects/zidane-map/COPERTINA_SITO_21_9.png",
+  "previewVideo": "",
+  "gridCover169": "",
+  "insideCover": "",
   "coverVideo": "",
   "tagLabel": "",
   "subtitle": "",
@@ -28,31 +28,31 @@
       "caption": "",
       "images": [
         {
-          "src": "/media/projects/zidane-map/Frame_1.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/zidane-map/Frame_2.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/zidane-map/Frame_3.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/zidane-map/Frame_4.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/zidane-map/Frame_5.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/zidane-map/Frame_6.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/zidane-map/Frame_7.png",
+          "src": "",
           "alt": ""
         }
       ]
@@ -61,22 +61,22 @@
   "videoBeforeAfters": [
     {
       "title": "Shot 1",
-      "videoBefore": "/media/projects/zidane-map/VIEWPORT.mp4",
-      "videoAfter": "/media/projects/zidane-map/render_short.mp4",
+      "videoBefore": "",
+      "videoAfter": "",
       "labelBefore": "Viewport",
       "labelAfter": "Render"
     },
     {
       "title": "Shot 2",
-      "videoBefore": "/media/projects/zidane-map/trofei_viewport.mp4",
-      "videoAfter": "/media/projects/zidane-map/trofei_rnd.mp4",
+      "videoBefore": "",
+      "videoAfter": "",
       "labelBefore": "Viewport",
       "labelAfter": "Render"
     },
     {
       "title": "Shot 3",
-      "videoBefore": "/media/projects/zidane-map/tv_viewport.mp4",
-      "videoAfter": "/media/projects/zidane-map/tv_rnd.mp4",
+      "videoBefore": "",
+      "videoAfter": "",
       "labelBefore": "Viewport",
       "labelAfter": "Render"
     }
@@ -87,8 +87,8 @@
       "text": "Blender was used to create the room",
       "image": "",
       "images": [
-        "/media/projects/zidane-map/Viewport_1.png",
-        "/media/projects/zidane-map/Viewport_2.png"
+        "",
+        ""
       ]
     },
     {
@@ -96,9 +96,9 @@
       "text": "Camera animation",
       "image": "",
       "images": [
-        "/media/projects/zidane-map/VIEWPORT.mp4",
-        "/media/projects/zidane-map/trofei_viewport.mp4",
-        "/media/projects/zidane-map/tv_viewport.mp4"
+        "",
+        "",
+        ""
       ]
     },
     {
@@ -106,7 +106,7 @@
       "text": "Texturing the scene",
       "image": "",
       "images": [
-        "/media/projects/zidane-map/Texturing.png"
+        ""
       ]
     },
     {
@@ -114,7 +114,7 @@
       "text": "AI was used to create this transition",
       "image": "",
       "images": [
-        "/media/projects/zidane-map/A_smooth_cinematic_transition_from_an_old_paper_map_of_Marseille_to_a_modern_aerial_view_of_the_same_seed467585751.mp4"
+        ""
       ]
     }
   ],

@@ -5,10 +5,10 @@
   "title": "Adidas - Legacy Museum",
   "year": "December 2025",
   "category": "Football",
-  "image": "/media/projects/adidas-legacy/COPERTINA_VERTICALE.png",
+  "image": "",
   "cardOrientation": "9-16",
-  "previewVideo": "/media/projects/adidas-legacy/QUADRO_EDIT_NOSTOP.mp4",
-  "gridCover169": "/media/projects/adidas-legacy/COPERTINA_ORIZZONTALE.png",
+  "previewVideo": "",
+  "gridCover169": "",
   "coverVideo": "",
   "featured": false,
   "tagLabel": "",
@@ -28,35 +28,35 @@
       "caption": "",
       "images": [
         {
-          "src": "/media/projects/adidas-legacy/RAUL.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/adidas-legacy/BRAHIM.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/adidas-legacy/QUADRO_EDIT.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/adidas-legacy/BACK_IMPACT_EDIT.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/adidas-legacy/BASKET_EDIT.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/adidas-legacy/LASERS_EDIT.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/adidas-legacy/SCREEN_EDIT.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/adidas-legacy/TECA.png",
+          "src": "",
           "alt": ""
         }
       ]
@@ -65,29 +65,29 @@
   "beforeAfters": [
     {
       "title": "Museum Hall - set extension",
-      "imageBefore": "/media/projects/adidas-legacy/CORRIDOR_2_FIRST_FRAME_RAW.png",
-      "imageAfter": "/media/projects/adidas-legacy/CORRIDOR_2_FIRST_FRAME_EDIT.png",
+      "imageBefore": "",
+      "imageAfter": "",
       "labelBefore": "Before",
       "labelAfter": "After"
     },
     {
       "title": "Basket - clean ups",
-      "imageBefore": "/media/projects/adidas-legacy/BASKET_RAW.png",
-      "imageAfter": "/media/projects/adidas-legacy/BASKET_EDIT.png",
+      "imageBefore": "",
+      "imageAfter": "",
       "labelBefore": "Before",
       "labelAfter": "After"
     },
     {
       "title": "Aitana - picture replacement",
-      "imageBefore": "/media/projects/adidas-legacy/QUADRO_RAW.png",
-      "imageAfter": "/media/projects/adidas-legacy/QUADRO_EDIT.png",
+      "imageBefore": "",
+      "imageAfter": "",
       "labelBefore": "Before",
       "labelAfter": "After"
     },
     {
       "title": "Aitana & Brahim - set extension and removal",
-      "imageBefore": "/media/projects/adidas-legacy/BACK_IMPACT_RAW.png",
-      "imageAfter": "/media/projects/adidas-legacy/BACK_IMPACT_EDIT.png",
+      "imageBefore": "",
+      "imageAfter": "",
       "labelBefore": "Before",
       "labelAfter": "After"
     }
@@ -95,50 +95,50 @@
   "videoBeforeAfters": [
     {
       "title": "Intro Museum - 3D pipe, set extension",
-      "videoBefore": "/media/INTRO_MUSEUM_RAW.mp4",
-      "videoAfter": "/media/INTRO_MUSEUM_EDIT.mp4",
+      "videoBefore": "",
+      "videoAfter": "",
       "labelBefore": "Before",
       "labelAfter": "After"
     },
     {
       "title": "Mastantuono - removal",
-      "videoBefore": "/media/MASTANTUONO_SCANNER_RAW.mp4",
-      "videoAfter": "/media/MASTANTUONO_SCANNER_EDIT.mp4",
+      "videoBefore": "",
+      "videoAfter": "",
       "labelBefore": "Raw Plate",
       "labelAfter": "Final CGI"
     },
     {
       "title": "Control Basket - removal",
-      "videoBefore": "/media/projects/adidas-legacy/CONTROL_BASKET_RAW.mp4",
-      "videoAfter": "/media/projects/adidas-legacy/CONTROL_BASKET_EDIT.mp4",
+      "videoBefore": "",
+      "videoAfter": "",
       "labelBefore": "Before",
       "labelAfter": "After"
     },
     {
       "title": "Screen replacement",
-      "videoBefore": "/media/projects/adidas-legacy/SCREEN_RAW.mp4",
-      "videoAfter": "/media/projects/adidas-legacy/SCREEN_EDIT.mp4",
+      "videoBefore": "",
+      "videoAfter": "",
       "labelBefore": "Before",
       "labelAfter": "After"
     },
     {
       "title": "Aitana - picure replacement",
-      "videoBefore": "/media/projects/adidas-legacy/QUADRO_RAW.mp4",
-      "videoAfter": "/media/projects/adidas-legacy/QUADRO_EDIT.mp4",
+      "videoBefore": "",
+      "videoAfter": "",
       "labelBefore": "Raw Plate",
       "labelAfter": "Final CGI"
     },
     {
       "title": "Brahim - lasers compositing",
-      "videoBefore": "/media/projects/adidas-legacy/LASERS_RAWshort.mp4",
-      "videoAfter": "/media/projects/adidas-legacy/LASERS_EDIT.mp4",
+      "videoBefore": "",
+      "videoAfter": "",
       "labelBefore": "Before",
       "labelAfter": "After"
     },
     {
       "title": "Aitana and Brahim - set extension and roto",
-      "videoBefore": "/media/projects/adidas-legacy/IMPACT_RAW.mp4",
-      "videoAfter": "/media/projects/adidas-legacy/IMPACT_EDIT.mp4",
+      "videoBefore": "",
+      "videoAfter": "",
       "labelBefore": "Before",
       "labelAfter": "After"
     }

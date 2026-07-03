@@ -5,11 +5,11 @@
   "title": "Sainz · Silverstone",
   "year": "July 2025",
   "category": "F1 / Product CGI",
-  "image": "/media/projects/sainz-silverstone/copertina.png",
+  "image": "",
   "cardOrientation": "9-16",
-  "previewVideo": "/media/projects/sainz-silverstone/final_video.mp4",
-  "gridCover169": "/media/projects/sainz-silverstone/copertina_hor.png",
-  "insideCover": "/media/projects/sainz-silverstone/copertina_hor.png",
+  "previewVideo": "",
+  "gridCover169": "",
+  "insideCover": "",
   "coverVideo": "",
   "tagLabel": "",
   "subtitle": "",
@@ -28,23 +28,23 @@
       "caption": "",
       "images": [
         {
-          "src": "/media/projects/sainz-silverstone/Frame_1-2.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/sainz-silverstone/Frame_2-2.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/sainz-silverstone/Frame_3-2.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/sainz-silverstone/Frame_4-2.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/sainz-silverstone/Frame_5-1.png",
+          "src": "",
           "alt": ""
         }
       ]
@@ -55,15 +55,15 @@
       "caption": "Some frames from Blender's viewport",
       "images": [
         {
-          "src": "/media/projects/sainz-silverstone/shot1_vp.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/sainz-silverstone/Viewport_1-1.png",
+          "src": "",
           "alt": ""
         },
         {
-          "src": "/media/projects/sainz-silverstone/Viewport_2-1.png",
+          "src": "",
           "alt": ""
         }
       ]
@@ -74,21 +74,21 @@
       "tag": "",
       "heading": "Shot 1 Render",
       "caption": "",
-      "file": "/media/projects/sainz-silverstone/shot_1.mp4",
+      "file": "",
       "url": ""
     },
     {
       "tag": "",
       "heading": "Shot 2 Render",
       "caption": "",
-      "file": "/media/projects/sainz-silverstone/shot_2.mp4",
+      "file": "",
       "url": ""
     },
     {
       "tag": "",
       "heading": "Shot 3 Render",
       "caption": "",
-      "file": "/media/projects/sainz-silverstone/shot_3.mp4",
+      "file": "",
       "url": ""
     },
     {

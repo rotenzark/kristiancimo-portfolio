@@ -174,6 +174,10 @@ collections:
                   hint: "PROJECT INFO — Tools used. e.g. Nano Banana Pro, Seedance, After Effects, Blender" }
               - { label: "📝 Format", name: "format", widget: "string", required: false,
                   hint: "PROJECT INFO — Deliverable format. e.g. 16:9 · 4K · 30s, 9:16 · Vertical, Print" }
+              - { label: "🔗 Publication Link (URL)", name: "publicationUrl", widget: "string", required: false,
+                  hint: "PROJECT INFO — Optional. Public link where this project lives (Instagram post, client's site, Vimeo, press feature...). Shows a button under the info block. Leave empty to hide the button." }
+              - { label: "🔗 Publication Button Label", name: "publicationLabel", widget: "string", required: false, default: "View Publication",
+                  hint: "PROJECT INFO — Text on the button. e.g. View on Instagram, Watch on Vimeo, Read Case Study. Only used if Publication Link is set." }
               - { label: "📝 Description / Case Study Text", name: "description", widget: "text", required: false,
                   hint: "PROJECT INFO — Long-form story of the project. Separate paragraphs with a blank line." }
 

@@ -116,8 +116,8 @@
     },
     {
       "title": "Screen replacement",
-      "videoBefore": "",
-      "videoAfter": "",
+      "videoBefore": "data/projects/adidas-legacy/SCREEN_RAW.mp4",
+      "videoAfter": "data/projects/adidas-legacy/SCREEN_EDIT.mp4",
       "labelBefore": "Before",
       "labelAfter": "After"
     },

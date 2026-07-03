@@ -142,6 +142,33 @@
     });
   }
 
+  /* Read each cover image's native dimensions and set the project card's
+     aspect ratio + flex-grow accordingly. Result: horizontal covers stay
+     wide, vertical covers stay tall — no crop, native format respected.
+     Same "justified rows" logic used by the gallery. */
+  function setupCoverRatios() {
+    document.querySelectorAll('.project').forEach(project => {
+      const img = project.querySelector('.cover-img');
+      if (!img) return;
+      const apply = () => {
+        const w = img.naturalWidth, h = img.naturalHeight;
+        if (!w || !h) return;
+        const ratio = w / h;
+        // Set CSS custom property → used by aspect-ratio rules
+        project.style.setProperty('--cover-ratio', `${w} / ${h}`);
+        project.setAttribute('data-ratio', ratio.toFixed(3));
+        // Justified-row sizing (desktop only; mobile stacks in single column)
+        project.style.flexGrow = ratio.toFixed(3);
+        project.style.flexBasis = '0';
+        // Sensible per-item min-width so a portrait card doesn't collapse:
+        const minW = Math.max(260, Math.round(ratio * 340));
+        project.style.minWidth = minW + 'px';
+      };
+      if (img.complete && img.naturalWidth) apply();
+      else img.addEventListener('load', apply, { once: true });
+    });
+  }
+
   async function loadContent() {
     try {
       const [site, projects, about, footer, clients] = await Promise.all([
@@ -361,6 +388,7 @@
     bindCursor();
     setupReveals();
     setupHoverVideos();
+    setupCoverRatios();
     hideLoader();
   });
 

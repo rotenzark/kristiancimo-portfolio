@@ -386,6 +386,15 @@
           ]
         }
       ],
+      "videoBeforeAfters": [
+        {
+          "title": "Shot 1",
+          "videoBefore": "/media/VIEWPORT.mp4",
+          "videoAfter": "/media/render_short.mp4",
+          "labelBefore": "Raw Plate",
+          "labelAfter": "Final CGI"
+        }
+      ],
       "storytelling": [
         {
           "heading": "01 - Environment Building",

@@ -558,6 +558,13 @@
               <div class="row"><span>${escapeHtml(k)}</span><span>${escapeHtml(v)}</span></div>
             `).join('')}
           </div>` : ''}
+        ${p.publicationUrl ? `
+          <div class="project-publication">
+            <a href="${escapeHtml(p.publicationUrl)}" target="_blank" rel="noopener noreferrer" class="publication-btn interactive">
+              <span class="publication-btn-label">${escapeHtml(p.publicationLabel || 'View Publication')}</span>
+              <span class="publication-btn-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>` : ''}
       </section>
     `;
 

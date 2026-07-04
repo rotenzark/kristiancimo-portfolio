@@ -540,19 +540,19 @@
           "caption": "",
           "images": [
             {
-              "src": "",
+              "src": "data/projects/barcelona-world-cup/WhatsApp Image 2026-04-23 at 05.56.39.webp",
               "alt": ""
             },
             {
-              "src": "",
+              "src": "data/projects/barcelona-world-cup/WhatsApp Image 2026-04-23 at 05.56.391.webp",
               "alt": ""
             },
             {
-              "src": "",
+              "src": "data/projects/barcelona-world-cup/WhatsApp Image 2026-04-23 at 05.56.392.webp",
               "alt": ""
             },
             {
-              "src": "",
+              "src": "data/projects/barcelona-world-cup/WhatsApp Image 2026-04-23 at 05.56.393.webp",
               "alt": ""
             }
           ]
@@ -561,8 +561,8 @@
       "beforeAfters": [
         {
           "title": "Shot",
-          "imageBefore": "",
-          "imageAfter": "",
+          "imageBefore": "data/projects/barcelona-world-cup/hf_20260423_040358_14cabc71-6b16-4796-b2b4-5d436414a6f4.webp",
+          "imageAfter": "COPERTINA_VERTICALE.png",
           "labelBefore": "Viewport",
           "labelAfter": "Render"
         }
@@ -570,8 +570,8 @@
       "videoBeforeAfters": [
         {
           "title": "Raw vs Edit",
-          "videoBefore": "",
-          "videoAfter": "",
+          "videoBefore": "data/projects/barcelona-world-cup/green_screen.mp4",
+          "videoAfter": "final_shot.mp4",
           "labelBefore": "Raw Plate",
           "labelAfter": "Final CGI"
         }
@@ -582,8 +582,8 @@
           "text": "Some environment renders",
           "image": "",
           "images": [
-            "",
-            ""
+            "data/projects/barcelona-world-cup/hf_20260423_040921_579e1f17-c0a8-49e1-8148-c0edd43ba96d.webp",
+            "data/projects/barcelona-world-cup/hf_20260423_040921_49827b09-83c0-43c9-9dc0-03a7b27f693c.webp"
           ]
         }
       ]

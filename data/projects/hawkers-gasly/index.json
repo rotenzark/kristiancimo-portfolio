@@ -117,8 +117,8 @@
       "text": "3D creation of Dubai inside, using open source photogrammetry data.",
       "image": "",
       "images": [
-        "/media/CLAY_2.webp",
-        ""
+        "CLAY_2.webp",
+        "CLAY_3.webp"
       ]
     },
     {
@@ -151,10 +151,10 @@
   ],
   "showNextProject": true,
   "beforeAfter": {
-    "labelAfter": "Final CGI",
-    "labelBefore": "Raw Plate",
+    "imageBefore": "https://picsum.photos/seed/gasly-raw/1600/900",
     "imageAfter": "https://picsum.photos/seed/gasly-final/1600/900",
-    "imageBefore": "https://picsum.photos/seed/gasly-raw/1600/900"
+    "labelBefore": "Raw Plate",
+    "labelAfter": "Final CGI"
   },
   "videoUrl": "",
   "videoCaption": "",

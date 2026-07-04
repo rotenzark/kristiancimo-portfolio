@@ -194,7 +194,7 @@
       "galleryBlocks": [
         {
           "tag": "",
-          "heading": "",
+          "heading": "Some frames",
           "caption": "",
           "images": [
             {
@@ -242,23 +242,23 @@
       ],
       "beforeAfters": [
         {
-          "title": "Museum Hall - set extension",
-          "imageBefore": "",
-          "imageAfter": "",
+          "title": "Museum entrance - clean ups, tracking, 3D pipe integration",
+          "imageBefore": "data/projects/adidas-legacy/INTRO_1_BEFORE.webp",
+          "imageAfter": "data/projects/adidas-legacy/INTRO_1_AFTER.webp",
           "labelBefore": "Before",
           "labelAfter": "After"
         },
         {
-          "title": "Basket - clean ups",
-          "imageBefore": "",
-          "imageAfter": "",
+          "title": "Museum Hall - 3D set extension, tracking",
+          "imageBefore": "data/projects/adidas-legacy/INTRO_2_BEFORE.webp",
+          "imageAfter": "data/projects/adidas-legacy/INTRO_2_AFTER.webp",
           "labelBefore": "Before",
           "labelAfter": "After"
         },
         {
           "title": "Aitana - picture replacement",
-          "imageBefore": "",
-          "imageAfter": "",
+          "imageBefore": "data/projects/adidas-legacy/AITANA_BEFORE.webp",
+          "imageAfter": "data/projects/adidas-legacy/AITANA_AFTER.webp",
           "labelBefore": "Before",
           "labelAfter": "After"
         },

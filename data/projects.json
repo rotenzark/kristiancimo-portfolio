@@ -87,8 +87,8 @@
       "beforeAfters": [
         {
           "title": "First frame - building the world around him",
-          "imageBefore": "data/projects/hawkers-gasly/COPERTINA_VERTICALE.webp",
-          "imageAfter": "",
+          "imageBefore": "data/projects/hawkers-gasly/FIRST_FRAME_VERTICAL_4_09_CLAY.webp",
+          "imageAfter": "COPERTINA_VERTICALE.webp",
           "labelBefore": "Viewport",
           "labelAfter": "Final render"
         },
@@ -112,20 +112,24 @@
         {
           "heading": "01 — 3D clay building",
           "text": "Blender was used to create the base for the texture projection",
-          "image": ""
+          "image": "data/projects/hawkers-gasly/FIRST_FRAME_VERTICAL_4_09_CLAY.webp"
         },
         {
           "heading": "02 — Environment build",
           "text": "3D creation of Dubai inside, using open source photogrammetry data.",
-          "image": ""
+          "image": "",
+          "images": [
+            "CLAY_2.webp",
+            "CLAY_3.webp"
+          ]
         },
         {
           "heading": "03 — Setting up the clouds and camera movement",
           "text": "One of the first wip",
           "image": "",
           "images": [
-            "",
-            ""
+            "data/projects/hawkers-gasly/WIP_BLENDER.webp",
+            "data/projects/hawkers-gasly/WIP_BLENDER_2.webp"
           ]
         }
       ],
@@ -149,10 +153,10 @@
       ],
       "showNextProject": true,
       "beforeAfter": {
-        "imageBefore": "https://picsum.photos/seed/gasly-raw/1600/900",
-        "imageAfter": "https://picsum.photos/seed/gasly-final/1600/900",
+        "labelAfter": "Final CGI",
         "labelBefore": "Raw Plate",
-        "labelAfter": "Final CGI"
+        "imageAfter": "https://picsum.photos/seed/gasly-final/1600/900",
+        "imageBefore": "https://picsum.photos/seed/gasly-raw/1600/900"
       },
       "videoUrl": "",
       "videoCaption": "",

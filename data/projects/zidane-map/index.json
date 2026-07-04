@@ -75,8 +75,8 @@
     },
     {
       "title": "Shot 3",
-      "videoBefore": "",
-      "videoAfter": "",
+      "videoBefore": "data/projects/zidane-map/tv_viewport-1.mp4",
+      "videoAfter": "data/projects/zidane-map/tv_rnd.mp4",
       "labelBefore": "Viewport",
       "labelAfter": "Render"
     }
@@ -106,7 +106,7 @@
       "text": "Texturing the scene",
       "image": "",
       "images": [
-        ""
+        "data/projects/zidane-map/Texturing.webp"
       ]
     },
     {
@@ -114,7 +114,7 @@
       "text": "AI was used to create this transition",
       "image": "",
       "images": [
-        ""
+        "data/projects/zidane-map/A_smooth_cinematic_transition_from_an_old_paper_map_of_Marseille_to_a_modern_aerial_view_of_the_same_seed467585751.mp4"
       ]
     }
   ],

@@ -621,23 +621,30 @@
     const mediaBase = 'data/projects/' + slugForMedia + '/';
     const fixPath = (v) => {
       if (typeof v !== 'string' || !v) return v;
-      // leave absolute paths, full URLs, and data URIs alone
-      if (v.startsWith('/') || /^https?:\/\//i.test(v) || v.startsWith('data:')) return v;
-      // leave paths that ALREADY contain the media folder (avoid double-prefixing)
+      // real URLs and data URIs: leave untouched
+      if (/^https?:\/\//i.test(v) || v.startsWith('data:')) return v;
+      // already a correct project path (with or without a leading slash): normalise to absolute
       if (v.includes('data/projects/')) return '/' + v.replace(/^\/+/, '');
-      // leave YouTube/Vimeo bare IDs/urls handled elsewhere alone (they contain no dot-extension of a media file)
-      return mediaBase + v;
+      // anything else — a bare filename, a stray "/name.webp", or an old "/media/name.webp"
+      // (there is no /media/ folder anymore) — belongs in THIS project's folder. Take just the
+      // filename and prefix it, so a malformed CMS path still resolves.
+      return mediaBase + v.split('/').pop();
     };
     const fixDeep = (obj) => {
       if (Array.isArray(obj)) return obj.map(fixDeep);
       if (obj && typeof obj === 'object') {
         const out = {};
         for (const [k, val] of Object.entries(obj)) {
-          // These keys hold media file references → fix them
+          // Single media reference (a string under one of these keys) → fix it
           const mediaKeys = ['image','previewVideo','gridCover169','insideCover',
                              'src','imageBefore','imageAfter','videoBefore','videoAfter','file'];
+          // Media LISTS. Depending on how the CMS wrote them, items can be bare
+          // strings (e.g. "CLAY_2.webp") OR objects like { src: "..." }. Fix both.
+          const mediaArrayKeys = ['images','gallery'];
           if (mediaKeys.includes(k) && typeof val === 'string') {
             out[k] = fixPath(val);
+          } else if (mediaArrayKeys.includes(k) && Array.isArray(val)) {
+            out[k] = val.map(it => typeof it === 'string' ? fixPath(it) : fixDeep(it));
           } else {
             out[k] = fixDeep(val);
           }

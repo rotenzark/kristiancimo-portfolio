@@ -242,9 +242,9 @@
           const mediaBase = 'data/projects/' + id + '/';
           const fixPath = (v) => {
             if (typeof v !== 'string' || !v) return '';
-            if (v.startsWith('/') || /^https?:\/\//i.test(v) || v.startsWith('data:')) return v;
+            if (/^https?:\/\//i.test(v) || v.startsWith('data:')) return v;
             if (v.includes('data/projects/')) return '/' + v.replace(/^\/+/, '');
-            return mediaBase + v;
+            return mediaBase + v.split('/').pop();
           };
           const imgPath = fixPath(p.image);
           const previewVideo = fixPath(p.previewVideo);

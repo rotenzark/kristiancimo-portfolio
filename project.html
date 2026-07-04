@@ -541,6 +541,8 @@
       if (typeof v !== 'string' || !v) return v;
       // leave absolute paths, full URLs, and data URIs alone
       if (v.startsWith('/') || /^https?:\/\//i.test(v) || v.startsWith('data:')) return v;
+      // leave paths that ALREADY contain the media folder (avoid double-prefixing)
+      if (v.includes('data/projects/')) return '/' + v.replace(/^\/+/, '');
       // leave YouTube/Vimeo bare IDs/urls handled elsewhere alone (they contain no dot-extension of a media file)
       return mediaBase + v;
     };

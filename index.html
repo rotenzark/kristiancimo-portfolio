@@ -243,6 +243,7 @@
           const fixPath = (v) => {
             if (typeof v !== 'string' || !v) return '';
             if (v.startsWith('/') || /^https?:\/\//i.test(v) || v.startsWith('data:')) return v;
+            if (v.includes('data/projects/')) return '/' + v.replace(/^\/+/, '');
             return mediaBase + v;
           };
           const imgPath = fixPath(p.image);

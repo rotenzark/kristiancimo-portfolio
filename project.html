@@ -213,12 +213,16 @@
       if (video.readyState >= 2) doSeek();
       else video.addEventListener('loadeddata', doSeek, { once: true });
     }
-    // ── PRELOAD BOTH FULLY (non-blocking) ────────────────────────────
-    // preload="auto" is only a hint; browsers often defer it. To make the
-    // FIRST play instant and synced, we actively fetch both clips now, in
-    // the background. When both are fully buffered, the play button gets a
-    // subtle "ready" cue. This never blocks the button — you can hit play
-    // any time; it just guarantees no first-play lag once ready.
+    // ── LOAD BOTH CLIPS INTO MEMORY (blob), then play from RAM ──────────
+    // Why not just preload? A plain fetch-preload and the <video> element make
+    // SEPARATE requests for the same file (a full GET vs. the video's Range
+    // requests), and the browser won't reliably reuse one for the other — so
+    // the clip re-downloads the moment you hit Play (that's the reload you see
+    // in the Network tab). Instead we fetch each file ONCE, keep it in memory
+    // as a Blob, and point the <video> at a blob: URL. From then on Play reads
+    // straight from RAM: no network request, no reload, and RAW/EDIT start in
+    // perfect lockstep because both are fully buffered. The <video> tags use
+    // preload="none" so they never fire their own duplicate download.
     let preloadDone = false;
     function markReady() {
       if (preloadDone) return;
@@ -231,19 +235,42 @@
       v.addEventListener('canplaythrough', markReady);
       v.addEventListener('progress', markReady);
     });
-    markReady();
 
-    // Extra: warm the browser HTTP cache by fetching each source in the
-    // background. Once cached, the <video> element gets its data instantly,
-    // so first Play has no download delay. Runs async, never blocks anything.
-    [videoBefore, videoAfter].forEach(v => {
-      const url = v.currentSrc || v.src;
-      if (url) fetch(url, { mode: 'no-cors' }).catch(() => {});
-    });
+    let blobsRequested = false;
+    function loadIntoMemory() {
+      if (blobsRequested) return;               // only once per comparison
+      blobsRequested = true;
+      [videoBefore, videoAfter].forEach(v => {
+        const url = v.getAttribute('src');
+        if (!url || url.startsWith('blob:')) return;
+        fetch(url)                              // same-origin → a usable Blob
+          .then(r => r.blob())
+          .then(blob => {
+            v.src = URL.createObjectURL(blob);  // video now reads from memory
+            v.load();
+            seekToFirstFrame(v);                // paint the first frame
+            markReady();
+          })
+          .catch(() => {                         // network hiccup: fall back to streaming
+            v.preload = 'auto';
+            seekToFirstFrame(v);
+          });
+      });
+    }
 
-    // Show the first frame as a poster once there's data (after any buffering).
-    seekToFirstFrame(videoBefore);
-    seekToFirstFrame(videoAfter);
+    // Pull the clips into memory only when the comparison is near the screen —
+    // keeps the initial page load light (important on mobile, where loading
+    // every before/after at once would mean tens of MB up front).
+    if ('IntersectionObserver' in window) {
+      const memIO = new IntersectionObserver((entries, obs) => {
+        entries.forEach(en => {
+          if (en.isIntersecting) { loadIntoMemory(); obs.disconnect(); }
+        });
+      }, { rootMargin: '400px' });              // start a little before it enters view
+      memIO.observe(container);
+    } else {
+      loadIntoMemory();                          // old browser: just load now
+    }
 
     let dragging = false;
     function setVBA(pct) {
@@ -566,10 +593,10 @@
         ${head}
         <div class="p-vba interactive">
           <div class="vba-before-wrap">
-            <video src="${escapeHtml(block.videoBefore || block.videoAfter)}" muted loop playsinline preload="auto"></video>
+            <video src="${escapeHtml(block.videoBefore || block.videoAfter)}" muted loop playsinline preload="none"></video>
           </div>
           <div class="vba-after-wrap">
-            <video src="${escapeHtml(block.videoAfter || block.videoBefore)}" muted loop playsinline preload="auto"></video>
+            <video src="${escapeHtml(block.videoAfter || block.videoBefore)}" muted loop playsinline preload="none"></video>
           </div>
           <div class="vba-labels">
             <span class="before">${escapeHtml(block.labelBefore || 'Raw Plate')}</span>

@@ -29,7 +29,7 @@
       "caption": "The client sent me a simple hat to show me what the idea was and let me think around it.\nI decided to go with Blender to do get the work done.",
       "images": [
         {
-          "src": "",
+          "src": "data/projects/hawkers-gasly/COPERTINA_HIGH.webp",
           "alt": ""
         }
       ]
@@ -37,18 +37,22 @@
     {
       "tag": "",
       "heading": "My creation: H shaped Islands",
-      "caption": "Photoshop (first two photos) and Blender (third photo) were used to build the first ideas.",
+      "caption": "Photoshop (first two photos) and Blender (third and fourth photo) were used to build the first ideas.",
       "images": [
         {
-          "src": "",
+          "src": "data/projects/hawkers-gasly/h_nocircle_centered.webp",
           "alt": ""
         },
         {
-          "src": "",
+          "src": "data/projects/hawkers-gasly/h_circle_centered.webp",
           "alt": ""
         },
         {
-          "src": "",
+          "src": "data/projects/hawkers-gasly/h_zoomout_centered.webp",
+          "alt": ""
+        },
+        {
+          "src": "data/projects/hawkers-gasly/h_zoomout_centered_vertical.webp",
           "alt": ""
         }
       ]
@@ -59,17 +63,25 @@
       "caption": "Two screenshots of the final frames of both horizontal and vertical versions.",
       "images": [
         {
-          "src": "",
+          "src": "data/projects/hawkers-gasly/LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).webp",
           "alt": ""
         },
         {
-          "src": "",
+          "src": "data/projects/hawkers-gasly/LAST_FRAME_VERTICAL_COLOR_hf_20260305_102526_ce7c5e41-9bf6-444d-bc28-6a74f300f4d5 (0-00-00-00).webp",
           "alt": ""
         }
       ]
     }
   ],
-  "videoBlocks": [],
+  "videoBlocks": [
+    {
+      "tag": "",
+      "heading": "",
+      "caption": "",
+      "file": "data/projects/hawkers-gasly/PROGRESS_TRANSITION.mp4",
+      "url": ""
+    }
+  ],
   "beforeAfters": [
     {
       "title": "First frame - building the world around him",
@@ -135,10 +147,10 @@
   ],
   "showNextProject": true,
   "beforeAfter": {
-    "labelAfter": "Final CGI",
-    "labelBefore": "Raw Plate",
+    "imageBefore": "https://picsum.photos/seed/gasly-raw/1600/900",
     "imageAfter": "https://picsum.photos/seed/gasly-final/1600/900",
-    "imageBefore": "https://picsum.photos/seed/gasly-raw/1600/900"
+    "labelBefore": "Raw Plate",
+    "labelAfter": "Final CGI"
   },
   "videoUrl": "",
   "videoCaption": "",

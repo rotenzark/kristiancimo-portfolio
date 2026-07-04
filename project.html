@@ -216,28 +216,6 @@
     seekToFirstFrame(videoBefore);
     seekToFirstFrame(videoAfter);
 
-    // Kick off full buffering immediately so that by the time the user hits
-    // Play, both clips are ready and start instantly & together (no lag).
-    // Show a subtle "loading" state on the button until both are playable.
-    videoBefore.load();
-    videoAfter.load();
-    let bothReady = false;
-    function checkReady() {
-      if (bothReady) return;
-      if (videoBefore.readyState >= 3 && videoAfter.readyState >= 3) {
-        bothReady = true;
-        playBtn.classList.remove('loading');
-        playBtn.textContent = '▶ Play';
-      }
-    }
-    playBtn.classList.add('loading');
-    playBtn.textContent = '⏳ Loading';
-    [videoBefore, videoAfter].forEach(v => {
-      v.addEventListener('canplaythrough', checkReady);
-      v.addEventListener('canplay', checkReady);
-    });
-    checkReady();
-
     let dragging = false;
     function setVBA(pct) {
       pct = Math.max(0, Math.min(100, pct));
@@ -264,53 +242,25 @@
     window.addEventListener('touchend', () => dragging = false);
 
     let playing = false;
-    let syncRAF = null;
 
-    // Continuously keep videoAfter locked to videoBefore, frame-tight.
-    // Runs every animation frame while playing (not every 2s), with a
-    // small tolerance so we only correct real drift.
-    function syncLoop() {
-      if (!playing) return;
-      const drift = Math.abs(videoAfter.currentTime - videoBefore.currentTime);
-      if (drift > 0.04) {                    // ~1 frame at 25fps
-        videoAfter.currentTime = videoBefore.currentTime;
-      }
-      syncRAF = requestAnimationFrame(syncLoop);
-    }
-
-    // Start BOTH videos truly together. play() is async and returns a
-    // promise; if we just call them in sequence, one can lag behind while
-    // it buffers. So: align time, ensure both have enough data, then fire
-    // both plays and let the sync loop lock them.
-    async function startTogether() {
-      // If still buffering, show loading and wait until both are ready.
-      if (!bothReady) {
-        playBtn.classList.add('loading');
-        playBtn.textContent = '⏳ Loading';
-      }
-      // align to the same timestamp first
+    // Play both, aligned. The trick for smooth sync: align ONCE at start,
+    // start both, and DON'T seek during playback (seeking mid-play stutters
+    // the video). We only nudge the "after" video back if it drifts a lot,
+    // and we do it rarely, not every frame.
+    function startTogether() {
       videoAfter.currentTime = videoBefore.currentTime;
-      // make sure both have enough buffered to play without stalling
-      const ready = (v) => v.readyState >= 3
-        ? Promise.resolve()
-        : new Promise(res => v.addEventListener('canplay', res, { once: true }));
-      await Promise.all([ready(videoBefore), ready(videoAfter)]);
-      playBtn.classList.remove('loading');
-      if (!playing) { playBtn.textContent = '▶ Play'; return; } // user paused while waiting
-      // re-align (buffering may have taken a moment) then start both
-      videoAfter.currentTime = videoBefore.currentTime;
-      await Promise.all([videoBefore.play(), videoAfter.play()]).catch(() => {});
+      const p1 = videoBefore.play();
+      const p2 = videoAfter.play();
+      // both play() calls fire back-to-back synchronously here, which is the
+      // closest to simultaneous the browser allows
+      Promise.all([p1, p2].map(p => p && p.catch(() => {})));
       playBtn.textContent = '❚❚ Pause';
-      cancelAnimationFrame(syncRAF);
-      syncLoop();
     }
 
     function stopBoth() {
       videoBefore.pause();
       videoAfter.pause();
-      videoAfter.currentTime = videoBefore.currentTime;   // snap aligned on pause
       playBtn.textContent = '▶ Play';
-      cancelAnimationFrame(syncRAF);
     }
 
     playBtn.addEventListener('click', (e) => {
@@ -320,24 +270,24 @@
       else stopBoth();
     });
 
-    // If either video stalls (buffering), pause both so they never drift apart;
-    // resume together once data is back.
-    let stalledResume = false;
-    [videoBefore, videoAfter].forEach(v => {
-      v.addEventListener('waiting', () => {
-        if (playing && !stalledResume) {
-          stalledResume = true;
-          videoBefore.pause();
-          videoAfter.pause();
-        }
-      });
-      v.addEventListener('canplay', () => {
-        if (playing && stalledResume) {
-          stalledResume = false;
-          videoAfter.currentTime = videoBefore.currentTime;
-          Promise.all([videoBefore.play(), videoAfter.play()]).catch(() => {});
-        }
-      });
+    // Gentle drift correction: check a few times per second, and only correct
+    // if drift is clearly visible (> 0.1s). Correcting rarely avoids the
+    // per-frame seek stutter. We nudge "after" to match "before".
+    setInterval(() => {
+      if (!playing) return;
+      if (videoBefore.paused || videoAfter.paused) return;
+      const drift = videoAfter.currentTime - videoBefore.currentTime;
+      if (Math.abs(drift) > 0.1) {
+        videoAfter.currentTime = videoBefore.currentTime;
+      }
+    }, 500);
+
+    // Keep the two videos looping in lockstep: when "before" loops back to
+    // start, snap "after" to match so the loop restart stays aligned.
+    videoBefore.addEventListener('seeked', () => {
+      if (playing && Math.abs(videoAfter.currentTime - videoBefore.currentTime) > 0.1) {
+        videoAfter.currentTime = videoBefore.currentTime;
+      }
     });
 
     setVBA(50);

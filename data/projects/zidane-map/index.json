@@ -87,8 +87,8 @@
       "text": "Blender was used to create the room",
       "image": "",
       "images": [
-        "",
-        ""
+        "data/projects/zidane-map/Viewport_1.webp",
+        "data/projects/zidane-map/Viewport_2.webp"
       ]
     },
     {
@@ -96,9 +96,9 @@
       "text": "Camera animation",
       "image": "",
       "images": [
-        "",
-        "",
-        ""
+        "data/projects/zidane-map/VIEWPORT.mp4",
+        "data/projects/zidane-map/trofei_viewport.mp4",
+        "data/projects/zidane-map/tv_viewport.mp4"
       ]
     },
     {

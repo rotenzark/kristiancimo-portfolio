@@ -423,15 +423,15 @@
       "videoBeforeAfters": [
         {
           "title": "Shot 1",
-          "videoBefore": "",
-          "videoAfter": "",
+          "videoBefore": "VIEWPORT.mp4",
+          "videoAfter": "data/projects/zidane-map/render_short.mp4",
           "labelBefore": "Viewport",
           "labelAfter": "Render"
         },
         {
           "title": "Shot 2",
-          "videoBefore": "",
-          "videoAfter": "",
+          "videoBefore": "data/projects/zidane-map/trofei_viewport.mp4",
+          "videoAfter": "data/projects/zidane-map/trofei_rnd.mp4",
           "labelBefore": "Viewport",
           "labelAfter": "Render"
         },

@@ -236,6 +236,10 @@
             {
               "src": "FRAME_10.webp",
               "alt": ""
+            },
+            {
+              "src": "data/projects/adidas-legacy/RANDOM_1_ZIDANE.webp",
+              "alt": ""
             }
           ]
         }
@@ -256,7 +260,7 @@
           "labelAfter": "After"
         },
         {
-          "title": "Aitana - picture replacement",
+          "title": "Aitana - picture replacement, rotoscope",
           "imageBefore": "data/projects/adidas-legacy/AITANA_BEFORE.webp",
           "imageAfter": "data/projects/adidas-legacy/AITANA_AFTER.webp",
           "labelBefore": "Before",
@@ -264,8 +268,8 @@
         },
         {
           "title": "Aitana & Brahim - set extension and removal",
-          "imageBefore": "",
-          "imageAfter": "",
+          "imageBefore": "data/projects/adidas-legacy/BACK_IMPACT_BEFORE.webp",
+          "imageAfter": "data/projects/adidas-legacy/BACK_IMPACT_AFTER.webp",
           "labelBefore": "Before",
           "labelAfter": "After"
         }

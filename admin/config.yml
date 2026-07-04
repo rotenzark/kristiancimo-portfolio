@@ -240,6 +240,7 @@ collections:
             hint: "Images (JPG/PNG/WEBP) or videos (MP4/WEBM/MOV). Native aspect ratios are preserved. ⚠️ Keep videos small (<5MB, 1-5s) — GitHub API limits uploads to ~30MB."
             fields:
               - { label: "Image or Video file", name: "src", widget: "file", required: false,
+                  media_folder: "", public_folder: "/data/projects/{{fields.slug}}",
                   hint: "Upload image or video. The site auto-detects the type by extension." }
               - { label: "Alt text (optional)", name: "alt", widget: "string", required: false,
                   hint: "Short description for accessibility & SEO." }
@@ -256,6 +257,7 @@ collections:
           - { label: "Heading", name: "heading", widget: "string", required: false }
           - { label: "Caption / Description", name: "caption", widget: "text", required: false }
           - { label: "Video File (MP4 upload)", name: "file", widget: "file", required: false,
+              media_folder: "", public_folder: "/data/projects/{{fields.slug}}",
               hint: "Upload a video file directly. Takes priority over the URL below. ⚠️ Keep it small (<10MB) — GitHub API limits uploads to ~30MB." }
           - { label: "Video URL (Vimeo or YouTube)", name: "url", widget: "string", required: false,
               hint: "Paste the full Vimeo or YouTube URL. Used only if no file is uploaded above. Recommended for larger/longer videos." }
@@ -269,8 +271,8 @@ collections:
         fields:
           - { label: "Title", name: "title", widget: "string", required: false,
               hint: "e.g. Shot 01, Wide, Close-up. Shown above the slider when there's more than one." }
-          - { label: "Image — Before (raw plate)", name: "imageBefore", widget: "image", required: false }
-          - { label: "Image — After (final CGI)", name: "imageAfter", widget: "image", required: false }
+          - { label: "Image — Before (raw plate)", name: "imageBefore", widget: "image", required: false, media_folder: "", public_folder: "/data/projects/{{fields.slug}}" }
+          - { label: "Image — After (final CGI)", name: "imageAfter", widget: "image", required: false, media_folder: "", public_folder: "/data/projects/{{fields.slug}}" }
           - { label: "Label — Before", name: "labelBefore", widget: "string", required: false, default: "Raw Plate" }
           - { label: "Label — After", name: "labelAfter", widget: "string", required: false, default: "Final CGI" }
 
@@ -283,8 +285,8 @@ collections:
         fields:
           - { label: "Title", name: "title", widget: "string", required: false,
               hint: "e.g. Shot 01, Crash scene. Shown above the slider when there's more than one." }
-          - { label: "Video — Before (raw plate)", name: "videoBefore", widget: "file", required: false }
-          - { label: "Video — After (final CGI)", name: "videoAfter", widget: "file", required: false }
+          - { label: "Video — Before (raw plate)", name: "videoBefore", widget: "file", required: false, media_folder: "", public_folder: "/data/projects/{{fields.slug}}" }
+          - { label: "Video — After (final CGI)", name: "videoAfter", widget: "file", required: false, media_folder: "", public_folder: "/data/projects/{{fields.slug}}" }
           - { label: "Label — Before", name: "labelBefore", widget: "string", required: false, default: "Raw Plate" }
           - { label: "Label — After", name: "labelAfter", widget: "string", required: false, default: "Final CGI" }
 
@@ -299,6 +301,7 @@ collections:
           - { label: "Heading", name: "heading", widget: "string", required: false }
           - { label: "Text", name: "text", widget: "text", required: false }
           - { label: "Image or Video (single — legacy field)", name: "image", widget: "file", required: false,
+              media_folder: "", public_folder: "/data/projects/{{fields.slug}}",
               hint: "One image OR video file (MP4/WEBM/MOV). If you add multiple files below, this is ignored." }
           - label: "Images or Videos (multiple — optional)"
             name: "images"
@@ -306,7 +309,7 @@ collections:
             required: false
             summary: "Item {{index}}"
             hint: "Optional. Add 2+ images or videos to display them side-by-side in this Process block. Native aspect ratios preserved. ⚠️ Keep videos small (<5MB, 1-5s)."
-            field: { label: "Image or Video file", name: "src", widget: "file", required: false }
+            field: { label: "Image or Video file", name: "src", widget: "file", required: false, media_folder: "", public_folder: "/data/projects/{{fields.slug}}" }
 
       - label: "🏆 Credits"
         name: "credits"

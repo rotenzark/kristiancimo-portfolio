@@ -79,7 +79,7 @@
         {
           "tag": "",
           "heading": "",
-          "caption": "",
+          "caption": "Slow and not composited before and after",
           "file": "data/projects/hawkers-gasly/PROGRESS_TRANSITION.mp4",
           "url": ""
         }
@@ -87,22 +87,22 @@
       "beforeAfters": [
         {
           "title": "First frame - building the world around him",
-          "imageBefore": "",
+          "imageBefore": "data/projects/hawkers-gasly/COPERTINA_VERTICALE.webp",
           "imageAfter": "",
           "labelBefore": "Viewport",
           "labelAfter": "Final render"
         },
         {
           "title": "",
-          "imageBefore": "",
-          "imageAfter": "",
+          "imageBefore": "data/projects/hawkers-gasly/CLAY_2.webp",
+          "imageAfter": "data/projects/hawkers-gasly/SECOND_TO_CLAY.webp",
           "labelBefore": "Viewport",
           "labelAfter": "Final Render"
         },
         {
           "title": "",
-          "imageBefore": "",
-          "imageAfter": "",
+          "imageBefore": "data/projects/hawkers-gasly/CLAY_3.webp",
+          "imageAfter": "data/projects/hawkers-gasly/THIRD_TO_CLAY.webp",
           "labelBefore": "Viewport",
           "labelAfter": "Final render"
         }

@@ -213,6 +213,35 @@
       if (video.readyState >= 2) doSeek();
       else video.addEventListener('loadeddata', doSeek, { once: true });
     }
+    // ── PRELOAD BOTH FULLY (non-blocking) ────────────────────────────
+    // preload="auto" is only a hint; browsers often defer it. To make the
+    // FIRST play instant and synced, we actively fetch both clips now, in
+    // the background. When both are fully buffered, the play button gets a
+    // subtle "ready" cue. This never blocks the button — you can hit play
+    // any time; it just guarantees no first-play lag once ready.
+    let preloadDone = false;
+    function markReady() {
+      if (preloadDone) return;
+      if (videoBefore.readyState >= 4 && videoAfter.readyState >= 4) {
+        preloadDone = true;
+        playBtn.classList.add('ready');
+      }
+    }
+    [videoBefore, videoAfter].forEach(v => {
+      v.addEventListener('canplaythrough', markReady);
+      v.addEventListener('progress', markReady);
+    });
+    markReady();
+
+    // Extra: warm the browser HTTP cache by fetching each source in the
+    // background. Once cached, the <video> element gets its data instantly,
+    // so first Play has no download delay. Runs async, never blocks anything.
+    [videoBefore, videoAfter].forEach(v => {
+      const url = v.currentSrc || v.src;
+      if (url) fetch(url, { mode: 'no-cors' }).catch(() => {});
+    });
+
+    // Show the first frame as a poster once there's data (after any buffering).
     seekToFirstFrame(videoBefore);
     seekToFirstFrame(videoAfter);
 

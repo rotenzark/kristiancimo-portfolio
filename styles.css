@@ -1257,6 +1257,7 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
 }
 .p-vba .vba-playbtn:hover { background: var(--accent); border-color: var(--accent); }
 .p-vba .vba-playbtn.loading { opacity: 0.6; cursor: wait; }
+.p-vba .vba-playbtn.ready { border-color: #3ddc84; }
 @media (max-width: 768px) {
   .p-ba .ba-knob, .p-vba .vba-knob { width: 44px; height: 44px; font-size: 12px; }
   .p-ba .ba-labels, .p-vba .vba-labels { font-size: 8px; }

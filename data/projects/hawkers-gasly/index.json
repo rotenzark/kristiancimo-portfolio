@@ -5,9 +5,11 @@
   "title": "Hawkers × Gasly",
   "year": "March 2026",
   "category": "Eyewear / F1",
-  "image": "",
+  "image": "data/projects/hawkers-gasly/COPERTINA_ORIZZONTALE.webp",
   "cardOrientation": "16-9",
-  "previewVideo": "",
+  "previewVideo": "data/projects/hawkers-gasly/COPERTINA_ORIZZONTALE.mp4",
+  "gridCover169": "data/projects/hawkers-gasly/COPERTINA_ORIZZONTALE.webp",
+  "insideCover": "data/projects/hawkers-gasly/COPERTINA_ORIZZONTALE_21_9.webp",
   "coverVideo": "",
   "featured": true,
   "tagLabel": "Featured",
@@ -132,6 +134,12 @@
     }
   ],
   "showNextProject": true,
+  "beforeAfter": {
+    "labelAfter": "Final CGI",
+    "labelBefore": "Raw Plate",
+    "imageAfter": "https://picsum.photos/seed/gasly-final/1600/900",
+    "imageBefore": "https://picsum.photos/seed/gasly-raw/1600/900"
+  },
   "videoUrl": "",
   "videoCaption": "",
   "gallery": [
@@ -152,12 +160,6 @@
       "alt": "Final composite"
     }
   ],
-  "beforeAfter": {
-    "imageBefore": "https://picsum.photos/seed/gasly-raw/1600/900",
-    "imageAfter": "https://picsum.photos/seed/gasly-final/1600/900",
-    "labelBefore": "Raw Plate",
-    "labelAfter": "Final CGI"
-  },
   "videoBeforeAfter": {
     "videoBefore": "",
     "videoAfter": "",

@@ -110,7 +110,7 @@
 
   .bottoni{
     display:flex;flex-direction:column;gap:18px;align-items:center;justify-content:center;
-    margin-top:min(24vh, 210px);
+    margin-top:min(34vh, 320px);
   }
   #si{
     border:none;color:#fff;
@@ -453,10 +453,11 @@ function lanciaTesta(){
   img.style.width = larg.toFixed(0) + 'px';
   document.body.appendChild(img);
 
-  const x0 = vw*(0.2 + Math.random()*0.6);          // punto di lancio
-  const y0 = vh*0.82;
+  const r = $('avanti').getBoundingClientRect();    // spunta dal pulsante Avanti
+  const x0 = r.left + r.width/2;
+  const y0 = r.top + r.height/2;
   const g  = vh*2.6;                                // gravità
-  const hMax = vh*(0.5 + Math.random()*0.16);       // altezza dell'apice
+  const hMax = vh*(0.42 + Math.random()*0.14);      // altezza dell'apice
   const vy0 = -Math.sqrt(2*g*hMax);                 // velocità verticale iniziale
   const vx  = (Math.random()*2-1)*vw*0.14;          // deriva orizzontale
   const tApex = -vy0/g;

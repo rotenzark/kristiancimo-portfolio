@@ -128,6 +128,13 @@
     white-space:nowrap;
   }
 
+  /* ---- teste volanti ---- */
+  .testa{
+    position:fixed;left:0;top:0;z-index:2;pointer-events:none;
+    will-change:transform;
+    filter:drop-shadow(0 14px 28px rgba(0,0,0,.5));
+  }
+
   /* ---- finale: biglietto ---- */
   #fine{
     position:fixed;inset:0;z-index:6;display:none;
@@ -256,29 +263,26 @@
    TESTI — modifica qui. Ogni schermata = un tap su "Avanti".
    ============================================================ */
 const SCHERMATE = [
-  { eyebrow:"Comunicazione ufficiale · n. 001",
+  { eyebrow:"Comunicazione importante · n. 001",
     titolo:"Ciao Adri.",
-    sotto:"Ho una cosa importante da dirti. Tranquilla, niente di grave. Forse." },
+    sotto:"Niente di grave, forse." },
 
-  { titolo:"Il 13 luglio io e te facciamo un mese.",
-    sotto:"13 giugno, Cluj-Napoca. Sì, proprio quel 13 giugno. ❤️" },
+  { titolo:"Il 13 luglio facciamo un mese.",
+    sotto:"13 giugno, Cluj-Napoca." },
 
-  { titolo:"E lo so cosa stai pensando:",
-    sotto:"\u201cil mesiversario è giorno 13.\u201d" },
+  { titolo:"Lunedì 13 luglio dovrò prendere la nave. 🚢",
+    sotto:"Tempismo impeccabile." },
 
-  { titolo:"Però il 13 parto.",
-    sotto:"Tempismo impeccabile, lo so." },
+  { titolo:"Sono un pessimo fidanzato.",
+    sotto:"Lo so, scusa." },
 
-  { titolo:"Quindi lo facciamo il 12.",
-    sotto:"Perché? Perché devo prendere la nave per tornare a Palermo. 🚢" },
-
-  { titolo:"Detto questo…",
-    sotto:"avrei una domanda seria." },
+  { titolo:"Quindi stavo pensando…",
+    sotto:"Sì, anche io penso. Spesso." },
 ];
 
 const DOMANDA = {
   eyebrow:"La domanda",
-  titolo:"Sei libera il 12 sera?",
+  titolo:"Sei libera giorno 12?",
   sotto:"Rispondi pure liberamente. Più o meno.",
   si:"Sì ❤️",
 };
@@ -291,6 +295,8 @@ const FINALE = {
   riga2:"Dettagli in arrivo. Tu pensa solo a esserci.",
   sigla:"K ♥ A",
 };
+/* Teste volanti: PNG nella stessa cartella, aggiungi i nomi qui */
+const IMMAGINI = ['kris-1.png'];
 /* ============================================================ */
 
 const $ = id => document.getElementById(id);
@@ -315,7 +321,7 @@ function mostra(i){
     schermo.classList.add('visibile');
   }, idx === 0 ? 0 : 380);
 }
-$('avanti').addEventListener('click', () => { idx++; mostra(idx); });
+$('avanti').addEventListener('click', () => { idx++; mostra(idx); lanciaTesta(); });
 mostra(0);
 setTimeout(() => schermo.classList.add('visibile'), 60);
 
@@ -362,17 +368,20 @@ for(let i=0;i<14;i++) bokeh(true);   /* riempie subito la scena */
    IL "NO" MAGNETICO — repulsione fluida, stessa polarità
    ============================================================ */
 const no = $('no'), si = $('si');
-const RAGGIO = 130;
+const RAGGIO_ALLERTA = 240; // finché il No è al suo posto: scatta anche puntando il Sì
+const RAGGIO = 130;         // dopo che si è fatto scoprire
 const SPINTA = 15;
 const RITORNO = 0.94;
 let homeRect = null;
 let off = {x:0, y:0};
 let ptr = {x:-9999, y:-9999};
-let tentativi = 0, attivo = false;
+let tentativi = 0, attivo = false, scoperto = false;
 
 function inizializzaMagnete(){
-  homeRect = no.getBoundingClientRect();
-  if(!attivo){ attivo = true; requestAnimationFrame(fisica); }
+  setTimeout(() => {
+    homeRect = no.getBoundingClientRect();
+    if(!attivo){ attivo = true; requestAnimationFrame(fisica); }
+  }, 600);
 }
 addEventListener('resize', () => {
   if(!attivo) return;
@@ -388,8 +397,10 @@ function fisica(){
     const dx = cx - ptr.x, dy = cy - ptr.y;
     const d  = Math.hypot(dx, dy);
 
-    if(d < RAGGIO && d > 0.001){
-      const f = (1 - d/RAGGIO) * SPINTA;
+    const raggio = scoperto ? RAGGIO : RAGGIO_ALLERTA;
+    if(d < raggio && d > 0.001){
+      scoperto = true;
+      const f = (1 - d/raggio) * SPINTA;
       off.x += (dx/d) * f;
       off.y += (dy/d) * f;
       if(d < 50){
@@ -422,6 +433,49 @@ addEventListener('pointerdown', e => { ptr.x = e.clientX; ptr.y = e.clientY; });
 addEventListener('pointerup',   () => { ptr.x = -9999; ptr.y = -9999; });
 no.addEventListener('touchstart', e => e.preventDefault(), {passive:false});
 no.addEventListener('click', e => e.preventDefault());
+
+/* ============================================================
+   TESTE VOLANTI — moto del proiettile a ogni "Avanti".
+   Parte da scala 0, sale girando su sé stessa e decelerando
+   la rotazione fino all'apice, poi ricade per gravità e
+   sparisce sotto il bordo dello schermo.
+   ============================================================ */
+const teste = IMMAGINI.map(src => { const i = new Image(); i.src = src; return i; });
+
+function lanciaTesta(){
+  if(ridotto || !teste.length) return;
+  const img = document.createElement('img');
+  img.src = teste[Math.random()*teste.length|0].src;
+  img.className = 'testa';
+  const vw = innerWidth, vh = innerHeight;
+  const larg = Math.min(100 + Math.random()*70, vw*0.3);
+  img.style.width = larg.toFixed(0) + 'px';
+  document.body.appendChild(img);
+
+  const x0 = vw*(0.2 + Math.random()*0.6);          // punto di lancio
+  const y0 = vh*0.82;
+  const g  = vh*2.6;                                // gravità
+  const hMax = vh*(0.5 + Math.random()*0.16);       // altezza dell'apice
+  const vy0 = -Math.sqrt(2*g*hMax);                 // velocità verticale iniziale
+  const vx  = (Math.random()*2-1)*vw*0.14;          // deriva orizzontale
+  const tApex = -vy0/g;
+  const giri = (2 + Math.random()*2) * (Math.random()<.5 ? -1 : 1) * 360;
+
+  const t0 = performance.now();
+  function frame(now){
+    const t = (now - t0)/1000;
+    const x = x0 + vx*t;
+    const y = y0 + vy0*t + 0.5*g*t*t;
+    const p = Math.min(1, t/tApex);                 // rotazione: ease-out, si ferma all'apice
+    const rot = giri * (1 - Math.pow(1-p, 3));
+    const s = Math.min(1, t/(tApex*0.55));          // scala: 0 → 1 durante la salita
+    const sc = 1 - Math.pow(1-s, 3);
+    img.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) translate(-50%,-50%) rotate(' + rot.toFixed(1) + 'deg) scale(' + sc.toFixed(3) + ')';
+    if(y < vh + larg*1.6 && t < 4) requestAnimationFrame(frame);
+    else img.remove();
+  }
+  requestAnimationFrame(frame);
+}
 
 /* ---- Sì → biglietto ---- */
 $('f-titolo').textContent  = FINALE.titolo;

@@ -109,7 +109,7 @@
   #avanti:active{transform:scale(.96);}
 
   .bottoni{
-    display:flex;gap:20px;align-items:center;justify-content:center;
+    display:flex;flex-direction:column;gap:18px;align-items:center;justify-content:center;
     margin-top:52px;
   }
   #si{
@@ -120,6 +120,7 @@
   }
   #si:active{transform:scale(.96)!important;}
   #no{
+    order:-1;
     background:rgba(11,6,9,.6);
     color:var(--muto);
     border:1px solid rgba(246,223,228,.22);

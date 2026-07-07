@@ -5,7 +5,7 @@
   "title": "Lamine Yamal x CocaCola - World Cup",
   "year": "July 2026",
   "category": "Commercial / Football",
-  "image": "/media/COPERTINA_4_5.jpg",
+  "image": "data/projects/lamineyamal-cocacola/COPERTINA_4_5.webp",
   "cardOrientation": "4-5",
   "previewVideo": "",
   "gridCover169": "",
@@ -14,15 +14,55 @@
   "featured": false,
   "tagLabel": "Featured",
   "subtitle": "",
-  "client": "",
-  "talent": "",
-  "role": "",
-  "software": "",
-  "format": "",
-  "publicationUrl": "",
-  "publicationLabel": "View Publication",
-  "description": "",
-  "galleryBlocks": [],
+  "client": "Coca Cola",
+  "talent": "Lamine Yamal",
+  "role": "3D Artist",
+  "software": "Blender, After Effects",
+  "format": "Social",
+  "publicationUrl": "https://www.instagram.com/p/DaS2BiYlhas/?img_index=1",
+  "publicationLabel": "Watch on Instagram",
+  "description": "My job was to create a 3D stadium, with CocaCola references.",
+  "galleryBlocks": [
+    {
+      "tag": "",
+      "heading": "Some Viewport shots",
+      "caption": "",
+      "images": [
+        {
+          "src": "data/projects/lamineyamal-cocacola/VIEWPORT_1.webp",
+          "alt": ""
+        },
+        {
+          "src": "data/projects/lamineyamal-cocacola/VIEWPORT_2.webp",
+          "alt": ""
+        },
+        {
+          "src": "data/projects/lamineyamal-cocacola/VIEWPORT_3.webp",
+          "alt": ""
+        },
+        {
+          "src": "data/projects/lamineyamal-cocacola/VIEWPORT_4.webp",
+          "alt": ""
+        },
+        {
+          "src": "data/projects/lamineyamal-cocacola/VIEWPORT_5.webp",
+          "alt": ""
+        },
+        {
+          "src": "data/projects/lamineyamal-cocacola/VIEWPORT_6.webp",
+          "alt": ""
+        },
+        {
+          "src": "data/projects/lamineyamal-cocacola/VIEWPORT_7.webp",
+          "alt": ""
+        },
+        {
+          "src": "data/projects/lamineyamal-cocacola/VIEWPORT_8.webp",
+          "alt": ""
+        }
+      ]
+    }
+  ],
   "videoBlocks": [],
   "beforeAfters": [],
   "videoBeforeAfters": [],

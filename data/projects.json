@@ -595,7 +595,7 @@
       "title": "Lamine Yamal x CocaCola - World Cup",
       "year": "July 2026",
       "category": "Commercial / Football",
-      "image": "data/projects/lamineyamal-cocacola/COPERTINA_4_5.webp",
+      "image": "COPERTINA_4_5.webp",
       "cardOrientation": "4-5",
       "previewVideo": "",
       "gridCover169": "",
@@ -619,35 +619,35 @@
           "caption": "",
           "images": [
             {
-              "src": "data/projects/lamineyamal-cocacola/VIEWPORT_1.webp",
+              "src": "VIEWPORT_1.webp",
               "alt": ""
             },
             {
-              "src": "data/projects/lamineyamal-cocacola/VIEWPORT_2.webp",
+              "src": "VIEWPORT_2.webp",
               "alt": ""
             },
             {
-              "src": "data/projects/lamineyamal-cocacola/VIEWPORT_3.webp",
+              "src": "VIEWPORT_3.webp",
               "alt": ""
             },
             {
-              "src": "data/projects/lamineyamal-cocacola/VIEWPORT_4.webp",
+              "src": "VIEWPORT_4.webp",
               "alt": ""
             },
             {
-              "src": "data/projects/lamineyamal-cocacola/VIEWPORT_5.webp",
+              "src": "VIEWPORT_5.webp",
               "alt": ""
             },
             {
-              "src": "data/projects/lamineyamal-cocacola/VIEWPORT_6.webp",
+              "src": "VIEWPORT_6.webp",
               "alt": ""
             },
             {
-              "src": "data/projects/lamineyamal-cocacola/VIEWPORT_7.webp",
+              "src": "VIEWPORT_7.webp",
               "alt": ""
             },
             {
-              "src": "data/projects/lamineyamal-cocacola/VIEWPORT_8.webp",
+              "src": "VIEWPORT_8.webp",
               "alt": ""
             }
           ]
@@ -658,7 +658,7 @@
           "tag": "",
           "heading": "Viewport render of the stadium animation",
           "caption": "",
-          "file": "data/projects/lamineyamal-cocacola/viewport50mm.mp4",
+          "file": "viewport50mm.mp4",
           "url": ""
         }
       ],

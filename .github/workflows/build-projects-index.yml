@@ -5,6 +5,8 @@ name: Build projects index
 # The website reads ONLY data/projects.json — this keeps it in sync.
 
 on:
+  # Manual trigger — shows a "Run workflow" button in the Actions tab
+  workflow_dispatch:
   push:
     branches: [main]
     paths:

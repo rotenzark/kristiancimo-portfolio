@@ -143,15 +143,15 @@
     },
     {
       "title": "Brahim - lasers compositing",
-      "videoBefore": "",
-      "videoAfter": "",
+      "videoBefore": "data/projects/adidas-legacy/LASERS_RAW.mp4",
+      "videoAfter": "LASERS_EDIT.mp4",
       "labelBefore": "Before",
       "labelAfter": "After"
     },
     {
       "title": "Aitana and Brahim - set extension and roto",
-      "videoBefore": "",
-      "videoAfter": "",
+      "videoBefore": "data/projects/adidas-legacy/IMPACT_RAW.mp4",
+      "videoAfter": "IMPACT_EDIT.mp4",
       "labelBefore": "Before",
       "labelAfter": "After"
     }

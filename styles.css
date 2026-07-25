@@ -510,15 +510,12 @@ nav {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
+}
+/* The still animates its scale. The video must NOT — see .cover-video below. */
+.project .cover-img {
   transition: transform 1.2s cubic-bezier(.2,.8,.2,1), opacity 0.5s ease;
 }
 /* ◆ v3 CHANGE: full color always, slight darken for legibility, scale on hover */
-/* Do NOT remove these filters. They were taken out on 2026-07-25 to show the covers
-   at full brightness, and every hover preview started shimmering — a filter also
-   forces the element down a filtered rasterisation path, and without it the browser
-   resamples the scaled video on every decoded frame. will-change: transform was tried
-   as a replacement and did not fix it. Restored. If you want the covers ungraded, the
-   shimmer has to be solved first, on its own. */
 .project .cover-img {
   filter: brightness(0.78) contrast(1.04);
 }
@@ -528,10 +525,25 @@ nav {
 .project .cover-img-169 { display: none; }
 .work[data-layout="uniform"] .project .cover-img-default { display: none; }
 .work[data-layout="uniform"] .project .cover-img-169 { display: block; }
+/* ⚠️ NEVER put transform back in this transition.
+   The preview video sits at its hover size permanently and only fades. Animating
+   scale() on a <video> made the shot visibly vibrate under the cursor: the scale
+   changes every frame, so each decoded frame gets resampled on a slightly different
+   grid and fine detail crawls. A still image is rasterised once and never shows it.
+
+   Found by elimination on 2026-07-25, after three wrong guesses (will-change, the
+   4K source, the brightness filters — none of them). The proof: the .mp4 plays
+   perfectly clean opened on its own, and switching off this one transition stopped
+   it with the grain, the custom cursor and the filters all still running.
+
+   Because the video is already at 1.04 when it fades in, and .cover-img animates up
+   to meet it, the hover looks exactly as it did. */
 .project .cover-video {
   opacity: 0;
   pointer-events: none;
   filter: brightness(0.85) contrast(1.04);
+  transform: scale(1.04);
+  transition: opacity 0.5s ease;
 }
 .project:hover .cover-img {
   opacity: 0;
@@ -539,7 +551,6 @@ nav {
 }
 .project:hover .cover-video {
   opacity: 1;
-  transform: scale(1.04);
 }
 /* if no preview video exists, simply brighten the image more on hover */
 .project.no-preview:hover .cover-img {

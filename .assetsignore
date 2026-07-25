@@ -5,6 +5,7 @@
 .git/
 .github/
 .gitignore
+.gitattributes
 
 # Documentation & config not served to users
 README.md

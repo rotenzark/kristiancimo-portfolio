@@ -623,6 +623,10 @@
       if (typeof v !== 'string' || !v) return v;
       // real URLs and data URIs: leave untouched
       if (/^https?:\/\//i.test(v) || v.startsWith('data:')) return v;
+      // Vimeo/YouTube links are often written without a protocol ("vimeo.com/123456").
+      // They are embeds, not files — without this check the fallback below would turn
+      // them into "data/projects/<slug>/123456". This is what makes the note above true.
+      if (videoEmbed(v)) return v;
       // already a correct project path (with or without a leading slash): normalise to absolute
       if (v.includes('data/projects/')) return '/' + v.replace(/^\/+/, '');
       // anything else — a bare filename, a stray "/name.webp", or an old "/media/name.webp"
@@ -636,7 +640,7 @@
         const out = {};
         for (const [k, val] of Object.entries(obj)) {
           // Single media reference (a string under one of these keys) → fix it
-          const mediaKeys = ['image','previewVideo','gridCover169','insideCover',
+          const mediaKeys = ['image','previewVideo','gridCover169','insideCover','coverVideo',
                              'src','imageBefore','imageAfter','videoBefore','videoAfter','file'];
           // Media LISTS. Depending on how the CMS wrote them, items can be bare
           // strings (e.g. "CLAY_2.webp") OR objects like { src: "..." }. Fix both.
@@ -715,7 +719,10 @@
 
     bind('status', site.status);
 
-    const all = (projects.items || []).slice().sort((a,b) => (a.order||999) - (b.order||999));
+    // Draft projects are hidden from the public site (same filter as index.html).
+    // Filtering here does double duty: an unpublished slug falls through to the 404
+    // below, and the "Next Project" link can never point at a draft.
+    const all = (projects.items || []).filter(p => !p.draft).sort((a,b) => (a.order||999) - (b.order||999));
     const idx = all.findIndex(p => (p.slug || slug(p.title)) === id);
     if (idx === -1) {
       document.getElementById('project-root').innerHTML = `

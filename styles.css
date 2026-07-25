@@ -192,8 +192,13 @@ nav {
   line-height: 0.82; letter-spacing: -0.015em;
   text-transform: uppercase; margin-bottom: 32px;
 }
-/* each name line is its own block: tight letters, but a small gap on
-   the second line gives the accent (Ò) room to breathe without touching the line above */
+/* Each name line is its own block, set tight on purpose.
+   The hero reads "CIMO'" with an apostrophe rather than "CIMÒ", and that is a
+   decision, not an oversight — do not "fix" it. Measured at 240px: the grave on the
+   Ò lands inside the A of KRISTIAN above, 0.23em still grazes it, and 0.30em is the
+   first value that clears. Kristian looked at both and kept the tight lockup.
+   If you ever change your mind, the accent costs 0.30em here and the CMS field is
+   site.json -> nameLine2. */
 .hero h1 .line {
   display: block;
   width: fit-content;        /* hover area matches the letters, not the full row */
@@ -263,8 +268,9 @@ nav {
   gap: 32px;
   align-items: center;
   justify-content: flex-end;
-  padding: 0 0 32px;
-  margin-bottom: 24px;
+  padding: 18px 0 20px;
+  margin-bottom: 28px;
+  border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   flex-wrap: wrap;
 }
@@ -273,13 +279,18 @@ nav {
   align-items: center;
   gap: 14px;
 }
+/* These controls are the one thing here no other portfolio offers — you can re-cut the
+   archive by layout, order and density. At --muted on black they were invisible and
+   nobody found them. Bright enough to be read as an instrument, quiet enough not to
+   compete with the covers below. */
 .wc-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(245, 243, 239, 0.62);
 }
+.work-controls:hover .wc-label { color: rgba(245, 243, 239, 0.85); }
 /* Sort select — custom styled */
 .wc-select-wrap { position: relative; display: inline-block; }
 .wc-select {
@@ -393,16 +404,47 @@ nav {
    the whole grid up/down while preserving proportions AND the asymmetric
    layout. Origin is top-left so cards stay aligned to the left edge. */
 .work[data-layout="asymmetric"] { overflow: hidden; } /* clip overflow when scaled up */
-.work[data-layout="asymmetric"][data-density] .work-grid {
-  transform-origin: top left;
-  transition: transform 0.35s cubic-bezier(.2,.8,.2,1);
-  will-change: transform;
+/* ─── ASYMMETRIC layout = justified rows ───
+   Every card keeps its native aspect ratio and takes a share of its row proportional
+   to that ratio (flex-grow: ratio, flex-basis: 0). A row therefore always closes
+   exactly on the right edge, and every card in it resolves to the same height.
+
+   This replaces a 12-column grid with hardcoded spans, which could not tile: put a
+   16:9 and a 3:4 in one row and the shorter card left a void under it — whole thirds
+   of the page went black for entire rows. It is the same technique as
+   applyJustifiedRow() in project.html, which already does this for the galleries.
+
+   Density is now the target row height instead of a transform: scale() on the grid
+   with a compensating width. Taller rows mean fewer cards per row. */
+.work[data-layout="asymmetric"] .work-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  width: 100%;
+  transform: none;
 }
-.work[data-layout="asymmetric"][data-density="0"] .work-grid { transform: scale(0.65); width: calc(100% / 0.65); }
-.work[data-layout="asymmetric"][data-density="1"] .work-grid { transform: scale(0.82); width: calc(100% / 0.82); }
-.work[data-layout="asymmetric"][data-density="2"] .work-grid { transform: scale(1);    width: 100%; }
-.work[data-layout="asymmetric"][data-density="3"] .work-grid { transform: scale(1.18); width: calc(100% / 1.18); }
-.work[data-layout="asymmetric"][data-density="4"] .work-grid { transform: scale(1.40); width: calc(100% / 1.40); }
+.work[data-layout="asymmetric"] .project {
+  flex-grow: var(--ratio, 1.7778);
+  flex-basis: 0;
+  /* The width this card wants at the current row height. Because flex-basis is 0,
+     this min-width is also the size wrapping is decided on — so it is what sets how
+     many cards land on a row. */
+  min-width: min(100%, calc(var(--ratio, 1.7778) * var(--row-h, 250px)));
+  /* Ceiling on how far a card may grow. Without it the last row — often a single
+     card — stretches to the full width, and since height follows the ratio a lone
+     portrait ends up nearly 1900px tall. Because the cap is ratio × row-h, it works
+     out to a cap on HEIGHT of row-h × 1.9 whatever the shape, so a short last row
+     just sits left-aligned at a sane size instead of ballooning. */
+  max-width: min(100%, calc(var(--ratio, 1.7778) * var(--row-h, 250px) * 1.9));
+  aspect-ratio: var(--ratio, 1.7778);
+  grid-column: auto;
+  transition: min-width 0.35s cubic-bezier(.2,.8,.2,1);
+}
+.work[data-layout="asymmetric"][data-density="0"] .work-grid { --row-h: 145px; }
+.work[data-layout="asymmetric"][data-density="1"] .work-grid { --row-h: 195px; }
+.work[data-layout="asymmetric"][data-density="2"] .work-grid { --row-h: 250px; }
+.work[data-layout="asymmetric"][data-density="3"] .work-grid { --row-h: 330px; }
+.work[data-layout="asymmetric"][data-density="4"] .work-grid { --row-h: 430px; }
 
 /* ─── UNIFORM 16:9 layout ───
    All project cards are forced to 16:9 aspect ratio. The slider becomes
@@ -470,9 +512,11 @@ nav {
   object-fit: cover;
   transition: transform 1.2s cubic-bezier(.2,.8,.2,1), opacity 0.5s ease;
 }
-.project .cover-img {
-  filter: brightness(0.78) contrast(1.04);
-}
+/* No global filter here. A brightness(0.78) used to darken every thumbnail so the
+   white title would read over it — which dulled the work on the one screen where it
+   gets judged, and still failed on light covers (the Zidane card's metadata was
+   illegible anyway). Legibility is the scrim's job, under the text only, where it
+   costs nothing. See .project-meta. */
 /* Layout swaps between two <img> tags per card (asymmetric uses the
    default cover; uniform uses the dedicated 16:9 cover). Default
    behaviour = asymmetric, so we hide the 16:9 image unless explicitly enabled. */
@@ -500,10 +544,17 @@ nav {
 
 .project-meta {
   position: absolute; inset: auto 0 0 0;
-  padding: 24px;
+  padding: 56px 24px 24px;
   display: flex; justify-content: space-between; align-items: flex-end;
   gap: 16px;
-  background: linear-gradient(to top, rgba(10,10,10,0.85), transparent 80%);
+  /* Taller and heavier than it looks like it needs to be, because it now carries the
+     legibility on its own. It has to hold white text over a near-white cover, not
+     just over a dark one. Eased in three stops so the edge never reads as a band. */
+  background: linear-gradient(to top,
+    rgba(10,10,10,0.92) 0%,
+    rgba(10,10,10,0.72) 30%,
+    rgba(10,10,10,0.34) 62%,
+    transparent 100%);
   z-index: 2;
 }
 .project-title {
@@ -516,8 +567,34 @@ nav {
   text-align: right;
   font-size: 10px; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--muted);
+  min-width: 0;
 }
-.project-info .year { color: var(--fg); }
+/* The date must never break; the category is free to wrap, and is cut with an
+   ellipsis rather than allowed to run off the card ("FOOTBALL / CARTOGRAPHY / CG…"
+   used to spill past the edge on the narrow cards). */
+.project-info .year { color: var(--fg); white-space: nowrap; }
+.project-info > div:not(.year) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Title beside date works while the card is wide. In justified rows a portrait card
+   can end up a third of that, and then the two fight: the title wraps to three lines
+   and the date gets clipped mid-word. Below the threshold they stack instead.
+   Keyed to the CARD's width, not the viewport — cards of both widths coexist in the
+   same row, so a media query cannot tell them apart. */
+.project { container-type: inline-size; }
+@container (max-width: 400px) {
+  .project-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 48px 18px 18px;
+  }
+  .project-info { text-align: left; align-self: stretch; }
+  .project-title { font-size: 17px; }
+}
 .project-tag {
   position: absolute; top: 16px; left: 16px;
   font-size: 9px; letter-spacing: 0.22em;
@@ -540,10 +617,18 @@ nav {
   .project .cover-img-169 { display: block; }
   /* on mobile, hover doesn't exist — hide preview video to save bandwidth */
   .project .cover-video { display: none; }
-  /* On mobile, disable asymmetric scaling entirely */
-  .work[data-layout="asymmetric"][data-density] .work-grid {
-    transform: none !important;
-    width: 100% !important;
+  /* The asymmetric layout collapses to one column here too. Justified rows need width
+     to mean anything — at 390px they would fit two thumbnails per line and both would
+     be too small to read. Back to a single-column grid, which also restores the
+     16:9 override above (min-width/flex-basis would otherwise keep driving the size). */
+  .work[data-layout="asymmetric"] .work-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .work[data-layout="asymmetric"] .project {
+    min-width: 0;
+    max-width: none;
+    flex-basis: auto;
   }
   /* Hide layout toggle AND zoom slider on mobile — single column is fixed */
   .work-controls .wc-group-layout,
@@ -696,9 +781,11 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
    PROJECT PAGE
    ═══════════════════════════════════════════════════ */
 
+/* Sits BELOW the nav row, not inside it: at top:22px it landed on top of the KC logo,
+   which is fixed at the same corner with the same padding. */
 .back-link {
   position: fixed;
-  top: 22px; left: 32px;
+  top: 68px; left: 32px;
   z-index: 60;
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
@@ -711,7 +798,7 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
 .back-link::before { content: '← '; margin-right: 4px; }
 .back-link:hover { opacity: 0.6; }
 @media (max-width: 768px) {
-  .back-link { left: 20px; top: 16px; font-size: 9px; }
+  .back-link { left: 20px; top: 52px; font-size: 9px; }
 }
 
 .project-hero { padding: 180px 32px 80px; border-bottom: 1px solid var(--line); }

@@ -244,14 +244,14 @@
         fetch(url)                              // same-origin → a usable Blob
           .then(r => r.blob())
           .then(blob => {
-            const objUrl = URL.createObjectURL(blob);
-            v.src = objUrl;                     // video now reads from memory
+            // The object URL is deliberately NOT revoked. Revoking it on loadeddata
+            // was tried on 2026-07-25 and taken back out: the element still needs the
+            // URL every time it seeks — the loop restart and the drift correction both
+            // seek — and a revoked URL there is a stall with no error. The only thing
+            // revoking bought was releasing the URL→blob mapping, which the page frees
+            // on unload anyway; not worth the risk of a video that stops mid-play.
+            v.src = URL.createObjectURL(blob);  // video now reads from memory
             v.load();
-            // Release the URL→blob mapping once the element holds the data. The
-            // element keeps the blob alive by itself, so playback is unaffected;
-            // without this the mapping outlives the element and the blob can never
-            // be collected.
-            v.addEventListener('loadeddata', () => URL.revokeObjectURL(objUrl), { once: true });
             seekToFirstFrame(v);                // paint the first frame
             markReady();
           })

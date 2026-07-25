@@ -3,23 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- BUILD:META — everything up to /BUILD:META is rewritten per project by
-     .github/workflows/build-projects-index.yml when it generates
-     project/<slug>/index.html. The values below are the fallback used when this
-     file is served directly at /project?id=<slug>.
-
-     These tags MUST live in the HTML. Social crawlers (WhatsApp, LinkedIn,
-     Slack, iMessage) do not execute JavaScript, so setting them from JS would be
-     invisible to exactly the audience that reads them: every shared project link
-     would show the same generic card. -->
 <title>Project — Kristian Cimò</title>
 <meta name="description" content="Project case study by Kristian Cimò.">
 <meta property="og:title" content="Kristian Cimò — VFX / CGI / 3D / AI">
 <meta property="og:description" content="Project case study by Kristian Cimò — AI-driven VFX for global brands and athletes.">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://kristiancimo.it/og-image.png">
-<meta name="twitter:card" content="summary_large_image">
-<!-- /BUILD:META -->
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -27,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -42,11 +31,11 @@
 </div>
 
 <nav>
-  <a href="/" class="logo">KC<span>.</span></a>
+  <a href="index.html" class="logo">KC<span>.</span></a>
   <div class="nav-links">
-    <a href="/#work" class="interactive">Work</a>
-    <a href="/#about" class="interactive">About</a>
-    <a href="/#contact" class="interactive">Contact</a>
+    <a href="index.html#work" class="interactive">Work</a>
+    <a href="index.html#about" class="interactive">About</a>
+    <a href="index.html#contact" class="interactive">Contact</a>
   </div>
   <div class="nav-status">
     <span class="dot"></span>
@@ -54,7 +43,7 @@
   </div>
 </nav>
 
-<a href="/#work" class="back-link interactive">Back to Work</a>
+<a href="index.html#work" class="back-link interactive">Back to Work</a>
 
 <main id="project-root"></main>
 
@@ -72,8 +61,6 @@
 </footer>
 
 <script type="module">
-  import { videoEmbed, fixDeep, mediaBaseFor } from '/js/paths.js';
-
   function escapeHtml(s) {
     if (s == null) return '';
     return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -91,6 +78,15 @@
   function getParam(name) {
     return new URL(window.location.href).searchParams.get(name);
   }
+  function videoEmbed(url) {
+    if (!url) return null;
+    const v = url.match(/(?:vimeo\.com\/)(\d+)/);
+    if (v) return `https://player.vimeo.com/video/${v[1]}?title=0&byline=0&portrait=0`;
+    const y = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([\w-]+)/);
+    if (y) return `https://www.youtube.com/embed/${y[1]}?rel=0`;
+    return null;
+  }
+
   function hideLoader() {
     setTimeout(() => document.getElementById('loader').classList.add('gone'), 1200);
   }
@@ -250,14 +246,8 @@
         fetch(url)                              // same-origin → a usable Blob
           .then(r => r.blob())
           .then(blob => {
-            const objUrl = URL.createObjectURL(blob);
-            v.src = objUrl;                     // video now reads from memory
+            v.src = URL.createObjectURL(blob);  // video now reads from memory
             v.load();
-            // Release the URL→blob mapping once the element holds the data. The
-            // element keeps the blob alive by itself, so playback is unaffected;
-            // without this the mapping outlives the element and the blob can never
-            // be collected.
-            v.addEventListener('loadeddata', () => URL.revokeObjectURL(objUrl), { once: true });
             seekToFirstFrame(v);                // paint the first frame
             markReady();
           })
@@ -621,9 +611,50 @@
 
   /* ─── BACKWARD COMPAT: normalize old single fields → arrays ─── */
   function normalizeProject(p) {
-    // Repair the media paths the CMS wrote (see js/paths.js for the why).
+    // ── FIX MEDIA PATHS ──────────────────────────────────────────────
+    // The CMS (Sveltia, media_folder empty) writes bare filenames like
+    // "COVER.webp" instead of the full path. Media lives next to the
+    // project JSON in data/projects/<slug>/. So we prefix any bare
+    // filename with that folder. Absolute paths (/…), URLs (http…),
+    // and Vimeo/YouTube embeds are left untouched.
     const slugForMedia = p.slug || slug(p.title || '');
-    p = fixDeep(p, mediaBaseFor(slugForMedia));
+    const mediaBase = 'data/projects/' + slugForMedia + '/';
+    const fixPath = (v) => {
+      if (typeof v !== 'string' || !v) return v;
+      // real URLs and data URIs: leave untouched
+      if (/^https?:\/\//i.test(v) || v.startsWith('data:')) return v;
+      // already a correct project path (with or without a leading slash): normalise to absolute
+      if (v.includes('data/projects/')) return '/' + v.replace(/^\/+/, '');
+      // anything else — a bare filename, a stray "/name.webp", or an old "/media/name.webp"
+      // (there is no /media/ folder anymore) — belongs in THIS project's folder. Take just the
+      // filename and prefix it, so a malformed CMS path still resolves.
+      return mediaBase + v.split('/').pop();
+    };
+    const fixDeep = (obj) => {
+      if (Array.isArray(obj)) return obj.map(fixDeep);
+      if (obj && typeof obj === 'object') {
+        const out = {};
+        for (const [k, val] of Object.entries(obj)) {
+          // Single media reference (a string under one of these keys) → fix it
+          const mediaKeys = ['image','previewVideo','gridCover169','insideCover',
+                             'src','imageBefore','imageAfter','videoBefore','videoAfter','file'];
+          // Media LISTS. Depending on how the CMS wrote them, items can be bare
+          // strings (e.g. "CLAY_2.webp") OR objects like { src: "..." }. Fix both.
+          const mediaArrayKeys = ['images','gallery'];
+          if (mediaKeys.includes(k) && typeof val === 'string') {
+            out[k] = fixPath(val);
+          } else if (mediaArrayKeys.includes(k) && Array.isArray(val)) {
+            out[k] = val.map(it => typeof it === 'string' ? fixPath(it) : fixDeep(it));
+          } else {
+            out[k] = fixDeep(val);
+          }
+        }
+        return out;
+      }
+      return obj;
+    };
+    p = fixDeep(p);
+    // ─────────────────────────────────────────────────────────────────
 
     // gallery: if it's a flat array of images (v2), wrap it in a single block
     let galleryBlocks = [];
@@ -660,36 +691,23 @@
     return { ...p, _galleryBlocks: galleryBlocks, _videoBlocks: videoBlocks, _imageBAs: imageBAs, _videoBAs: videoBAs };
   }
 
-  /* The slug comes from the path on the generated pages (/work/<slug>/), and from
-     ?id= on the legacy URL, which this file still serves directly at /project.
-     Both must keep working: the old form is what search engines and any
-     already-shared link may still be using.
-
-     The generated pages live under work/, not project/, because a project/
-     directory sitting next to project.html would make /project ambiguous. */
-  function slugFromPath() {
-    const m = window.location.pathname.match(/^\/work\/([^/]+)\/?$/);
-    return m ? decodeURIComponent(m[1]) : null;
-  }
-
   async function renderProject() {
-    const fromPath = slugFromPath();
-    const id = fromPath || getParam('id');
-    if (!id) { window.location.href = '/'; return; }
+    const id = getParam('id');
+    if (!id) { window.location.href = 'index.html'; return; }
 
     let projects, footer, site;
     try {
       [projects, footer, site] = await Promise.all([
-        fetch('/data/projects.json').then(r => r.json()),
-        fetch('/data/footer.json').then(r => r.json()),
-        fetch('/data/site.json').then(r => r.json())
+        fetch('data/projects.json').then(r => r.json()),
+        fetch('data/footer.json').then(r => r.json()),
+        fetch('data/site.json').then(r => r.json())
       ]);
     } catch (err) {
       document.getElementById('project-root').innerHTML = `
         <section style="padding:200px 32px;text-align:center;">
           <h1 style="font-family:'Anton',sans-serif;font-size:64px;">Error loading project</h1>
           <p style="margin-top:24px;color:var(--muted);">${escapeHtml(String(err))}</p>
-          <p style="margin-top:24px;"><a href="/" class="interactive" style="border-bottom:1px solid;">← Back to home</a></p>
+          <p style="margin-top:24px;"><a href="index.html" class="interactive" style="border-bottom:1px solid;">← Back to home</a></p>
         </section>`;
       hideLoader();
       return;
@@ -697,28 +715,16 @@
 
     bind('status', site.status);
 
-    // Draft projects are hidden from the public site (same filter as index.html).
-    // Filtering here does double duty: an unpublished slug falls through to the 404
-    // below, and the "Next Project" link can never point at a draft.
-    const all = (projects.items || []).filter(p => !p.draft).sort((a,b) => (a.order||999) - (b.order||999));
+    const all = (projects.items || []).slice().sort((a,b) => (a.order||999) - (b.order||999));
     const idx = all.findIndex(p => (p.slug || slug(p.title)) === id);
     if (idx === -1) {
       document.getElementById('project-root').innerHTML = `
         <section style="padding:200px 32px;text-align:center;">
           <h1 style="font-family:'Anton',sans-serif;font-size:80px;">404</h1>
           <p style="margin-top:24px;color:var(--muted);">Project "${escapeHtml(id)}" not found</p>
-          <p style="margin-top:24px;"><a href="/" class="interactive" style="border-bottom:1px solid;">← Back to home</a></p>
+          <p style="margin-top:24px;"><a href="index.html" class="interactive" style="border-bottom:1px solid;">← Back to home</a></p>
         </section>`;
       hideLoader();
-      return;
-    }
-
-    // Legacy /project?id=<slug> → the canonical /work/<slug>/, which carries the
-    // per-project meta tags. Deliberately AFTER the lookup above: an unknown or
-    // unpublished slug keeps the styled 404 instead of being bounced to a page that
-    // does not exist.
-    if (!fromPath) {
-      window.location.replace('/work/' + encodeURIComponent(id) + '/');
       return;
     }
 
@@ -884,7 +890,7 @@
     if (p.showNextProject !== false && next && next !== all[idx]) {
       const nextId = next.slug || slug(next.title);
       html += `
-        <a href="/work/${encodeURIComponent(nextId)}/" class="next-project interactive">
+        <a href="project.html?id=${encodeURIComponent(nextId)}" class="next-project interactive">
           <div class="label">Next Project — ${escapeHtml(next.year || '')}</div>
           <h2>${escapeHtml(next.title)}</h2>
           <div class="arrow">→ View</div>
@@ -917,13 +923,13 @@
       </div>
       <div class="col">
         <h4>Index</h4>
-        <a href="/#work" class="interactive">Work</a>
-        <a href="/#about" class="interactive">About</a>
-        <a href="/#contact" class="interactive">Contact</a>
+        <a href="index.html#work" class="interactive">Work</a>
+        <a href="index.html#about" class="interactive">About</a>
+        <a href="index.html#contact" class="interactive">Contact</a>
       </div>
       <div class="col">
         <h4>Studio</h4>
-        <span>Milano · Italia</span>
+        <span>Brescia · Italia</span>
         <span>Remote Worldwide</span>
         <span>EU · GMT+1</span>
       </div>

@@ -1,16 +1,8 @@
 name: Build projects index
 
-# Rebuilds everything DERIVED from data/projects/<slug>/index.json:
-#
-#   data/projects.json         the list the site reads
-#   work/<slug>/index.html     one page per published project, with its own
-#                              <title>, description and OG tags — social crawlers
-#                              do not run JavaScript, so those must be in the HTML
-#   sitemap.xml                published projects only, never a draft
-#
-# The work is done by tools/build.js, which you can also run locally with
-# `node tools/build.js` — same script, same output, nothing to install.
-# project.html is the template the pages come from, so editing it also rebuilds.
+# Whenever a project file changes (CMS save, manual edit, delete),
+# rebuild data/projects.json by merging all data/projects/*/index.json.
+# The website reads ONLY data/projects.json — this keeps it in sync.
 
 on:
   # Manual trigger — shows a "Run workflow" button in the Actions tab
@@ -19,9 +11,6 @@ on:
     branches: [main]
     paths:
       - "data/projects/**"
-      - "project.html"
-      - "tools/build.js"
-      - ".github/workflows/build-projects-index.yml"
 
 permissions:
   contents: write
@@ -32,19 +21,32 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          # full history: sitemap <lastmod> is each project's last commit date
-          fetch-depth: 0
 
-      - name: Rebuild index, project pages and sitemap
-        run: node tools/build.js
+      - name: Merge project files into projects.json
+        run: |
+          python3 - << 'PY'
+          import json, glob
 
-      - name: Commit generated files (if changed)
+          items = []
+          for path in sorted(glob.glob("data/projects/*/index.json")):
+              with open(path, encoding="utf-8") as fh:
+                  items.append(json.load(fh))
+
+          items.sort(key=lambda p: p.get("order", 999))
+
+          with open("data/projects.json", "w", encoding="utf-8") as fh:
+              json.dump({"items": items}, fh, ensure_ascii=False, indent=2)
+              fh.write("\n")
+
+          print(f"Rebuilt projects.json with {len(items)} projects")
+          PY
+
+      - name: Commit updated index (if changed)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A data/projects.json work sitemap.xml
-          git diff --cached --quiet && echo "nothing to rebuild" || {
-            git commit -m "chore: rebuild projects index, project pages and sitemap"
+          git add data/projects.json
+          git diff --cached --quiet && echo "projects.json already up to date" || {
+            git commit -m "chore: rebuild projects.json"
             git push
           }

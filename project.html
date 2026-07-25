@@ -314,7 +314,11 @@
     // the video). We only nudge the "after" video back if it drifts a lot,
     // and we do it rarely, not every frame.
     function startTogether() {
+      // Align once here, while both are still paused — this is the one safe moment
+      // to seek. From here on the two are kept together by speed, never by seeking.
       videoAfter.currentTime = videoBefore.currentTime;
+      videoBefore.playbackRate = 1;
+      videoAfter.playbackRate = 1;
       const p1 = videoBefore.play();
       const p2 = videoAfter.play();
       // both play() calls fire back-to-back synchronously here, which is the
@@ -326,6 +330,7 @@
     function stopBoth() {
       videoBefore.pause();
       videoAfter.pause();
+      videoAfter.playbackRate = 1;   // don't resume mid-correction next time
       playBtn.textContent = '▶ Play';
     }
 
@@ -336,25 +341,36 @@
       else stopBoth();
     });
 
-    // Gentle drift correction: check a few times per second, and only correct
-    // if drift is clearly visible (> 0.1s). Correcting rarely avoids the
-    // per-frame seek stutter. We nudge "after" to match "before".
+    /* Drift correction WITHOUT seeking.
+     *
+     * This used to set videoAfter.currentTime whenever the two drifted more than
+     * 0.1s apart, every 500ms. Seeking a <video> mid-playback flushes its decoder,
+     * so each correction cost more drift than it repaired: the clip fell further
+     * behind, the next tick corrected again, and the two sawed against each other
+     * until one stopped. "Starts, then freezes for no reason" was this loop.
+     *
+     * Nudging playbackRate instead lets the trailing clip catch up without ever
+     * interrupting decode. 3% is imperceptible on a five-second loop.
+     *
+     * A seek survives for exactly one case: the loop wraps, or the tab came back
+     * from the background, and the two are a second or more apart. Speed alone
+     * would take too long to close a gap that size, and there is no playback to
+     * protect at that point anyway.
+     */
     setInterval(() => {
       if (!playing) return;
       if (videoBefore.paused || videoAfter.paused) return;
       const drift = videoAfter.currentTime - videoBefore.currentTime;
-      if (Math.abs(drift) > 0.1) {
+      const off = Math.abs(drift);
+      if (off > 0.75) {
         videoAfter.currentTime = videoBefore.currentTime;
+        videoAfter.playbackRate = 1;
+      } else if (off > 0.035) {
+        videoAfter.playbackRate = drift > 0 ? 0.97 : 1.03;
+      } else if (videoAfter.playbackRate !== 1) {
+        videoAfter.playbackRate = 1;
       }
-    }, 500);
-
-    // Keep the two videos looping in lockstep: when "before" loops back to
-    // start, snap "after" to match so the loop restart stays aligned.
-    videoBefore.addEventListener('seeked', () => {
-      if (playing && Math.abs(videoAfter.currentTime - videoBefore.currentTime) > 0.1) {
-        videoAfter.currentTime = videoBefore.currentTime;
-      }
-    });
+    }, 250);
 
     setVBA(50);
   }

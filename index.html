@@ -571,7 +571,27 @@
       pPos[i*3+2] = r * Math.cos(phi);
     }
     pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-    const pMat = new THREE.PointsMaterial({ color: 0xf5f3ef, size: 0.014, transparent: true, opacity: 0.55 });
+    /* THREE.Points draws SQUARE sprites unless the material carries a texture — that
+       is why the dust read as tiny squares. One 64px canvas, drawn once and shared by
+       all 600 points: solid to half the radius, then feathered to nothing, so the dot
+       stays round at any size instead of aliasing into a diamond.
+       size goes 0.014 -> 0.024 because the feathered edge is mostly transparent; the
+       solid core lands back at roughly the old visual size. */
+    const disc = document.createElement('canvas');
+    disc.width = disc.height = 64;
+    const dctx = disc.getContext('2d');
+    const grad = dctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+    grad.addColorStop(0.00, 'rgba(255,255,255,1)');
+    grad.addColorStop(0.50, 'rgba(255,255,255,1)');
+    grad.addColorStop(1.00, 'rgba(255,255,255,0)');
+    dctx.fillStyle = grad;
+    dctx.fillRect(0, 0, 64, 64);
+
+    const pMat = new THREE.PointsMaterial({
+      color: 0xf5f3ef, size: 0.024, transparent: true, opacity: 0.55,
+      map: new THREE.CanvasTexture(disc),
+      depthWrite: false,              // dust must not occlude the sphere behind it
+    });
     const points = new THREE.Points(pGeo, pMat);
     scene.add(points);
 
@@ -581,9 +601,39 @@
       tmy = -(e.clientY / window.innerHeight) * 2 + 1;
     });
 
+    /* ── Click: the sphere blows outward, then springs back ──
+       One damped spring on a single scalar. pointerdown injects velocity; every frame
+       the spring pulls it home while the damping bleeds off energy, so it overshoots
+       INWARD once or twice before settling — a recoil, not a fade-out.
+       Sphere, glow and dust all read from that one number, so they move as one body
+       rather than three animations that happen to overlap. The dust travels furthest,
+       which is what sells it as a shockwave. */
+    let blast = 0, blastVel = 0;
+    const SPRING = 34;     // how hard it snaps back
+    const DAMPING = 5.4;   // how many overshoots before it settles
+    const stillMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!stillMotion) {
+      // on the hero as a whole, not the canvas: .hero-content sits on top of it
+      document.querySelector('.hero').addEventListener('pointerdown', () => {
+        blastVel += 9.5;
+      });
+    }
+
     let t = 0;
     function tick() {
       t += 0.006;
+
+      // Fixed step on purpose — rAF deltas are noisy, and this only has to feel right.
+      blastVel += (-SPRING * blast - DAMPING * blastVel) / 60;
+      blast += blastVel / 60;
+      const swell = 1 + blast * 0.10;
+      mesh.scale.setScalar(swell);
+      innerMesh.scale.setScalar(swell);
+      glowMesh.scale.setScalar(1 + blast * 0.17);
+      points.scale.setScalar(1 + blast * 0.34);
+      wireMat.opacity = 0.35 + Math.min(0.45, Math.abs(blast) * 0.30);
+      glowMat.opacity = 0.05 + Math.min(0.25, Math.abs(blast) * 0.16);
       const arr = geo.attributes.position.array;
       const inArr = innerGeo.attributes.position.array;
       for (let i = 0; i < arr.length; i += 3) {
@@ -598,16 +648,19 @@
       }
       geo.attributes.position.needsUpdate = true;
       innerGeo.attributes.position.needsUpdate = true;
-      mesh.rotation.y += 0.0018;
+      // the blast also spins it: the recoil reads as force, not just as a size change
+      mesh.rotation.y += 0.0018 + blast * 0.004;
       mesh.rotation.x += 0.0008;
       innerMesh.rotation.y = mesh.rotation.y;
       innerMesh.rotation.x = mesh.rotation.x;
-      glowMesh.rotation.y -= 0.0012;
+      glowMesh.rotation.y -= 0.0012 + blast * 0.003;
       glowMesh.rotation.z += 0.0006;
       mx += (tmx - mx) * 0.04;
       my += (tmy - my) * 0.04;
-      camera.position.x = mx * 0.6;
-      camera.position.y = my * 0.4;
+      // parallax widened from 0.6/0.4 — the sphere now tracks the cursor enough to
+      // read as something you are handling, not just a background loop
+      camera.position.x = mx * 0.95;
+      camera.position.y = my * 0.62;
       camera.lookAt(0, 0, 0);
       points.rotation.y += 0.0004;
       renderer.render(scene, camera);

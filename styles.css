@@ -528,7 +528,17 @@ nav {
   pointer-events: none;
   /* No filter, for the same reason the covers no longer have one — and because the
      video cross-fades with the still: dimming one of the two makes the swap read as
-     a light change rather than as the shot starting to move. */
+     a light change rather than as the shot starting to move.
+
+     translateZ(0) is here to replace what the filter used to provide for free. Any
+     filter promotes an element to its own GPU layer, so the hover scale(1.04) was
+     applied once by the compositor. Without it the browser re-rasterised the scaled
+     video on every decoded frame, and fine detail shimmered — the shot visibly
+     trembled under the cursor. will-change asks for that layer explicitly — a bare
+     translateZ(0) gets flattened back to a 2D matrix here and stops being a reliable
+     hint. There are only ever a handful of these on the page. */
+  will-change: transform;
+  backface-visibility: hidden;
 }
 .project:hover .cover-img {
   opacity: 0;

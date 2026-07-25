@@ -235,7 +235,10 @@
         const projList = sortProjects(order);
         grid.innerHTML = projList.map(p => {
           const id = p.slug || slug(p.title);
-          const href = `project.html?id=${encodeURIComponent(id)}`;
+          // Extensionless on purpose: Cloudflare serves project.html at /project and
+          // 307-redirects /project.html. Linking the redirect target directly keeps the
+          // URL we advertise identical to the one that answers 200.
+          const href = `/project?id=${encodeURIComponent(id)}`;
           // ── FIX MEDIA PATHS ──────────────────────────────────────────
           // The CMS writes bare filenames ("COVER.webp"); media lives in
           // data/projects/<slug>/. Prefix bare names; leave /…, http…, data: alone.

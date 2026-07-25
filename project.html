@@ -31,11 +31,11 @@
 </div>
 
 <nav>
-  <a href="index.html" class="logo">KC<span>.</span></a>
+  <a href="/" class="logo">KC<span>.</span></a>
   <div class="nav-links">
-    <a href="index.html#work" class="interactive">Work</a>
-    <a href="index.html#about" class="interactive">About</a>
-    <a href="index.html#contact" class="interactive">Contact</a>
+    <a href="/#work" class="interactive">Work</a>
+    <a href="/#about" class="interactive">About</a>
+    <a href="/#contact" class="interactive">Contact</a>
   </div>
   <div class="nav-status">
     <span class="dot"></span>
@@ -43,7 +43,7 @@
   </div>
 </nav>
 
-<a href="index.html#work" class="back-link interactive">Back to Work</a>
+<a href="/#work" class="back-link interactive">Back to Work</a>
 
 <main id="project-root"></main>
 
@@ -697,7 +697,7 @@
 
   async function renderProject() {
     const id = getParam('id');
-    if (!id) { window.location.href = 'index.html'; return; }
+    if (!id) { window.location.href = '/'; return; }
 
     let projects, footer, site;
     try {
@@ -711,7 +711,7 @@
         <section style="padding:200px 32px;text-align:center;">
           <h1 style="font-family:'Anton',sans-serif;font-size:64px;">Error loading project</h1>
           <p style="margin-top:24px;color:var(--muted);">${escapeHtml(String(err))}</p>
-          <p style="margin-top:24px;"><a href="index.html" class="interactive" style="border-bottom:1px solid;">← Back to home</a></p>
+          <p style="margin-top:24px;"><a href="/" class="interactive" style="border-bottom:1px solid;">← Back to home</a></p>
         </section>`;
       hideLoader();
       return;
@@ -729,7 +729,7 @@
         <section style="padding:200px 32px;text-align:center;">
           <h1 style="font-family:'Anton',sans-serif;font-size:80px;">404</h1>
           <p style="margin-top:24px;color:var(--muted);">Project "${escapeHtml(id)}" not found</p>
-          <p style="margin-top:24px;"><a href="index.html" class="interactive" style="border-bottom:1px solid;">← Back to home</a></p>
+          <p style="margin-top:24px;"><a href="/" class="interactive" style="border-bottom:1px solid;">← Back to home</a></p>
         </section>`;
       hideLoader();
       return;
@@ -897,7 +897,7 @@
     if (p.showNextProject !== false && next && next !== all[idx]) {
       const nextId = next.slug || slug(next.title);
       html += `
-        <a href="project.html?id=${encodeURIComponent(nextId)}" class="next-project interactive">
+        <a href="/project?id=${encodeURIComponent(nextId)}" class="next-project interactive">
           <div class="label">Next Project — ${escapeHtml(next.year || '')}</div>
           <h2>${escapeHtml(next.title)}</h2>
           <div class="arrow">→ View</div>
@@ -930,9 +930,9 @@
       </div>
       <div class="col">
         <h4>Index</h4>
-        <a href="index.html#work" class="interactive">Work</a>
-        <a href="index.html#about" class="interactive">About</a>
-        <a href="index.html#contact" class="interactive">Contact</a>
+        <a href="/#work" class="interactive">Work</a>
+        <a href="/#about" class="interactive">About</a>
+        <a href="/#contact" class="interactive">Contact</a>
       </div>
       <div class="col">
         <h4>Studio</h4>

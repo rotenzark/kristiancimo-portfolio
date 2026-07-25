@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 
@@ -134,6 +134,7 @@
 
 <script type="module">
   import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+  import { fixPath, mediaBaseFor } from '/js/paths.js';
 
   function bind(key, value) {
     if (value == null) return;
@@ -186,11 +187,11 @@
   async function loadContent() {
     try {
       const [site, projects, about, footer, clients] = await Promise.all([
-        fetch('data/site.json').then(r => r.json()),
-        fetch('data/projects.json').then(r => r.json()),
-        fetch('data/about.json').then(r => r.json()),
-        fetch('data/footer.json').then(r => r.json()),
-        fetch('data/clients.json').then(r => r.json())
+        fetch('/data/site.json').then(r => r.json()),
+        fetch('/data/projects.json').then(r => r.json()),
+        fetch('/data/about.json').then(r => r.json()),
+        fetch('/data/footer.json').then(r => r.json()),
+        fetch('/data/clients.json').then(r => r.json())
       ]);
 
       document.title = site.title || document.title;
@@ -235,27 +236,18 @@
         const projList = sortProjects(order);
         grid.innerHTML = projList.map(p => {
           const id = p.slug || slug(p.title);
-          // Extensionless on purpose: Cloudflare serves project.html at /project and
-          // 307-redirects /project.html. Linking the redirect target directly keeps the
-          // URL we advertise identical to the one that answers 200.
-          const href = `/project?id=${encodeURIComponent(id)}`;
-          // ── FIX MEDIA PATHS ──────────────────────────────────────────
-          // The CMS writes bare filenames ("COVER.webp"); media lives in
-          // data/projects/<slug>/. Prefix bare names; leave /…, http…, data: alone.
-          const mediaBase = 'data/projects/' + id + '/';
-          const fixPath = (v) => {
-            if (typeof v !== 'string' || !v) return '';
-            if (/^https?:\/\//i.test(v) || v.startsWith('data:')) return v;
-            if (v.includes('data/projects/')) return '/' + v.replace(/^\/+/, '');
-            return mediaBase + v.split('/').pop();
-          };
-          const imgPath = fixPath(p.image);
-          const previewVideo = fixPath(p.previewVideo);
+          // The generated page for this project (tools/build.js). Its own folder, so
+          // it can carry per-project meta tags. Under work/ rather than project/,
+          // which would collide with project.html on the /project URL.
+          const href = `/work/${encodeURIComponent(id)}/`;
+          const mediaBase = mediaBaseFor(id);
+          const imgPath = fixPath(p.image, mediaBase);
+          const previewVideo = fixPath(p.previewVideo, mediaBase);
           const hasPreview = !!previewVideo;
           const orientAttr = p.cardOrientation ? ` data-orient="${escapeHtml(p.cardOrientation)}"` : '';
           // Uniform layout uses the 16:9 grid cover if provided; falls back to the
           // regular image (with object-fit: cover) if not.
-          const cover169 = fixPath(p.gridCover169) || imgPath;
+          const cover169 = fixPath(p.gridCover169, mediaBase) || imgPath;
           return `
             <a href="${href}" class="project interactive${hasPreview ? '' : ' no-preview'}"${orientAttr}>
               ${p.featured ? `<span class="project-tag">${escapeHtml(p.tagLabel || 'Featured')}</span>` : ''}

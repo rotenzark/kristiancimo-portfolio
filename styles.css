@@ -526,7 +526,9 @@ nav {
 .project .cover-video {
   opacity: 0;
   pointer-events: none;
-  filter: brightness(0.85) contrast(1.04);
+  /* No filter, for the same reason the covers no longer have one — and because the
+     video cross-fades with the still: dimming one of the two makes the swap read as
+     a light change rather than as the shot starting to move. */
 }
 .project:hover .cover-img {
   opacity: 0;
@@ -536,10 +538,13 @@ nav {
   opacity: 1;
   transform: scale(1.04);
 }
-/* if no preview video exists, simply brighten the image more on hover */
+/* Cards with no preview video keep their cover visible on hover — the rule above
+   fades .cover-img out to reveal a video that isn't there, which would leave an empty
+   panel. The scale is the whole hover affordance now: this used to lift brightness
+   from 0.78 back to 1, and with the covers already at full brightness there is
+   nothing left to lift. */
 .project.no-preview:hover .cover-img {
   opacity: 1;
-  filter: brightness(1) contrast(1.04);
 }
 
 .project-meta {

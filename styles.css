@@ -1112,9 +1112,10 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   object-fit: cover;
   pointer-events: none;
 }
-.p-ba .ba-img.before {
-  filter: grayscale(85%) contrast(0.85) brightness(0.55) saturate(0.4);
-}
+/* No filter on the "before" side. A grayscale/darken treatment used to live here;
+   it turned genuinely colourful raw plates black-and-white, which misrepresents the
+   work rather than framing it. If a before/after ever needs the two sides visually
+   separated, do it per project in the content, not globally here. */
 .p-ba .ba-clip {
   position: absolute; inset: 0;
   overflow: hidden;

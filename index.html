@@ -54,7 +54,7 @@
     </h1>
   </div>
   <div class="hero-meta">
-    <div data-bind="location">BRESCIA · IT — REMOTE WORLDWIDE</div>
+    <div data-bind="location">MILANO · IT — REMOTE WORLDWIDE</div>
     <div class="scroll-indicator">
       <span>Scroll</span>
       <span class="line"></span>
@@ -133,8 +133,15 @@
 </footer>
 
 <script type="module">
-  import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
   import { fixPath, mediaBaseFor } from '/js/paths.js';
+
+  /* three.js is loaded inside setupHero() with a dynamic import, NOT a static one
+     at the top. A static import makes the whole module fail to execute if unpkg is
+     unreachable — blocked by a corporate network, CDN outage — and then nothing on
+     this page renders at all: the loader never hides and the visitor sees a blank
+     screen. The hero sphere is decoration; the portfolio is not. It has to be able
+     to fail on its own. */
+  const THREE_URL = 'https://unpkg.com/three@0.160.0/build/three.module.js';
 
   function bind(key, value) {
     if (value == null) return;
@@ -205,18 +212,32 @@
       // PROJECTS GRID — sortable + zoomable
       // Draft projects are hidden from the public site
       const allProjects = (projects.items || []).filter(p => !p.draft);
-      // Parse year to a number for sorting; unknown years sink to the end
+      // Parse the year to a number; null when there isn't one.
       function projectYear(p) {
         const n = parseInt(String(p.year || '').replace(/\D/g, ''), 10);
-        return isNaN(n) ? -Infinity : n;
+        return isNaN(n) ? null : n;
+      }
+      // Projects without a year sink to the end in BOTH directions. A single
+      // sentinel value cannot do that — it would have to be the smallest for
+      // "newest first" and the largest for "oldest first" — so the comparator
+      // handles the missing case explicitly. Ties fall back to the manual order.
+      function byYear(dir) {
+        return (a, b) => {
+          const ya = projectYear(a), yb = projectYear(b);
+          const tie = (a.order || 999) - (b.order || 999);
+          if (ya === null && yb === null) return tie;
+          if (ya === null) return 1;
+          if (yb === null) return -1;
+          return (dir === 'desc' ? yb - ya : ya - yb) || tie;
+        };
       }
       function sortProjects(order) {
         const list = allProjects.slice();
         switch (order) {
           case 'newest':
-            return list.sort((a, b) => projectYear(b) - projectYear(a) || (a.order||999) - (b.order||999));
+            return list.sort(byYear('desc'));
           case 'oldest':
-            return list.sort((a, b) => projectYear(a) - projectYear(b) || (a.order||999) - (b.order||999));
+            return list.sort(byYear('asc'));
           case 'custom':
             return list.sort((a, b) => (a.order||999) - (b.order||999));
           case 'featured':
@@ -309,8 +330,11 @@
         if (!zoomEl) return;
         if (mode === 'uniform') {
           zoomEl.min = '1'; zoomEl.max = '4'; zoomEl.step = '1';
-          // Clamp saved value to uniform range
-          let v = parseInt(zoomEl.value, 10);
+          // Restore the density this layout was last used at — the asymmetric
+          // branch below does the same with its own key. updateGridDensity has
+          // always written kc-zoom-uni; nothing ever read it back.
+          const savedU = localStorage.getItem('kc-zoom-uni');
+          let v = parseInt(savedU !== null ? savedU : zoomEl.value, 10);
           if (isNaN(v) || v < 1) v = 3;
           if (v > 4) v = 4;
           zoomEl.value = String(v);
@@ -430,7 +454,7 @@
         </div>
         <div class="col">
           <h4>Studio</h4>
-          <span>Brescia · Italia</span>
+          <span>Milano · Italia</span>
           <span>Remote Worldwide</span>
           <span>EU · GMT+1</span>
         </div>
@@ -470,12 +494,35 @@
     document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
   }
 
-  function setupHero() {
+  async function setupHero() {
     const canvas = document.getElementById('hero-canvas');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+    if (!canvas) return;
+
+    // Either of these can fail on a real visitor's machine: the CDN may be
+    // unreachable, and WebGLRenderer throws outright when WebGL is unavailable
+    // (hardware acceleration off, older device, some corporate VMs). Neither is
+    // allowed to take the page down with it — hide the canvas and carry on.
+    let THREE;
+    try {
+      THREE = await import(THREE_URL);
+    } catch (err) {
+      console.warn('three.js unavailable, skipping hero:', err);
+      canvas.style.display = 'none';
+      return;
+    }
+
+    let scene, camera, renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    } catch (err) {
+      console.warn('WebGL unavailable, skipping hero:', err);
+      canvas.style.display = 'none';
+      return;
+    }
+
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
     camera.position.set(0, 0, 4.5);
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -623,7 +670,9 @@
     draw();
   }
 
-  setupHero();
+  // Deliberately not awaited and independently guarded: the hero is decoration and
+  // must never delay or block the content from loading.
+  setupHero().catch(err => console.warn('hero failed:', err));
   loadContent().then(() => {
     bindCursor();
     setupReveals();

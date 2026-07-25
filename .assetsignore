@@ -5,12 +5,15 @@
 .git/
 .github/
 .gitignore
+.gitattributes
 
 # Documentation & config not served to users
 README.md
-SETUP.md
 wrangler.toml
 wrangler.jsonc
+
+# Build script — generates project/<slug>/ and sitemap.xml, never served
+tools/
 
 # Editor / OS junk
 .DS_Store

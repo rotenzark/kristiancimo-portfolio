@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 
@@ -54,7 +54,7 @@
     </h1>
   </div>
   <div class="hero-meta">
-    <div data-bind="location">BRESCIA · IT — REMOTE WORLDWIDE</div>
+    <div data-bind="location">MILANO · IT — REMOTE WORLDWIDE</div>
     <div class="scroll-indicator">
       <span>Scroll</span>
       <span class="line"></span>
@@ -133,7 +133,15 @@
 </footer>
 
 <script type="module">
-  import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+  import { fixPath, mediaBaseFor } from '/js/paths.js';
+
+  /* three.js is loaded inside setupHero() with a dynamic import, NOT a static one
+     at the top. A static import makes the whole module fail to execute if unpkg is
+     unreachable — blocked by a corporate network, CDN outage — and then nothing on
+     this page renders at all: the loader never hides and the visitor sees a blank
+     screen. The hero sphere is decoration; the portfolio is not. It has to be able
+     to fail on its own. */
+  const THREE_URL = 'https://unpkg.com/three@0.160.0/build/three.module.js';
 
   function bind(key, value) {
     if (value == null) return;
@@ -186,11 +194,11 @@
   async function loadContent() {
     try {
       const [site, projects, about, footer, clients] = await Promise.all([
-        fetch('data/site.json').then(r => r.json()),
-        fetch('data/projects.json').then(r => r.json()),
-        fetch('data/about.json').then(r => r.json()),
-        fetch('data/footer.json').then(r => r.json()),
-        fetch('data/clients.json').then(r => r.json())
+        fetch('/data/site.json').then(r => r.json()),
+        fetch('/data/projects.json').then(r => r.json()),
+        fetch('/data/about.json').then(r => r.json()),
+        fetch('/data/footer.json').then(r => r.json()),
+        fetch('/data/clients.json').then(r => r.json())
       ]);
 
       document.title = site.title || document.title;
@@ -204,18 +212,32 @@
       // PROJECTS GRID — sortable + zoomable
       // Draft projects are hidden from the public site
       const allProjects = (projects.items || []).filter(p => !p.draft);
-      // Parse year to a number for sorting; unknown years sink to the end
+      // Parse the year to a number; null when there isn't one.
       function projectYear(p) {
         const n = parseInt(String(p.year || '').replace(/\D/g, ''), 10);
-        return isNaN(n) ? -Infinity : n;
+        return isNaN(n) ? null : n;
+      }
+      // Projects without a year sink to the end in BOTH directions. A single
+      // sentinel value cannot do that — it would have to be the smallest for
+      // "newest first" and the largest for "oldest first" — so the comparator
+      // handles the missing case explicitly. Ties fall back to the manual order.
+      function byYear(dir) {
+        return (a, b) => {
+          const ya = projectYear(a), yb = projectYear(b);
+          const tie = (a.order || 999) - (b.order || 999);
+          if (ya === null && yb === null) return tie;
+          if (ya === null) return 1;
+          if (yb === null) return -1;
+          return (dir === 'desc' ? yb - ya : ya - yb) || tie;
+        };
       }
       function sortProjects(order) {
         const list = allProjects.slice();
         switch (order) {
           case 'newest':
-            return list.sort((a, b) => projectYear(b) - projectYear(a) || (a.order||999) - (b.order||999));
+            return list.sort(byYear('desc'));
           case 'oldest':
-            return list.sort((a, b) => projectYear(a) - projectYear(b) || (a.order||999) - (b.order||999));
+            return list.sort(byYear('asc'));
           case 'custom':
             return list.sort((a, b) => (a.order||999) - (b.order||999));
           case 'featured':
@@ -231,30 +253,52 @@
       }
 
       const grid = document.getElementById('work-grid');
+
+      /* Aspect ratio drives the justified rows in the asymmetric layout: each card's
+         share of its row is proportional to it (see styles.css). Taken from the CMS
+         "Card Orientation" when set, so the row tiles correctly on first paint with
+         no wait for images. */
+      const CARD_RATIOS = {
+        '16-9': 16/9, '21-9': 21/9, '4-3': 4/3, '1-1': 1,
+        '4-5': 4/5, '3-4': 3/4, '9-16': 9/16,
+      };
+
+      /* Cards left on "Auto" have no declared ratio, so they take it from the cover
+         once it has decoded. Until then they sit at the 16:9 default: the row still
+         tiles, it just re-flows once. */
+      function applyNaturalRatios() {
+        grid.querySelectorAll('.project:not([data-orient])').forEach(card => {
+          const img = card.querySelector('.cover-img-default');
+          if (!img) return;
+          const set = () => {
+            if (!img.naturalWidth || !img.naturalHeight) return;
+            card.style.setProperty('--ratio', (img.naturalWidth / img.naturalHeight).toFixed(4));
+          };
+          if (img.complete) set();
+          else img.addEventListener('load', set, { once: true });
+        });
+      }
+
       function renderProjectsGrid(order) {
         const projList = sortProjects(order);
         grid.innerHTML = projList.map(p => {
           const id = p.slug || slug(p.title);
-          const href = `project.html?id=${encodeURIComponent(id)}`;
-          // ── FIX MEDIA PATHS ──────────────────────────────────────────
-          // The CMS writes bare filenames ("COVER.webp"); media lives in
-          // data/projects/<slug>/. Prefix bare names; leave /…, http…, data: alone.
-          const mediaBase = 'data/projects/' + id + '/';
-          const fixPath = (v) => {
-            if (typeof v !== 'string' || !v) return '';
-            if (/^https?:\/\//i.test(v) || v.startsWith('data:')) return v;
-            if (v.includes('data/projects/')) return '/' + v.replace(/^\/+/, '');
-            return mediaBase + v.split('/').pop();
-          };
-          const imgPath = fixPath(p.image);
-          const previewVideo = fixPath(p.previewVideo);
+          // The generated page for this project (tools/build.js). Its own folder, so
+          // it can carry per-project meta tags. Under work/ rather than project/,
+          // which would collide with project.html on the /project URL.
+          const href = `/work/${encodeURIComponent(id)}/`;
+          const mediaBase = mediaBaseFor(id);
+          const imgPath = fixPath(p.image, mediaBase);
+          const previewVideo = fixPath(p.previewVideo, mediaBase);
           const hasPreview = !!previewVideo;
           const orientAttr = p.cardOrientation ? ` data-orient="${escapeHtml(p.cardOrientation)}"` : '';
+          const ratio = CARD_RATIOS[p.cardOrientation];
+          const ratioStyle = ratio ? ` style="--ratio:${ratio.toFixed(4)}"` : '';
           // Uniform layout uses the 16:9 grid cover if provided; falls back to the
           // regular image (with object-fit: cover) if not.
-          const cover169 = fixPath(p.gridCover169) || imgPath;
+          const cover169 = fixPath(p.gridCover169, mediaBase) || imgPath;
           return `
-            <a href="${href}" class="project interactive${hasPreview ? '' : ' no-preview'}"${orientAttr}>
+            <a href="${href}" class="project interactive${hasPreview ? '' : ' no-preview'}"${orientAttr}${ratioStyle}>
               ${p.featured ? `<span class="project-tag">${escapeHtml(p.tagLabel || 'Featured')}</span>` : ''}
               <img class="cover-img cover-img-default" src="${escapeHtml(imgPath)}" alt="${escapeHtml(p.title)}" loading="lazy">
               <img class="cover-img cover-img-169" src="${escapeHtml(cover169)}" alt="${escapeHtml(p.title)}" loading="lazy">
@@ -269,6 +313,7 @@
           `;
         }).join('');
         // Re-bind hover-video and cursor to freshly-rendered cards
+        applyNaturalRatios();
         setupHoverVideos();
         bindCursor();
       }
@@ -276,7 +321,6 @@
 
       // ─── User controls: layout toggle + sort + zoom ───
       const workEl = document.querySelector('.work');
-      const gridEl = document.getElementById('work-grid');
       const sortEl = document.getElementById('wc-sort');
       const zoomEl = document.getElementById('wc-zoom');
       const layoutToggle = document.getElementById('wc-layout-toggle');
@@ -314,8 +358,11 @@
         if (!zoomEl) return;
         if (mode === 'uniform') {
           zoomEl.min = '1'; zoomEl.max = '4'; zoomEl.step = '1';
-          // Clamp saved value to uniform range
-          let v = parseInt(zoomEl.value, 10);
+          // Restore the density this layout was last used at — the asymmetric
+          // branch below does the same with its own key. updateGridDensity has
+          // always written kc-zoom-uni; nothing ever read it back.
+          const savedU = localStorage.getItem('kc-zoom-uni');
+          let v = parseInt(savedU !== null ? savedU : zoomEl.value, 10);
           if (isNaN(v) || v < 1) v = 3;
           if (v > 4) v = 4;
           zoomEl.value = String(v);
@@ -340,25 +387,11 @@
         }
         localStorage.setItem('kc-zoom', level);
 
-        // Compensate the .work section height so the following content
-        // (Clients marquee) sits right under the visually transformed grid.
-        // Only matters for the asymmetric mode which uses transform: scale().
-        if (mobile || mode === 'uniform') {
-          workEl.style.paddingBottom = '';
-          return;
-        }
-        const scaleMap = { '0': 0.65, '1': 0.82, '2': 1, '3': 1.18, '4': 1.40 };
-        const scale = scaleMap[String(level)] || 1;
-        requestAnimationFrame(() => {
-          const natural = gridEl.offsetHeight;
-          const visual  = natural * scale;
-          const diff    = visual - natural;
-          if (scale < 1) {
-            workEl.style.paddingBottom = `${Math.max(60, 120 + diff)}px`;
-          } else {
-            workEl.style.paddingBottom = `calc(120px + ${Math.max(0, diff)}px)`;
-          }
-        });
+        // The asymmetric grid used to be scaled with transform: scale(), which left
+        // the section reserving its untransformed height — hence the padding-bottom
+        // that had to be computed back. Density is a real row height now, so the grid
+        // occupies exactly the space it draws in and there is nothing to compensate.
+        workEl.style.paddingBottom = '';
       }
 
       // Wire sort dropdown
@@ -435,7 +468,7 @@
         </div>
         <div class="col">
           <h4>Studio</h4>
-          <span>Brescia · Italia</span>
+          <span>Milano · Italia</span>
           <span>Remote Worldwide</span>
           <span>EU · GMT+1</span>
         </div>
@@ -475,12 +508,35 @@
     document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
   }
 
-  function setupHero() {
+  async function setupHero() {
     const canvas = document.getElementById('hero-canvas');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+    if (!canvas) return;
+
+    // Either of these can fail on a real visitor's machine: the CDN may be
+    // unreachable, and WebGLRenderer throws outright when WebGL is unavailable
+    // (hardware acceleration off, older device, some corporate VMs). Neither is
+    // allowed to take the page down with it — hide the canvas and carry on.
+    let THREE;
+    try {
+      THREE = await import(THREE_URL);
+    } catch (err) {
+      console.warn('three.js unavailable, skipping hero:', err);
+      canvas.style.display = 'none';
+      return;
+    }
+
+    let scene, camera, renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    } catch (err) {
+      console.warn('WebGL unavailable, skipping hero:', err);
+      canvas.style.display = 'none';
+      return;
+    }
+
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
     camera.position.set(0, 0, 4.5);
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -628,7 +684,9 @@
     draw();
   }
 
-  setupHero();
+  // Deliberately not awaited and independently guarded: the hero is decoration and
+  // must never delay or block the content from loading.
+  setupHero().catch(err => console.warn('hero failed:', err));
   loadContent().then(() => {
     bindCursor();
     setupReveals();

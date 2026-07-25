@@ -7,7 +7,11 @@
   <meta name="robots" content="noindex, nofollow" />
 </head>
 <body>
-  <!-- Sveltia CMS — no type="module" (per official docs it can cause unexpected behaviour) -->
-  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+  <!-- Sveltia CMS — no type="module" (per official docs it can cause unexpected behaviour).
+       The version is PINNED on purpose. Unversioned, this URL resolves to whatever the
+       latest release happens to be, so an upstream breaking change would take the CMS
+       down with no warning and no way back. To upgrade: bump the number here, open
+       /admin, and check that saving a project still works before relying on it. -->
+  <script src="https://unpkg.com/@sveltia/cms@0.172.4/dist/sveltia-cms.js"></script>
 </body>
 </html>

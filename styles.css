@@ -512,11 +512,16 @@ nav {
   object-fit: cover;
   transition: transform 1.2s cubic-bezier(.2,.8,.2,1), opacity 0.5s ease;
 }
-/* No global filter here. A brightness(0.78) used to darken every thumbnail so the
-   white title would read over it — which dulled the work on the one screen where it
-   gets judged, and still failed on light covers (the Zidane card's metadata was
-   illegible anyway). Legibility is the scrim's job, under the text only, where it
-   costs nothing. See .project-meta. */
+/* ◆ v3 CHANGE: full color always, slight darken for legibility, scale on hover */
+/* Do NOT remove these filters. They were taken out on 2026-07-25 to show the covers
+   at full brightness, and every hover preview started shimmering — a filter also
+   forces the element down a filtered rasterisation path, and without it the browser
+   resamples the scaled video on every decoded frame. will-change: transform was tried
+   as a replacement and did not fix it. Restored. If you want the covers ungraded, the
+   shimmer has to be solved first, on its own. */
+.project .cover-img {
+  filter: brightness(0.78) contrast(1.04);
+}
 /* Layout swaps between two <img> tags per card (asymmetric uses the
    default cover; uniform uses the dedicated 16:9 cover). Default
    behaviour = asymmetric, so we hide the 16:9 image unless explicitly enabled. */
@@ -526,19 +531,7 @@ nav {
 .project .cover-video {
   opacity: 0;
   pointer-events: none;
-  /* No filter, for the same reason the covers no longer have one — and because the
-     video cross-fades with the still: dimming one of the two makes the swap read as
-     a light change rather than as the shot starting to move.
-
-     translateZ(0) is here to replace what the filter used to provide for free. Any
-     filter promotes an element to its own GPU layer, so the hover scale(1.04) was
-     applied once by the compositor. Without it the browser re-rasterised the scaled
-     video on every decoded frame, and fine detail shimmered — the shot visibly
-     trembled under the cursor. will-change asks for that layer explicitly — a bare
-     translateZ(0) gets flattened back to a 2D matrix here and stops being a reliable
-     hint. There are only ever a handful of these on the page. */
-  will-change: transform;
-  backface-visibility: hidden;
+  filter: brightness(0.85) contrast(1.04);
 }
 .project:hover .cover-img {
   opacity: 0;
@@ -548,28 +541,18 @@ nav {
   opacity: 1;
   transform: scale(1.04);
 }
-/* Cards with no preview video keep their cover visible on hover — the rule above
-   fades .cover-img out to reveal a video that isn't there, which would leave an empty
-   panel. The scale is the whole hover affordance now: this used to lift brightness
-   from 0.78 back to 1, and with the covers already at full brightness there is
-   nothing left to lift. */
+/* if no preview video exists, simply brighten the image more on hover */
 .project.no-preview:hover .cover-img {
   opacity: 1;
+  filter: brightness(1) contrast(1.04);
 }
 
 .project-meta {
   position: absolute; inset: auto 0 0 0;
-  padding: 56px 24px 24px;
+  padding: 24px;
   display: flex; justify-content: space-between; align-items: flex-end;
   gap: 16px;
-  /* Taller and heavier than it looks like it needs to be, because it now carries the
-     legibility on its own. It has to hold white text over a near-white cover, not
-     just over a dark one. Eased in three stops so the edge never reads as a band. */
-  background: linear-gradient(to top,
-    rgba(10,10,10,0.92) 0%,
-    rgba(10,10,10,0.72) 30%,
-    rgba(10,10,10,0.34) 62%,
-    transparent 100%);
+  background: linear-gradient(to top, rgba(10,10,10,0.85), transparent 80%);
   z-index: 2;
 }
 .project-title {
@@ -605,7 +588,7 @@ nav {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
-    padding: 48px 18px 18px;
+    padding: 18px;
   }
   .project-info { text-align: left; align-self: stretch; }
   .project-title { font-size: 17px; }

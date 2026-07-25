@@ -23,7 +23,7 @@
       "format": "Campaign · Social",
       "publicationUrl": "https://www.instagram.com/reel/DWRKSZRDKHr/?igsh=Y21qdXZtMTc5MzR5",
       "publicationLabel": "View on Instagram",
-      "description": "I rebuilt Dubai's Palm  in CGI, extending the surrounding environment and creating a transition from the view of Gasly to the top view of Dubai.",
+      "description": "I rebuilt Dubai's Palm in CGI, extending the surrounding environment and creating a transition from the view of Gasly to the top view of Dubai.",
       "galleryBlocks": [
         {
           "tag": "",
@@ -202,17 +202,17 @@
       "tagLabel": "",
       "subtitle": "",
       "client": "Adidas",
-      "talent": "Aitana · Brahim · Jude · Trent · Bellingham · Mastantuono · Raul",
+      "talent": "Aitana · Brahim · Trent · Bellingham · Mastantuono · Raul",
       "role": "VFX Supervision · 3D · Compositing",
       "software": "Blender · After Effects · Houdini",
       "format": "Campaign · Social",
       "publicationUrl": "https://www.instagram.com/reel/DUnPqaPDSI3/?igsh=c3p0MWVnemx1bWtw",
       "publicationLabel": "View on Instagram",
-      "description": "Adidas - F50 vs Predator - Elevator.\nFrom set extension to removal, tracking, key, general compositing.",
+      "description": "Adidas - Legacy Museum.\nSet extension and removal, tracking, keying and compositing across the campaign.",
       "galleryBlocks": [
         {
           "tag": "",
-          "heading": "Some frames",
+          "heading": "Selected frames",
           "caption": "",
           "images": [
             {
@@ -264,83 +264,83 @@
       ],
       "beforeAfters": [
         {
-          "title": "Museum entrance - clean ups, tracking, 3D pipe integration",
+          "title": "Museum entrance — 3D pipe integration, cleanup, tracking",
           "imageBefore": "data/projects/adidas-legacy/INTRO_1_BEFORE.webp",
           "imageAfter": "data/projects/adidas-legacy/INTRO_1_AFTER.webp",
-          "labelBefore": "Before",
-          "labelAfter": "After"
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
         },
         {
-          "title": "Museum Hall - 3D set extension, tracking",
+          "title": "Museum hall — 3D set extension, tracking",
           "imageBefore": "data/projects/adidas-legacy/INTRO_2_BEFORE.webp",
           "imageAfter": "data/projects/adidas-legacy/INTRO_2_AFTER.webp",
-          "labelBefore": "Before",
-          "labelAfter": "After"
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
         },
         {
-          "title": "Aitana - picture replacement, rotoscope",
+          "title": "Aitana — artwork replacement, rotoscope",
           "imageBefore": "data/projects/adidas-legacy/AITANA_BEFORE.webp",
           "imageAfter": "data/projects/adidas-legacy/AITANA_AFTER.webp",
-          "labelBefore": "Before",
-          "labelAfter": "After"
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
         },
         {
-          "title": "Aitana & Brahim - set extension and removal",
+          "title": "Aitana & Brahim — set extension and removal",
           "imageBefore": "data/projects/adidas-legacy/BACK_IMPACT_BEFORE.webp",
           "imageAfter": "data/projects/adidas-legacy/BACK_IMPACT_AFTER.webp",
-          "labelBefore": "Before",
-          "labelAfter": "After"
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
         }
       ],
       "videoBeforeAfters": [
         {
-          "title": "Entering the museum - 3D pipe, 3D set extension, clean ups, tracking",
+          "title": "Entering the museum — 3D pipe, set extension, cleanup, tracking",
           "videoBefore": "INTRO_MUSEUM_RAW.mp4",
           "videoAfter": "INTRO_MUSEUM_EDIT.mp4",
-          "labelBefore": "Before",
-          "labelAfter": "After"
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
         },
         {
-          "title": "Mastantuono - clean ups, tracking",
+          "title": "Mastantuono — cleanup, tracking",
           "videoBefore": "MASTANTUONO_SCANNER_RAW.mp4",
           "videoAfter": "MASTANTUONO_SCANNER_EDIT.mp4",
-          "labelBefore": "Before",
-          "labelAfter": "After"
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
         },
         {
-          "title": "Control Basket - clean ups, fill",
+          "title": "Control basket — cleanup, fill",
           "videoBefore": "CONTROL_BASKET_RAW.mp4",
           "videoAfter": "CONTROL_BASKET_EDIT.mp4",
-          "labelBefore": "Before",
-          "labelAfter": "After"
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
         },
         {
-          "title": "PC - Screen replacement, relight",
+          "title": "PC screen — replacement, relight",
           "videoBefore": "SCREEN_RAW.mp4",
           "videoAfter": "SCREEN_EDIT.mp4",
-          "labelBefore": "Before",
-          "labelAfter": "After"
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
         },
         {
-          "title": "Aitana - tracking, rotoscope",
+          "title": "Aitana — tracking, rotoscope",
           "videoBefore": "QUADRO_RAW.mp4",
           "videoAfter": "QUADRO_EDIT.mp4",
-          "labelBefore": "Before",
-          "labelAfter": "After"
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
         },
         {
-          "title": "Brahim - lasers compositing",
+          "title": "Brahim — laser compositing",
           "videoBefore": "data/projects/adidas-legacy/LASERS_RAW.mp4",
           "videoAfter": "LASERS_EDIT.mp4",
-          "labelBefore": "Before",
-          "labelAfter": "After"
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
         },
         {
-          "title": "Aitana and Brahim - set extension and roto",
+          "title": "Aitana & Brahim — set extension, rotoscope",
           "videoBefore": "data/projects/adidas-legacy/IMPACT_RAW.mp4",
           "videoAfter": "IMPACT_EDIT.mp4",
-          "labelBefore": "Before",
-          "labelAfter": "After"
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
         }
       ],
       "credits": [
@@ -351,14 +351,7 @@
       ],
       "videoUrl": "",
       "videoCaption": "",
-      "gallery": [
-        {
-          "src": "https://picsum.photos/seed/adidas-1/1600/900"
-        },
-        {
-          "src": "https://picsum.photos/seed/adidas-2/900/1200"
-        }
-      ]
+      "gallery": []
     },
     {
       "draft": false,

@@ -555,7 +555,7 @@
         {
           "title": "Shot",
           "imageBefore": "data/projects/barcelona-world-cup/hf_20260423_040358_14cabc71-6b16-4796-b2b4-5d436414a6f4.webp",
-          "imageAfter": "COPERTINA_VERTICALE.png",
+          "imageAfter": "COPERTINA_VERTICALE.webp",
           "labelBefore": "Viewport",
           "labelAfter": "Render"
         }

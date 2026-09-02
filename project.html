@@ -4,15 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- BUILD:META — everything up to /BUILD:META is rewritten per project by
-     .github/workflows/build-projects-index.yml when it generates
-     project/<slug>/index.html. The values below are the fallback used when this
-     file is served directly at /project?id=<slug>.
+     tools/build.js (run by .github/workflows/build-projects-index.yml) when it
+     generates work/<slug>/index.html. The values below are the fallback used
+     when this file is served directly at /project?id=<slug>.
 
      These tags MUST live in the HTML. Social crawlers (WhatsApp, LinkedIn,
      Slack, iMessage) do not execute JavaScript, so setting them from JS would be
      invisible to exactly the audience that reads them: every shared project link
-     would show the same generic card. -->
+     would show the same generic card.
+
+     The noindex belongs to this fallback ONLY, and that is why it sits inside
+     the fences: build.js replaces this whole block, so no generated /work/ page
+     inherits it. Served directly, this file answers 200 for any ?id= — a real
+     slug, a draft, or garbage — always with the same generic title. Without the
+     noindex that is a soft-404 farm a crawler can index, plus the legacy
+     /project?id=<slug> form Google already knows. Humans still get redirected to
+     /work/<slug>/ by the JS below. -->
 <title>Project — Kristian Cimò</title>
+<meta name="robots" content="noindex">
 <meta name="description" content="Project case study by Kristian Cimò.">
 <meta property="og:title" content="Kristian Cimò — VFX / CGI / 3D / AI">
 <meta property="og:description" content="Project case study by Kristian Cimò — AI-driven VFX for global brands and athletes.">
@@ -151,10 +160,15 @@
     else imgBefore.addEventListener('load', syncDimensions, { once: true });
 
     let dragging = false;
+    let current = 50;
     function setBA(pct) {
       pct = Math.max(0, Math.min(100, pct));
+      current = pct;
       clip.style.width = pct + '%';
       handle.style.left = pct + '%';
+      // The handle is the element with role="slider", so its aria-valuenow is
+      // what assistive tech reads while the split moves.
+      handle.setAttribute('aria-valuenow', Math.round(pct));
     }
     function move(e) {
       if (!dragging) return;
@@ -173,6 +187,24 @@
       const x = e.clientX - rect.left;
       setBA((x / rect.width) * 100);
     });
+
+    /* Keyboard. Without this the split is frozen at 50% for anyone not using a
+       pointer, so half of every plate — the half the work is in — is unreachable.
+       The listener sits on the handle, not the container: the handle is what
+       takes focus, and keeping it here means arrow keys aimed at other controls
+       inside a comparison never move the split by accident. */
+    handle.addEventListener('keydown', e => {
+      const step = e.shiftKey ? 10 : 2;
+      let next = null;
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') next = current - step;
+      else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') next = current + step;
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = 100;
+      if (next === null) return;
+      e.preventDefault();
+      setBA(next);
+    });
+
     setBA(50);
   }
 
@@ -283,10 +315,13 @@
     }
 
     let dragging = false;
+    let current = 50;
     function setVBA(pct) {
       pct = Math.max(0, Math.min(100, pct));
+      current = pct;
       wrap.style.width = pct + '%';
       handle.style.left = pct + '%';
+      handle.setAttribute('aria-valuenow', Math.round(pct));
     }
     function move(e) {
       if (!dragging) return;
@@ -306,6 +341,21 @@
     window.addEventListener('touchmove', move, { passive: true });
     window.addEventListener('mouseup', () => dragging = false);
     window.addEventListener('touchend', () => dragging = false);
+
+    /* Keyboard, same contract as the image slider. The listener stays on the
+       handle so arrows never fight the Play button, which is its own focus stop
+       inside the same container. */
+    handle.addEventListener('keydown', e => {
+      const step = e.shiftKey ? 10 : 2;
+      let next = null;
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') next = current - step;
+      else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') next = current + step;
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = 100;
+      if (next === null) return;
+      e.preventDefault();
+      setVBA(next);
+    });
 
     let playing = false;
 
@@ -381,6 +431,16 @@
   function isVideoFile(url) {
     if (!url) return false;
     return /\.(mp4|webm|mov|m4v|ogv)($|\?)/i.test(url);
+  }
+
+  // Accessible name for a before/after handle. The handle carries role="slider",
+  // so this is the only thing a screen reader announces for the whole comparison:
+  // it has to say which shot, and which side is which.
+  function baLabel(block, idx) {
+    const shot = block.title || `Shot ${idx + 1}`;
+    const before = block.labelBefore || 'Raw Plate';
+    const after = block.labelAfter || 'Final CGI';
+    return `${shot}: ${before} / ${after} comparison`;
   }
 
   function renderGalleryBlock(block, idx, total) {
@@ -599,7 +659,9 @@
             <span class="before">${escapeHtml(block.labelBefore || 'Raw Plate')}</span>
             <span class="after">${escapeHtml(block.labelAfter || 'Final CGI')}</span>
           </div>
-          <div class="ba-handle"><div class="ba-knob">⇄</div></div>
+          <div class="ba-handle" tabindex="0" role="slider" aria-orientation="horizontal"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"
+               aria-label="${escapeHtml(baLabel(block, idx))}"><div class="ba-knob">⇄</div></div>
         </div>
       </div>
     `;
@@ -628,7 +690,9 @@
             <span class="before">${escapeHtml(block.labelBefore || 'Raw Plate')}</span>
             <span class="after">${escapeHtml(block.labelAfter || 'Final CGI')}</span>
           </div>
-          <div class="vba-handle"><div class="vba-knob">⇄</div></div>
+          <div class="vba-handle" tabindex="0" role="slider" aria-orientation="horizontal"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"
+               aria-label="${escapeHtml(baLabel(block, idx))}"><div class="vba-knob">⇄</div></div>
           <button class="vba-playbtn">▶ Play</button>
         </div>
       </div>

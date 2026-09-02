@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kristian Cimò — VFX / CGI / 3D / AI</title>
 <meta name="description" content="Kristian Cimò — VFX, CGI, 3D & AI-driven visuals. Selected work for Adidas, Hawkers, Generali, FC Barcelona, and global athletes.">
+<!-- The site answers on both www.kristiancimo.it and the apex with the same 200,
+     so every page exists twice for a crawler. The generated /work/<slug>/ pages
+     already self-canonicalise (tools/build.js writes their canonical); the home
+     had none, which is why it is the page Search Console can report as a
+     duplicate. Extension-less apex URL on purpose — Cloudflare 307s away .html. -->
+<link rel="canonical" href="https://kristiancimo.it/">
 <meta property="og:title" content="Kristian Cimò — VFX / CGI / 3D / AI">
 <meta property="og:description" content="Selected work for Adidas, Hawkers, Generali, FC Barcelona, and global athletes.">
 <meta property="og:type" content="website">

@@ -6,7 +6,11 @@
   --bg: #0a0a0a;
   --bg-2: #111111;
   --fg: #f5f3ef;
-  --muted: #707070;
+  /* #707070 measured 4.00:1 on --bg — under the 4.5:1 WCAG AA floor, and --muted
+     carries almost every 9-13px label on the site (section heads, card year and
+     category, footer, credits, captions). #808080 is 5.0:1 on --bg and 4.7:1 on
+     --bg-2, still clearly a step below --fg. Don't take it back down. */
+  --muted: #808080;
   --line: rgba(255, 255, 255, 0.08);
   --accent: #ff2d2d;
 }
@@ -889,7 +893,8 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   transition: transform 0.5s cubic-bezier(.7,0,.2,1);
   z-index: -1;
 }
-.publication-btn:hover { color: var(--fg); border-color: var(--accent); }
+/* Dark ink on the red fill: --fg on --accent is 3.34:1, under AA. */
+.publication-btn:hover { color: var(--bg); border-color: var(--accent); }
 .publication-btn:hover::before { transform: translateX(0); }
 .publication-btn-arrow {
   display: inline-block;
@@ -1104,6 +1109,7 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
 .lightbox-close:hover {
   background: var(--accent);
   border-color: var(--accent);
+  color: var(--bg);
 }
 @media (max-width: 768px) {
   .lightbox { padding: 20px; }
@@ -1352,9 +1358,19 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   text-transform: uppercase;
   cursor: pointer;
 }
-.p-vba .vba-playbtn:hover { background: var(--accent); border-color: var(--accent); }
+.p-vba .vba-playbtn:hover { background: var(--accent); border-color: var(--accent); color: var(--bg); }
 .p-vba .vba-playbtn.loading { opacity: 0.6; cursor: wait; }
 .p-vba .vba-playbtn.ready { border-color: #3ddc84; }
+/* Both handles are role="slider" and take focus (see setupBA / setupVBA).
+   The site hides the native cursor, so keyboard focus is the only feedback a
+   keyboard user gets: it has to be visible. The outline traces the full-height
+   handle, which doubles as a read-out of where the split currently sits. */
+.p-ba .ba-handle:focus-visible,
+.p-vba .vba-handle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 @media (max-width: 768px) {
   .p-ba .ba-knob, .p-vba .vba-knob { width: 44px; height: 44px; font-size: 12px; }
   .p-ba .ba-labels, .p-vba .vba-labels { font-size: 8px; }
@@ -1546,4 +1562,43 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   }
   /* trailing letter-spacing can nudge width; trim it on the very large heads */
   .hero h1 { letter-spacing: -0.02em; }
+}
+
+/* ═══════════════════════════════════════════════════
+   REDUCED MOTION
+   The JS already honours the OS "reduce motion" setting for the canvas effects
+   (hero sphere, work particles); the CSS layer did not, so the loudest movement
+   on the site kept running for the people who asked for less of it.
+   The worst of it is .grain: a fixed, viewport-sized layer in mix-blend-mode
+   that is re-translated every 100ms for the whole session — a permanent flicker,
+   and on phones a full-viewport re-blend ten times a second for an 8% texture.
+   Reveals are set to their finished state rather than disabled, or content that
+   only becomes visible via .in would never appear.
+   ═══════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .grain,
+  .marquee,
+  .nav-status .dot,
+  .loader-name span,
+  .loader-bar::after,
+  .scroll-indicator .line::after {
+    animation: none !important;
+  }
+
+  /* Show, don't animate: these start at opacity 0 and are revealed by JS. */
+  .reveal,
+  .reveal-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

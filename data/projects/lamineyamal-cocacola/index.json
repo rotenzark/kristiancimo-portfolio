@@ -2,7 +2,7 @@
   "draft": false,
   "order": 5,
   "slug": "lamineyamal-cocacola",
-  "title": "Lamine Yamal x CocaCola - World Cup",
+  "title": "Lamine Yamal x Coca-Cola - World Cup",
   "year": "July 2026",
   "category": "Commercial / Football",
   "image": "COPERTINA_4_5.webp",
@@ -14,14 +14,14 @@
   "featured": false,
   "tagLabel": "Featured",
   "subtitle": "",
-  "client": "Coca Cola",
+  "client": "Coca-Cola",
   "talent": "Lamine Yamal",
   "role": "3D Artist",
   "software": "Blender, After Effects",
   "format": "Social",
   "publicationUrl": "https://www.instagram.com/p/DaS2BiYlhas/?img_index=1",
   "publicationLabel": "Watch on Instagram",
-  "description": "My job was to create a 3D stadium, with CocaCola references.",
+  "description": "My job was to create a 3D stadium, with Coca-Cola references.",
   "galleryBlocks": [
     {
       "tag": "",
@@ -73,15 +73,7 @@
     }
   ],
   "beforeAfters": [],
-  "videoBeforeAfters": [
-    {
-      "title": "Viewport vs Raw render",
-      "videoBefore": "viewport50mm.mp4",
-      "videoAfter": "data/projects/lamineyamal-cocacola/render50mm.mp4",
-      "labelBefore": "Raw Plate",
-      "labelAfter": "Final CGI"
-    }
-  ],
+  "videoBeforeAfters": [],
   "storytelling": [],
   "credits": [],
   "showNextProject": true

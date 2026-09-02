@@ -75,7 +75,7 @@
     },
     {
       "title": "Shot 3",
-      "videoBefore": "data/projects/zidane-map/tv_viewport-1.mp4",
+      "videoBefore": "data/projects/zidane-map/tv_viewport.mp4",
       "videoAfter": "data/projects/zidane-map/tv_rnd.mp4",
       "labelBefore": "Viewport",
       "labelAfter": "Render"

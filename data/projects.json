@@ -285,6 +285,13 @@
           "labelAfter": "Final"
         },
         {
+          "title": "Brahim — laser compositing",
+          "imageBefore": "data/projects/adidas-legacy/LASERS_BEFORE.webp",
+          "imageAfter": "data/projects/adidas-legacy/LASERS_AFTER.webp",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
           "title": "Aitana & Brahim — set extension and removal",
           "imageBefore": "data/projects/adidas-legacy/BACK_IMPACT_BEFORE.webp",
           "imageAfter": "data/projects/adidas-legacy/BACK_IMPACT_AFTER.webp",

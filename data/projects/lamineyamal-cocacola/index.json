@@ -73,7 +73,15 @@
     }
   ],
   "beforeAfters": [],
-  "videoBeforeAfters": [],
+  "videoBeforeAfters": [
+    {
+      "title": "Viewport vs Raw render",
+      "videoBefore": "viewport50mm.mp4",
+      "videoAfter": "data/projects/lamineyamal-cocacola/render50mm.mp4",
+      "labelBefore": "Raw Plate",
+      "labelAfter": "Final CGI"
+    }
+  ],
   "storytelling": [],
   "credits": [],
   "showNextProject": true

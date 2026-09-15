@@ -44,7 +44,7 @@ export function fixPath(v, mediaBase) {
  * If you add a new media field to the CMS, add its key here — otherwise its path
  * is never corrected. If the field can hold a URL as well as a file (coverVideo
  * does), check that fixPath leaves that URL alone first. */
-const MEDIA_KEYS = ['image', 'previewVideo', 'gridCover169', 'insideCover', 'coverVideo',
+const MEDIA_KEYS = ['image', 'previewVideo', 'gridCover169', 'previewVideo169', 'insideCover', 'coverVideo',
                     'src', 'imageBefore', 'imageAfter', 'videoBefore', 'videoAfter', 'file'];
 
 /* Media LISTS. Depending on how the CMS wrote them, items can be bare strings

@@ -181,13 +181,15 @@
       project.dataset.hoverBound = '1';
       const video = project.querySelector('.cover-video');
       if (!video) return;
-      let preloaded = false;
       project.addEventListener('mouseenter', () => {
-        if (!preloaded) {
-          const src = video.dataset.src;
-          if (src && !video.src) video.src = src;
-          preloaded = true;
-        }
+        // Pick the clip for the layout in use at this moment: the Uniform 16:9 grid gets
+        // the project's horizontal clip when it has one. Checked on every hover because
+        // the layout can be switched at any time; the clip is (re)loaded only when the
+        // wanted one differs from what the element already holds.
+        const work = document.querySelector('.work');
+        const uniform = !!work && work.getAttribute('data-layout') === 'uniform';
+        const src = (uniform && video.dataset.src169) || video.dataset.src;
+        if (src && video.getAttribute('src') !== src) video.src = src;
         video.play().catch(() => {/* autoplay blocked, ignore */});
       });
       project.addEventListener('mouseleave', () => {
@@ -296,7 +298,10 @@
           const mediaBase = mediaBaseFor(id);
           const imgPath = fixPath(p.image, mediaBase);
           const previewVideo = fixPath(p.previewVideo, mediaBase);
-          const hasPreview = !!previewVideo;
+          // Optional horizontal hover clip for the Uniform 16:9 layout. Without it the
+          // uniform card keeps playing previewVideo, center-cropped to 16:9.
+          const previewVideo169 = fixPath(p.previewVideo169, mediaBase);
+          const hasPreview = !!(previewVideo || previewVideo169);
           const orientAttr = p.cardOrientation ? ` data-orient="${escapeHtml(p.cardOrientation)}"` : '';
           const ratio = CARD_RATIOS[p.cardOrientation];
           const ratioStyle = ratio ? ` style="--ratio:${ratio.toFixed(4)}"` : '';
@@ -309,7 +314,7 @@
               <img class="cover-img cover-img-default" src="${escapeHtml(imgPath)}" alt="${escapeHtml(p.title)}" loading="lazy">
               <img class="cover-img cover-img-169" src="${escapeHtml(cover169)}" alt="${escapeHtml(p.title)}" loading="lazy">
               ${hasPreview ? `
-                <video class="cover-video" data-src="${escapeHtml(previewVideo)}" muted loop playsinline preload="none"></video>
+                <video class="cover-video" data-src="${escapeHtml(previewVideo || previewVideo169)}" data-src169="${escapeHtml(previewVideo169)}" muted loop playsinline preload="none"></video>
               ` : ''}
               <div class="project-meta">
                 <div class="project-title">${escapeHtml(p.title)}</div>

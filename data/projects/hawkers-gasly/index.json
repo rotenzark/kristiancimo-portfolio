@@ -1,6 +1,6 @@
 {
   "draft": false,
-  "order": 1,
+  "order": 2,
   "slug": "hawkers-gasly",
   "title": "Hawkers × Gasly",
   "year": "March 2026",
@@ -11,7 +11,7 @@
   "gridCover169": "data/projects/hawkers-gasly/COPERTINA_ORIZZONTALE.webp",
   "insideCover": "data/projects/hawkers-gasly/COPERTINA_ORIZZONTALE_21_9.webp",
   "coverVideo": "",
-  "featured": true,
+  "featured": false,
   "tagLabel": "Featured",
   "subtitle": "Rebuilding Dubai, frame by frame.",
   "client": "Hawkers Co.",

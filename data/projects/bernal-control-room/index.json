@@ -1,0 +1,102 @@
+{
+  "draft": false,
+  "order": 1,
+  "slug": "bernal-control-room",
+  "title": "Bernal - Predator Elite Control Room",
+  "year": "September 2026",
+  "category": "Football",
+  "image": "data/projects/bernal-control-room/COPERTINA_VERTICALE.webp",
+  "cardOrientation": "9-16",
+  "previewVideo": "data/projects/bernal-control-room/SHOT_5_AFTER.mp4",
+  "gridCover169": "data/projects/bernal-control-room/COPERTINA_ORIZZONTALE_16_9.webp",
+  "previewVideo169": "data/projects/bernal-control-room/COPERTINA_ORIZZONTALE.mp4",
+  "insideCover": "data/projects/bernal-control-room/COPERTINA_ORIZZONTALE_21_9.webp",
+  "coverVideo": "",
+  "featured": false,
+  "tagLabel": "Featured",
+  "subtitle": "",
+  "client": "Adidas",
+  "talent": "Marc Bernal",
+  "role": "CGI Supervisor · CGI Artist · Compositor",
+  "software": "Blender · After Effects",
+  "format": "Social",
+  "publicationUrl": "https://www.instagram.com/p/DdRQ5oOixKC/",
+  "publicationLabel": "View on Instagram",
+  "description": "Green screen, tracking, masking, relighting, rotoscoping, color matching and removals across nine shots.",
+  "galleryBlocks": [],
+  "videoBlocks": [],
+  "beforeAfters": [],
+  "videoBeforeAfters": [
+    {
+      "title": "Shot 01",
+      "videoBefore": "data/projects/bernal-control-room/SHOT_1_BEFORE.mp4",
+      "videoAfter": "data/projects/bernal-control-room/SHOT_1_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 02",
+      "videoBefore": "data/projects/bernal-control-room/SHOT_2_BEFORE.mp4",
+      "videoAfter": "data/projects/bernal-control-room/SHOT_2_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 03",
+      "videoBefore": "data/projects/bernal-control-room/SHOT_3_BEFORE.mp4",
+      "videoAfter": "data/projects/bernal-control-room/SHOT_3_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 04",
+      "videoBefore": "data/projects/bernal-control-room/SHOT_4_BEFORE.mp4",
+      "videoAfter": "data/projects/bernal-control-room/SHOT_4_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 05",
+      "videoBefore": "data/projects/bernal-control-room/SHOT_5_BEFORE.mp4",
+      "videoAfter": "data/projects/bernal-control-room/SHOT_5_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 06",
+      "videoBefore": "data/projects/bernal-control-room/SHOT_6_BEFORE.mp4",
+      "videoAfter": "data/projects/bernal-control-room/SHOT_6_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 07",
+      "videoBefore": "data/projects/bernal-control-room/SHOT_7_BEFORE.mp4",
+      "videoAfter": "data/projects/bernal-control-room/SHOT_7_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 08",
+      "videoBefore": "data/projects/bernal-control-room/SHOT_8_BEFORE.mp4",
+      "videoAfter": "data/projects/bernal-control-room/SHOT_8_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 09",
+      "videoBefore": "data/projects/bernal-control-room/SHOT_9_BEFORE.mp4",
+      "videoAfter": "data/projects/bernal-control-room/SHOT_9_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    }
+  ],
+  "storytelling": [],
+  "credits": [
+    {
+      "role": "Agency",
+      "name": "TheCrown"
+    }
+  ],
+  "showNextProject": true
+}

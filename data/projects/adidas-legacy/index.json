@@ -1,6 +1,6 @@
 {
   "draft": false,
-  "order": 2,
+  "order": 3,
   "slug": "adidas-legacy",
   "title": "Adidas - Legacy Museum",
   "year": "December 2025",
@@ -8,7 +8,8 @@
   "image": "COPERTINA_VERTICALE.webp",
   "cardOrientation": "9-16",
   "previewVideo": "COPERTINA_VERTICALE.mp4",
-  "gridCover169": "COPERTINA_ORIZZONTALE.webp",
+  "gridCover169": "COPERTINA_ORIZZONTALE_16_9.webp",
+  "previewVideo169": "data/projects/adidas-legacy/COPERTINA_ORIZZONTALE_16_9.mp4",
   "insideCover": "data/projects/adidas-legacy/COPERTINA_ORIZZONTALE_21_9.webp",
   "coverVideo": "",
   "featured": false,

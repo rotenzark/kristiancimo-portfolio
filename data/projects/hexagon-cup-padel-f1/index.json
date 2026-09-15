@@ -1,0 +1,161 @@
+{
+  "draft": false,
+  "order": 3,
+  "slug": "hexagon-cup-padel-f1",
+  "title": "Madrid Padel GP",
+  "year": "September 2026",
+  "category": "Padel / F1",
+  "image": "data/projects/hexagon-cup-padel-f1/COPERTINA_VERTICALE.webp",
+  "cardOrientation": "9-16",
+  "previewVideo": "data/projects/hexagon-cup-padel-f1/FINAL.mp4",
+  "gridCover169": "data/projects/hexagon-cup-padel-f1/COPERTINA_ORIZZONTALE_16_9.webp",
+  "previewVideo169": "data/projects/hexagon-cup-padel-f1/COPERTINA_ORIZZONTALE_16_9.mp4",
+  "insideCover": "data/projects/hexagon-cup-padel-f1/COPERTINA_ORIZZONTALE_21_9.webp",
+  "coverVideo": "",
+  "featured": false,
+  "tagLabel": "Featured",
+  "subtitle": "Hexagon World Series × Crown",
+  "client": "Hexagon",
+  "talent": "",
+  "role": "AI Creative Direction · 3D Generation · Previsualization · Prompt Engineering",
+  "software": "Nano Banana Pro · Meshy · Blender · Seedance 2.5 · Higgsfield · Topaz Video AI · After Effects",
+  "format": "Instagram spot 9:16 · Full AI + 3D previz",
+  "publicationUrl": "https://www.instagram.com/p/DdCOyrZiARr/",
+  "publicationLabel": "View on Instagram",
+  "description": "A vertical video for the launch of the Madrid Padel GP, a padel event presented by Hexagon World Series and Crown. One single, strong idea: a Formula 1 car racing along the white seam of a giant padel ball. The seam is the circuit.\n\nGenerative video models are great at inventing and terrible at obeying. A precise shot, a dolly that pushes in and then pulls away, a car glued to a curved path on a sphere: none of this comes from a prompt, however well written. We needed a way to tell the model exactly what to do, and let it take care only of making it look real.\n\nSo we built a hybrid pipeline in four steps, where every tool produces the reference for the next one.",
+  "galleryBlocks": [
+    {
+      "tag": "",
+      "heading": "01 — Photographic assets with Nano Banana Pro",
+      "caption": "The car, in a generic black, purple, white and grey livery, generated in a white studio across four consistent views: front, side, rear and three-quarter. The ball with the Hexagon logo fused into the felt. The court. Every image was designed not as a final result but as a reference for the next step.",
+      "images": [
+        {
+          "src": "data/projects/hexagon-cup-padel-f1/REF_CAR_FRONT.webp",
+          "alt": "Car, front view"
+        },
+        {
+          "src": "data/projects/hexagon-cup-padel-f1/REF_CAR_LATERAL.webp",
+          "alt": "Car, side view"
+        },
+        {
+          "src": "data/projects/hexagon-cup-padel-f1/REF_CAR_BACK.webp",
+          "alt": "Car, rear view with branding"
+        },
+        {
+          "src": "data/projects/hexagon-cup-padel-f1/REF_CAR_THREE_QUARTER.webp",
+          "alt": "Car, three-quarter view"
+        },
+        {
+          "src": "data/projects/hexagon-cup-padel-f1/REF_CAR_CLOSE_UP.webp",
+          "alt": "Car, side branding close-up"
+        },
+        {
+          "src": "data/projects/hexagon-cup-padel-f1/REF_BALL.webp",
+          "alt": "Padel ball with the Hexagon logo"
+        },
+        {
+          "src": "data/projects/hexagon-cup-padel-f1/REF_COURT.webp",
+          "alt": "Branded padel court"
+        }
+      ]
+    },
+    {
+      "tag": "",
+      "heading": "02 — From 2D to 3D with Meshy",
+      "caption": "The four views of the car become the input for image-to-3D generation: a set of consistent images turns into a complete, navigable volumetric model of the car. In Blender the model is then prepared for animation, with the four wheels separated into independent meshes so they can spin on their own axis, a light version to drive the rig and the high-resolution one for the image. No manual modeling: the car you see in the film was born from a generated photograph.",
+      "images": [
+        {
+          "src": "data/projects/hexagon-cup-padel-f1/BLENDER_1_CAR.webp",
+          "alt": "The Meshy car in the Blender scene"
+        }
+      ]
+    },
+    {
+      "tag": "",
+      "heading": "03 — Camera choreography in Blender",
+      "caption": "A real-scale scene: a 66 mm ball and a 4 mm car. The seam, extracted from the mesh of the ball and turned into a Bézier curve, guides the car along the track. A chase camera follows the car and, on top of it, a hand-animated camera move: a wide opening, a violent push-in until the side of the car fills the frame, and a pull back to a wide shot as the curvature of the ball swallows the car. The wheels spin at a rate computed from the real distance travelled on the surface, 161 turns per lap, and motion blur is set to 32 subsamples, because at that speed an approximate blur betrays the eye. The playblast that comes out of it is not a render: it is the score.",
+      "images": [
+        {
+          "src": "data/projects/hexagon-cup-padel-f1/BLENDER_2_BALL.webp",
+          "alt": "The ball scene in Blender"
+        }
+      ]
+    },
+    {
+      "tag": "",
+      "heading": "04 — Rendering with Seedance 2.5",
+      "caption": "The playblast goes in as the video reference, with the first and last frames locked and a series of images defining materials, light and photographic blur. The prompt is built on one precise rule: geometry comes from the previz, the look comes from the references. The model receives movement, timing and composition already decided, and returns them as a macro photograph of a miniature set: felt whose fibres fray the silhouette, a painted and worn rubber seam, matte carbon, dust kicked up by the tyres.",
+      "images": [
+        {
+          "src": "data/projects/hexagon-cup-padel-f1/FRAME_1_RENDER.webp",
+          "alt": "Locked first frame"
+        },
+        {
+          "src": "data/projects/hexagon-cup-padel-f1/FRAME_5_RENDER.webp",
+          "alt": "Locked last frame"
+        }
+      ]
+    }
+  ],
+  "videoBlocks": [],
+  "beforeAfters": [
+    {
+      "title": "First frame",
+      "imageBefore": "data/projects/hexagon-cup-padel-f1/FRAME_1_BLENDER.webp",
+      "imageAfter": "data/projects/hexagon-cup-padel-f1/FRAME_1_RENDER.webp",
+      "labelBefore": "Blender",
+      "labelAfter": "Nano Banana Pro"
+    },
+    {
+      "title": "Frame 2",
+      "imageBefore": "data/projects/hexagon-cup-padel-f1/FRAME_2_BLENDER.webp",
+      "imageAfter": "data/projects/hexagon-cup-padel-f1/FRAME_2_RENDER.webp",
+      "labelBefore": "Blender",
+      "labelAfter": "Nano Banana Pro"
+    },
+    {
+      "title": "Frame 3",
+      "imageBefore": "data/projects/hexagon-cup-padel-f1/FRAME_3_BLENDER.webp",
+      "imageAfter": "data/projects/hexagon-cup-padel-f1/FRAME_3_RENDER.webp",
+      "labelBefore": "Blender",
+      "labelAfter": "Nano Banana Pro"
+    },
+    {
+      "title": "Frame 4",
+      "imageBefore": "data/projects/hexagon-cup-padel-f1/FRAME_4_BLENDER.webp",
+      "imageAfter": "data/projects/hexagon-cup-padel-f1/FRAME_4_RENDER.webp",
+      "labelBefore": "Blender",
+      "labelAfter": "Nano Banana Pro"
+    },
+    {
+      "title": "Last frame",
+      "imageBefore": "data/projects/hexagon-cup-padel-f1/FRAME_5_BLENDER.webp",
+      "imageAfter": "data/projects/hexagon-cup-padel-f1/FRAME_5_RENDER.webp",
+      "labelBefore": "Blender",
+      "labelAfter": "Nano Banana Pro"
+    }
+  ],
+  "videoBeforeAfters": [
+    {
+      "title": "Playblast to final",
+      "videoBefore": "data/projects/hexagon-cup-padel-f1/FINAL_VP.mp4",
+      "videoAfter": "data/projects/hexagon-cup-padel-f1/FINAL.mp4",
+      "labelBefore": "Playblast",
+      "labelAfter": "Final"
+    }
+  ],
+  "storytelling": [
+    {
+      "heading": "What we learned",
+      "text": "That the best way to get a photorealistic result from a video model is not to describe the image you want, but to hand it an image that is wrong in the right way: perfect composition, placeholder materials. The model understands what is missing and adds it. And that a racing car is recognised by its wheels: if they do not spin, the brain sees a parked car dragged along on a ribbon, however beautiful the shot.",
+      "image": "data/projects/hexagon-cup-padel-f1/FRAME_4_RENDER.webp"
+    }
+  ],
+  "credits": [
+    {
+      "role": "Agency",
+      "name": "TheCrown"
+    }
+  ],
+  "showNextProject": true
+}

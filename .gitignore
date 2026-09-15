@@ -1,0 +1,8 @@
+# Local tooling state and secrets: never commit them, the repo is public.
+# .wrangler/ is wrangler's cache (Cloudflare account id, geo data of the connection
+# in cf.json) plus temp build files.
+.wrangler/
+.dev.vars*
+.env*
+node_modules/
+*.log

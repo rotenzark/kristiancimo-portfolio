@@ -19,3 +19,15 @@ tools/
 .DS_Store
 .vscode/
 .idea/
+
+# Local tooling state and secrets — never public.
+# .wrangler/ is wrangler's own cache (wrangler-account.json with the account id,
+# cf.json with the geo data of the connection) plus temp build files. Without this
+# line `wrangler deploy` uploads them and the domain serves them: it happened on
+# 2026-09-15.
+.wrangler/
+.dev.vars*
+.env*
+node_modules/
+*.log
+.assetsignore

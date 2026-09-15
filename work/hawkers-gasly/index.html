@@ -195,7 +195,8 @@
 
   /* VIDEO before/after slider */
   function setupVBA(container) {
-    const wrap = container.querySelector('.vba-after-wrap');
+    // The clip that follows the handle holds the before video (see renderVideoBA).
+    const wrap = container.querySelector('.vba-before-wrap');
     const handle = container.querySelector('.vba-handle');
     const videoBefore = container.querySelector('.vba-before-wrap video');
     const videoAfter = container.querySelector('.vba-after-wrap video');
@@ -632,13 +633,18 @@
         ${numLabel}
       </div>
     ` : '';
+    // Layer order is what puts each label over the right picture. .ba-clip is
+    // left-anchored and setBA sets its width, so whatever sits inside it shows LEFT
+    // of the handle — where the "before" label is. The before image therefore goes in
+    // the clip, over a full-size after image. Until 2026-09-15 the two were swapped
+    // and every comparison showed the final under the plate label.
     return `
       <div class="ba-block reveal">
         ${head}
         <div class="p-ba interactive">
-          <img class="ba-img before" src="${escapeHtml(block.imageBefore || block.imageAfter)}" alt="Raw plate" loading="lazy">
+          <img class="ba-img after" src="${escapeHtml(block.imageAfter || block.imageBefore)}" alt="Final composite" loading="lazy">
           <div class="ba-clip">
-            <img class="ba-img after" src="${escapeHtml(block.imageAfter || block.imageBefore)}" alt="Final composite" loading="lazy">
+            <img class="ba-img before" src="${escapeHtml(block.imageBefore || block.imageAfter)}" alt="Raw plate" loading="lazy">
           </div>
           <div class="ba-labels">
             <span class="before">${escapeHtml(block.labelBefore || 'Raw Plate')}</span>
@@ -661,15 +667,18 @@
         ${numLabel}
       </div>
     ` : '';
+    // Same layer rule as renderImageBA: .vba-before-wrap is the left-anchored clip
+    // that setVBA resizes, so it has to come AFTER the full-size .vba-after-wrap in
+    // the markup to paint on top of it.
     return `
       <div class="ba-block reveal">
         ${head}
         <div class="p-vba interactive">
-          <div class="vba-before-wrap">
-            <video src="${escapeHtml(block.videoBefore || block.videoAfter)}" muted loop playsinline preload="none"></video>
-          </div>
           <div class="vba-after-wrap">
             <video src="${escapeHtml(block.videoAfter || block.videoBefore)}" muted loop playsinline preload="none"></video>
+          </div>
+          <div class="vba-before-wrap">
+            <video src="${escapeHtml(block.videoBefore || block.videoAfter)}" muted loop playsinline preload="none"></video>
           </div>
           <div class="vba-labels">
             <span class="before">${escapeHtml(block.labelBefore || 'Raw Plate')}</span>

@@ -1291,15 +1291,19 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   object-fit: cover;
   pointer-events: none;
 }
+/* The before clip is the left-anchored one that setVBA resizes, stacked over the
+   full-size after video (it comes later in the markup), so the plate shows left of
+   the handle, under the "before" label. These two widths were swapped until
+   2026-09-15, which put the final under the plate label. */
 .p-vba .vba-before-wrap {
   position: absolute; inset: 0;
   overflow: hidden;
-  width: 100%;
+  width: 50%;
 }
 .p-vba .vba-after-wrap {
   position: absolute; inset: 0;
   overflow: hidden;
-  width: 50%;
+  width: 100%;
 }
 .p-vba .vba-before-wrap video,
 .p-vba .vba-after-wrap video {

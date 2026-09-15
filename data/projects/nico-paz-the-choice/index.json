@@ -1,0 +1,122 @@
+{
+  "draft": false,
+  "order": 2,
+  "slug": "nico-paz-the-choice",
+  "title": "Nico Paz - The Choice",
+  "year": "September 2026",
+  "category": "Football",
+  "image": "data/projects/nico-paz-the-choice/COPERTINA_VERTICALE.webp",
+  "cardOrientation": "9-16",
+  "previewVideo": "data/projects/nico-paz-the-choice/SHOT_1_AFTER.mp4",
+  "gridCover169": "data/projects/nico-paz-the-choice/COPERTINA_ORIZZONTALE_16_9.webp",
+  "previewVideo169": "data/projects/nico-paz-the-choice/COPERTINA_ORIZZONTALE_16_9.mp4",
+  "insideCover": "data/projects/nico-paz-the-choice/COPERTINA_ORIZZONTALE_21_9.webp",
+  "coverVideo": "",
+  "featured": false,
+  "tagLabel": "Featured",
+  "subtitle": "",
+  "client": "Adidas",
+  "talent": "Nico Paz",
+  "role": "CGI Supervisor · CGI Artist · Compositor",
+  "software": "Blender · After Effects",
+  "format": "Social",
+  "publicationUrl": "https://www.instagram.com/p/DcvK2x_t8S3/",
+  "publicationLabel": "View on Instagram",
+  "description": "The restaurant environment was created entirely in Blender and composited behind Nico Paz.",
+  "galleryBlocks": [
+    {
+      "tag": "",
+      "heading": "The restaurant, built in Blender",
+      "caption": "The entire set was created in Blender, and Nico was composited over the render.",
+      "images": [
+        {
+          "src": "data/projects/nico-paz-the-choice/RISTORANTE_VP_ALTO.webp",
+          "alt": "Restaurant set in the Blender viewport"
+        }
+      ]
+    }
+  ],
+  "videoBlocks": [],
+  "beforeAfters": [
+    {
+      "title": "Restaurant — Blender viewport and render",
+      "imageBefore": "data/projects/nico-paz-the-choice/RISTORANTE_VP.webp",
+      "imageAfter": "data/projects/nico-paz-the-choice/RISTORANTE_RND.webp",
+      "labelBefore": "Viewport",
+      "labelAfter": "Render"
+    }
+  ],
+  "videoBeforeAfters": [
+    {
+      "title": "Shot 01",
+      "videoBefore": "data/projects/nico-paz-the-choice/SHOT_1_BEFORE.mp4",
+      "videoAfter": "data/projects/nico-paz-the-choice/SHOT_1_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 02",
+      "videoBefore": "data/projects/nico-paz-the-choice/SHOT_2_BEFORE.mp4",
+      "videoAfter": "data/projects/nico-paz-the-choice/SHOT_2_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 03",
+      "videoBefore": "data/projects/nico-paz-the-choice/SHOT_3_BEFORE.mp4",
+      "videoAfter": "data/projects/nico-paz-the-choice/SHOT_3_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 04",
+      "videoBefore": "data/projects/nico-paz-the-choice/SHOT_4_BEFORE.mp4",
+      "videoAfter": "data/projects/nico-paz-the-choice/SHOT_4_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 05",
+      "videoBefore": "data/projects/nico-paz-the-choice/SHOT_5_BEFORE.mp4",
+      "videoAfter": "data/projects/nico-paz-the-choice/SHOT_5_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 06",
+      "videoBefore": "data/projects/nico-paz-the-choice/SHOT_6_BEFORE.mp4",
+      "videoAfter": "data/projects/nico-paz-the-choice/SHOT_6_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 07",
+      "videoBefore": "data/projects/nico-paz-the-choice/SHOT_7_BEFORE.mp4",
+      "videoAfter": "data/projects/nico-paz-the-choice/SHOT_7_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 08",
+      "videoBefore": "data/projects/nico-paz-the-choice/SHOT_8_BEFORE.mp4",
+      "videoAfter": "data/projects/nico-paz-the-choice/SHOT_8_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 09",
+      "videoBefore": "data/projects/nico-paz-the-choice/SHOT_9_BEFORE.mp4",
+      "videoAfter": "data/projects/nico-paz-the-choice/SHOT_9_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    }
+  ],
+  "storytelling": [],
+  "credits": [
+    {
+      "role": "Agency",
+      "name": "TheCrown"
+    }
+  ],
+  "showNextProject": true
+}

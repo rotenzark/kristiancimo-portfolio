@@ -12,7 +12,11 @@
      --bg-2, still clearly a step below --fg. Don't take it back down. */
   --muted: #808080;
   --line: rgba(255, 255, 255, 0.08);
-  --accent: #ff2d2d;
+  /* Emerald 0 (Luxens paint). On --bg it is only 1.89:1, so it is a fill with --fg on
+     top (9.43:1). Text, borders, dots and the focus ring use --accent-ink, the same
+     green lightened to 5.43:1 on --bg. */
+  --accent: #1b4645;
+  --accent-ink: #3a9391;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,7 +41,7 @@ body {
   body { cursor: none; }
   a, button, .interactive { cursor: none; }
 }
-::selection { background: var(--accent); color: var(--bg); }
+::selection { background: var(--accent); color: var(--fg); }
 a { color: inherit; text-decoration: none; }
 img, video { display: block; max-width: 100%; }
 
@@ -85,7 +89,7 @@ nav {
   text-transform: uppercase;
 }
 .logo { font-family: 'Anton', sans-serif; font-size: 16px; letter-spacing: 0.04em; }
-.logo span { color: var(--accent); }
+.logo span { color: var(--accent-ink); }
 .nav-links { display: flex; gap: 28px; }
 .nav-links a { position: relative; padding: 4px 0; }
 .nav-links a::after {
@@ -352,7 +356,7 @@ nav {
   border: 0;
   transition: transform 0.2s, background 0.2s;
 }
-.wc-zoom-input::-webkit-slider-thumb:hover { transform: scale(1.2); background: var(--accent); }
+.wc-zoom-input::-webkit-slider-thumb:hover { transform: scale(1.2); background: var(--accent-ink); }
 .wc-zoom-input::-moz-range-thumb {
   width: 14px; height: 14px;
   border-radius: 50%;
@@ -361,7 +365,7 @@ nav {
   border: 0;
   transition: transform 0.2s, background 0.2s;
 }
-.wc-zoom-input::-moz-range-thumb:hover { transform: scale(1.2); background: var(--accent); }
+.wc-zoom-input::-moz-range-thumb:hover { transform: scale(1.2); background: var(--accent-ink); }
 
 /* ─── Layout toggle (switch: Asymmetric ↔ Uniform 16:9) ─── */
 .wc-toggle {
@@ -687,7 +691,7 @@ nav {
 .marquee .dot {
   width: 12px; height: 12px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   align-self: center;
   flex-shrink: 0;
 }
@@ -751,7 +755,7 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   display: inline-block;
   transition: color 0.4s;
 }
-.contact-cta a:hover { color: var(--accent); }
+.contact-cta a:hover { color: var(--accent-ink); }
 .contact-cta .em {
   font-family: 'Instrument Serif', serif;
   font-style: italic; font-weight: 400;
@@ -774,7 +778,7 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   font-size: 10px;
 }
 .footer-grid .col a { display: block; padding: 4px 0; }
-.footer-grid .col a:hover { color: var(--accent); }
+.footer-grid .col a:hover { color: var(--accent-ink); }
 .footer-grid .col span { display: block; padding: 4px 0; }
 .footer-base {
   margin-top: 60px;
@@ -893,8 +897,8 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   transition: transform 0.5s cubic-bezier(.7,0,.2,1);
   z-index: -1;
 }
-/* Dark ink on the red fill: --fg on --accent is 3.34:1, under AA. */
-.publication-btn:hover { color: var(--bg); border-color: var(--accent); }
+/* Light ink on the green fill: --bg on --accent would be 1.89:1. */
+.publication-btn:hover { color: var(--fg); border-color: var(--accent); }
 .publication-btn:hover::before { transform: translateX(0); }
 .publication-btn-arrow {
   display: inline-block;
@@ -971,7 +975,7 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   font-size: 10px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-ink);
   margin-bottom: 12px;
 }
 
@@ -1109,7 +1113,7 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
 .lightbox-close:hover {
   background: var(--accent);
   border-color: var(--accent);
-  color: var(--bg);
+  color: var(--fg);
 }
 @media (max-width: 768px) {
   .lightbox { padding: 20px; }
@@ -1149,7 +1153,7 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   font-size: 10px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-ink);
   margin-bottom: 12px;
 }
 .video-block-head h3 {
@@ -1263,7 +1267,7 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255,255,255,0.15);
 }
-.p-ba .ba-labels .after { color: var(--accent); border-color: var(--accent); }
+.p-ba .ba-labels .after { color: var(--accent-ink); border-color: var(--accent-ink); }
 
 /* video before/after */
 .p-vba {
@@ -1347,7 +1351,7 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255,255,255,0.15);
 }
-.p-vba .vba-labels .after { color: var(--accent); border-color: var(--accent); }
+.p-vba .vba-labels .after { color: var(--accent-ink); border-color: var(--accent-ink); }
 .p-vba .vba-playbtn {
   position: absolute;
   bottom: 20px; left: 20px;
@@ -1362,7 +1366,7 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   text-transform: uppercase;
   cursor: pointer;
 }
-.p-vba .vba-playbtn:hover { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.p-vba .vba-playbtn:hover { background: var(--accent); border-color: var(--accent); color: var(--fg); }
 .p-vba .vba-playbtn.loading { opacity: 0.6; cursor: wait; }
 .p-vba .vba-playbtn.ready { border-color: #3ddc84; }
 /* Both handles are role="slider" and take focus (see setupBA / setupVBA).
@@ -1371,7 +1375,7 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
    handle, which doubles as a read-out of where the split currently sits. */
 .p-ba .ba-handle:focus-visible,
 .p-vba .vba-handle:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-ink);
   outline-offset: 3px;
 }
 
@@ -1518,7 +1522,7 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   letter-spacing: -0.02em;
   transition: color 0.4s;
 }
-.next-project:hover h2 { color: var(--accent); }
+.next-project:hover h2 { color: var(--accent-ink); }
 .next-project .arrow {
   margin-top: 32px;
   font-size: 11px;

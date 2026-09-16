@@ -388,6 +388,88 @@
     {
       "draft": false,
       "order": 4,
+      "slug": "raphinha-never-miss",
+      "title": "Raphinha - Never Miss",
+      "year": "September 2026",
+      "category": "Football",
+      "image": "data/projects/raphinha-never-miss/COPERTINA_VERTICALE_9_16.webp",
+      "cardOrientation": "9-16",
+      "previewVideo": "data/projects/raphinha-never-miss/COPERTINA_VERTICALE_9_16.mp4",
+      "gridCover169": "data/projects/raphinha-never-miss/COPERTINA_ORIZZONTALE_16_9.webp",
+      "previewVideo169": "data/projects/raphinha-never-miss/COPERTINA_ORIZZONTALE_16_9.mp4",
+      "insideCover": "data/projects/raphinha-never-miss/COPERTINA_ORIZZONTALE_21_9.webp",
+      "coverVideo": "",
+      "featured": false,
+      "tagLabel": "Featured",
+      "subtitle": "",
+      "client": "Adidas",
+      "talent": "Raphinha",
+      "role": "CGI Supervisor · CGI Artist · Compositor",
+      "software": "Blender · After Effects",
+      "format": "Social",
+      "publicationUrl": "https://www.instagram.com/p/Dc279vYAvxW/",
+      "publicationLabel": "View on Instagram",
+      "description": "Shot 4 was made in 3D in Blender, using photogrammetry techniques.",
+      "galleryBlocks": [],
+      "videoBlocks": [
+        {
+          "tag": "",
+          "heading": "Shot 04 — Made in 3D",
+          "caption": "Built in Blender with photogrammetry techniques.",
+          "file": "data/projects/raphinha-never-miss/SHOT_4_AFTER.mp4",
+          "url": ""
+        }
+      ],
+      "beforeAfters": [],
+      "videoBeforeAfters": [
+        {
+          "title": "Shot 01",
+          "videoBefore": "data/projects/raphinha-never-miss/SHOT_1_BEFORE.mp4",
+          "videoAfter": "data/projects/raphinha-never-miss/SHOT_1_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 02",
+          "videoBefore": "data/projects/raphinha-never-miss/SHOT_2_BEFORE.mp4",
+          "videoAfter": "data/projects/raphinha-never-miss/SHOT_2_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 03",
+          "videoBefore": "data/projects/raphinha-never-miss/SHOT_3_BEFORE.mp4",
+          "videoAfter": "data/projects/raphinha-never-miss/SHOT_3_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 05",
+          "videoBefore": "data/projects/raphinha-never-miss/SHOT_5_BEFORE.mp4",
+          "videoAfter": "data/projects/raphinha-never-miss/SHOT_5_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 06",
+          "videoBefore": "data/projects/raphinha-never-miss/SHOT_6_BEFORE.mp4",
+          "videoAfter": "data/projects/raphinha-never-miss/SHOT_6_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        }
+      ],
+      "storytelling": [],
+      "credits": [
+        {
+          "role": "Agency",
+          "name": "TheCrown"
+        }
+      ],
+      "showNextProject": true
+    },
+    {
+      "draft": false,
+      "order": 5,
       "slug": "hawkers-gasly",
       "title": "Hawkers × Gasly",
       "year": "March 2026",
@@ -572,7 +654,7 @@
     },
     {
       "draft": false,
-      "order": 5,
+      "order": 6,
       "slug": "adidas-legacy",
       "title": "Adidas - Legacy Museum",
       "year": "December 2025",
@@ -748,7 +830,7 @@
     },
     {
       "draft": false,
-      "order": 6,
+      "order": 7,
       "slug": "zidane-map",
       "title": "Zidane - Inspire Signature",
       "year": "May 2025",
@@ -875,7 +957,7 @@
     },
     {
       "draft": false,
-      "order": 7,
+      "order": 8,
       "slug": "barcelona-world-cup",
       "title": "Barcelona × World Cup",
       "year": "November 2025",
@@ -977,7 +1059,7 @@
     },
     {
       "draft": false,
-      "order": 8,
+      "order": 9,
       "slug": "lamineyamal-cocacola",
       "title": "Lamine Yamal x Coca-Cola - World Cup",
       "year": "July 2026",
@@ -1065,7 +1147,7 @@
     },
     {
       "draft": true,
-      "order": 9,
+      "order": 10,
       "slug": "generali-hexagon-cup",
       "title": "Generali · Hexagon Cup",
       "year": "2026",
@@ -1081,7 +1163,7 @@
     },
     {
       "draft": true,
-      "order": 9,
+      "order": 10,
       "slug": "sainz-silverstone",
       "title": "Sainz · Silverstone",
       "year": "July 2025",
@@ -1184,7 +1266,7 @@
     },
     {
       "draft": true,
-      "order": 10,
+      "order": 11,
       "slug": "hakimi-ballon-dor",
       "title": "Hakimi · Ballon d'Or",
       "year": "2025",
@@ -1196,7 +1278,7 @@
     },
     {
       "draft": true,
-      "order": 11,
+      "order": 12,
       "slug": "sergio-ramos-room",
       "title": "Sergio Ramos · Room",
       "year": "2023",

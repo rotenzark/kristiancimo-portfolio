@@ -1,0 +1,88 @@
+{
+  "draft": false,
+  "order": 5,
+  "slug": "olmo-cubarsi-boot-talk",
+  "title": "Olmo & Cubarsí - Boot Talk",
+  "year": "September 2026",
+  "category": "Football",
+  "image": "data/projects/olmo-cubarsi-boot-talk/COPERTINA_VERTICALE_9_16.webp",
+  "cardOrientation": "9-16",
+  "previewVideo": "data/projects/olmo-cubarsi-boot-talk/SHOT_7_AFTER.mp4",
+  "gridCover169": "data/projects/olmo-cubarsi-boot-talk/COPERTINA_ORIZZONTALE_16_9.webp",
+  "previewVideo169": "data/projects/olmo-cubarsi-boot-talk/COPERTINA_ORIZZONTALE_16_9.mp4",
+  "insideCover": "data/projects/olmo-cubarsi-boot-talk/COPERTINA_ORIZZONTALE_21_9.webp",
+  "coverVideo": "",
+  "featured": false,
+  "tagLabel": "Featured",
+  "subtitle": "",
+  "client": "Adidas",
+  "talent": "Dani Olmo & Pau Cubarsí",
+  "role": "CGI Supervisor · CGI Artist · Compositor",
+  "software": "Blender · After Effects",
+  "format": "Social",
+  "publicationUrl": "https://www.instagram.com/reel/Dck7RY0KcZy/",
+  "publicationLabel": "View on Instagram",
+  "description": "The shot 06 environment was created in Blender.",
+  "galleryBlocks": [],
+  "videoBlocks": [],
+  "beforeAfters": [],
+  "videoBeforeAfters": [
+    {
+      "title": "Shot 01",
+      "videoBefore": "data/projects/olmo-cubarsi-boot-talk/SHOT_1_BEFORE.mp4",
+      "videoAfter": "data/projects/olmo-cubarsi-boot-talk/SHOT_1_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 02",
+      "videoBefore": "data/projects/olmo-cubarsi-boot-talk/SHOT_2_BEFORE.mp4",
+      "videoAfter": "data/projects/olmo-cubarsi-boot-talk/SHOT_2_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 03",
+      "videoBefore": "data/projects/olmo-cubarsi-boot-talk/SHOT_4_BEFORE.mp4",
+      "videoAfter": "data/projects/olmo-cubarsi-boot-talk/SHOT_4_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 04",
+      "videoBefore": "data/projects/olmo-cubarsi-boot-talk/SHOT_5_BEFORE.mp4",
+      "videoAfter": "data/projects/olmo-cubarsi-boot-talk/SHOT_5_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 05",
+      "videoBefore": "data/projects/olmo-cubarsi-boot-talk/SHOT_6_BEFORE.mp4",
+      "videoAfter": "data/projects/olmo-cubarsi-boot-talk/SHOT_6_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 06 — Environment created in Blender",
+      "videoBefore": "data/projects/olmo-cubarsi-boot-talk/SHOT_7_BEFORE.mp4",
+      "videoAfter": "data/projects/olmo-cubarsi-boot-talk/SHOT_7_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    },
+    {
+      "title": "Shot 07",
+      "videoBefore": "data/projects/olmo-cubarsi-boot-talk/SHOT_8_BEFORE.mp4",
+      "videoAfter": "data/projects/olmo-cubarsi-boot-talk/SHOT_8_AFTER.mp4",
+      "labelBefore": "Plate",
+      "labelAfter": "Final"
+    }
+  ],
+  "storytelling": [],
+  "credits": [
+    {
+      "role": "Agency",
+      "name": "TheCrown"
+    }
+  ],
+  "showNextProject": true
+}

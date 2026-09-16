@@ -470,6 +470,164 @@
     {
       "draft": false,
       "order": 5,
+      "slug": "yildiz-del-piero-starboy",
+      "title": "Yildiz & Del Piero - Starboy",
+      "year": "September 2026",
+      "category": "Football",
+      "image": "data/projects/yildiz-del-piero-starboy/COPERTINA_VERTICALE_9_16.webp",
+      "cardOrientation": "9-16",
+      "previewVideo": "data/projects/yildiz-del-piero-starboy/SHOT_13_AFTER.mp4",
+      "gridCover169": "data/projects/yildiz-del-piero-starboy/COPERTINA_ORIZZONTALE_16_9.webp",
+      "previewVideo169": "data/projects/yildiz-del-piero-starboy/COPERTINA_ORIZZONTALE_16_9.mp4",
+      "insideCover": "data/projects/yildiz-del-piero-starboy/COPERTINA_ORIZZONTALE_21_9.webp",
+      "coverVideo": "",
+      "featured": false,
+      "tagLabel": "Featured",
+      "subtitle": "",
+      "client": "Adidas",
+      "talent": "Kenan Yildiz & Alessandro Del Piero",
+      "role": "CGI Supervisor · CGI Artist · Compositor",
+      "software": "Blender · After Effects",
+      "format": "Social",
+      "publicationUrl": "https://www.instagram.com/p/DcTgNGGtYR4/",
+      "publicationLabel": "View on Instagram",
+      "description": "",
+      "galleryBlocks": [],
+      "videoBlocks": [],
+      "beforeAfters": [],
+      "videoBeforeAfters": [
+        {
+          "title": "Shot 01",
+          "videoBefore": "data/projects/yildiz-del-piero-starboy/SHOT_1_BEFORE.mp4",
+          "videoAfter": "data/projects/yildiz-del-piero-starboy/SHOT_1_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 02",
+          "videoBefore": "data/projects/yildiz-del-piero-starboy/SHOT_2_BEFORE.mp4",
+          "videoAfter": "data/projects/yildiz-del-piero-starboy/SHOT_2_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 03",
+          "videoBefore": "data/projects/yildiz-del-piero-starboy/SHOT_3_BEFORE.mp4",
+          "videoAfter": "data/projects/yildiz-del-piero-starboy/SHOT_3_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 04",
+          "videoBefore": "data/projects/yildiz-del-piero-starboy/SHOT_4_BEFORE.mp4",
+          "videoAfter": "data/projects/yildiz-del-piero-starboy/SHOT_4_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 05",
+          "videoBefore": "data/projects/yildiz-del-piero-starboy/SHOT_5_BEFORE.mp4",
+          "videoAfter": "data/projects/yildiz-del-piero-starboy/SHOT_5_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 06",
+          "videoBefore": "data/projects/yildiz-del-piero-starboy/SHOT_6_BEFORE.mp4",
+          "videoAfter": "data/projects/yildiz-del-piero-starboy/SHOT_6_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 07",
+          "videoBefore": "data/projects/yildiz-del-piero-starboy/SHOT_7_BEFORE.mp4",
+          "videoAfter": "data/projects/yildiz-del-piero-starboy/SHOT_7_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 08",
+          "videoBefore": "data/projects/yildiz-del-piero-starboy/SHOT_8_BEFORE.mp4",
+          "videoAfter": "data/projects/yildiz-del-piero-starboy/SHOT_8_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 09",
+          "videoBefore": "data/projects/yildiz-del-piero-starboy/SHOT_9_BEFORE.mp4",
+          "videoAfter": "data/projects/yildiz-del-piero-starboy/SHOT_9_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 10",
+          "videoBefore": "data/projects/yildiz-del-piero-starboy/SHOT_10_BEFORE.mp4",
+          "videoAfter": "data/projects/yildiz-del-piero-starboy/SHOT_10_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 11",
+          "videoBefore": "data/projects/yildiz-del-piero-starboy/SHOT_11_BEFORE.mp4",
+          "videoAfter": "data/projects/yildiz-del-piero-starboy/SHOT_11_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 12",
+          "videoBefore": "data/projects/yildiz-del-piero-starboy/SHOT_12_BEFORE.mp4",
+          "videoAfter": "data/projects/yildiz-del-piero-starboy/SHOT_12_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 13",
+          "videoBefore": "data/projects/yildiz-del-piero-starboy/SHOT_13_BEFORE.mp4",
+          "videoAfter": "data/projects/yildiz-del-piero-starboy/SHOT_13_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 14",
+          "videoBefore": "data/projects/yildiz-del-piero-starboy/SHOT_14_BEFORE.mp4",
+          "videoAfter": "data/projects/yildiz-del-piero-starboy/SHOT_14_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 15",
+          "videoBefore": "data/projects/yildiz-del-piero-starboy/SHOT_15_BEFORE.mp4",
+          "videoAfter": "data/projects/yildiz-del-piero-starboy/SHOT_15_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 16",
+          "videoBefore": "data/projects/yildiz-del-piero-starboy/SHOT_16_BEFORE.mp4",
+          "videoAfter": "data/projects/yildiz-del-piero-starboy/SHOT_16_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        },
+        {
+          "title": "Shot 17",
+          "videoBefore": "data/projects/yildiz-del-piero-starboy/SHOT_17_BEFORE.mp4",
+          "videoAfter": "data/projects/yildiz-del-piero-starboy/SHOT_17_AFTER.mp4",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        }
+      ],
+      "storytelling": [],
+      "credits": [
+        {
+          "role": "Agency",
+          "name": "TheCrown"
+        }
+      ],
+      "showNextProject": true
+    },
+    {
+      "draft": false,
+      "order": 6,
       "slug": "olmo-cubarsi-boot-talk",
       "title": "Olmo & Cubarsí - Boot Talk",
       "year": "September 2026",
@@ -557,7 +715,7 @@
     },
     {
       "draft": false,
-      "order": 6,
+      "order": 7,
       "slug": "hawkers-gasly",
       "title": "Hawkers × Gasly",
       "year": "March 2026",
@@ -742,7 +900,7 @@
     },
     {
       "draft": false,
-      "order": 7,
+      "order": 8,
       "slug": "adidas-legacy",
       "title": "Adidas - Legacy Museum",
       "year": "December 2025",
@@ -918,7 +1076,7 @@
     },
     {
       "draft": false,
-      "order": 8,
+      "order": 9,
       "slug": "zidane-map",
       "title": "Zidane - Inspire Signature",
       "year": "May 2025",
@@ -1045,7 +1203,7 @@
     },
     {
       "draft": false,
-      "order": 9,
+      "order": 10,
       "slug": "barcelona-world-cup",
       "title": "Barcelona × World Cup",
       "year": "November 2025",
@@ -1147,7 +1305,7 @@
     },
     {
       "draft": false,
-      "order": 10,
+      "order": 11,
       "slug": "lamineyamal-cocacola",
       "title": "Lamine Yamal x Coca-Cola - World Cup",
       "year": "July 2026",
@@ -1235,7 +1393,7 @@
     },
     {
       "draft": true,
-      "order": 11,
+      "order": 12,
       "slug": "generali-hexagon-cup",
       "title": "Generali · Hexagon Cup",
       "year": "2026",
@@ -1251,7 +1409,7 @@
     },
     {
       "draft": true,
-      "order": 11,
+      "order": 12,
       "slug": "sainz-silverstone",
       "title": "Sainz · Silverstone",
       "year": "July 2025",
@@ -1354,7 +1512,7 @@
     },
     {
       "draft": true,
-      "order": 12,
+      "order": 13,
       "slug": "hakimi-ballon-dor",
       "title": "Hakimi · Ballon d'Or",
       "year": "2025",
@@ -1366,7 +1524,7 @@
     },
     {
       "draft": true,
-      "order": 13,
+      "order": 14,
       "slug": "sergio-ramos-room",
       "title": "Sergio Ramos · Room",
       "year": "2023",

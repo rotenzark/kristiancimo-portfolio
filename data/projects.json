@@ -1563,16 +1563,67 @@
       "videoBeforeAfters": []
     },
     {
-      "draft": true,
+      "draft": false,
       "order": 13,
       "slug": "hakimi-ballon-dor",
-      "title": "Hakimi · Ballon d'Or",
+      "title": "Hakimi · African Ballon d'Or",
       "year": "2025",
       "category": "Editorial / CGI",
-      "image": "https://picsum.photos/seed/hakimi/900/1200",
+      "image": "data/projects/hakimi-ballon-dor/COPERTINA.webp",
+      "cardOrientation": "16-9",
+      "previewVideo": "data/projects/hakimi-ballon-dor/COPERTINA_ORIZZONTALE_16_9.mp4",
+      "gridCover169": "data/projects/hakimi-ballon-dor/COPERTINA.webp",
+      "previewVideo169": "data/projects/hakimi-ballon-dor/COPERTINA_ORIZZONTALE_16_9.mp4",
+      "insideCover": "",
       "coverVideo": "",
+      "featured": false,
+      "tagLabel": "",
+      "subtitle": "",
+      "client": "",
       "talent": "Achraf Hakimi",
-      "role": "CGI · Editorial"
+      "role": "CGI Artist · Compositor",
+      "software": "Blender · After Effects",
+      "format": "Social",
+      "publicationUrl": "",
+      "publicationLabel": "",
+      "description": "They sent me the footage for Hakimi's African Ballon d'Or.\n\nI built the airplane window and the world outside it in 3D, then the transition down into the city in Morocco, and finally the one into his eye.",
+      "galleryBlocks": [],
+      "videoBlocks": [
+        {
+          "tag": "",
+          "heading": "The film",
+          "caption": "",
+          "file": "data/projects/hakimi-ballon-dor/FINAL.mp4",
+          "url": ""
+        }
+      ],
+      "beforeAfters": [
+        {
+          "title": "The airplane window",
+          "imageBefore": "data/projects/hakimi-ballon-dor/VIEWPORT_FIRST_FRAME.webp",
+          "imageAfter": "data/projects/hakimi-ballon-dor/FIRST_FRAME.webp",
+          "labelBefore": "Viewport",
+          "labelAfter": "Render"
+        },
+        {
+          "title": "The city",
+          "imageBefore": "data/projects/hakimi-ballon-dor/VIEWPORT_CITTA.webp",
+          "imageAfter": "data/projects/hakimi-ballon-dor/CITTA.webp",
+          "labelBefore": "Viewport",
+          "labelAfter": "Render"
+        },
+        {
+          "title": "The eye",
+          "imageBefore": "data/projects/hakimi-ballon-dor/OCCHIO_RAW.webp",
+          "imageAfter": "data/projects/hakimi-ballon-dor/OCCHIO_EDIT.webp",
+          "labelBefore": "Plate",
+          "labelAfter": "Final"
+        }
+      ],
+      "videoBeforeAfters": [],
+      "storytelling": [],
+      "credits": [],
+      "showNextProject": true
     },
     {
       "draft": true,

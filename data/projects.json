@@ -1392,20 +1392,72 @@
       "showNextProject": true
     },
     {
-      "draft": true,
+      "draft": false,
       "order": 12,
       "slug": "generali-hexagon-cup",
       "title": "Generali · Hexagon Cup",
       "year": "2026",
       "category": "Sport / Brand",
-      "image": "https://picsum.photos/seed/generali/1200/900",
+      "image": "data/projects/generali-hexagon-cup/COPERTINA.webp",
+      "cardOrientation": "16-9",
+      "previewVideo": "data/projects/generali-hexagon-cup/COPERTINA_ORIZZONTALE_16_9.mp4",
+      "gridCover169": "data/projects/generali-hexagon-cup/COPERTINA.webp",
+      "previewVideo169": "data/projects/generali-hexagon-cup/COPERTINA_ORIZZONTALE_16_9.mp4",
+      "insideCover": "",
       "coverVideo": "",
+      "featured": false,
       "tagLabel": "",
       "subtitle": "",
       "client": "Generali",
-      "role": "VFX · CGI · Direction",
-      "software": "Houdini · Nuke",
-      "format": "Campaign"
+      "talent": "",
+      "role": "CGI Artist · FX Artist · Compositor",
+      "software": "Blender · Houdini · After Effects · fSpy",
+      "format": "Campaign",
+      "publicationUrl": "",
+      "publicationLabel": "",
+      "description": "To promote the 2026 Hexagon Cup, sponsored by Generali, I was asked to hang a simulated banner from a branded hot-air balloon over the Puerta de Alcalá.\n\nThey gave me the plate. I solved the camera in fSpy, aligned and scaled a model of the arch in Blender until it sat on the footage, simulated the banner in Houdini, then textured and rendered it back in Blender and composited everything in After Effects.",
+      "galleryBlocks": [
+        {
+          "tag": "",
+          "heading": "Camera and layout",
+          "caption": "The camera came out of fSpy, and a model of the Puerta de Alcalá was aligned and scaled in Blender until it matched the plate.",
+          "images": [
+            {
+              "src": "data/projects/generali-hexagon-cup/3D_BUILDING.webp",
+              "alt": "The arch model aligned and scaled in Blender"
+            }
+          ]
+        },
+        {
+          "tag": "",
+          "heading": "Cloth simulation in Houdini",
+          "caption": "The arch carries the collisions: the banner was simulated in Houdini and brought back into Blender to be textured and rendered.",
+          "images": [
+            {
+              "src": "data/projects/generali-hexagon-cup/HOUDINI_SETUP.webp",
+              "alt": "Houdini setup with the arch as collision geometry"
+            },
+            {
+              "src": "data/projects/generali-hexagon-cup/HOUDINI_SIM.webp",
+              "alt": "The banner simulation running in Houdini"
+            }
+          ]
+        }
+      ],
+      "videoBlocks": [],
+      "beforeAfters": [],
+      "videoBeforeAfters": [
+        {
+          "title": "Render and comp",
+          "videoBefore": "data/projects/generali-hexagon-cup/CG_RENDER.mp4",
+          "videoAfter": "data/projects/generali-hexagon-cup/FINAL.mp4",
+          "labelBefore": "CG render",
+          "labelAfter": "Final"
+        }
+      ],
+      "storytelling": [],
+      "credits": [],
+      "showNextProject": true
     },
     {
       "draft": true,

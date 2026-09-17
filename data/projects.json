@@ -1569,12 +1569,12 @@
       "title": "Hakimi · African Ballon d'Or",
       "year": "2025",
       "category": "Editorial / CGI",
-      "image": "data/projects/hakimi-ballon-dor/COPERTINA.webp",
-      "cardOrientation": "16-9",
-      "previewVideo": "data/projects/hakimi-ballon-dor/COPERTINA_ORIZZONTALE_16_9.mp4",
+      "image": "data/projects/hakimi-ballon-dor/OCCHIO_EDIT.webp",
+      "cardOrientation": "9-16",
+      "previewVideo": "data/projects/hakimi-ballon-dor/FINAL.mp4",
       "gridCover169": "data/projects/hakimi-ballon-dor/COPERTINA.webp",
       "previewVideo169": "data/projects/hakimi-ballon-dor/COPERTINA_ORIZZONTALE_16_9.mp4",
-      "insideCover": "",
+      "insideCover": "data/projects/hakimi-ballon-dor/COPERTINA.webp",
       "coverVideo": "",
       "featured": false,
       "tagLabel": "",
@@ -1582,10 +1582,10 @@
       "client": "",
       "talent": "Achraf Hakimi",
       "role": "CGI Artist · Compositor",
-      "software": "Blender · After Effects",
+      "software": "Blender · After Effects · Seedance",
       "format": "Social",
-      "publicationUrl": "",
-      "publicationLabel": "",
+      "publicationUrl": "https://www.instagram.com/reel/DRVGKXRDCTx/",
+      "publicationLabel": "View on Instagram",
       "description": "They sent me the footage for Hakimi's African Ballon d'Or.\n\nI built the airplane window and the world outside it in 3D, then the transition down into the city in Morocco, and finally the one into his eye.",
       "galleryBlocks": [],
       "videoBlocks": [
@@ -1594,6 +1594,20 @@
           "heading": "The film",
           "caption": "",
           "file": "data/projects/hakimi-ballon-dor/FINAL.mp4",
+          "url": ""
+        },
+        {
+          "tag": "",
+          "heading": "The transition",
+          "caption": "Built in After Effects.",
+          "file": "data/projects/hakimi-ballon-dor/TRANSITION.mp4",
+          "url": ""
+        },
+        {
+          "tag": "",
+          "heading": "Into the eye",
+          "caption": "The move was extended with Seedance to carry it all the way into his eye.",
+          "file": "data/projects/hakimi-ballon-dor/AI_EXTENSION.mp4",
           "url": ""
         }
       ],

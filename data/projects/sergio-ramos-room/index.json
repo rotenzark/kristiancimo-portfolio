@@ -1,13 +1,75 @@
 {
-  "draft": true,
+  "draft": false,
   "order": 14,
   "slug": "sergio-ramos-room",
   "title": "Sergio Ramos · Room",
   "year": "2023",
   "category": "Interior CGI",
-  "image": "https://picsum.photos/seed/ramos/1400/800",
+  "image": "data/projects/sergio-ramos-room/COPERTINA_4_5.webp",
+  "cardOrientation": "4-5",
+  "previewVideo": "",
+  "gridCover169": "data/projects/sergio-ramos-room/COPERTINA_ORIZZONTALE_16_9.webp",
+  "previewVideo169": "",
+  "insideCover": "data/projects/sergio-ramos-room/COPERTINA_ORIZZONTALE_16_9.webp",
   "coverVideo": "",
+  "featured": false,
+  "tagLabel": "",
+  "subtitle": "",
+  "client": "",
   "talent": "Sergio Ramos",
-  "role": "Interior CGI · Lookdev",
-  "software": "C4D · Octane"
+  "role": "3D Artist · FX Artist",
+  "software": "Unreal Engine · Houdini · After Effects",
+  "format": "Social",
+  "publicationUrl": "",
+  "publicationLabel": "",
+  "description": "I built Sergio Ramos' room in Unreal Engine, and the shirt was simulated in Houdini.",
+  "galleryBlocks": [
+    {
+      "tag": "",
+      "heading": "The room in Unreal Engine",
+      "caption": "The room, the light coming through the window and the city behind it were built and lit in Unreal Engine.",
+      "images": [
+        {
+          "src": "data/projects/sergio-ramos-room/UNREAL_1.webp",
+          "alt": "The room scene in the Unreal Engine viewport"
+        },
+        {
+          "src": "data/projects/sergio-ramos-room/UNREAL_2.webp",
+          "alt": "The room and the city outside the window in Unreal Engine"
+        }
+      ]
+    },
+    {
+      "tag": "",
+      "heading": "The shirt in Houdini",
+      "caption": "The shirt was simulated in Houdini and brought back into the shot.",
+      "images": [
+        {
+          "src": "data/projects/sergio-ramos-room/HOUDINI_SIM.webp",
+          "alt": "The shirt simulation setup in Houdini"
+        }
+      ]
+    }
+  ],
+  "videoBlocks": [
+    {
+      "tag": "",
+      "heading": "The film",
+      "caption": "",
+      "file": "data/projects/sergio-ramos-room/FINAL.mp4",
+      "url": ""
+    },
+    {
+      "tag": "",
+      "heading": "The simulation",
+      "caption": "The shirt settling on the chair, rendered out of the Houdini sim.",
+      "file": "data/projects/sergio-ramos-room/SIM_MAGLIA.mp4",
+      "url": ""
+    }
+  ],
+  "beforeAfters": [],
+  "videoBeforeAfters": [],
+  "storytelling": [],
+  "credits": [],
+  "showNextProject": true
 }

@@ -77,14 +77,16 @@
     <span>2023 — 2026</span>
   </div>
 
-  <!-- Work grid controls: layout + sort + zoom.
+  <!-- Work controls: view + sort + zoom.
        User preferences persist in localStorage. -->
   <div class="work-controls reveal">
     <div class="wc-group wc-group-layout">
-      <label class="wc-label" for="wc-layout-toggle">Uniform 16:9</label>
-      <button id="wc-layout-toggle" class="wc-toggle interactive" role="switch" aria-checked="false" aria-label="Toggle uniform 16:9 layout">
-        <span class="wc-toggle-track"><span class="wc-toggle-thumb"></span></span>
-      </button>
+      <span class="wc-label" id="wc-view-label">View</span>
+      <div class="wc-views" role="radiogroup" aria-labelledby="wc-view-label">
+        <button type="button" class="wc-view interactive" role="radio" aria-checked="false" data-view="asymmetric">Classic</button>
+        <button type="button" class="wc-view interactive" role="radio" aria-checked="false" data-view="uniform">16:9</button>
+        <button type="button" class="wc-view interactive" role="radio" aria-checked="false" data-view="ring">3D</button>
+      </div>
     </div>
     <div class="wc-group">
       <label class="wc-label" for="wc-sort">Sort by</label>
@@ -109,6 +111,9 @@
   </div>
 
   <div class="work-grid reveal-stagger" id="work-grid"></div>
+  <!-- 3D view: built by js/work-ring.js from the same sorted list as the grid -->
+  <div class="work-ring reveal" id="work-ring" role="region" aria-roledescription="carousel"
+       aria-label="Selected work, 3D ring. Drag it, or use Tab and the arrow keys."></div>
 </section>
 
 <section class="clients">
@@ -140,6 +145,7 @@
 
 <script type="module">
   import { fixPath, mediaBaseFor } from '/js/paths.js';
+  import { createWorkRing } from '/js/work-ring.js';
 
   /* three.js is loaded inside setupHero() with a dynamic import, NOT a static one
      at the top. A static import makes the whole module fail to execute if unpkg is
@@ -262,6 +268,16 @@
 
       const grid = document.getElementById('work-grid');
 
+      /* The 3D ring is an extra view, not the content: if it cannot start (an old
+         browser without ResizeObserver, say), the grid views must still work. */
+      let ring = null;
+      try {
+        ring = createWorkRing(document.getElementById('work-ring'));
+      } catch (err) {
+        console.warn('3D view unavailable, falling back to the grid:', err);
+        document.querySelector('.wc-view[data-view="ring"]')?.remove();
+      }
+
       /* Aspect ratio drives the justified rows in the asymmetric layout: each card's
          share of its row is proportional to it (see styles.css). Taken from the CMS
          "Card Orientation" when set, so the row tiles correctly on first paint with
@@ -323,6 +339,24 @@
             </a>
           `;
         }).join('');
+        // The 3D view shows the same list in the same order. Its card keeps the cover's
+        // own shape; it gets both hover clips and picks the one that matches it.
+        if (ring) {
+          ring.render(projList.map(p => {
+            const id = p.slug || slug(p.title);
+            const mediaBase = mediaBaseFor(id);
+            return {
+              href: `/work/${encodeURIComponent(id)}/`,
+              title: p.title,
+              info: [p.client, p.year].filter(Boolean).join(' · '),
+              tag: p.featured ? (p.tagLabel || 'Featured') : '',
+              img: fixPath(p.image, mediaBase),
+              video: fixPath(p.previewVideo, mediaBase),
+              video169: fixPath(p.previewVideo169, mediaBase),
+              ratio: CARD_RATIOS[p.cardOrientation] || null,
+            };
+          }));
+        }
         // Re-bind hover-video and cursor to freshly-rendered cards
         applyNaturalRatios();
         setupHoverVideos();
@@ -330,36 +364,39 @@
       }
 
 
-      // ─── User controls: layout toggle + sort + zoom ───
+      // ─── User controls: view switch + sort + zoom ───
       const workEl = document.querySelector('.work');
       const sortEl = document.getElementById('wc-sort');
       const zoomEl = document.getElementById('wc-zoom');
-      const layoutToggle = document.getElementById('wc-layout-toggle');
+      const viewBtns = [...document.querySelectorAll('.wc-view')];
 
-      // Defaults: on mobile the site auto-uses uniform 16:9 (looks better on narrow screens).
-      // On desktop the default is asymmetric.
-      const mobile = isMobile();
+      /* Defaults: on mobile the site auto-uses uniform 16:9 (looks better on narrow
+         screens), on desktop the asymmetric Classic. The 3D ring is an opt-in third
+         view, remembered under the same kc-layout key as the other two. A stored
+         "ring" falls back to the default if the ring could not start. */
+      const VIEWS = ring ? ['asymmetric', 'uniform', 'ring'] : ['asymmetric', 'uniform'];
       const savedSort   = localStorage.getItem('kc-sort') || 'featured';
       const savedZoom   = localStorage.getItem('kc-zoom') || '2';
-      const savedLayout = localStorage.getItem('kc-layout') || (mobile ? 'uniform' : 'asymmetric');
+      const storedView  = localStorage.getItem('kc-layout');
+      const savedLayout = VIEWS.includes(storedView) ? storedView
+                        : (isMobile() ? 'uniform' : 'asymmetric');
 
       if (sortEl) sortEl.value = savedSort;
       if (zoomEl) zoomEl.value = savedZoom;
 
       renderProjectsGrid(savedSort);
 
-      // Apply the current layout mode (asymmetric or uniform) to <.work>
+      // Apply the current view (ring, asymmetric or uniform) to <.work>
       function applyLayout(mode) {
         workEl.setAttribute('data-layout', mode);
-        if (layoutToggle) {
-          const on = mode === 'uniform';
-          layoutToggle.setAttribute('aria-checked', on ? 'true' : 'false');
-          layoutToggle.classList.toggle('is-on', on);
-        }
+        viewBtns.forEach(b => b.setAttribute('aria-checked', b.dataset.view === mode ? 'true' : 'false'));
+        if (ring) ring.setActive(mode === 'ring');
+        // Density has no meaning on the ring (its control is hidden there).
+        if (mode === 'ring') return;
         // The slider means different things in each layout, so we
         // rebind its config (min/max/value) and re-apply.
         configureZoomForLayout(mode);
-        updateGridDensity(zoomEl ? zoomEl.value : (mode === 'uniform' ? '2' : '2'));
+        updateGridDensity(zoomEl ? zoomEl.value : '2');
       }
 
       // Slider configuration switches when layout changes:
@@ -389,6 +426,9 @@
       // Applies density level to CSS depending on current layout
       function updateGridDensity(level) {
         const mode = workEl.getAttribute('data-layout') || 'asymmetric';
+        // The resize listener lands here in every view; on the ring it would only
+        // overwrite the grids' saved density with whatever the hidden slider holds.
+        if (mode === 'ring') return;
         workEl.setAttribute('data-density', level);
         // Persist layout-specific value
         if (mode === 'uniform') {
@@ -419,15 +459,13 @@
           updateGridDensity(zoomEl.value);
         });
       }
-      // Wire layout toggle
-      if (layoutToggle) {
-        layoutToggle.addEventListener('click', () => {
-          const current = workEl.getAttribute('data-layout') || 'asymmetric';
-          const next = current === 'uniform' ? 'asymmetric' : 'uniform';
-          localStorage.setItem('kc-layout', next);
-          applyLayout(next);
-        });
-      }
+      // Wire view switch
+      viewBtns.forEach(b => b.addEventListener('click', () => {
+        const next = b.dataset.view;
+        if (!VIEWS.includes(next)) return;
+        localStorage.setItem('kc-layout', next);
+        applyLayout(next);
+      }));
       // Re-apply on window resize (handles orientation change / desktop↔mobile)
       window.addEventListener('resize', () => {
         updateGridDensity(zoomEl ? zoomEl.value : savedZoom);

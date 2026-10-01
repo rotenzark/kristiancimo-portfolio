@@ -367,43 +367,38 @@ nav {
 }
 .wc-zoom-input::-moz-range-thumb:hover { transform: scale(1.2); background: var(--accent-ink); }
 
-/* ─── Layout toggle (switch: Asymmetric ↔ Uniform 16:9) ─── */
-.wc-toggle {
+/* ─── View switch (Classic · 16:9 · 3D) ───
+   Replaced the two-state "Uniform 16:9" switch when the 3D ring became a third view.
+   Same box, type and line as the Sort select beside it, so the bar reads as one
+   instrument; the chosen view is filled with the accent, --fg on top (9.43:1). */
+.wc-views {
+  display: inline-flex;
+  border: 1px solid var(--line);
+}
+.wc-view {
   appearance: none;
   background: transparent;
   border: 0;
-  padding: 0;
+  color: rgba(245, 243, 239, 0.62);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 10px 14px;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
+  transition: background 0.3s, color 0.3s;
 }
-.wc-toggle-track {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  height: 20px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: transparent;
-  transition: border-color 0.3s, background 0.3s;
-}
-.wc-toggle-thumb {
-  position: absolute;
-  top: 2px; left: 2px;
-  width: 14px; height: 14px;
-  border-radius: 50%;
-  background: var(--fg);
-  transition: transform 0.3s cubic-bezier(.2,.8,.2,1), background 0.3s;
-}
-.wc-toggle:hover .wc-toggle-track { border-color: var(--fg); }
-.wc-toggle.is-on .wc-toggle-track { border-color: var(--accent); background: var(--accent); }
-.wc-toggle.is-on .wc-toggle-thumb { transform: translateX(20px); background: #fff; }
+.wc-view + .wc-view { border-left: 1px solid var(--line); }
+.wc-view:hover { color: var(--fg); }
+.wc-view[aria-checked="true"] { background: var(--accent); color: var(--fg); }
+.wc-view:focus-visible { outline: 1px solid var(--accent-ink); outline-offset: 2px; }
 
 @media (max-width: 768px) {
   .work-controls { gap: 20px; justify-content: space-between; padding-bottom: 20px; }
   .wc-group { gap: 10px; }
   .wc-label { font-size: 9px; letter-spacing: 0.18em; }
   .wc-select { font-size: 10px; padding: 8px 28px 8px 12px; }
+  .wc-view { font-size: 10px; padding: 8px 12px; }
   .wc-zoom-input { width: 100px; }
 }
 
@@ -475,6 +470,116 @@ nav {
 .work[data-layout="uniform"][data-density="2"] .work-grid { grid-template-columns: repeat(2, 1fr); }
 .work[data-layout="uniform"][data-density="3"] .work-grid { grid-template-columns: repeat(3, 1fr); }
 .work[data-layout="uniform"][data-density="4"] .work-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+/* ─── 3D RING layout (js/work-ring.js) ───
+   One screen tall and never pinned: the page scrolls through it like any section,
+   so the contacts stay as close as they are with the grids. The JS sets the
+   perspective (from the radius) and every card's size and place on the circle. */
+.work-ring { display: none; }
+.work[data-layout="ring"] .work-grid,
+.work[data-layout="ring"] .wc-group-zoom { display: none; }
+.work[data-layout="ring"] .work-ring { display: block; }
+.work-ring {
+  position: relative;
+  z-index: 1;
+  height: clamp(520px, 82vh, 900px);
+  margin: 0 -32px;               /* full bleed: the ring runs off both edges of the window */
+  overflow: hidden;
+  overflow: clip;                /* clip, not hidden: focusing a card must not scroll the box */
+  touch-action: pan-y;           /* vertical swipes scroll the page, horizontal ones turn the ring */
+  user-select: none;
+  -webkit-user-select: none;
+}
+.ring-stage {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.ring-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  overflow: hidden;
+  background: var(--bg-2);
+  -webkit-user-drag: none;
+  container-type: inline-size;
+}
+.ring-card.is-back { pointer-events: none; }
+.ring-card:focus-visible { outline: 1px solid var(--accent-ink); outline-offset: 4px; }
+.ring-img,
+.ring-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+.ring-img {
+  filter: brightness(0.82) contrast(1.04);
+  transition: opacity 0.5s ease;
+}
+/* Opacity only, like .cover-video in the grid: never animate a transform on a video. */
+.ring-video {
+  opacity: 0;
+  filter: brightness(0.88) contrast(1.04);
+  transition: opacity 0.5s ease;
+}
+.ring-card.is-playing .ring-video { opacity: 1; }
+.ring-card.is-playing .ring-img { opacity: 0; }
+/* Dims a card as it turns away; its opacity is set per frame by the JS. */
+.ring-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: var(--bg);
+  opacity: 0;
+  pointer-events: none;
+}
+.ring-meta {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 2;
+  padding: 18px;
+  background: linear-gradient(to top, rgba(10,10,10,0.85), transparent);
+  opacity: 0;                    /* only cards near the front carry text — never mirrored */
+  transition: opacity 0.5s ease;
+}
+.ring-card.is-near .ring-meta { opacity: 1; }
+.ring-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(16px, 8cqi, 28px);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+.ring-info {
+  margin-top: 8px;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Same badge as .project-tag, minus the backdrop blur: a blur sampling through a
+   moving 3D layer would be recomputed every frame for a 9px label. */
+.ring-tag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fg);
+  padding: 4px 10px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(0,0,0,0.55);
+}
 
 .work-grid {
   display: grid;
@@ -647,9 +752,14 @@ nav {
     max-width: none;
     flex-basis: auto;
   }
-  /* Hide layout toggle AND zoom slider on mobile — single column is fixed */
-  .work-controls .wc-group-layout,
+  /* The zoom slider is hidden on mobile — single column is fixed. The view switch
+     stays, for 3D vs grid, but without Classic: here both grids collapse into the
+     same single 16:9 column, so a stored "Classic" lights up 16:9 instead. */
   .work-controls .wc-group-zoom { display: none; }
+  .wc-view[data-view="asymmetric"] { display: none; }
+  .wc-view[data-view="uniform"] { border-left: 0; }   /* first visible button here */
+  .work[data-layout="asymmetric"] .wc-view[data-view="uniform"] { background: var(--accent); color: var(--fg); }
+  .work-ring { margin: 0 -20px; height: clamp(440px, 72svh, 680px); }
 }
 
 /* ─── Portrait-oriented screens: force 1 column ───

@@ -99,7 +99,10 @@ const sha1 = (file) => crypto.createHash('sha1').update(fs.readFileSync(file)).d
 function mediaTable(slug) {
   const dir = path.join('data/projects', slug);
   const table = {};
-  for (const name of fs.readdirSync(dir)) {
+  // Explicit sort: Windows lists files case-insensitively, Linux (the Action) by
+  // byte, so without it a local build and the CI build wrote the same table in a
+  // different key order and data/projects.json showed up as changed every time.
+  for (const name of fs.readdirSync(dir).sort()) {
     if (!/\.webp$/i.test(name)) continue;
     const size = webpSize(path.join(dir, name));
     if (!size) continue;

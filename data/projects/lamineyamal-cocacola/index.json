@@ -30,35 +30,35 @@
       "images": [
         {
           "src": "VIEWPORT_1.webp",
-          "alt": ""
+          "alt": "Blender viewport clay view of the full 3D stadium model from above, with crowd-filled stands around the pitch"
         },
         {
           "src": "VIEWPORT_2.webp",
-          "alt": ""
+          "alt": "Grey clay viewport shot from pitch level: packed two-tier stands, roof trusses and photographers along the touchline"
         },
         {
           "src": "VIEWPORT_3.webp",
-          "alt": ""
+          "alt": "Clay viewport close-up of the lower stand, fans waving flags under the curved upper tier and roof structure"
         },
         {
           "src": "VIEWPORT_4.webp",
-          "alt": ""
+          "alt": "Untextured crowd close-up in the Blender viewport, rows of 3D fans raising their arms in the stands"
         },
         {
           "src": "VIEWPORT_5.webp",
-          "alt": ""
+          "alt": "Rendered viewport from inside the crowd: fans in red-and-black scarves cheer under a 0-0 scoreboard"
         },
         {
           "src": "VIEWPORT_6.webp",
-          "alt": ""
+          "alt": "Shaded viewport of the stadium bowl in daylight, red-and-black flags across both tiers and the pitch below"
         },
         {
           "src": "VIEWPORT_7.webp",
-          "alt": ""
+          "alt": "Top-down shaded view of the stadium: white roof ring around stands full of red fans and the green pitch"
         },
         {
           "src": "VIEWPORT_8.webp",
-          "alt": ""
+          "alt": "Lit viewport shot of the lower tier, fans waving Coca-Cola and red-and-black flags beneath branded LED boards"
         }
       ]
     }

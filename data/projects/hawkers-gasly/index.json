@@ -30,7 +30,7 @@
       "images": [
         {
           "src": "data/projects/hawkers-gasly/COPERTINA_HIGH.webp",
-          "alt": ""
+          "alt": "Client reference: a navy cap with a white embroidered gothic H, the shape that inspired the island"
         }
       ]
     },
@@ -41,19 +41,19 @@
       "images": [
         {
           "src": "data/projects/hawkers-gasly/h_nocircle_centered.webp",
-          "alt": ""
+          "alt": "First Photoshop concept: a gothic H-shaped island set off the Dubai coastline, seen from above in daylight"
         },
         {
           "src": "data/projects/hawkers-gasly/h_circle_centered.webp",
-          "alt": ""
+          "alt": "Second Photoshop concept: the gothic H island enclosed by a crescent breakwater off the Dubai coast"
         },
         {
           "src": "data/projects/hawkers-gasly/h_zoomout_centered.webp",
-          "alt": ""
+          "alt": "Blender render of the H-shaped island at night, its glowing roads seen from above through drifting clouds"
         },
         {
           "src": "data/projects/hawkers-gasly/h_zoomout_centered_vertical.webp",
-          "alt": ""
+          "alt": "Vertical Blender render of the night-lit H-shaped island framed by clouds, composed for social formats"
         }
       ]
     },
@@ -64,11 +64,11 @@
       "images": [
         {
           "src": "data/projects/hawkers-gasly/LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).webp",
-          "alt": ""
+          "alt": "Final horizontal frame: Dubai’s Palm Jumeirah from above at night, city lights glowing under drifting clouds"
         },
         {
           "src": "data/projects/hawkers-gasly/LAST_FRAME_VERTICAL_COLOR_hf_20260305_102526_ce7c5e41-9bf6-444d-bc28-6a74f300f4d5 (0-00-00-00).webp",
-          "alt": ""
+          "alt": "Final vertical frame: Palm Jumeirah and the lit Dubai coastline from above at night, wisps of cloud over the sea"
         }
       ]
     }

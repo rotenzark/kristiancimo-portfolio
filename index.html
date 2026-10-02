@@ -3,27 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kristian Cimò — VFX / CGI / 3D / AI</title>
-<meta name="description" content="Kristian Cimò — VFX, CGI, 3D & AI-driven visuals. Selected work for Adidas, Hawkers, Generali, FC Barcelona, and global athletes.">
-<!-- The site answers on both www.kristiancimo.it and the apex with the same 200,
-     so every page exists twice for a crawler. The generated /work/<slug>/ pages
-     already self-canonicalise (tools/build.js writes their canonical); the home
-     had none, which is why it is the page Search Console can report as a
-     duplicate. Extension-less apex URL on purpose — Cloudflare 307s away .html. -->
+<!-- Keep <title> and the description in step with data/site.json: the JS sets
+     document.title from there, this is what crawlers and link previews read. -->
+<title>Kristian Cimò — Freelance VFX &amp; CGI Artist, Milan</title>
+<meta name="description" content="Kristian Cimò, freelance VFX, CGI and 3D artist in Milan. On-set supervision, compositing and CGI for Adidas, Coca-Cola, Generali and FC Barcelona.">
+<!-- Self-canonical, extension-less apex URL (Cloudflare 307s away .html). The www
+     host and kristiancimo.com 301 here at the edge, but the canonical still names
+     the one URL every variant should be counted as. -->
 <link rel="canonical" href="https://kristiancimo.it/">
-<meta property="og:title" content="Kristian Cimò — VFX / CGI / 3D / AI">
-<meta property="og:description" content="Selected work for Adidas, Hawkers, Generali, FC Barcelona, and global athletes.">
+<meta property="og:site_name" content="Kristian Cimò">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Kristian Cimò — Freelance VFX &amp; CGI Artist, Milan">
+<meta property="og:description" content="VFX, CGI and 3D for Adidas, Coca-Cola, Generali, FC Barcelona, Hawkers and global athletes.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kristiancimo.it/">
 <meta property="og:image" content="https://kristiancimo.it/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Kristian Cimò — VFX, CGI and 3D artist">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<!-- Fonts are self-hosted (see the top of styles.css). The three faces the first
+     screen paints with are preloaded so the hero is not drawn in a fallback first. -->
+<link rel="preload" href="/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/instrument-serif-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
+
+<!-- Who this site is about, for search engines and AI answers: the page itself
+     is mostly built by JS, this block is plain data in the HTML. sameAs lists only
+     profiles that really exist — add LinkedIn, Vimeo, Behance here when they do. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://kristiancimo.it/#person",
+      "name": "Kristian Cimò",
+      "alternateName": "Kristian Cimo",
+      "url": "https://kristiancimo.it/",
+      "image": "https://kristiancimo.it/og-image.png",
+      "jobTitle": "Freelance VFX, CGI and 3D Artist",
+      "vatID": "IT07182850821",
+      "description": "Freelance VFX, CGI and 3D artist based in Milan, working worldwide: on-set VFX supervision, compositing, CGI and hybrid AI + 3D pipelines for brand campaigns.",
+      "email": "mailto:kristiancimo@gmail.com",
+      "address": { "@type": "PostalAddress", "addressLocality": "Milan", "addressCountry": "IT" },
+      "knowsAbout": ["Visual effects", "Compositing", "CGI", "3D animation", "VFX supervision", "Blender", "Houdini", "Unreal Engine", "After Effects"],
+      "sameAs": ["https://www.instagram.com/kris.cimo/"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://kristiancimo.it/#website",
+      "url": "https://kristiancimo.it/",
+      "name": "Kristian Cimò",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://kristiancimo.it/#person" }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -44,10 +86,13 @@
     <a href="#about" class="interactive">About</a>
     <a href="#contact" class="interactive">Contact</a>
   </div>
-  <div class="nav-status">
+  <!-- A link, not a label: below 768px the nav links are hidden and this is the
+       only thing left in the bar, so it is the one way to reach the contacts from
+       the first screen on a phone. -->
+  <a href="#contact" class="nav-status interactive">
     <span class="dot"></span>
     <span data-bind="status">Available 2026</span>
-  </div>
+  </a>
 </nav>
 
 <section class="hero">
@@ -73,7 +118,7 @@
   <canvas class="work-particles" id="work-particles" aria-hidden="true"></canvas>
 
   <div class="section-head reveal">
-    <span><span class="num">01</span> &nbsp;/&nbsp; Selected Work</span>
+    <h2><span class="num">01</span> &nbsp;/&nbsp; Selected Work</h2>
     <span>2023 — 2026</span>
   </div>
 
@@ -110,7 +155,26 @@
     </div>
   </div>
 
-  <div class="work-grid reveal-stagger" id="work-grid"></div>
+  <div class="work-grid reveal-stagger" id="work-grid">
+<!-- BUILD:LINKS — written by tools/build.js from data/projects.json: one plain link
+     per published project, so crawlers that do not run JavaScript still find the
+     work. renderProjectsGrid() replaces all of it with the real cards. -->
+<a href="/work/bernal-control-room/">Bernal - Predator Elite Control Room — Adidas, September 2026</a>
+<a href="/work/nico-paz-the-choice/">Nico Paz - The Choice — Adidas, September 2026</a>
+<a href="/work/hexagon-cup-padel-f1/">Madrid Padel GP — Hexagon, September 2026</a>
+<a href="/work/raphinha-never-miss/">Raphinha - Never Miss — Adidas, September 2026</a>
+<a href="/work/yildiz-del-piero-starboy/">Yildiz &amp; Del Piero - Starboy — Adidas, September 2026</a>
+<a href="/work/olmo-cubarsi-boot-talk/">Olmo &amp; Cubarsí - Boot Talk — Adidas, September 2026</a>
+<a href="/work/hawkers-gasly/">Hawkers × Gasly — Hawkers Co., March 2026</a>
+<a href="/work/adidas-legacy/">Adidas - Legacy Museum — Adidas, December 2025</a>
+<a href="/work/zidane-map/">Zidane - Inspire Signature — Zinédine Zidane, May 2025</a>
+<a href="/work/barcelona-world-cup/">Barcelona × World Cup — FC Barcelona, November 2025</a>
+<a href="/work/lamineyamal-cocacola/">Lamine Yamal x Coca-Cola - World Cup — Coca-Cola, July 2026</a>
+<a href="/work/generali-hexagon-cup/">Generali · Hexagon Cup — Generali, 2026</a>
+<a href="/work/hakimi-ballon-dor/">Hakimi · African Ballon d&#39;Or — 2025</a>
+<a href="/work/sergio-ramos-room/">Sergio Ramos · Room — 2023</a>
+<!-- /BUILD:LINKS -->
+  </div>
   <!-- 3D view: built by js/work-ring.js from the same sorted list as the grid -->
   <div class="work-ring reveal" id="work-ring" role="region" aria-roledescription="carousel"
        aria-label="Selected work, 3D ring. Drag it, or use Tab and the arrow keys."></div>
@@ -127,33 +191,50 @@
     </div>
     <h2 data-bind="about.heading">The eye behind the render.</h2>
   </div>
-  <div class="about-body reveal" id="about-body"></div>
+  <div class="about-body reveal" id="about-body">
+<!-- BUILD:ABOUT — the bio from data/about.json, written by tools/build.js so it
+     is in the HTML; the JS replaces it with the same text plus the stats. -->
+<p>I&#39;m Kristian — a VFX &amp; CGI artist based in Italy, building visuals for global brands and athletes. From product CGI for F1 helmets to room-scale installations and AI-driven television sequences.</p>
+<p>My work sits at the seam where photography ends and computation begins — and lately, where computation starts to dream on its own.</p>
+<!-- /BUILD:ABOUT -->
+  </div>
 </section>
 
 <footer id="contact">
   <div class="section-head reveal" style="margin: 0 0 60px;">
-    <span><span class="num">03</span> &nbsp;/&nbsp; Contact</span>
+    <h2><span class="num">03</span> &nbsp;/&nbsp; Contact</h2>
     <span>Let's talk</span>
   </div>
-  <h2 class="contact-cta reveal" id="contact-cta"></h2>
+  <!-- A paragraph, not a heading: it is a call to action, and as an h2 it made the
+       outline read "Let's build something unreal" as a section of the site. -->
+  <p class="contact-cta reveal" id="contact-cta">
+<!-- BUILD:CONTACT — the email from data/footer.json, written by tools/build.js so
+     the contact is in the HTML; the JS replaces it with the full call to action. -->
+<a href="mailto:kristiancimo@gmail.com">kristiancimo@gmail.com</a>
+<!-- /BUILD:CONTACT -->
+  </p>
   <div class="footer-grid" id="footer-grid"></div>
   <div class="footer-base">
-    <span>© 2026 Kristian Cimò · All rights reserved</span>
+    <!-- The VAT number has to be on the site of anyone who has one (art. 35 DPR 633/1972). -->
+    <span>© 2026 Kristian Cimò · P.IVA 07182850821 · All rights reserved</span>
     <span>Designed & built in Italia · 🍝</span>
   </div>
 </footer>
 
 <script type="module">
-  import { fixPath, mediaBaseFor } from '/js/paths.js';
+  import { fixPath, mediaBaseFor, imgAttrs, mediaInfo } from '/js/paths.js';
   import { createWorkRing } from '/js/work-ring.js';
 
   /* three.js is loaded inside setupHero() with a dynamic import, NOT a static one
-     at the top. A static import makes the whole module fail to execute if unpkg is
-     unreachable — blocked by a corporate network, CDN outage — and then nothing on
-     this page renders at all: the loader never hides and the visitor sees a blank
-     screen. The hero sphere is decoration; the portfolio is not. It has to be able
-     to fail on its own. */
-  const THREE_URL = 'https://unpkg.com/three@0.160.0/build/three.module.js';
+     at the top. A static import makes the whole module fail to execute if the file
+     cannot be loaded, and then nothing on this page renders at all: the loader
+     never hides and the visitor sees a blank screen. The hero sphere is decoration;
+     the portfolio is not. It has to be able to fail on its own.
+
+     Self-hosted since 2026-10-02 (it came from unpkg): the minified build, 670 KB
+     instead of the 1.27 MB unminified one, no third-party origin, and the version
+     is in the file name so it can be cached for good (see _headers). */
+  const THREE_URL = '/js/vendor/three-0.160.0.module.min.js';
 
   function bind(key, value) {
     if (value == null) return;
@@ -327,8 +408,8 @@
           return `
             <a href="${href}" class="project interactive${hasPreview ? '' : ' no-preview'}"${orientAttr}${ratioStyle}>
               ${p.featured ? `<span class="project-tag">${escapeHtml(p.tagLabel || 'Featured')}</span>` : ''}
-              <img class="cover-img cover-img-default" src="${escapeHtml(imgPath)}" alt="${escapeHtml(p.title)}" loading="lazy">
-              <img class="cover-img cover-img-169" src="${escapeHtml(cover169)}" alt="${escapeHtml(p.title)}" loading="lazy">
+              <img class="cover-img cover-img-default" src="${escapeHtml(imgPath)}" alt="${escapeHtml(p.title)}"${imgAttrs(imgPath, p._media, ratio > 1 ? '(max-width: 900px) 100vw, 50vw' : '(max-width: 900px) 100vw, 20vw')} loading="lazy">
+              <img class="cover-img cover-img-169" src="${escapeHtml(cover169)}" alt="${escapeHtml(p.title)}"${imgAttrs(cover169, p._media, '(max-width: 900px) 100vw, 50vw')} loading="lazy">
               ${hasPreview ? `
                 <video class="cover-video" data-src="${escapeHtml(previewVideo || previewVideo169)}" data-src169="${escapeHtml(previewVideo169)}" muted loop playsinline preload="none"></video>
               ` : ''}
@@ -351,6 +432,7 @@
               info: [p.client, p.year].filter(Boolean).join(' · '),
               tag: p.featured ? (p.tagLabel || 'Featured') : '',
               img: fixPath(p.image, mediaBase),
+              srcset: (mediaInfo(fixPath(p.image, mediaBase), p._media) || {}).srcset || '',
               video: fixPath(p.previewVideo, mediaBase),
               video169: fixPath(p.previewVideo169, mediaBase),
               ratio: CARD_RATIOS[p.cardOrientation] || null,
@@ -430,6 +512,7 @@
         // overwrite the grids' saved density with whatever the hidden slider holds.
         if (mode === 'ring') return;
         workEl.setAttribute('data-density', level);
+        updateCoverSizes(mode, level);
         // Persist layout-specific value
         if (mode === 'uniform') {
           localStorage.setItem('kc-zoom-uni', level);
@@ -445,12 +528,37 @@
         workEl.style.paddingBottom = '';
       }
 
+      /* The covers carry a srcset (smaller copies in /img/), and the browser picks
+         the smallest one that fills the card — so `sizes` has to say how wide the
+         card really is, and that depends on the layout and the density slider.
+         Uniform: 1-4 equal columns. Classic: justified rows of height --row-h,
+         where a card can grow up to ratio × row height × 1.9 (styles.css). */
+      const ROW_H = { 0: 145, 1: 195, 2: 250, 3: 330, 4: 430 };
+      function updateCoverSizes(mode, level) {
+        if (mode === 'uniform') {
+          const cols = Math.max(1, parseInt(level, 10) || 2);
+          grid.querySelectorAll('.cover-img-169[srcset]').forEach(img => {
+            img.sizes = `(max-width: 900px) 100vw, ${Math.ceil(100 / cols)}vw`;
+          });
+        } else {
+          const rowH = ROW_H[level] || ROW_H[2];
+          grid.querySelectorAll('.project').forEach(card => {
+            const img = card.querySelector('.cover-img-default[srcset]');
+            if (!img) return;
+            const ratio = parseFloat(card.style.getPropertyValue('--ratio')) || 16 / 9;
+            img.sizes = `(max-width: 900px) 100vw, ${Math.round(ratio * rowH * 1.9)}px`;
+          });
+        }
+      }
+
       // Wire sort dropdown
       if (sortEl) {
         sortEl.addEventListener('change', () => {
           const v = sortEl.value;
           localStorage.setItem('kc-sort', v);
           renderProjectsGrid(v);
+          // fresh cards start with the default sizes; give them the current layout's
+          updateCoverSizes(workEl.getAttribute('data-layout'), workEl.getAttribute('data-density'));
         });
       }
       // Wire zoom slider

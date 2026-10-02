@@ -2,6 +2,76 @@
    KRISTIAN CIMÒ — SHARED STYLES (v3)
    ═══════════════════════════════════════════════════ */
 
+/* Fonts, self-hosted (2026-10-02). They used to come from fonts.googleapis.com:
+   a render-blocking stylesheet on another origin, then the woff2 files from a third
+   origin, and every visitor's IP handed to Google on each page view. Same files
+   (OFL, licences in /fonts/), same unicode-range split, so a page only downloads
+   the subsets it uses. JetBrains Mono is a variable font: one file covers 300-500. */
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/anton-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/anton-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/instrument-serif-italic-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/instrument-serif-italic-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/instrument-serif-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/instrument-serif-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 300 500;
+  font-display: swap;
+  src: url(/fonts/jetbrains-mono-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 300 500;
+  font-display: swap;
+  src: url(/fonts/jetbrains-mono-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   --bg: #0a0a0a;
   --bg-2: #111111;
@@ -44,6 +114,11 @@ body {
 ::selection { background: var(--accent); color: var(--fg); }
 a { color: inherit; text-decoration: none; }
 img, video { display: block; max-width: 100%; }
+/* Project images now carry width/height attributes (aspect ratio known before the
+   file arrives, so nothing jumps). Without this, an image that no class sizes would
+   take the attribute height literally and stretch. Every sized image keeps its
+   own class rule, which outranks this one. */
+img { height: auto; }
 
 /* grain */
 .grain {
@@ -99,7 +174,10 @@ nav {
   transition: transform 0.4s cubic-bezier(.7,0,.2,1);
 }
 .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
-.nav-status { display: flex; align-items: center; gap: 8px; }
+/* A link to the contacts (index.html, project.html): on phones it is the only item
+   left in the bar. The padding makes a 44px tap target without moving anything. */
+.nav-status { display: flex; align-items: center; gap: 8px; padding: 14px 0; margin: -14px 0; }
+.nav-status:hover { opacity: 0.7; }
 .nav-status .dot {
   width: 8px; height: 8px; border-radius: 50%;
   background: #4ade80; box-shadow: 0 0 12px #4ade80;
@@ -120,6 +198,15 @@ nav {
   text-transform: uppercase; color: var(--muted);
 }
 .section-head .num { color: var(--fg); }
+/* The section labels ("01 / Selected Work", "∞ / Contact", "02 / Case Study") are
+   h2 since 2026-10-02, for the page outline; they keep the label look. */
+.section-head h2,
+.p-section-head h2 {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+}
 
 /* reveals */
 .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1.2s cubic-bezier(.2,.8,.2,1), transform 1.2s cubic-bezier(.2,.8,.2,1); }
@@ -864,6 +951,11 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
   position: relative;
   display: inline-block;
   transition: color 0.4s;
+  /* The address is one unbreakable word of ~11em at the 13vw headline size, so
+     from ~900 to ~2240px wide it ran past the edge and overflow-x:hidden cut it
+     ("KRISTIANCIMO@GMAI"). It now shrinks to the width it has (100vw minus the
+     footer padding, 32px a side) and never grows past the headline. */
+  font-size: min(1em, calc((100vw - 64px) / var(--cta-email-em, 11.2)));
 }
 .contact-cta a:hover { color: var(--accent-ink); }
 .contact-cta .em {
@@ -900,6 +992,9 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
 }
 @media (max-width: 900px) {
   footer { padding: 80px 20px 20px; }
+  .contact-cta a { font-size: min(1em, calc((100vw - 40px) / var(--cta-email-em, 11.2))); }
+  /* 44px tap targets on touch screens; the list just breathes a little more. */
+  .footer-grid .col a { padding: 12px 0; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
   .footer-base { flex-direction: column; gap: 8px; }
 }
@@ -927,6 +1022,11 @@ footer { padding: 120px 32px 32px; border-top: 1px solid var(--line); }
 @media (max-width: 768px) {
   .back-link { left: 20px; top: 52px; font-size: 9px; }
 }
+
+/* Holds the footer below the fold from the first paint. With <main> empty until the
+   JS filled it, the footer started at the top of the page and was shoved down when
+   the content arrived — a layout shift of 0.44-0.48 on every project page. */
+#project-root { min-height: 100vh; }
 
 .project-hero { padding: 180px 32px 80px; border-bottom: 1px solid var(--line); }
 .project-hero-meta {

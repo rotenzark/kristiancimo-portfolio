@@ -7,6 +7,9 @@ name: Build projects index
 #                              <title>, description and OG tags — social crawlers
 #                              do not run JavaScript, so those must be in the HTML
 #   sitemap.xml                published projects only, never a draft
+#   index.html                 only between its BUILD:* fences (project links,
+#                              bio, email — the home's text for non-JS readers)
+#   llms.txt                   plain-text index of the site for AI assistants
 #
 # The work is done by tools/build.js, which you can also run locally with
 # `node tools/build.js` — same script, same output, nothing to install.
@@ -19,6 +22,10 @@ on:
     branches: [main]
     paths:
       - "data/projects/**"
+      - "data/about.json"
+      - "data/footer.json"
+      - "data/site.json"
+      - "img/**"
       - "project.html"
       - "tools/build.js"
       - ".github/workflows/build-projects-index.yml"
@@ -43,7 +50,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A data/projects.json work sitemap.xml
+          git add -A data/projects.json work sitemap.xml index.html llms.txt
           git diff --cached --quiet && echo "nothing to rebuild" || {
             git commit -m "chore: rebuild projects index, project pages and sitemap"
             git push

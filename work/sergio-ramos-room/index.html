@@ -7,20 +7,101 @@
 <title>Sergio Ramos · Room — Kristian Cimò</title>
 <meta name="description" content="I built Sergio Ramos&#39; room in Unreal Engine, and the shirt was simulated in Houdini.">
 <link rel="canonical" href="https://kristiancimo.it/work/sergio-ramos-room/">
+<meta property="og:site_name" content="Kristian Cimò">
+<meta property="og:locale" content="en_US">
 <meta property="og:title" content="Sergio Ramos · Room — Kristian Cimò">
 <meta property="og:description" content="I built Sergio Ramos&#39; room in Unreal Engine, and the shirt was simulated in Houdini.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://kristiancimo.it/work/sergio-ramos-room/">
 <meta property="og:image" content="https://kristiancimo.it/data/projects/sergio-ramos-room/COPERTINA_ORIZZONTALE_16_9.webp">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
+<meta property="og:image:alt" content="Sergio Ramos · Room">
 <meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://kristiancimo.it/work/sergio-ramos-room/#webpage",
+      "url": "https://kristiancimo.it/work/sergio-ramos-room/",
+      "name": "Sergio Ramos · Room — Kristian Cimò",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://kristiancimo.it/#website",
+        "name": "Kristian Cimò",
+        "url": "https://kristiancimo.it/"
+      },
+      "mainEntity": {
+        "@id": "https://kristiancimo.it/work/sergio-ramos-room/#work"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://kristiancimo.it/data/projects/sergio-ramos-room/COPERTINA_ORIZZONTALE_16_9.webp"
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Work",
+            "item": "https://kristiancimo.it/#work"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Sergio Ramos · Room",
+            "item": "https://kristiancimo.it/work/sergio-ramos-room/"
+          }
+        ]
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "CreativeWork",
+      "@id": "https://kristiancimo.it/work/sergio-ramos-room/#work",
+      "name": "Sergio Ramos · Room",
+      "url": "https://kristiancimo.it/work/sergio-ramos-room/",
+      "description": "I built Sergio Ramos' room in Unreal Engine, and the shirt was simulated in Houdini.",
+      "image": [
+        "https://kristiancimo.it/data/projects/sergio-ramos-room/COPERTINA_ORIZZONTALE_16_9.webp",
+        "https://kristiancimo.it/data/projects/sergio-ramos-room/COPERTINA_4_5.webp"
+      ],
+      "thumbnailUrl": "https://kristiancimo.it/data/projects/sergio-ramos-room/COPERTINA_ORIZZONTALE_16_9.webp",
+      "dateCreated": "2023",
+      "datePublished": "2023",
+      "creator": {
+        "@type": "Person",
+        "@id": "https://kristiancimo.it/#person",
+        "name": "Kristian Cimò",
+        "url": "https://kristiancimo.it/"
+      },
+      "creditText": "Kristian Cimò (3D Artist, FX Artist)",
+      "about": [
+        {
+          "@type": "Person",
+          "name": "Sergio Ramos"
+        }
+      ],
+      "genre": "Interior CGI",
+      "keywords": "Interior CGI, Unreal Engine, Houdini, After Effects, 3D Artist, FX Artist",
+      "inLanguage": "en",
+      "isAccessibleForFree": true
+    }
+  ]
+}
+</script>
 <!-- /BUILD:META -->
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<!-- Fonts are self-hosted (see the top of styles.css); the two the first screen
+     paints with are preloaded. -->
+<link rel="preload" href="/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -42,31 +123,66 @@
     <a href="/#about" class="interactive">About</a>
     <a href="/#contact" class="interactive">Contact</a>
   </div>
-  <div class="nav-status">
+  <!-- A link, as on the home: on phones it is the only thing left in the bar. -->
+  <a href="#contact" class="nav-status interactive">
     <span class="dot"></span>
     <span data-bind="status">Available 2026</span>
-  </div>
+  </a>
 </nav>
 
 <a href="/#work" class="back-link interactive">Back to Work</a>
 
-<main id="project-root"></main>
+<main id="project-root">
+<!-- BUILD:BODY — on the generated work/<slug>/ pages tools/build.js writes the
+     project's text here (title, facts, case study, credits, next project), so the
+     page has content without JavaScript. renderProject() replaces all of it.
+     Empty in this file, which is only the legacy /project?id= fallback. -->
+<section class="project-hero">
+  <div class="project-hero-meta"><span>—</span><span class="sep">·</span><span>2023</span><span class="sep">·</span><span>Interior CGI</span></div>
+  <h1 class="project-hero-title">Sergio Ramos · Room</h1>
+  <div class="project-info-grid">
+    <div class="row"><span>Talent</span><span>Sergio Ramos</span></div>
+    <div class="row"><span>Year</span><span>2023</span></div>
+    <div class="row"><span>Role</span><span>3D Artist · FX Artist</span></div>
+    <div class="row"><span>Software</span><span>Unreal Engine · Houdini · After Effects</span></div>
+    <div class="row"><span>Format</span><span>Social</span></div>
+    <div class="row"><span>Category</span><span>Interior CGI</span></div>
+  </div>
+</section>
+<section class="project-cover"><img src="/data/projects/sergio-ramos-room/COPERTINA_ORIZZONTALE_16_9.webp" alt="Sergio Ramos · Room" width="1920" height="1080" srcset="/img/640/sergio-ramos-room/COPERTINA_ORIZZONTALE_16_9.webp 640w, /img/1280/sergio-ramos-room/COPERTINA_ORIZZONTALE_16_9.webp 1280w, /data/projects/sergio-ramos-room/COPERTINA_ORIZZONTALE_16_9.webp 1920w" sizes="100vw"></section>
+<section class="p-section">
+  <div class="p-section-head"><h2>Case Study</h2></div>
+  <div class="p-description">
+    <p>I built Sergio Ramos&#39; room in Unreal Engine, and the shirt was simulated in Houdini.</p>
+  </div>
+</section>
+<a href="/work/bernal-control-room/" class="next-project">
+  <div class="label">Next Project — September 2026</div>
+  <h2>Bernal - Predator Elite Control Room</h2>
+</a>
+<!-- /BUILD:BODY -->
+</main>
 
 <footer id="contact">
   <div class="section-head reveal" style="margin: 0 0 60px;">
-    <span><span class="num">∞</span> &nbsp;/&nbsp; Contact</span>
+    <h2><span class="num">∞</span> &nbsp;/&nbsp; Contact</h2>
     <span>Let's talk</span>
   </div>
-  <h2 class="contact-cta reveal" id="contact-cta"></h2>
+  <p class="contact-cta reveal" id="contact-cta"></p>
   <div class="footer-grid" id="footer-grid"></div>
   <div class="footer-base">
-    <span>© 2026 Kristian Cimò · All rights reserved</span>
+    <!-- The VAT number has to be on the site of anyone who has one (art. 35 DPR 633/1972). -->
+    <span>© 2026 Kristian Cimò · P.IVA 07182850821 · All rights reserved</span>
     <span>Designed & built in Italia · 🍝</span>
   </div>
 </footer>
 
 <script type="module">
-  import { videoEmbed, fixDeep, mediaBaseFor } from '/js/paths.js';
+  import { videoEmbed, fixDeep, mediaBaseFor, imgAttrs } from '/js/paths.js';
+
+  // The current project's _media table (pixel sizes + smaller copies, written by
+  // tools/build.js). Set in renderProject() before any block is rendered.
+  let MEDIA = null;
 
   function escapeHtml(s) {
     if (s == null) return '';
@@ -445,19 +561,29 @@
     ` : '';
     const count = images.length;
     const countClass = count === 1 ? 'count-1' : '';
+    // How wide each image really is: a single image spans the column (.count-1),
+    // two share a row, more wrap into justified rows; on phones it is a 2-column grid.
+    const sizes = count === 1 ? '100vw'
+      : count === 2 ? '(max-width: 900px) 50vw, 50vw'
+      : '(max-width: 900px) 50vw, 40vw';
     return `
       <div class="gallery-block reveal">
         ${head}
         <div class="p-gallery ${countClass}">
           ${images.map(img => {
             const src = typeof img === 'string' ? img : img.src;
-            const alt = typeof img === 'string' ? '' : (img.alt || '');
+            // An image without its own alt falls back to the block heading, which
+            // at least says what the set is ("Some Viewport shots"), not nothing.
+            const alt = (typeof img === 'string' ? '' : img.alt) || block.heading || '';
             if (isVideoFile(src)) {
+              // data-src, not src: loadLazyVideos() sets it when the clip nears the
+              // screen. With src + preload="auto" every gallery clip downloaded on
+              // page load — 12.5 MB up front on Zidane.
               return `<div class="item is-video">
-                <video src="${escapeHtml(src)}" autoplay muted loop playsinline preload="auto" data-needs-orient="1"></video>
+                <video data-src="${escapeHtml(src)}" autoplay muted loop playsinline preload="none" data-needs-orient="1"></video>
               </div>`;
             }
-            return `<div class="item"><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" data-needs-orient="1"></div>`;
+            return `<div class="item"><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}"${imgAttrs(src, MEDIA, sizes)} loading="lazy" data-needs-orient="1"></div>`;
           }).join('')}
         </div>
       </div>
@@ -519,6 +645,26 @@
     });
   }
 
+  /* ─── LAZY CLIPS: gallery and storytelling videos load when they near the screen ───
+     They are rendered with data-src and preload="none"; this moves data-src into
+     src about one screen ahead, and their autoplay attribute starts them. Before
+     2026-10-02 they had src + preload="auto", so every looping clip on a page was
+     downloaded at load — 12.5 MB up front on /work/zidane-map/. The before/after
+     clips are not touched: setupVBA() has its own blob loader, also on approach. */
+  function loadLazyVideos() {
+    const clips = document.querySelectorAll('video[data-src]');
+    const start = v => { v.src = v.dataset.src; v.removeAttribute('data-src'); };
+    if (!('IntersectionObserver' in window)) { clips.forEach(start); return; }
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        obs.unobserve(en.target);
+        start(en.target);
+      });
+    }, { rootMargin: '600px 0px' });
+    clips.forEach(v => io.observe(v));
+  }
+
   /* ─── LIGHTBOX: click any gallery image to open it fullscreen ─── */
   function setupLightbox() {
     // Build lightbox once and reuse
@@ -546,6 +692,7 @@
       document.body.style.overflow = 'hidden';
     }
     function openVideo(src) {
+      if (!src) return;
       boxImg.hidden = true; boxImg.src = '';
       boxVid.hidden = false;
       boxVid.src = src;
@@ -572,7 +719,8 @@
       item.dataset.lightboxBound = '1';
       item.addEventListener('click', () => {
         const vid = item.querySelector('video');
-        if (vid) return openVideo(vid.currentSrc || vid.src);
+        // A lazy clip clicked before it reached the screen still has only data-src.
+        if (vid) return openVideo(vid.currentSrc || vid.src || vid.dataset.src);
         const img = item.querySelector('img');
         if (img) return openImage(img.src, img.alt);
       });
@@ -607,7 +755,9 @@
     ` : '';
     let media;
     if (file) {
-      media = `<video src="${escapeHtml(file)}" controls playsinline preload="auto"></video>`;
+      // metadata, not auto: a clip with controls starts on a click, so only its
+      // size and duration are needed up front, not the whole file.
+      media = `<video src="${escapeHtml(file)}" controls playsinline preload="metadata"></video>`;
     } else {
       const embed = videoEmbed(url);
       media = embed
@@ -642,9 +792,9 @@
       <div class="ba-block reveal">
         ${head}
         <div class="p-ba interactive">
-          <img class="ba-img after" src="${escapeHtml(block.imageAfter || block.imageBefore)}" alt="Final composite" loading="lazy">
+          <img class="ba-img after" src="${escapeHtml(block.imageAfter || block.imageBefore)}" alt="${escapeHtml(`${block.title || `Shot ${idx + 1}`}: ${block.labelAfter || 'Final CGI'}`)}"${imgAttrs(block.imageAfter || block.imageBefore, MEDIA, '(max-width: 900px) 100vw, 60vw')} loading="lazy">
           <div class="ba-clip">
-            <img class="ba-img before" src="${escapeHtml(block.imageBefore || block.imageAfter)}" alt="Raw plate" loading="lazy">
+            <img class="ba-img before" src="${escapeHtml(block.imageBefore || block.imageAfter)}" alt="${escapeHtml(`${block.title || `Shot ${idx + 1}`}: ${block.labelBefore || 'Raw Plate'}`)}"${imgAttrs(block.imageBefore || block.imageAfter, MEDIA, '(max-width: 900px) 100vw, 60vw')} loading="lazy">
           </div>
           <div class="ba-labels">
             <span class="before">${escapeHtml(block.labelBefore || 'Raw Plate')}</span>
@@ -797,6 +947,7 @@
     }
 
     const p = normalizeProject(all[idx]);
+    MEDIA = p._media || null;
     const next = all[(idx + 1) % all.length];
 
     document.title = `${p.title} — Kristian Cimò`;
@@ -853,9 +1004,9 @@
         html += `<section class="project-cover"><video src="${escapeHtml(p.coverVideo)}" autoplay muted loop playsinline></video></section>`;
       }
     } else if (p.insideCover) {
-      html += `<section class="project-cover"><img src="${escapeHtml(p.insideCover)}" alt="${escapeHtml(p.title)}"></section>`;
+      html += `<section class="project-cover"><img src="${escapeHtml(p.insideCover)}" alt="${escapeHtml(p.title)}"${imgAttrs(p.insideCover, MEDIA, '100vw')}></section>`;
     } else if (p.image) {
-      html += `<section class="project-cover"><img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}"></section>`;
+      html += `<section class="project-cover"><img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}"${imgAttrs(p.image, MEDIA, '100vw')}></section>`;
     }
 
     let sectionNum = 1;
@@ -863,7 +1014,7 @@
       const n = String(sectionNum++).padStart(2, '0');
       return `
         <div class="p-section-head">
-          <span><span class="num">${n}</span> &nbsp;/&nbsp; ${escapeHtml(title)}</span>
+          <h2><span class="num">${n}</span> &nbsp;/&nbsp; ${escapeHtml(title)}</h2>
           <span>${escapeHtml(p.title)}</span>
         </div>
       `;
@@ -924,8 +1075,8 @@
             : (item.image ? [item.image] : []);
           const mediaTag = (src) =>
             isVideoFile(src)
-              ? `<div class="item is-video"><video src="${escapeHtml(src)}" autoplay muted loop playsinline preload="auto" data-needs-orient="1"></video></div>`
-              : `<div class="item"><img src="${escapeHtml(src)}" alt="${escapeHtml(item.heading || '')}" loading="lazy" data-needs-orient="1"></div>`;
+              ? `<div class="item is-video"><video data-src="${escapeHtml(src)}" autoplay muted loop playsinline preload="none" data-needs-orient="1"></video></div>`
+              : `<div class="item"><img src="${escapeHtml(src)}" alt="${escapeHtml(item.heading || '')}"${imgAttrs(src, MEDIA, media.length > 1 ? '(max-width: 900px) 100vw, 30vw' : '(max-width: 900px) 100vw, 50vw')} loading="lazy" data-needs-orient="1"></div>`;
           const imgsHTML = media.length === 1
             ? `<div class="story-images single">${mediaTag(media[0])}</div>`
             : media.length > 1
@@ -967,6 +1118,7 @@
     }
 
     root.innerHTML = html;
+    loadLazyVideos();
 
     document.querySelectorAll('.p-ba').forEach(el => setupBA(el));
     document.querySelectorAll('.p-vba').forEach(el => setupVBA(el));

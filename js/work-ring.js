@@ -30,7 +30,7 @@ const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-/* items: [{ href, title, info, tag, img, video, video169, ratio }]
+/* items: [{ href, title, info, tag, img, srcset, video, video169, ratio }]
    ratio is width/height from the CMS "Card Orientation"; null = take it from the cover.
    video / video169 are the vertical and horizontal hover clips; the card picks one
    by its shape when it plays, since an "Auto" card only knows its shape once the
@@ -67,7 +67,7 @@ export function createWorkRing(root) {
     stage.innerHTML = items.map(it => `
       <a class="ring-card interactive" href="${esc(it.href)}" draggable="false">
         ${it.tag ? `<span class="ring-tag">${esc(it.tag)}</span>` : ''}
-        <img class="ring-img" data-src="${esc(it.img)}" alt="${esc(it.title)}" draggable="false" decoding="async">
+        <img class="ring-img" data-src="${esc(it.img)}"${it.srcset ? ` data-srcset="${esc(it.srcset)}"` : ''} alt="${esc(it.title)}" draggable="false" decoding="async">
         ${it.video || it.video169 ? `<video class="ring-video" data-src="${esc(it.video)}" data-src169="${esc(it.video169)}" muted loop playsinline preload="none" aria-hidden="true"></video>` : ''}
         <div class="ring-meta">
           <div class="ring-title">${esc(it.title)}</div>
@@ -111,6 +111,9 @@ export function createWorkRing(root) {
           layout();
         }, { once: true });
       }
+      // srcset before src, and sizes from layout(): the browser then fetches the
+      // smallest copy that fills the card instead of the full-size cover.
+      if (c.img.dataset.srcset) { c.img.sizes = Math.max(1, c.w) + 'px'; c.img.srcset = c.img.dataset.srcset; }
       c.img.src = c.img.dataset.src;
     });
   }
@@ -150,6 +153,7 @@ export function createWorkRing(root) {
       s.marginLeft = -c.w / 2 + 'px';
       s.marginTop = -c.h / 2 + 'px';
       s.transform = `rotateY(${c.angle}deg) translateZ(${radius}px)`;
+      if (c.img.srcset) c.img.sizes = c.w + 'px';
     });
     shown = NaN;
     draw();

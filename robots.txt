@@ -4,4 +4,27 @@ Disallow: /admin/
 Disallow: /crediti/
 Disallow: /crediti-giorgio/
 
+# AI training: not allowed. Cloudflare already answers these crawlers 403 (checked
+# 2026-10-02); this file now says the same thing instead of "allow all".
+# AI search and answer bots (OAI-SearchBot, ChatGPT-User, PerplexityBot,
+# Claude-SearchBot, Claude-User…) are NOT listed: they fall under * above, so the
+# work can still be found and cited, with a link, in AI answers.
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: CCBot
+User-agent: Bytespider
+User-agent: Amazonbot
+User-agent: cohere-ai
+User-agent: Diffbot
+User-agent: omgili
+User-agent: meta-externalagent
+Disallow: /
+
+# Not crawlers but opt-out tokens: Google (Gemini) and Apple read them to decide
+# whether pages they already fetch for search may be used to train their models.
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+Disallow: /
+
 Sitemap: https://kristiancimo.it/sitemap.xml

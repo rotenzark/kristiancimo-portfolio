@@ -7,7 +7,7 @@
  *
  * This lived duplicated in both pages until 2026-07-25. It is one module now so
  * the two copies cannot drift apart. Paths are absolute (/data/...) because the
- * generated project pages are served from /project/<slug>/, two levels deep —
+ * generated project pages are served from /work/<slug>/, two levels deep —
  * relative ones would resolve against the wrong folder.
  */
 
@@ -38,6 +38,46 @@ export function fixPath(v, mediaBase) {
   // — belongs in THIS project's folder. Take just the filename and prefix it, so a
   // malformed CMS path still resolves.
   return mediaBase + v.split('/').pop();
+}
+
+/* Extra attributes for an <img> showing a project image, as a string to put
+ * inside the tag. `media` is the project's _media table, written into
+ * data/projects.json by tools/build.js: { "<file name>": { w, h, v: [640, 1280] } }.
+ *
+ *  - width/height: the browser reserves the right box before the file arrives,
+ *    so the layout does not jump while images load.
+ *  - srcset/sizes, when tools/make-variants.js made smaller copies in /img/<w>/:
+ *    a phone or a gallery thumbnail downloads the 640 or 1280 copy, not the
+ *    full-size master. The master stays the src (and what the lightbox opens).
+ *
+ * Returns '' for anything it does not know — the plain src still works. URLs in
+ * srcset are percent-encoded because srcset splits on spaces, and some file
+ * names have them ("WhatsApp Image … .webp"). */
+export function imgAttrs(url, media, sizes) {
+  const info = mediaInfo(url, media);
+  if (!info) return '';
+  let out = ` width="${info.w}" height="${info.h}"`;
+  if (sizes && info.srcset) out += ` srcset="${info.srcset}" sizes="${sizes}"`;
+  return out;
+}
+
+/* The same data unwrapped, for code that sets the attributes itself (the 3D ring
+ * assigns srcset only when a card is about to be seen). null when unknown. */
+export function mediaInfo(url, media) {
+  if (typeof url !== 'string' || !media) return null;
+  const m = /^\/data\/projects\/([^/]+)\/([^/?#]+)$/.exec(url);
+  if (!m) return null;
+  let name = m[2];
+  try { name = decodeURIComponent(name); } catch { /* keep it as written */ }
+  const info = media[name];
+  if (!info || !info.w || !info.h) return null;
+  let srcset = '';
+  if (Array.isArray(info.v) && info.v.length) {
+    const set = info.v.map(w => `${encodeURI(`/img/${w}/${m[1]}/${name}`)} ${w}w`);
+    set.push(`${encodeURI(`/data/projects/${m[1]}/${name}`)} ${info.w}w`);
+    srcset = set.join(', ');
+  }
+  return { w: info.w, h: info.h, srcset };
 }
 
 /* Single media reference: a string under one of these keys gets repaired.

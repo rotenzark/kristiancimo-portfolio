@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Served by Cloudflare for any path that does not exist, with a real 404 status
+     (wrangler.jsonc: assets.not_found_handling = "404-page"). Before 2026-10-02 an
+     unknown URL got an empty page. Static on purpose: no JS, no data fetch. -->
+<title>Page not found — Kristian Cimò</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="preload" href="/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/styles.css">
+<style>
+  .nf { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 120px 32px; }
+  .nf h1 { font-family: 'Anton', sans-serif; font-size: clamp(96px, 22vw, 320px); line-height: 0.85; letter-spacing: -0.02em; }
+  .nf p { margin-top: 24px; color: var(--muted); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; }
+  .nf nav { position: static; mix-blend-mode: normal; padding: 0; margin-top: 40px; justify-content: flex-start; gap: 32px; }
+  .nf nav a { border-bottom: 1px solid var(--line); padding: 10px 0; }
+  .nf nav a:hover { color: var(--accent-ink); border-color: var(--accent-ink); }
+  @media (max-width: 768px) { .nf { padding: 80px 20px; } }
+  /* styles.css hides the system pointer on desktop because the other pages draw
+     their own cursor with JS. This page has no JS, so it gets the native one back. */
+  body { cursor: auto; }
+  a { cursor: pointer; }
+</style>
+</head>
+<body>
+<main class="nf">
+  <h1>404</h1>
+  <p>This page does not exist — or not anymore.</p>
+  <nav aria-label="Back to the site">
+    <a href="/#work">Selected work</a>
+    <a href="/">Home</a>
+    <a href="/#contact">Contact</a>
+  </nav>
+</main>
+</body>
+</html>

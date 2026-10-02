@@ -100,7 +100,32 @@
           "name": "TheCrown"
         }
       ],
-      "showNextProject": true
+      "showNextProject": true,
+      "_media": {
+        "COPERTINA_ORIZZONTALE_16_9.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_ORIZZONTALE_21_9.webp": {
+          "w": 2560,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_VERTICALE.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        }
+      }
     },
     {
       "draft": false,
@@ -222,7 +247,53 @@
           "name": "TheCrown"
         }
       ],
-      "showNextProject": true
+      "showNextProject": true,
+      "_media": {
+        "COPERTINA_ORIZZONTALE_16_9.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_ORIZZONTALE_21_9.webp": {
+          "w": 2560,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_VERTICALE.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "RISTORANTE_RND.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "RISTORANTE_VP.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "RISTORANTE_VP_ALTO.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        }
+      }
     },
     {
       "draft": false,
@@ -383,7 +454,173 @@
           "name": "TheCrown"
         }
       ],
-      "showNextProject": true
+      "showNextProject": true,
+      "_media": {
+        "BLENDER_1_CAR.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "BLENDER_2_BALL.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_ORIZZONTALE_16_9.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_ORIZZONTALE_21_9.webp": {
+          "w": 2560,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_VERTICALE.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_1_BLENDER.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_1_RENDER.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_2_BLENDER.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_2_RENDER.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_3_BLENDER.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_3_RENDER.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_4_BLENDER.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_4_RENDER.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_5_BLENDER.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_5_RENDER.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "REF_BALL.webp": {
+          "w": 1440,
+          "h": 1440,
+          "v": [
+            640
+          ]
+        },
+        "REF_CAR_BACK.webp": {
+          "w": 1920,
+          "h": 1072,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "REF_CAR_CLOSE_UP.webp": {
+          "w": 1920,
+          "h": 1072,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "REF_CAR_FRONT.webp": {
+          "w": 1920,
+          "h": 1072,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "REF_CAR_LATERAL.webp": {
+          "w": 1920,
+          "h": 1072,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "REF_CAR_THREE_QUARTER.webp": {
+          "w": 1920,
+          "h": 1072,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "REF_COURT.webp": {
+          "w": 1920,
+          "h": 1072,
+          "v": [
+            640,
+            1280
+          ]
+        }
+      }
     },
     {
       "draft": false,
@@ -465,7 +702,32 @@
           "name": "TheCrown"
         }
       ],
-      "showNextProject": true
+      "showNextProject": true,
+      "_media": {
+        "COPERTINA_ORIZZONTALE_16_9.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_ORIZZONTALE_21_9.webp": {
+          "w": 2560,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_VERTICALE_9_16.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        }
+      }
     },
     {
       "draft": false,
@@ -623,7 +885,32 @@
           "name": "TheCrown"
         }
       ],
-      "showNextProject": true
+      "showNextProject": true,
+      "_media": {
+        "COPERTINA_ORIZZONTALE_16_9.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_ORIZZONTALE_21_9.webp": {
+          "w": 2560,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_VERTICALE_9_16.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        }
+      }
     },
     {
       "draft": false,
@@ -711,7 +998,32 @@
           "name": "TheCrown"
         }
       ],
-      "showNextProject": true
+      "showNextProject": true,
+      "_media": {
+        "COPERTINA_ORIZZONTALE_16_9.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_ORIZZONTALE_21_9.webp": {
+          "w": 2560,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_VERTICALE_9_16.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        }
+      }
     },
     {
       "draft": false,
@@ -745,7 +1057,7 @@
           "images": [
             {
               "src": "data/projects/hawkers-gasly/COPERTINA_HIGH.webp",
-              "alt": ""
+              "alt": "Client reference: a navy cap with a white embroidered gothic H, the shape that inspired the island"
             }
           ]
         },
@@ -756,19 +1068,19 @@
           "images": [
             {
               "src": "data/projects/hawkers-gasly/h_nocircle_centered.webp",
-              "alt": ""
+              "alt": "First Photoshop concept: a gothic H-shaped island set off the Dubai coastline, seen from above in daylight"
             },
             {
               "src": "data/projects/hawkers-gasly/h_circle_centered.webp",
-              "alt": ""
+              "alt": "Second Photoshop concept: the gothic H island enclosed by a crescent breakwater off the Dubai coast"
             },
             {
               "src": "data/projects/hawkers-gasly/h_zoomout_centered.webp",
-              "alt": ""
+              "alt": "Blender render of the H-shaped island at night, its glowing roads seen from above through drifting clouds"
             },
             {
               "src": "data/projects/hawkers-gasly/h_zoomout_centered_vertical.webp",
-              "alt": ""
+              "alt": "Vertical Blender render of the night-lit H-shaped island framed by clouds, composed for social formats"
             }
           ]
         },
@@ -779,11 +1091,11 @@
           "images": [
             {
               "src": "data/projects/hawkers-gasly/LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).webp",
-              "alt": ""
+              "alt": "Final horizontal frame: Dubai’s Palm Jumeirah from above at night, city lights glowing under drifting clouds"
             },
             {
               "src": "data/projects/hawkers-gasly/LAST_FRAME_VERTICAL_COLOR_hf_20260305_102526_ce7c5e41-9bf6-444d-bc28-6a74f300f4d5 (0-00-00-00).webp",
-              "alt": ""
+              "alt": "Final vertical frame: Palm Jumeirah and the lit Dubai coastline from above at night, wisps of cloud over the sea"
             }
           ]
         }
@@ -896,6 +1208,139 @@
         "videoAfter": "",
         "labelBefore": "Raw Plate",
         "labelAfter": "Final CGI"
+      },
+      "_media": {
+        "CLAY_2.webp": {
+          "w": 1536,
+          "h": 2752,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "CLAY_3.webp": {
+          "w": 1536,
+          "h": 2752,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_HIGH.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_ORIZZONTALE.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_ORIZZONTALE_21_9.webp": {
+          "w": 2560,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_VERTICALE.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FIRST_FRAME_VERTICAL_4_09_CLAY.webp": {
+          "w": 1536,
+          "h": 2752,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "h_circle_centered.webp": {
+          "w": 2752,
+          "h": 1536,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "h_nocircle_centered.webp": {
+          "w": 2752,
+          "h": 1536,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "h_zoomout_centered.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "h_zoomout_centered_vertical.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "LAST_FRAME_HORIZONTAL_COLOR_hf_20260317_124209_47e05f95-3d83-46d9-9d43-617f86a3921e (0-00-00-00).webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "LAST_FRAME_VERTICAL_COLOR_hf_20260305_102526_ce7c5e41-9bf6-444d-bc28-6a74f300f4d5 (0-00-00-00).webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "SECOND_TO_CLAY.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "THIRD_TO_CLAY.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "WIP_BLENDER.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "WIP_BLENDER_2.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        }
       }
     },
     {
@@ -931,47 +1376,47 @@
           "images": [
             {
               "src": "FRAME_1.webp",
-              "alt": ""
+              "alt": "Legacy Museum entrance: a white Adidas monolith at the end of a dark runway, titled Welcome to the Legacy Museum"
             },
             {
               "src": "FRAME_2.webp",
-              "alt": ""
+              "alt": "Brahim shrugs inside a museum security gate as a tracked F50 identity card graphic locks onto his chest"
             },
             {
               "src": "FRAME_3.webp",
-              "alt": ""
+              "alt": "Mastantuono in profile at the security scanner, holding a mate gourd, in a black and green Adidas jacket"
             },
             {
               "src": "FRAME_4.webp",
-              "alt": ""
+              "alt": "Close-up of a bearded security guard in glasses and a black suit, an earpiece cable clipped to his lapel"
             },
             {
               "src": "FRAME_5.webp",
-              "alt": ""
+              "alt": "A player in a red tracksuit on a rope rig in front of a framed portrait, with a Predator identity card overlay"
             },
             {
               "src": "FRAME_6.webp",
-              "alt": ""
+              "alt": "A player in a red Adidas tracksuit presses against the gallery wall beside a framed painting of gold Predator boots"
             },
             {
               "src": "FRAME_7.webp",
-              "alt": ""
+              "alt": "Brahim twists through a grid of red laser beams in a dark room, boot in hand, the lasers composited around him"
             },
             {
               "src": "FRAME_8.webp",
-              "alt": ""
+              "alt": "Brahim and a player in red stand back to back on the museum runway between white plinths of sculpted exhibits"
             },
             {
               "src": "FRAME_9.webp",
-              "alt": ""
+              "alt": "Red and white Adidas boots in a lit glass case labelled World’s Best Boot, under the Legacy Museum logo"
             },
             {
               "src": "FRAME_10.webp",
-              "alt": ""
+              "alt": "A red Predator boot floats over a blurred grey background between the titles Predator or F50 and Choose One"
             },
             {
               "src": "data/projects/adidas-legacy/RANDOM_1_ZIDANE.webp",
-              "alt": ""
+              "alt": "Oil-painted portrait of a bald footballer gazing upward with Predator boots: the artwork placed in the museum frame"
             }
           ]
         }
@@ -1072,7 +1517,179 @@
       ],
       "videoUrl": "",
       "videoCaption": "",
-      "gallery": []
+      "gallery": [],
+      "_media": {
+        "AITANA_AFTER.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "AITANA_BEFORE.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "BACK_IMPACT_AFTER.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "BACK_IMPACT_BEFORE.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "COPERTINA_ORIZZONTALE_16_9.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_ORIZZONTALE_21_9.webp": {
+          "w": 2560,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_VERTICALE.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_1.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_10.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_2.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_3.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_4.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_5.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_6.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_7.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_8.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "FRAME_9.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "INTRO_1_AFTER.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "INTRO_1_BEFORE.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "INTRO_2_AFTER.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "INTRO_2_BEFORE.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "LASERS_AFTER.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "LASERS_BEFORE.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "RANDOM_1_ZIDANE.webp": {
+          "w": 1024,
+          "h": 1536,
+          "v": [
+            640
+          ]
+        }
+      }
     },
     {
       "draft": false,
@@ -1105,31 +1722,31 @@
           "images": [
             {
               "src": "data/projects/zidane-map/Frame_1.webp",
-              "alt": ""
+              "alt": "Top-down CGI render of a vintage Marseille map on a dark desk, beside a chess set and old framed photos"
             },
             {
               "src": "data/projects/zidane-map/Frame_2.webp",
-              "alt": ""
+              "alt": "CGI trophy shelf with the Euro, Champions League, World Cup and Ballon d'Or above framed photos on damask wallpaper"
             },
             {
               "src": "data/projects/zidane-map/Frame_3.webp",
-              "alt": ""
+              "alt": "CGI room with framed photos of Zidane lifting the Ballon d'Or and World Cup above an old TV showing a number 10"
             },
             {
               "src": "data/projects/zidane-map/Frame_4.webp",
-              "alt": ""
+              "alt": "Archival photo of a young Zidane in a yellow and red youth kit, arms crossed, set in a tilted film-strip frame"
             },
             {
               "src": "data/projects/zidane-map/Frame_5.webp",
-              "alt": ""
+              "alt": "Archival close-up of Zidane roaring in celebration in a white Real Madrid shirt, graded to match the CGI scenes"
             },
             {
               "src": "data/projects/zidane-map/Frame_6.webp",
-              "alt": ""
+              "alt": "Archival footage of Zidane in a Real Madrid training top surrounded by smiling youth players on a sunny pitch"
             },
             {
               "src": "data/projects/zidane-map/Frame_7.webp",
-              "alt": ""
+              "alt": "Archival shot of Zidane in a white Real Madrid kit striking a volley in front of a packed stadium stand"
             }
           ]
         }
@@ -1199,7 +1816,105 @@
           "role": "CGI Artist",
           "name": "Kristian Cimò"
         }
-      ]
+      ],
+      "_media": {
+        "COPERTINA_SITO_21_9.webp": {
+          "w": 2560,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_SITO_ORIZZONTALE.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_SITO_VERTICALE.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "Frame_1.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "Frame_2.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "Frame_3.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "Frame_4.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "Frame_5.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "Frame_6.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "Frame_7.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "Texturing.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "Viewport_1.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "Viewport_2.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        }
+      }
     },
     {
       "draft": false,
@@ -1233,19 +1948,19 @@
           "images": [
             {
               "src": "data/projects/barcelona-world-cup/Frame_1.webp",
-              "alt": ""
+              "alt": "Final frame of two footballers in red Spain kits seated behind the steering wheel of a dark van cab"
             },
             {
               "src": "data/projects/barcelona-world-cup/Frame_2.webp",
-              "alt": ""
+              "alt": "Final composite: a van side mirror reflects a desert highway sign reading Welcome to World Cup 26 America"
             },
             {
               "src": "data/projects/barcelona-world-cup/Frame_3.webp",
-              "alt": ""
+              "alt": "Final frame of a smiling footballer in a red Spain kit inside a food truck, with Spanish and English subtitles"
             },
             {
               "src": "data/projects/barcelona-world-cup/Frame_4.webp",
-              "alt": ""
+              "alt": "Final frame of a footballer in a Spain kit balancing the match ball on his head inside the food truck"
             }
           ]
         },
@@ -1256,19 +1971,19 @@
           "images": [
             {
               "src": "data/projects/barcelona-world-cup/WhatsApp Image 2026-04-23 at 05.56.39.webp",
-              "alt": ""
+              "alt": "Client reference: brown Ruta del Desierto road sign beside a highway in a dry, rocky desert landscape"
             },
             {
               "src": "data/projects/barcelona-world-cup/WhatsApp Image 2026-04-23 at 05.56.391.webp",
-              "alt": ""
+              "alt": "Client reference: blank white billboard beside an empty desert highway, mountains and dry grass behind"
             },
             {
               "src": "data/projects/barcelona-world-cup/WhatsApp Image 2026-04-23 at 05.56.392.webp",
-              "alt": ""
+              "alt": "Client reference: car side mirror beaded with water droplets, reflecting a road lined with banners"
             },
             {
               "src": "data/projects/barcelona-world-cup/WhatsApp Image 2026-04-23 at 05.56.393.webp",
-              "alt": ""
+              "alt": "Client reference: green Welcome to World Cup 26 North America road sign standing in desert scrub by a highway"
             }
           ]
         }
@@ -1301,7 +2016,86 @@
             "data/projects/barcelona-world-cup/hf_20260423_040921_49827b09-83c0-43c9-9dc0-03a7b27f693c.webp"
           ]
         }
-      ]
+      ],
+      "_media": {
+        "COPERTINA_ORIZZONTALE.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA_VERTICALE.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "Frame_1.webp": {
+          "w": 720,
+          "h": 1280
+        },
+        "Frame_2.webp": {
+          "w": 720,
+          "h": 1280
+        },
+        "Frame_3.webp": {
+          "w": 720,
+          "h": 1280
+        },
+        "Frame_4.webp": {
+          "w": 720,
+          "h": 1280
+        },
+        "hf_20260423_040358_14cabc71-6b16-4796-b2b4-5d436414a6f4.webp": {
+          "w": 1536,
+          "h": 2752,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "hf_20260423_040921_49827b09-83c0-43c9-9dc0-03a7b27f693c.webp": {
+          "w": 1520,
+          "h": 2736,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "hf_20260423_040921_579e1f17-c0a8-49e1-8148-c0edd43ba96d.webp": {
+          "w": 1520,
+          "h": 2736,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "WhatsApp Image 2026-04-23 at 05.56.39.webp": {
+          "w": 546,
+          "h": 408
+        },
+        "WhatsApp Image 2026-04-23 at 05.56.391.webp": {
+          "w": 794,
+          "h": 472,
+          "v": [
+            640
+          ]
+        },
+        "WhatsApp Image 2026-04-23 at 05.56.392.webp": {
+          "w": 636,
+          "h": 614
+        },
+        "WhatsApp Image 2026-04-23 at 05.56.393.webp": {
+          "w": 1024,
+          "h": 1536,
+          "v": [
+            640
+          ]
+        }
+      }
     },
     {
       "draft": false,
@@ -1335,35 +2129,35 @@
           "images": [
             {
               "src": "VIEWPORT_1.webp",
-              "alt": ""
+              "alt": "Blender viewport clay view of the full 3D stadium model from above, with crowd-filled stands around the pitch"
             },
             {
               "src": "VIEWPORT_2.webp",
-              "alt": ""
+              "alt": "Grey clay viewport shot from pitch level: packed two-tier stands, roof trusses and photographers along the touchline"
             },
             {
               "src": "VIEWPORT_3.webp",
-              "alt": ""
+              "alt": "Clay viewport close-up of the lower stand, fans waving flags under the curved upper tier and roof structure"
             },
             {
               "src": "VIEWPORT_4.webp",
-              "alt": ""
+              "alt": "Untextured crowd close-up in the Blender viewport, rows of 3D fans raising their arms in the stands"
             },
             {
               "src": "VIEWPORT_5.webp",
-              "alt": ""
+              "alt": "Rendered viewport from inside the crowd: fans in red-and-black scarves cheer under a 0-0 scoreboard"
             },
             {
               "src": "VIEWPORT_6.webp",
-              "alt": ""
+              "alt": "Shaded viewport of the stadium bowl in daylight, red-and-black flags across both tiers and the pitch below"
             },
             {
               "src": "VIEWPORT_7.webp",
-              "alt": ""
+              "alt": "Top-down shaded view of the stadium: white roof ring around stands full of red fans and the green pitch"
             },
             {
               "src": "VIEWPORT_8.webp",
-              "alt": ""
+              "alt": "Lit viewport shot of the lower tier, fans waving Coca-Cola and red-and-black flags beneath branded LED boards"
             }
           ]
         }
@@ -1389,7 +2183,80 @@
       ],
       "storytelling": [],
       "credits": [],
-      "showNextProject": true
+      "showNextProject": true,
+      "_media": {
+        "COPERTINA_4_5.webp": {
+          "w": 1080,
+          "h": 1350,
+          "v": [
+            640
+          ]
+        },
+        "VIEWPORT_1.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "VIEWPORT_2.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "VIEWPORT_3.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "VIEWPORT_4.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "VIEWPORT_5.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "VIEWPORT_6.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "VIEWPORT_7.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "VIEWPORT_8.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        }
+      }
     },
     {
       "draft": false,
@@ -1457,7 +2324,41 @@
       ],
       "storytelling": [],
       "credits": [],
-      "showNextProject": true
+      "showNextProject": true,
+      "_media": {
+        "3D_BUILDING.webp": {
+          "w": 1619,
+          "h": 1031,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "COPERTINA.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "HOUDINI_SETUP.webp": {
+          "w": 1920,
+          "h": 1011,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "HOUDINI_SIM.webp": {
+          "w": 1920,
+          "h": 1016,
+          "v": [
+            640,
+            1280
+          ]
+        }
+      }
     },
     {
       "draft": true,
@@ -1560,7 +2461,8 @@
           "url": ""
         }
       ],
-      "videoBeforeAfters": []
+      "videoBeforeAfters": [],
+      "_media": {}
     },
     {
       "draft": false,
@@ -1637,7 +2539,59 @@
       "videoBeforeAfters": [],
       "storytelling": [],
       "credits": [],
-      "showNextProject": true
+      "showNextProject": true,
+      "_media": {
+        "CITTA.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "COPERTINA.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "FIRST_FRAME.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "OCCHIO_EDIT.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "OCCHIO_RAW.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "VIEWPORT_CITTA.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        },
+        "VIEWPORT_FIRST_FRAME.webp": {
+          "w": 1080,
+          "h": 1920,
+          "v": [
+            640
+          ]
+        }
+      }
     },
     {
       "draft": false,
@@ -1712,7 +2666,48 @@
       "videoBeforeAfters": [],
       "storytelling": [],
       "credits": [],
-      "showNextProject": true
+      "showNextProject": true,
+      "_media": {
+        "COPERTINA_4_5.webp": {
+          "w": 864,
+          "h": 1080,
+          "v": [
+            640
+          ]
+        },
+        "COPERTINA_ORIZZONTALE_16_9.webp": {
+          "w": 1920,
+          "h": 1080,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "HOUDINI_SIM.webp": {
+          "w": 1920,
+          "h": 1042,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "UNREAL_1.webp": {
+          "w": 1920,
+          "h": 1044,
+          "v": [
+            640,
+            1280
+          ]
+        },
+        "UNREAL_2.webp": {
+          "w": 1920,
+          "h": 1018,
+          "v": [
+            640,
+            1280
+          ]
+        }
+      }
     }
   ]
 }

@@ -31,3 +31,7 @@ tools/
 node_modules/
 *.log
 .assetsignore
+
+# Hash list used by tools/build.js to tell fresh image copies from stale ones;
+# the site never reads it.
+img/manifest.json

@@ -6,7 +6,9 @@
     "enabled": true
   },
   "assets": {
-    "directory": "."
+    "directory": ".",
+    // Unknown paths get 404.html with a real 404 status (it was an empty body).
+    "not_found_handling": "404-page"
   },
   "compatibility_flags": [
     "nodejs_compat"

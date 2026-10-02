@@ -1,0 +1,24 @@
+# Kristian Cimò
+
+> Kristian Cimò, freelance VFX, CGI and 3D artist in Milan. On-set supervision, compositing and CGI for Adidas, Coca-Cola, Generali and FC Barcelona.
+
+Based in Milan, Italy, working remote worldwide.
+Contact: kristiancimo@gmail.com
+Instagram: https://instagram.com/kris.cimo
+
+## Work
+
+- [Bernal - Predator Elite Control Room](https://kristiancimo.it/work/bernal-control-room/): Adidas · September 2026 · CGI Supervisor · CGI Artist · Compositor. I supervised the shoot with Marc Bernal on set and handled the compositing on all nine shots: green screen keying, tracking, masking, relighting, rotoscoping, color matching and removals.
+- [Nico Paz - The Choice](https://kristiancimo.it/work/nico-paz-the-choice/): Adidas · September 2026 · CGI Supervisor · CGI Artist · Compositor. I supervised the shoot with Nico Paz on set and handled the compositing: green screen keying, rotoscoping, tracking and relighting. The restaurant was built entirely in Blender, and Nico was…
+- [Madrid Padel GP](https://kristiancimo.it/work/hexagon-cup-padel-f1/): Hexagon · September 2026 · AI Creative Direction · 3D Generation · Previsualization · Prompt Engineering. A vertical video for the launch of the Madrid Padel GP, a padel event presented by Hexagon World Series and Crown. One single, strong idea: a Formula 1 car racing along the white seam of a giant…
+- [Raphinha - Never Miss](https://kristiancimo.it/work/raphinha-never-miss/): Adidas · September 2026 · CGI Supervisor · CGI Artist · Compositor. I supervised the shoot with Raphinha on set and handled the compositing: green screen keying, rotoscoping, tracking and relighting. Shot 04 was built in 3D in Blender, using photogrammetry.
+- [Yildiz & Del Piero - Starboy](https://kristiancimo.it/work/yildiz-del-piero-starboy/): Adidas · September 2026 · CGI Supervisor · CGI Artist · Compositor. I supervised the shoot with Kenan Yildiz and Alessandro Del Piero on set and handled the compositing: green screen keying, rotoscoping, tracking and relighting.
+- [Olmo & Cubarsí - Boot Talk](https://kristiancimo.it/work/olmo-cubarsi-boot-talk/): Adidas · September 2026 · CGI Supervisor · CGI Artist · Compositor. I supervised the shoot with Dani Olmo and Pau Cubarsí on set and handled the compositing: green screen keying, rotoscoping, tracking and relighting. The environment in shot 06 was created in Blender.
+- [Hawkers × Gasly](https://kristiancimo.it/work/hawkers-gasly/): Hawkers Co. · March 2026 · VFX · CGI · COMPOSITING. I rebuilt Dubai's Palm in CGI, extending the surrounding environment and creating a transition from the view of Gasly to the top view of Dubai.
+- [Adidas - Legacy Museum](https://kristiancimo.it/work/adidas-legacy/): Adidas · December 2025 · VFX Supervision · 3D · Compositing. Adidas - Legacy Museum. Set extension and removal, tracking, keying and compositing across the campaign.
+- [Zidane - Inspire Signature](https://kristiancimo.it/work/zidane-map/): Zinédine Zidane · May 2025 · CGI Artist. A topographic portrait of Zidane's career, rendered as 3D cartography. Every peak is a final, every valley a club he never returned to.
+- [Barcelona × World Cup](https://kristiancimo.it/work/barcelona-world-cup/): FC Barcelona · November 2025 · VFX · CGI. FC Barcelona - World Cup. Environment CGI and compositing in Blender and Nuke.
+- [Lamine Yamal x Coca-Cola - World Cup](https://kristiancimo.it/work/lamineyamal-cocacola/): Coca-Cola · July 2026 · 3D Artist. My job was to create a 3D stadium, with Coca-Cola references.
+- [Generali · Hexagon Cup](https://kristiancimo.it/work/generali-hexagon-cup/): Generali · 2026 · CGI Artist · FX Artist · Compositor. To promote the 2026 Hexagon Cup, sponsored by Generali, I was asked to hang a simulated banner from a branded hot-air balloon over the Puerta de Alcalá. They gave me the plate. I solved the camera in…
+- [Hakimi · African Ballon d'Or](https://kristiancimo.it/work/hakimi-ballon-dor/): 2025 · CGI Artist · Compositor. They sent me the footage for Hakimi's African Ballon d'Or. I built the airplane window and the world outside it in 3D, then the transition down into the city in Morocco, and finally the one into his…
+- [Sergio Ramos · Room](https://kristiancimo.it/work/sergio-ramos-room/): 2023 · 3D Artist · FX Artist. I built Sergio Ramos' room in Unreal Engine, and the shirt was simulated in Houdini.
